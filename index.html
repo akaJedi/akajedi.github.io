@@ -29,6 +29,9 @@ b    {color:white}
 #menu a{
     background-color: #D4F8E3;
     color: #1D2B2A;
+    text-decoration: none;
+    color:white;
+    font-family: monaco;
 }
 @keyframes blink{
     0% { opacity:1; }
@@ -45,6 +48,11 @@ b    {color:white}
     50% { opacity:0; }
     100% { opacity:1; }
 }
+#menu{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
 </style>
 <script>
     $(function(){
@@ -56,7 +64,7 @@ b    {color:white}
     $(document).ready(function() {
         setTimeout(function() {
             $('#menu').append('<a href="/">HOME</a>');
-        }, 30000);
+        }, 3000);
     });
 </script>
 </head>
