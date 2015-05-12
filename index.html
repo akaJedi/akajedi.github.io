@@ -45,13 +45,13 @@ b    {color:white}
 <script>
     $(function(){
         $("#typed").typed({
-            strings: ["mypassword!142 ^1000 ups :-(", "************* ^1000 \n root@server1:"],
+            strings: ["mypassword!142 ^1000 ups :-(", "************* ^1000 \nroot@server1: "],
             typeSpeed: 0
         });
     });
     $(document).ready(function() {
         setTimeout(function() {
-            $('#kick').append('<a href="/">HOME</a>');
+            $('#menu').append('<a href="/">HOME</a>');
         }, 30000);
     });
 </script>
@@ -64,5 +64,6 @@ b    {color:white}
 <font face="monaco" color="red">Access denied!</font></br>
 <font face="monaco" color="white">root@server1's password: </font><span class="blinking-cursor">|</span>
 <span id="typed" style="white-space:pre"></span>
+<div id="menu"></div>
 </body>
 </html>
