@@ -7,67 +7,68 @@
 <meta name="description" content="">
 <meta name="author" content="Denis Tolochko">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="//allison.house/assets/js/jquery.typed.js" type="text/javascript"></script>
 <link rel="shortcut icon" href="">
 <style>
 body {background-color:black}
 h1   {color:blue}
 p    {color:green}
 b    {color:white}
-.blinking-cursor {
-  font-weight: 100;
-  font-size: 18px;
-  color: #2E3D48;
-  -webkit-animation: 1s blink step-end infinite;
-  -moz-animation: 1s blink step-end infinite;
-  -ms-animation: 1s blink step-end infinite;
-  -o-animation: 1s blink step-end infinite;
-  animation: 1s blink step-end infinite;
-}
-@keyframes "blink" {
-  from, to {
-    color: transparent;
-  }
-  50% {
+.typed-cursor{
     color: white;
-  }
+    opacity: 1;
+    -webkit-animation: blink 0.7s infinite;
+    -moz-animation: blink 0.7s infinite;
+    animation: blink 0.7s infinite;
 }
-
-@-moz-keyframes blink {
-  from, to {
-    color: transparent;
-  }
-  50% {
-    color: white;
-  }
+#typed{
+    color:white;
+    font-family: monaco;
 }
-
-@-webkit-keyframes "blink" {
-  from, to {
-    color: transparent;
-  }
-  50% {
-    color: white;
-  }
+#menu a{
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    font-family: monaco;
+    padding: 5px;
+    margin-right: 10px;
 }
-
-@-ms-keyframes "blink" {
-  from, to {
-    color: transparent;
-  }
-  50% {
-    color: white;
-  }
+@keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
 }
-
-@-o-keyframes "blink" {
-  from, to {
-    color: transparent;
-  }
-  50% {
-    color: white;
-  }
+@-webkit-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-moz-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+#menu{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin: 10px;
 }
 </style>
+<script>
+    $(function(){
+        $("#typed").typed({
+            strings: ["mypassword!142 ^1000 ups :-(", "************* ^1000 \nroot@server1: "],
+            typeSpeed: 0
+        });
+    });
+    $(document).ready(function() {
+        setTimeout(function() {
+            $('#menu').append('<a href="/">HOME</a><a href="/contact.html">CONTACT ME</a>');
+        }, 6000);
+    });
+</script>
 </head>
 <body>
 <font face="monaco" color="white">login as: root</font></br>
@@ -76,5 +77,7 @@ b    {color:white}
 <font face="monaco" color="white"></font></br>
 <font face="monaco" color="red">Access denied!</font></br>
 <font face="monaco" color="white">root@server1's password: </font><span class="blinking-cursor">|</span>
+<span id="typed" style="white-space:pre"></span>
+<div id="menu"></div>
 </body>
 </html>
