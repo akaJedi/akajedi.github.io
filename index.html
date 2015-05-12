@@ -21,7 +21,7 @@ b    {color:white}
     -moz-animation: blink 0.7s infinite;
     animation: blink 0.7s infinite;
 }
-.element{
+#typed{
     color:white;
 }
 @keyframes blink{
@@ -42,7 +42,7 @@ b    {color:white}
 </style>
 <script>
     $(function(){
-        $(".typed").typed({
+        $("#typed").typed({
             strings: ["*************^1000\nroot@server1:"],
             typeSpeed: 0
         });
