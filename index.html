@@ -43,10 +43,15 @@ b    {color:white}
 <script>
     $(function(){
         $(".element").typed({
-            strings: ["1234567890^2000 \n**********^2000 \nroot@server1: "],
+            strings: ["Sentence with a\nline break."],
             typeSpeed: 0,
 	    contentType: 'text'
         });
+    });
+    $(document).ready(function() {
+        setTimeout(function() {
+            $('#kick').append('<a href="/">HOME</a>');
+        }, 30000);
     });
 </script>
 </head>
@@ -57,6 +62,7 @@ b    {color:white}
 <font face="monaco" color="white"></font></br>
 <font face="monaco" color="red">Access denied!</font></br>
 <font face="monaco" color="white">root@server1's password: </font><span class="blinking-cursor">|</span>
+<span id="typed" style="white-space:pre"></span>
 <span id="typed" style="white-space:pre"></span>
 </body>
 </html>
