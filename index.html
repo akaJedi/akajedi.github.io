@@ -27,11 +27,11 @@ b    {color:white}
     font-family: monaco;
 }
 #menu a{
-    background-color: #D4F8E3;
-    color: #1D2B2A;
+    background-color: white;
+    color: black;
     text-decoration: none;
-    color:white;
     font-family: monaco;
+    padding: 5px;
 }
 @keyframes blink{
     0% { opacity:1; }
@@ -52,6 +52,7 @@ b    {color:white}
     position: fixed;
     bottom: 0;
     width: 100%;
+    margin: 10px;
 }
 </style>
 <script>
@@ -63,7 +64,7 @@ b    {color:white}
     });
     $(document).ready(function() {
         setTimeout(function() {
-            $('#menu').append('<a href="/">HOME</a>');
+            $('#menu').append('<a href="/">HOME</a><a href="/contact.html">CONTACT ME</a>');
         }, 3000);
     });
 </script>
