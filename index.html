@@ -7,6 +7,8 @@
 <meta name="description" content="">
 <meta name="author" content="Denis Tolochko">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="//allison.house/assets/js/jquery.typed.js" type="text/javascript"></script>
 <link rel="shortcut icon" href="">
 <style>
 body {background-color:black}
@@ -68,6 +70,45 @@ b    {color:white}
   }
 }
 </style>
+    <script>
+        $(function(){
+            var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            var dayOfWeekIndex = (new Date()).getDay();
+            var dayOfWeek = weekdays[dayOfWeekIndex];
+            var dayOfWeekPastIndex = Math.floor(weekdays.length * Math.random());
+            var dayOfWeekPast;
+            var hourOfDay = new Date().getHours();
+            var timeOfDay;
+            // choose day of week other than current one
+            if (dayOfWeekPastIndex == dayOfWeekIndex) {
+              dayOfWeekPast = weekdays[(dayOfWeekPastIndex + 1) % weekdays.length];
+            } else {
+              dayOfWeekPast = weekdays[dayOfWeekPastIndex];
+            }
+            // assign time of day to the hour
+            if ((hourOfDay >= 4) && (hourOfDay <= 11)) {
+              timeOfDay = "morning";
+            } else if ((hourOfDay >= 12) && (hourOfDay <= 16)) {
+              timeOfDay = "afternoon";
+            } else { 
+              timeOfDay = "evening";
+            }
+            // make conversation
+            $('#story').typed({
+                strings: ["Well, here we are.^2000 \nAin't much to look at, is it?^2000 \nCame here on a " + dayOfWeekPast + " night once.^1000 \nIt was actually pretty crowded.^1000 \nBut on a " + dayOfWeek + " " +  timeOfDay + " .^300 .^300 .^1000 \nI guess it's just you^1000 and me.^3000 \nHeh."],
+                typeSpeed: 20,
+                backDelay: 500,
+                loop: false,
+                loopCount: false,
+            });
+        });
+        $(document).ready(function() {
+          setTimeout(function() {
+            // send 'em packing 
+            $('#kick').append('<a href="/">HOME</a>');
+          }, 30000);
+        });
+    </script>
 </head>
 <body>
 <font face="monaco" color="white">login as: root</font></br>
