@@ -57,10 +57,14 @@ textarea{
     100% { opacity:1; }
 }
 #menu{
-    position: fixed;
+    position: absolute;
     bottom: 0;
     width: 100%;
-    margin: 10px;
+    padding: 1em;
+}
+.wraper{
+    position: relative;
+    height: 100vh;
 }
 </style>
 <script>
@@ -79,8 +83,10 @@ textarea{
 </script>
 </head>
 <body>
+<div class="wraper">
 <span id="typed">root@server1: </span><span id="typed" style="white-space:pre"></span></br></br>
 <span id="ssh-key" style="white-space:pre"></span>
 <div id="menu"></div>
+</div>
 </body>
 </html>
