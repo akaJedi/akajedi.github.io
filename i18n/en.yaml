@@ -1,0 +1,73 @@
+## Meta tags
+- id: "meta_title"
+  translation: "Denis Tolochko | Senior IT & Infrastructure Specialist – Cloud, Support, DevOps"
+- id: "meta_description"
+  translation: "Senior IT professional with 15+ years of experience in infrastructure, support, cloud operations, and DevOps. Based in California, open to remote and hybrid roles."
+- id: "meta_keywords"
+  translation: "Denis Tolochko, Senior IT Technician, Senior Systems Administrator, IT Infrastructure Engineer, Cloud Operations Specialist, IT Support Engineer, DevOps Support, IT Governance Analyst, AWS Systems Engineer, Microsoft 365 Admin, Infrastructure Decommissioning, Hybrid IT Support, Remote IT Engineer, Technical Support Analyst, Praedicat Moody's Migration, Data Center Operations, Linux Windows macOS Admin, Python Automation Scripts, Technical Documentation, Santa Clarita IT Specialist, Valencia California IT Jobs, Freelance IT Support California, Remote Systems Administrator, Hugo DevOps Portfolio"
+- id: "meta_author"
+  translation: "Denis Tolochko"
+- id: "meta_image"
+  translation: "/img/general/og-image.jpg"
+
+## Header
+
+- id: "logo_alt"
+  translation: "Adritian logo"
+
+- id: "logo_text1"
+  translation: "Denis"
+
+- id: "logo_text2"
+  translation: "Tolochko"
+
+## General
+- id: "skipToMainContent"
+  translation: "Skip to main content"
+
+- id: "toggle_navigation"
+  translation: "Toggle navigation"
+
+## Footer
+- id: "footer_notice"
+  translation: "© Denis Tolochko"
+
+- id: "language"
+  translation: "Language"
+
+- id: "toggle_theme"
+  translation: "Toggle theme"
+
+- id: "theme_light"
+  translation: "☀️ Light"
+- id: "theme_dark"
+  translation: "🌑 Dark"
+- id: "theme_auto"
+  translation: "✨ Auto"
+
+## Homepage head title
+- id: "head_title"
+  translation: "Sr.Systems administrator & IT Engineer, Located in California"
+
+- id: "head_description"
+  translation: "The website created to provide more information about my experience as systems administrator."
+
+
+## Blog
+- id: "read_more"
+  translation: "Read more"
+
+- id: "published_on"
+  translation: "Published on "
+
+- id: "continue_reading"
+  translation: "Continue reading"
+
+## 404 Page
+- id: "404_title"
+  translation: "Page not found"
+- id: "404_description"  
+  translation: "Sorry, but the page you were looking for could not be found."
+- id: "404_button"
+  translation: "Back to homepage"
+

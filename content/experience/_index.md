@@ -1,0 +1,23 @@
+---
+title: My Expirience
+button1_text: See page source
+button1_url: https://github.com/zetxek/adritian-demo/blob/main/content/experience/_index.md
+button1_icon: icon-square-github
+
+button2_text: Button 2
+button2_url: https://linkedin.com/in/denistolochko
+button2_icon: icon-face-smile
+
+button3_text: Button 3
+button3_url: https://linkedin.com/in/denistolochko
+button3_icon: icon-circle-arrow-up
+
+---
+
+I'm a Senior IT Technician with over 15 years of experience in IT operations, system administration, cloud infrastructure, and cybersecurity. I specialize in managing and optimizing technical environments with a strong focus on stability, automation, and security. My background includes hands-on work with Amazon Web Services (AWS), Microsoft Azure, and traditional on-prem systems, supporting both internal development and production environments across Windows, macOS, and Linux platforms. I've built and maintained infrastructure for global teams, ensuring operational reliability in hybrid and cross-regional setups.
+
+One of my most impactful projects was leading the infrastructure transition during the acquisition of Praedicat by Moody’s. I served as the sole technical lead throughout the migration, overseeing data center decommissioning, secure cloud integration, and platform consolidation — all completed without disruption to business operations. This effort not only ensured business continuity but also significantly reduced infrastructure costs and accelerated cloud adoption.
+
+I also build automation tools using Python scripting to reduce repetitive tasks, improve system visibility, and trigger early alerts for IT health monitoring. These tools have reduced manual workload by up to 40% and improved issue response times across the board. Security remains a core priority in my work, from IAM policy and access reviews to endpoint control and cloud configuration audits — all guided by compliance and best practices.
+
+In addition to my technical skills, I’m a strong cross-functional collaborator. I’ve worked closely with support, infrastructure, and security teams across different regions to align IT with organizational goals. I’m known for clear communication, fast adaptation, and a practical, results-driven approach to solving complex technical challenges. I’m currently open to new opportunities where I can contribute my experience in infrastructure, IT support, and system security — ideally in a collaborative environment focused on reliability, automation, and growth.
