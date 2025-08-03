@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Homes on</title><link>https://f12.biz/home/</link><description>Recent content in Homes on</description><generator>Hugo</generator><language>en</language><atom:link href="https://f12.biz/home/index.xml" rel="self" type="application/rss+xml"/><item><title>Home</title><link>https://f12.biz/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://f12.biz/home/home/</guid><description>&lt;section id="about" class="section rad-animation-group pb-0">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Homes on</title><link>https://akajedi.github.io/f12/home/</link><description>Recent content in Homes on</description><generator>Hugo</generator><language>en</language><atom:link href="https://akajedi.github.io/f12/home/index.xml" rel="self" type="application/rss+xml"/><item><title>Home</title><link>https://akajedi.github.io/f12/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://akajedi.github.io/f12/home/home/</guid><description>&lt;section id="about" class="section rad-animation-group pb-0">
  &lt;div class="rad-fade-down">
  &lt;div class="row d-flex flex-column-reverse flex-md-row">
  &lt;div class="about__profile-picture col-12 col-md-6">
@@ -26,14 +26,14 @@
  
  
 
- &lt;source srcset="https://f12.biz/images/about/user-picture_hu_c3b7b6ea83b51435.webp 1x, https://f12.biz/images/about/user-picture_hu_d7801b9edf4dc93e.webp 2x" type="image/webp" />
- &lt;source srcset="https://f12.biz/images/about/user-picture_hu_37558d2316509883.png 1x, https://f12.biz/images/about/user-picture_hu_cf527af17c9c9268.png 2x" type="image/png">
+ &lt;source srcset="https://akajedi.github.io/f12/images/about/user-picture_hu_c3b7b6ea83b51435.webp 1x, https://akajedi.github.io/f12/images/about/user-picture_hu_d7801b9edf4dc93e.webp 2x" type="image/webp" />
+ &lt;source srcset="https://akajedi.github.io/f12/images/about/user-picture_hu_37558d2316509883.png 1x, https://akajedi.github.io/f12/images/about/user-picture_hu_cf527af17c9c9268.png 2x" type="image/png">
 
  &lt;img
  width="561"
  height="535"
  class="lozad img-responsive image-left-overflow"
- data-src="https://f12.biz/images/about/user-picture_hu_37558d2316509883.png"
+ data-src="https://akajedi.github.io/f12/images/about/user-picture_hu_37558d2316509883.png"
  alt=''
  src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
  loading="lazy"
@@ -151,7 +151,7 @@
 
  
  &lt;div class="experience">
- &lt;a href="https://f12.biz/experience/job-5/" class="experience__link">
+ &lt;a href="https://akajedi.github.io/f12/experience/job-5/" class="experience__link">
  &lt;div class="experience__header">
  
  
@@ -183,7 +183,7 @@ This role established my expertise in technical operations, infrastructure suppo
  &lt;/div>
  
  &lt;div class="experience">
- &lt;a href="https://f12.biz/experience/job-4/" class="experience__link">
+ &lt;a href="https://akajedi.github.io/f12/experience/job-4/" class="experience__link">
  &lt;div class="experience__header">
  
  
@@ -215,7 +215,7 @@ This role established my expertise in technical operations, infrastructure suppo
  &lt;/div>
  
  &lt;div class="experience">
- &lt;a href="https://f12.biz/experience/job-3/" class="experience__link">
+ &lt;a href="https://akajedi.github.io/f12/experience/job-3/" class="experience__link">
  &lt;div class="experience__header">
  
  
@@ -237,7 +237,7 @@ This role established my expertise in technical operations, infrastructure suppo
  &lt;/div>
  
  &lt;div class="experience">
- &lt;a href="https://f12.biz/experience/job-2/" class="experience__link">
+ &lt;a href="https://akajedi.github.io/f12/experience/job-2/" class="experience__link">
  &lt;div class="experience__header">
  
  
@@ -260,7 +260,7 @@ As a Senior Systems Administrator &amp;amp; Network Security Administrator at T3
  &lt;/div>
  
  &lt;div class="experience">
- &lt;a href="https://f12.biz/experience/job-1/" class="experience__link">
+ &lt;a href="https://akajedi.github.io/f12/experience/job-1/" class="experience__link">
  &lt;div class="experience__header">
  
  
@@ -323,7 +323,7 @@ I demonstrated a high level of technical skill, as well as strong interpersonal 
  
  &lt;div class="col-12 col-lg-4">
  &lt;a
- href='https://f12.biz/img/general/user-smile-fill.svg'
+ href='https://akajedi.github.io/img/general/user-smile-fill.svg'
  class="btn btn-frameless w-100"
  target="_blank"
  rel="noopener noreferrer"
@@ -337,7 +337,7 @@ I demonstrated a high level of technical skill, as well as strong interpersonal 
  
  &lt;div class="col-12 col-lg-4">
  &lt;a
- href='https://f12.biz/experience'
+ href='https://akajedi.github.io/experience'
  class="btn btn-frameless w-100"
  rel="noopener noreferrer"
  >
