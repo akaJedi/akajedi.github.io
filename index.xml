@@ -693,7 +693,7 @@ params:
  scale: 0.5
  
 &lt;/code>&lt;/pre></description></item><item><title>Sample content: featured image</title><link>https://akajedi.github.io/f12/blog/sample-3/</link><pubDate>Mon, 24 Jun 2024 14:38:33 +0200</pubDate><guid>https://akajedi.github.io/f12/blog/sample-3/</guid><description>&lt;p>Sample blog content. Like a lorem ipsum but saying something more interesting.&lt;/p>
-&lt;p>&lt;img src="https://akajedi.github.io/f12/img/blog/feature-sample-3.png" alt="Example image">&lt;/p>
+&lt;p>&lt;img src="./img/blog/feature-sample-3.png" alt="Example image">&lt;/p>
 &lt;p>Welcome to the world of &amp;ldquo;Content Ipsum,&amp;rdquo; the fresh alternative to the classic lorem ipsum. It&amp;rsquo;s the perfect blend for designers and writers who crave a dash of creativity and meaning in their placeholder text. Imagine a text that not only fills the space but also sparks the imagination, a text that weaves tales of innovation, inspiration, and the endless possibilities that creativity brings.&lt;/p></description></item><item><title>Sample content: formatting styles</title><link>https://akajedi.github.io/f12/blog/sample/</link><pubDate>Fri, 21 Jun 2024 14:38:33 +0200</pubDate><guid>https://akajedi.github.io/f12/blog/sample/</guid><description>&lt;p>Sample blog content. Like a lorem ipsum but saying something more interesting.&lt;/p>
 &lt;p>We will show some content that is supported:&lt;/p>
 &lt;h2 id="basic-syntax">Basic Syntax&lt;/h2>
@@ -795,7 +795,7 @@ params:
  &lt;div class="rad-subscription-group">
  &lt;form
  id="rad-subscription"
- action="https://akajedi.github.io/f12/"
+ action="./"
  method="POST"
  >
  &lt;input
@@ -864,14 +864,14 @@ params:
  
  
 
- &lt;source srcset="https://akajedi.github.io/f12/images/about/user-picture_hu_c3b7b6ea83b51435.webp 1x, https://akajedi.github.io/f12/images/about/user-picture_hu_d7801b9edf4dc93e.webp 2x" type="image/webp" />
- &lt;source srcset="https://akajedi.github.io/f12/images/about/user-picture_hu_37558d2316509883.png 1x, https://akajedi.github.io/f12/images/about/user-picture_hu_cf527af17c9c9268.png 2x" type="image/png">
+ &lt;source srcset="./f12/images/about/user-picture_hu_c3b7b6ea83b51435.webp 1x, ./f12/images/about/user-picture_hu_d7801b9edf4dc93e.webp 2x" type="image/webp" />
+ &lt;source srcset="./f12/images/about/user-picture_hu_37558d2316509883.png 1x, ./f12/images/about/user-picture_hu_cf527af17c9c9268.png 2x" type="image/png">
 
  &lt;img
  width="561"
  height="535"
  class="lozad img-responsive image-left-overflow"
- data-src="https://akajedi.github.io/f12/images/about/user-picture_hu_37558d2316509883.png"
+ data-src="./f12/images/about/user-picture_hu_37558d2316509883.png"
  alt=''
  src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
  loading="lazy"
@@ -989,7 +989,7 @@ params:
 
  
  &lt;div class="experience">
- &lt;a href="https://akajedi.github.io/f12/experience/job-5/" class="experience__link">
+ &lt;a href="./experience/job-5/" class="experience__link">
  &lt;div class="experience__header">
  
  
@@ -1021,7 +1021,7 @@ This role established my expertise in technical operations, infrastructure suppo
  &lt;/div>
  
  &lt;div class="experience">
- &lt;a href="https://akajedi.github.io/f12/experience/job-4/" class="experience__link">
+ &lt;a href="./experience/job-4/" class="experience__link">
  &lt;div class="experience__header">
  
  
@@ -1053,7 +1053,7 @@ This role established my expertise in technical operations, infrastructure suppo
  &lt;/div>
  
  &lt;div class="experience">
- &lt;a href="https://akajedi.github.io/f12/experience/job-3/" class="experience__link">
+ &lt;a href="./experience/job-3/" class="experience__link">
  &lt;div class="experience__header">
  
  
@@ -1075,7 +1075,7 @@ This role established my expertise in technical operations, infrastructure suppo
  &lt;/div>
  
  &lt;div class="experience">
- &lt;a href="https://akajedi.github.io/f12/experience/job-2/" class="experience__link">
+ &lt;a href="./experience/job-2/" class="experience__link">
  &lt;div class="experience__header">
  
  
@@ -1098,7 +1098,7 @@ As a Senior Systems Administrator &amp;amp; Network Security Administrator at T3
  &lt;/div>
  
  &lt;div class="experience">
- &lt;a href="https://akajedi.github.io/f12/experience/job-1/" class="experience__link">
+ &lt;a href="./experience/job-1/" class="experience__link">
  &lt;div class="experience__header">
  
  

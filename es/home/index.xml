@@ -43,14 +43,14 @@
  
  
 
- &lt;source srcset="https://akajedi.github.io/f12/images/showcase/showcase_hu_d37b8c855bc40569.webp 1x, https://akajedi.github.io/f12/images/showcase/showcase_hu_bb220d2f819b63f2.webp 2x" type="image/webp" />
- &lt;source srcset="https://akajedi.github.io/f12/images/showcase/showcase_hu_36a7c350e756fdba.png 1x, https://akajedi.github.io/f12/images/showcase/showcase_hu_55c9d46ab35228bc.png 2x" type="image/png">
+ &lt;source srcset="../../f12/images/showcase/showcase_hu_d37b8c855bc40569.webp 1x, ../../f12/images/showcase/showcase_hu_bb220d2f819b63f2.webp 2x" type="image/webp" />
+ &lt;source srcset="../../f12/images/showcase/showcase_hu_36a7c350e756fdba.png 1x, ../../f12/images/showcase/showcase_hu_55c9d46ab35228bc.png 2x" type="image/png">
 
  &lt;img
  width="790"
  height="768"
  class="lozad img-responsive "
- data-src="https://akajedi.github.io/f12/images/showcase/showcase_hu_36a7c350e756fdba.png"
+ data-src="../../f12/images/showcase/showcase_hu_36a7c350e756fdba.png"
  alt=''
  src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
  loading="lazy"
@@ -326,14 +326,14 @@
  
  
 
- &lt;source srcset="https://akajedi.github.io/f12/images/about/user-picture_hu_c3b7b6ea83b51435.webp 1x, https://akajedi.github.io/f12/images/about/user-picture_hu_d7801b9edf4dc93e.webp 2x" type="image/webp" />
- &lt;source srcset="https://akajedi.github.io/f12/images/about/user-picture_hu_37558d2316509883.png 1x, https://akajedi.github.io/f12/images/about/user-picture_hu_cf527af17c9c9268.png 2x" type="image/png">
+ &lt;source srcset="../../f12/images/about/user-picture_hu_c3b7b6ea83b51435.webp 1x, ../../f12/images/about/user-picture_hu_d7801b9edf4dc93e.webp 2x" type="image/webp" />
+ &lt;source srcset="../../f12/images/about/user-picture_hu_37558d2316509883.png 1x, ../../f12/images/about/user-picture_hu_cf527af17c9c9268.png 2x" type="image/png">
 
  &lt;img
  width="561"
  height="535"
  class="lozad img-responsive image-left-overflow"
- data-src="https://akajedi.github.io/f12/images/about/user-picture_hu_37558d2316509883.png"
+ data-src="../../f12/images/about/user-picture_hu_37558d2316509883.png"
  alt=''
  src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
  loading="lazy"
@@ -413,7 +413,7 @@
 
  
  &lt;div class="experience">
- &lt;a href="https://akajedi.github.io/f12/es/experience/job-3/" class="experience__link">
+ &lt;a href="../../es/experience/job-3/" class="experience__link">
  &lt;div class="experience__header">
  
  
@@ -435,7 +435,7 @@
  &lt;/div>
  
  &lt;div class="experience">
- &lt;a href="https://akajedi.github.io/f12/es/experience/job-2/" class="experience__link">
+ &lt;a href="../../es/experience/job-2/" class="experience__link">
  &lt;div class="experience__header">
  
  
@@ -457,7 +457,7 @@
  &lt;/div>
  
  &lt;div class="experience">
- &lt;a href="https://akajedi.github.io/f12/es/experience/job-1/" class="experience__link">
+ &lt;a href="../../es/experience/job-1/" class="experience__link">
  &lt;div class="experience__header">
  
  
@@ -548,4 +548,4 @@
  &lt;/div>
 &lt;/section>
 &lt;h2 id="experiencia-lista">Experiencia (lista)&lt;/h2>
-&lt;p>Puedes ver una versión alternativa, usando &lt;code>experience-list&lt;/code> en &lt;a href="https://akajedi.github.io/f12/cv">/cv&lt;/a>.&lt;/p></description></item></channel></rss>
+&lt;p>Puedes ver una versión alternativa, usando &lt;code>experience-list&lt;/code> en &lt;a href="../../cv">/cv&lt;/a>.&lt;/p></description></item></channel></rss>
