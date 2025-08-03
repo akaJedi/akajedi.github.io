@@ -1,4 +1,6 @@
 baseURL = "https://akajedi.github.io/f12/"
+relativeURLs = true
+canonifyURLs = true
 title = "Denis Tolochko Personal website"
 languageCode = "en"
 
