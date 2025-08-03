@@ -1,4 +1,4 @@
-baseURL = "https://akajedi.github.io/f12/"
+baseURL = "https://akajedi.github.io/"
 relativeURLs = true
 canonifyURLs = true
 title = "Denis Tolochko Personal website"
