@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Homes on</title><link>https://akajedi.github.io/ru/home/</link><description>Recent content in Homes on</description><generator>Hugo</generator><language>ru</language><atom:link href="https://akajedi.github.io/ru/home/index.xml" rel="self" type="application/rss+xml"/><item><title>Главная</title><link>https://akajedi.github.io/ru/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://akajedi.github.io/ru/home/home/</guid><description>&lt;section id="about" class="section rad-animation-group pb-0">
+ &lt;div class="rad-fade-down">
+ &lt;div class="row d-flex flex-column-reverse flex-md-row">
+ &lt;div class="about__profile-picture col-12 col-md-6">
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+
+
+ 
+ 
+
+
+ &lt;picture class="">
+ 
+ 
+
+ &lt;source srcset="../../images/about/user-picture_hu_c3b7b6ea83b51435.webp 1x, ../../images/about/user-picture_hu_d7801b9edf4dc93e.webp 2x" type="image/webp" />
+ &lt;source srcset="../../images/about/user-picture_hu_37558d2316509883.png 1x, ../../images/about/user-picture_hu_cf527af17c9c9268.png 2x" type="image/png">
+
+ &lt;img
+ width="561"
+ height="535"
+ class="lozad img-responsive image-left-overflow"
+ data-src="../../images/about/user-picture_hu_37558d2316509883.png"
+ alt=''
+ src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
+ loading="lazy"
+ decoding="async"
+ />
+ &lt;/picture>
+
+ &lt;/div>
+ &lt;div class="col-12 col-md-6 my-auto">
+ &lt;h1>Who am I?&lt;/h1>
+ &lt;div class="about-me content lead">
+ &lt;/br>&lt;/br>Based in Valencia, California US, I specialize in IT infrastructure, support, and cloud operations—helping organizations scale with reliability and security. Most recently, I led the full technical integration of Praedicat into Moody’s, overseeing system migrations, decommissions, and compliance alignment. With a hands-on approach and a focus on clarity, automation, and cross-team collaboration, I bring over 15 years of experience across enterprise IT, security, and user support. I'm passionate about building systems that are stable, secure, and built to last—while fostering collaboration between people, processes, and platforms.
+ &lt;/div>
+ 
+ &lt;/div>
+ &lt;/div>
+ &lt;/div>
+&lt;/section>
+
+
+
+
+&lt;div class="container">
+ &lt;div class="row platform-links shortcode">
+ &lt;div class="col-12">
+	
+	 
+	&lt;a
+	 href="https://www.linkedin.com/in/denistolochko/"
+	 target="_blank"
+	 rel="noopener noreferrer"
+	 aria-label="linkedin"
+	 >&lt;i class="icon-linkedin">&lt;/i>
+	&lt;/a>
+
+	
+	 
+	&lt;a
+	 href="https://github.com/akajedi"
+	 target="_blank"
+	 rel="noopener noreferrer"
+	 aria-label="square-github"
+	 >&lt;i class="icon-square-github">&lt;/i>
+	&lt;/a>
+
+&lt;/div>
+ &lt;/div>
+&lt;/div>
+
+
+
+
+
+&lt;section
+ id="education"
+ class="section section--border-bottom rad-animation-group"
+>
+ &lt;div class="container-education">
+ &lt;div class="row rad-fade-down">
+ &lt;div class="col-12">
+ &lt;h2>Education&lt;/h2>
+ &lt;div class="row pt-2 pt-md-4">
+ 
+ &lt;/div>
+ &lt;/div>
+ &lt;/div>
+ &lt;/div>
+&lt;/section>
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+
+
+&lt;section id="experience-single" class="section-experience section section--border-bottom rad-animation-group flex-grow-1">
+ &lt;div class="row flex-column-reverse flex-md-row rad-fade-down">
+ &lt;div class="experience-list col-12 col-md-6">
+ &lt;h2>
+ 
+ Experience
+ 
+ &lt;/h2>
+
+ 
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+ &lt;/div>
+ &lt;div class="experience-description col-12 col-md-6">
+ 
+ 
+
+
+
+
+
+
+
+
+
+&lt;div class="container-experience">
+ &lt;div class="row">
+ &lt;h2> &lt;/h2>
+ &lt;div class="lead">&lt;/br>&lt;/br>&lt;/br>&lt;/br>&lt;/br>Over the course of my career, I’ve built a strong foundation in IT operations, system administration, infrastructure support, and cloud integration. I’ve contributed to organizations of various sizes — from fast-paced tech firms to global enterprises — where I’ve led high-impact transitions, maintained business-critical systems, and supported cross-functional teams across multiple platforms and time zones. My experience reflects a hands-on, solutions-focused approach, with a consistent commitment to reliability, security, and operational efficiency.&lt;/div>
+ &lt;/div>
+
+ &lt;div class="row">
+ 
+ &lt;div class="col-12 col-lg-4">
+ &lt;a
+ href='https://www.linkedin.com/in/adrianmoreno/'
+ class="btn btn-primary btn-block w-100"
+ target="_blank"
+ rel="noopener noreferrer"
+ >
+ 
+ LinkedIn
+ &lt;i class="icon-arrow-right">&lt;/i>
+ &lt;/a>
+ &lt;/div>
+ 
+
+ 
+ &lt;div class="col-12 col-lg-4">
+ &lt;a
+ href='https://akajedi.github.io/img/general/user-smile-fill.svg'
+ class="btn btn-frameless w-100"
+ target="_blank"
+ rel="noopener noreferrer"
+ >
+ 
+ Download resume
+ &lt;/a>
+ &lt;/div>
+ 
+
+ 
+ &lt;div class="col-12 col-lg-4">
+ &lt;a
+ href='https://akajedi.github.io/experience'
+ class="btn btn-frameless w-100"
+ rel="noopener noreferrer"
+ >
+ 
+ View all
+ &lt;/a>
+ &lt;/div>
+ 
+ &lt;/div>
+&lt;/div>
+
+ &lt;/div>
+ &lt;/div>
+&lt;/section>
+
+
+
+
+
+
+&lt;section id="testimonial" class="section rad-animation-group section--border-bottom">
+ &lt;div class="container">
+ 
+ &lt;h2 class="rad-fade-down">Colleague Feedback&lt;/h2>
+ &lt;div class="row row--padded mb-0 rad-fade-down">
+ 
+ &lt;/div>
+ &lt;/div>
+&lt;/section></description></item></channel></rss>
