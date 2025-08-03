@@ -45,7 +45,7 @@
  &lt;div class="col-12 col-md-6 my-auto">
  &lt;h1>Who am I?&lt;/h1>
  &lt;div class="about-me content lead">
- &lt;/br>&lt;/br>Based in Valencia, California US, I specialize in IT infrastructure, support, and cloud operations—helping organizations scale with reliability and security. Most recently, I led the full technical integration of Praedicat into Moody’s, overseeing system migrations, decommissions, and compliance alignment. With a hands-on approach and a focus on clarity, automation, and cross-team collaboration, I bring over 15 years of experience across enterprise IT, security, and user support. I'm passionate about building systems that are stable, secure, and built to last—while fostering collaboration between people, processes, and platforms.
+ &lt;/br>&lt;/br>Проживая в Валенсии, Калифорния (США), я специализируюсь на IT-инфраструктуре, технической поддержке и облачных операциях — помогая организациям масштабироваться надёжно и безопасно. Недавно я руководил полной технической интеграцией компании Praedicat в Moody’s, управляя миграцией систем, выводом из эксплуатации и приведением к требованиям комплаенса. С практическим подходом и фокусом на ясность, автоматизацию и межкомандное сотрудничество, я обладаю более чем 15-летним опытом в корпоративных IT-системах, безопасности и пользовательской поддержке. Мне важно строить системы, которые стабильны, защищены и рассчитаны на долгосрочную работу — объединяя людей, процессы и технологии.
  &lt;/div>
  
  &lt;/div>
@@ -94,7 +94,7 @@
  &lt;div class="container-education">
  &lt;div class="row rad-fade-down">
  &lt;div class="col-12">
- &lt;h2>Education&lt;/h2>
+ &lt;h2>Образование&lt;/h2>
  &lt;div class="row pt-2 pt-md-4">
  
  &lt;/div>
@@ -120,7 +120,7 @@
  &lt;div class="experience-list col-12 col-md-6">
  &lt;h2>
  
- Experience
+ Опыт
  
  &lt;/h2>
 
@@ -152,7 +152,7 @@
 &lt;div class="container-experience">
  &lt;div class="row">
  &lt;h2> &lt;/h2>
- &lt;div class="lead">&lt;/br>&lt;/br>&lt;/br>&lt;/br>&lt;/br>Over the course of my career, I’ve built a strong foundation in IT operations, system administration, infrastructure support, and cloud integration. I’ve contributed to organizations of various sizes — from fast-paced tech firms to global enterprises — where I’ve led high-impact transitions, maintained business-critical systems, and supported cross-functional teams across multiple platforms and time zones. My experience reflects a hands-on, solutions-focused approach, with a consistent commitment to reliability, security, and operational efficiency.&lt;/div>
+ &lt;div class="lead">&lt;/br>&lt;/br>&lt;/br>&lt;/br>&lt;/br>За время своей карьеры я выстроил прочную базу в IT-операциях, системном администрировании, поддержке инфраструктуры и интеграции облачных решений. Я работал в компаниях различного масштаба — от динамичных технологических фирм до международных корпораций — где руководил значимыми переходами, поддерживал критически важные системы и взаимодействовал с многопрофильными командами в разных часовых поясах. Мой опыт отражает практический, ориентированный на результат подход с неизменной приверженностью надёжности, безопасности и операционной эффективности.&lt;/div>
  &lt;/div>
 
  &lt;div class="row">
@@ -212,7 +212,7 @@
 &lt;section id="testimonial" class="section rad-animation-group section--border-bottom">
  &lt;div class="container">
  
- &lt;h2 class="rad-fade-down">Colleague Feedback&lt;/h2>
+ &lt;h2 class="rad-fade-down">Отзывы коллег&lt;/h2>
  &lt;div class="row row--padded mb-0 rad-fade-down">
  
  &lt;/div>
