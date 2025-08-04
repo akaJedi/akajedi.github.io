@@ -20,11 +20,11 @@ draft = false
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  const form = document.querySelector("form");
+  const form = document.querySelector("#form-wrapper form");
   const messageBox = document.getElementById("message");
 
   form.addEventListener("submit", async function (e) {
-    e.preventDefault(); // 🔒 prevent redirect
+    e.preventDefault();
 
     const name = form.querySelector("[name='full_name']").value.trim();
     const email = form.querySelector("[name='email']").value.trim();
@@ -32,7 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const message = form.querySelector("[name='message']").value.trim();
     const secret = form.querySelector("[name='secret_field']")?.value || "";
 
-    // Simple client-side validation
     if (!name || !email || !message) {
       messageBox.textContent = "❗Please fill out your name, email, and message.";
       messageBox.style.color = "red";
@@ -55,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (result.success) {
         messageBox.textContent = "✅ Your message has been sent successfully!";
         messageBox.style.color = "green";
-        form.reset(); // optional: clear form
+        form.reset();
       } else {
         messageBox.textContent = "❌ Something went wrong. Please try again later.";
         messageBox.style.color = "red";
