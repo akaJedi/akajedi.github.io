@@ -224,6 +224,16 @@ params:
 	 >&lt;i class="icon-square-github">&lt;/i>
 	&lt;/a>
 
+	
+	 
+	&lt;a
+	 href="https://instagram.com/denishavefun"
+	 target="_blank"
+	 rel="noopener noreferrer"
+	 aria-label="instagram"
+	 >&lt;i class="icon-instagram">&lt;/i>
+	&lt;/a>
+
 &lt;/div>
  &lt;/div>
 &lt;/div>
