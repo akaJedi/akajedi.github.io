@@ -1,62 +1,102 @@
-+++
-title =  "Footer"
-type = "footer"
-draft = false
-+++
+function corsHeaders() {
+  return {
+    "Access-Control-Allow-Origin": "https://www.f12.biz",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+  };
+}
 
-<div id="form-status" style="margin: 1rem 0; font-weight: bold;"></div>
-{{< contact-section
-    title="Reach out" 
-    contact_form_name="Your name"
-    contact_form_email="Your e-mail"
-    contact_form_message="Your text"
-    contact_form_phone="Your phone"
-    contact_button="Send message"
-    form_action="https://green-rice-1ea7.denis-f21.workers.dev"
-    form_method="POST"
-    contact_form_rows="2"
->}}
-
-
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.querySelector("form[action='https://green-rice-1ea7.denis-f21.workers.dev']");
-  const status = document.getElementById("form-status");
-  const submitBtn = form?.querySelector("button[type='submit']");
-
-  if (!form || !status || !submitBtn) return;
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    status.textContent = '';
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Sending...";
-
-    const formData = Object.fromEntries(new FormData(form).entries());
-
-    try {
-      const res = await fetch(form.action, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (res.ok) {
-        form.reset();
-        status.style.color = "green";
-        status.textContent = "✅ Message sent successfully!";
-      } else {
-        status.style.color = "red";
-        status.textContent = "❌ Something went wrong. Please try again.";
-      }
-    } catch (err) {
-      status.style.color = "red";
-      status.textContent = "❌ Network error. Please try again.";
+export default {
+  async fetch(request, env, ctx) {
+    if (request.method === "OPTIONS") {
+      return new Response(null, { status: 204, headers: corsHeaders() });
     }
 
-    submitBtn.disabled = false;
-    submitBtn.textContent = "Send message";
-  });
-});
-</script>
+    if (request.method !== 'POST') {
+      return new Response('Only POST allowed', {
+        status: 405,
+        headers: corsHeaders(),
+      });
+    }
+
+    const contentType = request.headers.get('content-type') || '';
+    let formData;
+
+    if (contentType.includes('application/json')) {
+      formData = await request.json();
+    } else if (contentType.includes('application/x-www-form-urlencoded')) {
+      const text = await request.text();
+      formData = Object.fromEntries(new URLSearchParams(text));
+    } else {
+      return new Response('Unsupported content type', {
+        status: 400,
+        headers: corsHeaders(),
+      });
+    }
+
+    // === 🛡️ Flood Protection (per IP)
+    const clientIP = request.headers.get("CF-Connecting-IP");
+    const recentKey = `flood-${clientIP}`;
+    const recent = await env.FLOOD_CACHE.get(recentKey);
+    if (recent) {
+      return new Response(JSON.stringify({ error: "Too many requests" }), {
+        status: 429,
+        headers: { ...corsHeaders(), "Content-Type": "application/json" },
+      });
+    }
+    await env.FLOOD_CACHE.put(recentKey, "1", { expirationTtl: 60 }); // 1 minute lockout
+
+    // === 🕵️‍♂️ Secret Honeypot
+    if (formData.secret_field !== "123abc456") {
+      return new Response("Bot detected", {
+        status: 403,
+        headers: corsHeaders(),
+      });
+    }
+
+    // === ✅ Field Validation
+    const name = formData.name || formData.full_name || '';
+    const email = formData.email || '';
+    const message = formData.message || '';
+    const phone = formData.phone || '';
+
+    if (!name || !email || !message) {
+      return new Response("Missing required fields", {
+        status: 400,
+        headers: corsHeaders(),
+      });
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return new Response("Invalid email format", {
+        status: 400,
+        headers: corsHeaders(),
+      });
+    }
+
+    // === 📩 Prepare Telegram message
+    const textMessage =
+      `🆕 New message from f12.biz:\n` +
+      `👤 ${name}\n` +
+      `📧 ${email}\n` +
+      (phone ? `📱 ${phone}\n` : '') +
+      `📝 ${message}`;
+
+    const telegramURL = `https://api.telegram.org/bot${env.TELEGRAM_TOKEN}/sendMessage`;
+
+    await fetch(telegramURL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: env.TELEGRAM_CHAT_ID,
+        text: textMessage,
+      }),
+    });
+
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: { ...corsHeaders(), "Content-Type": "application/json" },
+    });
+  },
+};
