@@ -65,8 +65,8 @@ target = "assets/css/bootstrap-print.css"
 
 
 [params]
-title = 'Adritian - a high performance hugo theme'
-description = 'This hugo theme (Adritian) is based on Bootstrap and has features that make it suitable for a personal site, a portfolio or other kind of Single Page Applications.'
+title = 'Denis Tolochko - Sr. Systems Administrator & IT Engineer'
+description = 'Senior IT Engineer specializing in infrastructure, cloud, and automation. Sharing projects, skills, and updates from over 15 years in tech across support, security, and DevOps.'
 images = ['/img/og-img.png']
 sections = [
   "showcase",
