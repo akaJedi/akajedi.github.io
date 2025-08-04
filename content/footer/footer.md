@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
   form.addEventListener("submit", async function (e) {
     e.preventDefault(); // 🔒 prevent redirect
 
-    const name = form.querySelector("[name='name']").value.trim();
+    const name = form.querySelector("[name='full_name']").value.trim();
     const email = form.querySelector("[name='email']").value.trim();
     const phone = form.querySelector("[name='phone']").value.trim();
     const message = form.querySelector("[name='message']").value.trim();
