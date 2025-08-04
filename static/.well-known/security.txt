@@ -1,0 +1,9 @@
+Contact: mailto:security@f12.biz
+Contact: https://f12.biz/contact
+Encryption: https://f12.biz/pgp-key.txt
+Acknowledgements: https://f12.biz/hall-of-thanks
+Policy: https://f12.biz/security-policy
+Hiring: https://f12.biz/careers
+Preferred-Languages: en
+Canonical: https://f12.biz/.well-known/security.txt
+Expires: 2065-12-31T23:59:00Z
