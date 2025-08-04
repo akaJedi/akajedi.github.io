@@ -4,7 +4,7 @@ draft = false
 title = 'PGP public key for security@f12.biz'
 +++
 
-
+<code>
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 xsFNBGiRIhYBEADRQGM0Yk6unDiHHec2JIoWxSShDzld7fmn5Mi/X53ZITiSRJzE
 YwunvkSOragsH3drgJB98oKMx+pf9rjq7AAYQrFekk+3Hiel38+2XL4GbMSl9VrE
@@ -67,3 +67,4 @@ ZaUY+LKfIPIDn7BWoHme/wti59me4oq8cCVKBuMlQkeyIOhwHfugUHuMIR+p0GHx
 cOkde+zIpTxIzqS/ZqPFxq+HZpdZw2PHDATgeaxc0l82Cq0z6v2cx6W1
 =lVdb
 -----END PGP PUBLIC KEY BLOCK-----
+</code>
