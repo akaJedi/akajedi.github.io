@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title/><link>https://www.f12.biz/</link><description>Recent content on</description><generator>Hugo</generator><language>en</language><lastBuildDate>Mon, 04 Aug 2025 15:46:57 -0700</lastBuildDate><atom:link href="https://www.f12.biz/index.xml" rel="self" type="application/rss+xml"/><item><title>PGP public key for security@f12.biz</title><link>https://www.f12.biz/pgp-key/</link><pubDate>Mon, 04 Aug 2025 15:46:57 -0700</pubDate><guid>https://www.f12.biz/pgp-key/</guid><description>&lt;p>&amp;mdash;&amp;ndash;BEGIN PGP PUBLIC KEY BLOCK&amp;mdash;&amp;ndash;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title/><link>https://www.f12.biz/</link><description>Recent content on</description><generator>Hugo</generator><language>en</language><lastBuildDate>Mon, 04 Aug 2025 15:46:57 -0700</lastBuildDate><atom:link href="https://www.f12.biz/index.xml" rel="self" type="application/rss+xml"/><item><title>PGP public key for security@f12.biz</title><link>https://www.f12.biz/pgp-key/</link><pubDate>Mon, 04 Aug 2025 15:46:57 -0700</pubDate><guid>https://www.f12.biz/pgp-key/</guid><description>&lt;code>
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 xsFNBGiRIhYBEADRQGM0Yk6unDiHHec2JIoWxSShDzld7fmn5Mi/X53ZITiSRJzE
 YwunvkSOragsH3drgJB98oKMx+pf9rjq7AAYQrFekk+3Hiel38+2XL4GbMSl9VrE
 pzLSql8eWqv+iQssGx30RfGlyHt+9Z7f062bKvvAqxhn3JfQfw86BexAkWRNExu8
@@ -59,7 +60,8 @@ eK6BxWvme01+4+RBszeJrhVHqOkX4GBF5OBnkvuMf3icv8Dp6y3NiJQr6dQZ415c
 ZaUY+LKfIPIDn7BWoHme/wti59me4oq8cCVKBuMlQkeyIOhwHfugUHuMIR+p0GHx
 cOkde+zIpTxIzqS/ZqPFxq+HZpdZw2PHDATgeaxc0l82Cq0z6v2cx6W1
 =lVdb
-&amp;mdash;&amp;ndash;END PGP PUBLIC KEY BLOCK&amp;mdash;&amp;ndash;&lt;/p></description></item><item><title>Vulnerability Disclosure Policy for f12.biz</title><link>https://www.f12.biz/security-policy/</link><pubDate>Mon, 04 Aug 2025 15:46:57 -0700</pubDate><guid>https://www.f12.biz/security-policy/</guid><description>&lt;p>&lt;/p>
+-----END PGP PUBLIC KEY BLOCK-----
+&lt;/code></description></item><item><title>Vulnerability Disclosure Policy for f12.biz</title><link>https://www.f12.biz/security-policy/</link><pubDate>Mon, 04 Aug 2025 15:46:57 -0700</pubDate><guid>https://www.f12.biz/security-policy/</guid><description>&lt;p>&lt;/p>
 ## Introduction
 &lt;p>We at f12.biz take the security of our users and infrastructure seriously. We welcome and encourage the responsible disclosure of security vulnerabilities.&lt;/p>
 &lt;p>If you discover a vulnerability, we ask that you report it directly to us so that we can take appropriate action. We are committed to investigating all legitimate reports and resolving the issues as quickly as possible.&lt;/p>
