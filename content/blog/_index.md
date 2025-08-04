@@ -1,10 +1,9 @@
 ---
-title: "Добро пожаловть. Спасибо что зашли."
+title: "Welcome to my blog!"
 date: 2025-01-15
 draft: false
 ---
 
-Этот раздел можно легко изменить или удалить — он находится в файле `_index.md` в папке `blog`.
-Здесь я делюсь личными новостями, заметками по проектам и мыслями о технологиях и карьере. Все записи хранятся в папке `blog/` и оформлены в формате Markdown — просто и удобно.
-Hugo поддерживает и другие форматы контента, а также переводы, поэтому со временем здесь могут появиться посты и на других языках.
-Оставайтесь на связи — впереди много интересного!
+This section comes from the `_index.md` file in the `blog` folder — easy to customize or remove.Here I’ll be sharing personal updates, project notes, and thoughts on tech and career. All posts live in the same `blog/` folder and are written in Markdown for simplicity and ease of use.
+Hugo also supports other content formats and translations, so I may add posts in multiple languages later on.
+Stay tuned for more!
