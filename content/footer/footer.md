@@ -11,7 +11,6 @@ draft = false
     contact_form_message="Your text"
     contact_form_phone="Your phone"
     contact_button="Send message"
-    form_action="https://green-rice-1ea7.denis-f21.workers.dev"
     form_method="POST"
     contact_form_rows="2"
 >}}
