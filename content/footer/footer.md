@@ -20,8 +20,10 @@ draft = false
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  const form = document.querySelector("#form-wrapper form");
+  const form = document.querySelector("form");
   const messageBox = document.getElementById("message");
+
+  if (!form || !messageBox) return;
 
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -43,23 +45,20 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
       const response = await fetch(form.action, {
         method: form.method,
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
 
       const result = await response.json();
-
       if (result.success) {
         messageBox.textContent = "✅ Your message has been sent successfully!";
         messageBox.style.color = "green";
         form.reset();
       } else {
-        messageBox.textContent = "❌ Something went wrong. Please try again later.";
+        messageBox.textContent = "❌ Something went wrong. Please try again.";
         messageBox.style.color = "red";
       }
-    } catch (error) {
+    } catch {
       messageBox.textContent = "⚠️ Failed to send. Network error.";
       messageBox.style.color = "red";
     }
