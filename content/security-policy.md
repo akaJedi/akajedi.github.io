@@ -1,10 +1,9 @@
 +++
 date = '2025-08-04T15:46:57-07:00'
 draft = false
-title = 'Security Policy'
+title = 'Vulnerability Disclosure Policy for f12.biz'
 +++
 
-# Vulnerability Disclosure Policy for f12.biz
 
 ## Introduction
 
