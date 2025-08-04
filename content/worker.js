@@ -4,7 +4,7 @@ type = "footer"
 draft = false
 +++
 
-
+<div id="form-status" style="margin: 1rem 0; font-weight: bold;"></div>
 {{< contact-section
     title="Reach out" 
     contact_form_name="Your name"
