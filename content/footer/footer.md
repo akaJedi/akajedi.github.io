@@ -16,6 +16,7 @@ draft = false
     form_method="POST"
     contact_form_rows="2"
 >}}
+<div id="form-message" style="margin-top: 1em; display:none;"></div>
 
 
 
@@ -41,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const secret = form.querySelector("[name='secret_field']")?.value || "";
 
     if (!name || !email || !message) {
-      showMessage("Please fill out your name, email, and message before submitting.");
+      showMessage("❗ Please fill out your name, email, and message.");
       return;
     }
 
@@ -66,5 +67,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
+
 
 
