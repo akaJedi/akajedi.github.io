@@ -104,7 +104,7 @@ code = "UA-XXXXX-Y"
 enabled = false
 [params.analytics.googleTagManager]
 code = "GTM-PPD7ZQ4L"
-enabled = false
+enabled = true
 
 [build]
 writeStats = true
