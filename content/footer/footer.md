@@ -5,6 +5,7 @@ draft = false
 +++
 
 {{< contact-section
+	sectionId="message"
     title="Reach out" 
     contact_form_name="Your name"
     contact_form_email="Your e-mail"
@@ -15,7 +16,7 @@ draft = false
     form_method="POST"
     contact_form_rows="2"
 >}}
-<div id="message" style="margin-top:1em; display:none"></div>
+
 
 
 <script>
