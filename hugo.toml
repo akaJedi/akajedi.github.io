@@ -103,7 +103,7 @@ vercelAnalytics = false
 code = "UA-XXXXX-Y"
 enabled = false
 [params.analytics.googleTagManager]
-code = "GTM-XXXXX"
+code = "G-5YVQ9P4CJS"
 enabled = false
 
 [build]
