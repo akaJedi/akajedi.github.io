@@ -81,6 +81,7 @@ params:
  &lt;/div>
 &lt;/section>
 
+&lt;div id="form-message" style="margin-top: 1em; display:none;">&lt;/div>
 &lt;script>
 document.addEventListener("DOMContentLoaded", () => {
  const form = document.querySelector("form[action='https://green-rice-1ea7.denis-f21.workers.dev']");
@@ -103,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
  const secret = form.querySelector("[name='secret_field']")?.value || "";
 
  if (!name || !email || !message) {
- showMessage("Please fill out your name, email, and message before submitting.");
+ showMessage("❗ Please fill out your name, email, and message.");
  return;
  }
 
