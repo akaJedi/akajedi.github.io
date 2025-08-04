@@ -3,7 +3,7 @@ title =  "Footer"
 type = "footer"
 draft = false
 +++
-<div id="message" style="margin-top:1em; display:none"></div>
+
 {{< contact-section
     title="Reach out" 
     contact_form_name="Your name"
@@ -15,7 +15,7 @@ draft = false
     form_method="POST"
     contact_form_rows="2"
 >}}
-
+<div id="message" style="margin-top:1em; display:none"></div>
 
 
 <script>
