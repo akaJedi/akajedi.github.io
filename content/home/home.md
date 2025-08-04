@@ -19,6 +19,7 @@ draft = false
 {{< platform-links >}}
 	{{< link icon="linkedin" url="https://www.linkedin.com/in/denistolochko/" >}}
 	{{< link icon="square-github" url="https://github.com/akajedi" >}}
+	{{< link icon="instagram" url="https://instagram.com/denishavefun" >}}
 {{< /platform-links >}}
 
 {{< education-list
