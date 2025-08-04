@@ -27,3 +27,28 @@ draft = false
     form_action="/"
     form_method="POST"
 >}}
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.querySelector("form[action='https://green-rice-1ea7.denis-f21.workers.dev']");
+  if (!form) return;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = Object.fromEntries(new FormData(form).entries());
+
+    const res = await fetch(form.action, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    if (res.ok) {
+      alert("Message sent successfully!");
+      form.reset();
+    } else {
+      alert("There was an error. Please try again.");
+    }
+  });
+});
+</script>
