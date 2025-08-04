@@ -67,7 +67,7 @@ target = "assets/css/bootstrap-print.css"
 [params]
 title = 'Denis Tolochko - Sr. Systems Administrator & IT Engineer'
 description = 'Senior IT Engineer specializing in infrastructure, cloud, and automation. Sharing projects, skills, and updates from over 15 years in tech across support, security, and DevOps.'
-images = ['/img/og-img.png']
+#images = ['/img/og-img.png']
 sections = [
   "showcase",
   "about",
