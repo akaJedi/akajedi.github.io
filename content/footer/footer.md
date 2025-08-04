@@ -27,29 +27,46 @@ draft = false
     form_action="/"
     form_method="POST"
 >}}
-
+<div id="form-status" style="margin: 1rem 0; font-weight: bold;"></div>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form[action='https://green-rice-1ea7.denis-f21.workers.dev']");
-  if (!form) return;
+  const status = document.getElementById("form-status");
+  const submitBtn = form?.querySelector("button[type='submit']");
+
+  if (!form || !status || !submitBtn) return;
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    status.textContent = '';
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending...";
+
     const formData = Object.fromEntries(new FormData(form).entries());
 
-    const res = await fetch(form.action, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
+    try {
+      const res = await fetch(form.action, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-    if (res.ok) {
-      alert("Message sent successfully!");
-      form.reset();
-    } else {
-      alert("There was an error. Please try again.");
+      if (res.ok) {
+        form.reset();
+        status.style.color = "green";
+        status.textContent = "✅ Message sent successfully!";
+      } else {
+        status.style.color = "red";
+        status.textContent = "❌ Something went wrong. Please try again.";
+      }
+    } catch (err) {
+      status.style.color = "red";
+      status.textContent = "❌ Network error. Please try again.";
     }
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Send message";
   });
 });
 </script>
