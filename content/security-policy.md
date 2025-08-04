@@ -4,7 +4,7 @@ draft = false
 title = 'Vulnerability Disclosure Policy for f12.biz'
 +++
 
-
+<p></p>
 ## Introduction
 
 We at f12.biz take the security of our users and infrastructure seriously. We welcome and encourage the responsible disclosure of security vulnerabilities.
