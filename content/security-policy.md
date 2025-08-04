@@ -1,6 +1,6 @@
 +++
 date = '2025-08-04T15:46:57-07:00'
-draft = true
+draft = false
 title = 'Security Policy'
 +++
 
