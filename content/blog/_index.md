@@ -1,11 +1,15 @@
 ---
-title: "Demo Blog"
+title: "Welcome to my blog!"
 date: 2023-01-01
 draft: false
 ---
 
-Welcome to the demo blog. You can customize (or remove) this section in the `_index.md` file in the `blog` folder. You can [read about how to organize content in Hugo](https://gohugo.io/content-management/page-bundles/) in the official docs.
+# Welcome to my blog!
 
-The posts below are in the same folder (`blog/`) and can be in the [supported formats by hugo](https://gohugo.io/content-management/formats/) (Markdown, HTML, Emacs Org Mode, AsciiDoc, Pandoc, or reStructuredText).
+This section comes from the `_index.md` file in the `blog` folder — easy to customize or remove.
 
-You can use translations as well. 
+Here I’ll be sharing personal updates, project notes, and thoughts on tech and career. All posts live in the same `blog/` folder and are written in Markdown for simplicity and ease of use.
+
+Hugo also supports other content formats and translations, so I may add posts in multiple languages later on.
+
+Stay tuned for more!
