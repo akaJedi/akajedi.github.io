@@ -19,9 +19,32 @@ export default {
       });
     }
 
+    // 🔐 Validate origin
+    const origin = request.headers.get("Origin") || "";
+    const referer = request.headers.get("Referer") || "";
+    const isFromF12 = origin.includes("f12.biz") || referer.includes("f12.biz");
+    if (!isFromF12) {
+      return new Response("Forbidden: invalid origin", {
+        status: 403,
+        headers: corsHeaders(),
+      });
+    }
+
+    // 🛡️ Flood protection per IP
+    const clientIP = request.headers.get("CF-Connecting-IP");
+    const recentKey = `flood-${clientIP}`;
+    const recent = await env.FLOOD_CACHE.get(recentKey);
+    if (recent) {
+      return new Response(JSON.stringify({ error: "Too many requests" }), {
+        status: 429,
+        headers: { ...corsHeaders(), "Content-Type": "application/json" },
+      });
+    }
+    await env.FLOOD_CACHE.put(recentKey, "1", { expirationTtl: 60 });
+
+    // 🧾 Parse form data
     const contentType = request.headers.get('content-type') || '';
     let formData;
-
     if (contentType.includes('application/json')) {
       formData = await request.json();
     } else if (contentType.includes('application/x-www-form-urlencoded')) {
@@ -34,19 +57,7 @@ export default {
       });
     }
 
-    // === 🛡️ Flood Protection (per IP)
-    const clientIP = request.headers.get("CF-Connecting-IP");
-    const recentKey = `flood-${clientIP}`;
-    const recent = await env.FLOOD_CACHE.get(recentKey);
-    if (recent) {
-      return new Response(JSON.stringify({ error: "Too many requests" }), {
-        status: 429,
-        headers: { ...corsHeaders(), "Content-Type": "application/json" },
-      });
-    }
-    await env.FLOOD_CACHE.put(recentKey, "1", { expirationTtl: 60 }); // 1 minute lockout
-
-    // === 🕵️‍♂️ Secret Honeypot
+    // 🕵️‍♂️ Honeypot field check
     if (formData.secret_field !== "123abc456") {
       return new Response("Bot detected", {
         status: 403,
@@ -54,7 +65,7 @@ export default {
       });
     }
 
-    // === ✅ Field Validation
+    // ✅ Validate and extract
     const name = formData.name || formData.full_name || '';
     const email = formData.email || '';
     const message = formData.message || '';
@@ -75,7 +86,7 @@ export default {
       });
     }
 
-    // === 📩 Prepare Telegram message
+    // 📲 Telegram notification
     const textMessage =
       `🆕 New message from f12.biz:\n` +
       `👤 ${name}\n` +
