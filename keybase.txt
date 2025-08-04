@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/akajedi
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://www.f12.biz
+  * I am akajedi (https://keybase.io/akajedi) on keybase.
+  * I have a public key ASCBz7ub9P59qiqeEj9Qkxq8dhBL1emkV3hTNM4yPf-Yzwo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "012081cfbb9bf4fe7daa2a9e123f50931abc76104bd5e9a457785334ce323dff98cf0a",
+      "host": "keybase.io",
+      "kid": "012081cfbb9bf4fe7daa2a9e123f50931abc76104bd5e9a457785334ce323dff98cf0a",
+      "uid": "e2252067b17da6ddc0b195bbffb6b219",
+      "username": "akajedi"
+    },
+    "merkle_root": {
+      "ctime": 1754342781,
+      "hash": "c2105e90d7023dfa9a5d98e013ec8fe06a9cde03ee323b626ae4b8eca9f19cc0767b92d23490f02d33101b45bef2d9b044f7ad6e4c187f26ad338d5b480c2ad4",
+      "hash_meta": "480899e810f178f3664c5012f371d88a4bee1e41ca902cd0bbc43eae9b6b3bc7",
+      "seqno": 26996329
+    },
+    "service": {
+      "entropy": "r0YSQQ3EOUaxExU6ZQLjgVsy",
+      "hostname": "www.f12.biz",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "6.5.1"
+  },
+  "ctime": 1754342824,
+  "expire_in": 504576000,
+  "prev": "ebb316436478677d2d60e7ed07ad9ec22a2243477f0dc45c722a034106e0f47e",
+  "seqno": 9,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEggc+7m/T+faoqnhI/UJMavHYQS9XppFd4UzTOMj3/mM8Kp3BheWxvYWTESpcCCcQg67MWQ2R4Z30tYOftB62ewioiQ0d/DcRccioDQQbg9H7EINFF9D/GneUhcST/9WUGMd1urUTfY9t0xOOwPcjqacmRAgHCo3NpZ8RAdjWklBHYriN8W8aVSUhlqso6BazAUYS1RhbodLd+Wezx53PsM5il9iMMQPBT0HsfAR8AV0CTRysqRYCybKwUBahzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIDHA/80CgeJ+hHeX2Y+IHxjfj1wcvYw+cB/PIdd+nT+co3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/akajedi
+
+==================================================================
