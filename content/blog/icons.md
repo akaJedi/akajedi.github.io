@@ -1,7 +1,7 @@
 +++
 title = 'Icons'
 date = 2025-02-28T08:05:05+01:00
-draft = false
+draft = true
 featured = true
 weight = 100
 [images]

@@ -1,7 +1,7 @@
 ---
 title: 'Create your own version of the site'
 date: 2025-02-11T14:38:33+02:00
-draft: false
+draft: true
 type: 'blog'
 featured: true
 weight: 10
