@@ -9,6 +9,11 @@ TELEGRAM_TOKEN = "7968924369:AAE5JHDLTvp8oqEHSA--3qC9XPrWBciJE1M"
 TELEGRAM_CHAT_ID = "1837894967"
 
 # Exclude footer section from generating list pages (index.html and index.xml)
+
+[services]
+  [services.disqus]
+    shortname = 'your-disqus-shortname'
+	
 [outputs]
   page = ["HTML"]
   home = ["HTML", "RSS", "JSON"]
