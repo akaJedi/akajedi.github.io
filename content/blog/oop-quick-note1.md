@@ -6,7 +6,7 @@ draft: false
 
 Object-Oriented Programming (OOP) — just writing this down to keep it fresh.
 
-It’s a way of organizing code around *objects* and *classes*. Helps with keeping code readable, reusable, and more structured. Four core ideas I want to remember:
+It’s a way of organizing code around *objects* and *classes*. Helps with keeping code readable, reusable, and more structured.<!--more--> Four core ideas I want to remember:
 
 - **Encapsulation** — hiding what's under the hood, exposing only what needs to be used.
 - **Inheritance** — one class can reuse code/behavior from another. Less duplication.
