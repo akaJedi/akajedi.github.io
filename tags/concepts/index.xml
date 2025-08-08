@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Concepts on</title><link>https://www.f12.biz/tags/concepts/</link><description>Recent content in Concepts on</description><generator>Hugo</generator><language>en</language><lastBuildDate>Thu, 07 Aug 2025 20:35:00 -0700</lastBuildDate><atom:link href="https://www.f12.biz/tags/concepts/index.xml" rel="self" type="application/rss+xml"/><item><title>OOP — Quick Note</title><link>https://www.f12.biz/blog/oop-quick-note/</link><pubDate>Thu, 07 Aug 2025 20:35:00 -0700</pubDate><guid>https://www.f12.biz/blog/oop-quick-note/</guid><description>&lt;p>Object-Oriented Programming (OOP) — just writing this down to keep it fresh.&lt;/p>
+&lt;p>It’s a way of organizing code around &lt;em>objects&lt;/em> and &lt;em>classes&lt;/em>. Helps with keeping code readable, reusable, and more structured. Four core ideas I want to remember:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Encapsulation&lt;/strong> — hiding what&amp;rsquo;s under the hood, exposing only what needs to be used.&lt;/li>
+&lt;li>&lt;strong>Inheritance&lt;/strong> — one class can reuse code/behavior from another. Less duplication.&lt;/li>
+&lt;li>&lt;strong>Polymorphism&lt;/strong> — ability to use different types through the same interface. Cleaner logic.&lt;/li>
+&lt;li>&lt;strong>Abstraction&lt;/strong> — focus only on the essentials, not all the internal stuff.&lt;/li>
+&lt;/ul>
+&lt;p>When done right, OOP keeps things clean and easier to manage as complexity grows.&lt;/p></description></item></channel></rss>
