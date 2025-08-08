@@ -4,7 +4,7 @@ date: 2025-08-03
 draft: false
 ---
 
-🚀 After years of hands-on IT experience, managing infrastructure, supporting teams, and diving deep into DevOps — I finally took time to build something for myself.
+🚀 After years of hands-on IT experience, managing infrastructure, supporting teams, and diving deep into DevOps — I finally took time to build something for myself.<!--more-->
 
 This site is powered by [Hugo](https://gohugo.io), deployed with GitHub Actions, and hosted on GitHub Pages. It’s fast, fully version-controlled, and reflects my belief in clean, automated, and transparent technology.
 
