@@ -1,7 +1,7 @@
 +++
 title = "OOP — Quick Note"
 date = 2025-08-07T20:35:00-07:00
-draft = true
+draft = false
 featured = false
 weight = 100
 description = "Personal summary of object-oriented programming concepts — just a quick refresher for myself."
