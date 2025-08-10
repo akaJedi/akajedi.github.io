@@ -97,102 +97,10 @@ params:
 • Deploying backup, antivirus, monitoring, blade logic, and asset management agents as servers are added into the network
 • Hands on experience with computer forensics, penetration and vulnerability testing tools, and conducting internal audits, vulnerability scanning, firewall, penetration testing
 • Install, diagnose, repair, and upgrade all hardware, applications and equipment, including regulation of any software incidents&lt;/p></description></item><item><title/><link>https://www.f12.biz/experience/software-engineer/</link><pubDate>Thu, 01 Dec 2011 00:00:00 +0100</pubDate><guid>https://www.f12.biz/experience/software-engineer/</guid><description>&lt;p>T3Leads, the leading provider of online lead generation and affiliate network services, specializes in delivering top-notch payday loan leads to the financial industry. With a thriving network of over 10,000 active affiliates, the company operates globally, serving clients in the US, UK, Canada, and Australia.&lt;/p>
-&lt;p>As a PHP Developer at T3Leads, I was responsible for using a variety of technologies to create websites and web applications, and developing user-friendly front- and back-end interfaces using HTML, PHP, CSS, and JavaScript. I was able to work independently with minimal supervision, maintaining a close working relationship with the Executive team.&lt;/p></description></item><item><title>Yurga Technical College of Industry and Law</title><link>https://www.f12.biz/education/ymt/</link><pubDate>Fri, 25 Aug 2000 09:53:42 +0200</pubDate><guid>https://www.f12.biz/education/ymt/</guid><description/></item><item><title>Tomsk State University</title><link>https://www.f12.biz/education/tgu/</link><pubDate>Wed, 25 Aug 1999 09:53:42 +0200</pubDate><guid>https://www.f12.biz/education/tgu/</guid><description/></item><item><title>Footer</title><link>https://www.f12.biz/footer/footer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/footer/footer/</guid><description>&lt;div id="message" style="margin-top:1em;">&lt;/div>
-
-
- 
-
-
-
-
-
- 
-
-
-
-
-
-
- 
- 
-
-
-
-
-
- 
-
-
-
- 
-
-
-
-
- 
-
-
-
- 
-
-
-
-
- 
-
-
-
- 
-
-
-
-
- 
-
-
-
- 
-
-
-
-
-
- 
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
- 
- 
- 
- 
-
-
-
-
-
-
-
- 
- 
- 
-
-
-&lt;section id="contact" class="section section--contact pt-0">
+&lt;p>As a PHP Developer at T3Leads, I was responsible for using a variety of technologies to create websites and web applications, and developing user-friendly front- and back-end interfaces using HTML, PHP, CSS, and JavaScript. I was able to work independently with minimal supervision, maintaining a close working relationship with the Executive team.&lt;/p></description></item><item><title>Yurga Technical College of Industry and Law</title><link>https://www.f12.biz/education/ymt/</link><pubDate>Fri, 25 Aug 2000 09:53:42 +0200</pubDate><guid>https://www.f12.biz/education/ymt/</guid><description/></item><item><title>Tomsk State University</title><link>https://www.f12.biz/education/tgu/</link><pubDate>Wed, 25 Aug 1999 09:53:42 +0200</pubDate><guid>https://www.f12.biz/education/tgu/</guid><description/></item><item><title>Footer</title><link>https://www.f12.biz/footer/footer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/footer/footer/</guid><description>&lt;section id="contact" class="section section--contact pt-0">
  &lt;div class="container">
  &lt;div class="contact w-100">
  &lt;h2>Reach out&lt;/h2>
-
  &lt;div class="row pt-2">
  &lt;div class="col-12 col-lg-7">
  &lt;form action="https://green-rice-1ea7.denis-f21.workers.dev" method="POST" class="contact__form">
@@ -219,6 +127,7 @@ params:
  &lt;button type="submit" class="btn btn-primary">Send message&lt;/button>
  &lt;/div>
  &lt;/div>
+ &lt;div id="message" style="margin-top: 20px;">&lt;/div>
  &lt;/form>
  &lt;/div>
  &lt;div class="col-12 col-lg-5 contact__info">
@@ -279,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
  }
  });
 });
-&lt;/script></description></item><item><title>Home</title><link>https://www.f12.biz/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/home/home/</guid><description>&lt;section id="about" class="section rad-animation-group pb-0">
+&lt;/script></description></item><item><title>Home</title><link>https://www.f12.biz/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/home/home/</guid><description>&lt;section id="about" class="section rad-animation-group pb-0" style="padding-top: 120px;">
  &lt;div class="rad-fade-down">
  &lt;div class="row d-flex flex-column-reverse flex-md-row">
  &lt;div class="about__profile-picture col-12 col-md-6">
@@ -307,14 +216,14 @@ document.addEventListener("DOMContentLoaded", function () {
  
  
 
- &lt;source srcset="./images/about/user-picture_hu_c3b7b6ea83b51435.webp 1x, ./images/about/user-picture_hu_d7801b9edf4dc93e.webp 2x" type="image/webp" />
- &lt;source srcset="./images/about/user-picture_hu_37558d2316509883.png 1x, ./images/about/user-picture_hu_cf527af17c9c9268.png 2x" type="image/png">
+ &lt;source srcset="./images/about/user-picture_hu_2a1801c65392f235.webp 1x, ./images/about/user-picture_hu_71e08f66f9f3ea4a.webp 2x" type="image/webp" />
+ &lt;source srcset="./images/about/user-picture_hu_6dd6f9b7007bd154.png 1x, ./images/about/user-picture_hu_dcaaa4d8cca2fa34.png 2x" type="image/png">
 
  &lt;img
- width="561"
+ width="619"
  height="535"
  class="lozad img-responsive image-left-overflow"
- data-src="./images/about/user-picture_hu_37558d2316509883.png"
+ data-src="./images/about/user-picture_hu_6dd6f9b7007bd154.png"
  alt=''
  src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
  loading="lazy"
@@ -324,7 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
  &lt;/div>
  &lt;div class="col-12 col-md-6 my-auto">
- &lt;h1>Who am I?&lt;/h1>
+ &lt;h1>DevOps &amp;amp; Platform Engineer&lt;/h1>
  &lt;div class="about-me content lead">
  &lt;/br>&lt;/br>Based in Valencia, California US, I specialize in IT infrastructure, support, and cloud operations—helping organizations scale with reliability and security. Most recently, I led the full technical integration of Praedicat into Moody’s, overseeing system migrations, decommissions, and compliance alignment. With a hands-on approach and a focus on clarity, automation, and cross-team collaboration, I bring over 15 years of experience across enterprise IT, security, and user support. I'm passionate about building systems that are stable, secure, and built to last—while fostering collaboration between people, processes, and platforms.
  &lt;/div>
@@ -599,7 +508,7 @@ I demonstrated a high level of technical skill, as well as strong interpersonal 
  
  &lt;div class="col-12 col-lg-4">
  &lt;a
- href='https://www.linkedin.com/in/adrianmoreno/'
+ href='https://www.linkedin.com/in/denistolochko/'
  class="btn btn-primary btn-block w-100"
  target="_blank"
  rel="noopener noreferrer"
@@ -633,7 +542,7 @@ I demonstrated a high level of technical skill, as well as strong interpersonal 
  rel="noopener noreferrer"
  >
  
- View all
+ View Portfolio
  &lt;/a>
  &lt;/div>
  

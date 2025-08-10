@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title/><link>https://www.f12.biz/ru/</link><description>Recent content on</description><generator>Hugo</generator><language>ru</language><lastBuildDate>Mon, 01 Jan 0001 00:00:00 +0000</lastBuildDate><atom:link href="https://www.f12.biz/ru/index.xml" rel="self" type="application/rss+xml"/><item><title>Главная</title><link>https://www.f12.biz/ru/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/home/home/</guid><description>&lt;section id="about" class="section rad-animation-group pb-0">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title/><link>https://www.f12.biz/ru/</link><description>Recent content on</description><generator>Hugo</generator><language>ru</language><lastBuildDate>Mon, 01 Jan 0001 00:00:00 +0000</lastBuildDate><atom:link href="https://www.f12.biz/ru/index.xml" rel="self" type="application/rss+xml"/><item><title>Главная</title><link>https://www.f12.biz/ru/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/home/home/</guid><description>&lt;section id="about" class="section rad-animation-group pb-0" style="padding-top: 120px;">
  &lt;div class="rad-fade-down">
  &lt;div class="row d-flex flex-column-reverse flex-md-row">
  &lt;div class="about__profile-picture col-12 col-md-6">
@@ -26,14 +26,14 @@
  
  
 
- &lt;source srcset="../images/about/user-picture_hu_c3b7b6ea83b51435.webp 1x, ../images/about/user-picture_hu_d7801b9edf4dc93e.webp 2x" type="image/webp" />
- &lt;source srcset="../images/about/user-picture_hu_37558d2316509883.png 1x, ../images/about/user-picture_hu_cf527af17c9c9268.png 2x" type="image/png">
+ &lt;source srcset="../images/about/user-picture_hu_2a1801c65392f235.webp 1x, ../images/about/user-picture_hu_71e08f66f9f3ea4a.webp 2x" type="image/webp" />
+ &lt;source srcset="../images/about/user-picture_hu_6dd6f9b7007bd154.png 1x, ../images/about/user-picture_hu_dcaaa4d8cca2fa34.png 2x" type="image/png">
 
  &lt;img
- width="561"
+ width="619"
  height="535"
  class="lozad img-responsive image-left-overflow"
- data-src="../images/about/user-picture_hu_37558d2316509883.png"
+ data-src="../images/about/user-picture_hu_6dd6f9b7007bd154.png"
  alt=''
  src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
  loading="lazy"
@@ -169,7 +169,7 @@
  
  &lt;div class="col-12 col-lg-4">
  &lt;a
- href='https://www.linkedin.com/in/adrianmoreno/'
+ href='https://www.linkedin.com/in/denistolochko/'
  class="btn btn-primary btn-block w-100"
  target="_blank"
  rel="noopener noreferrer"
@@ -203,7 +203,7 @@
  rel="noopener noreferrer"
  >
  
- View all
+ View Portfolio
  &lt;/a>
  &lt;/div>
  
