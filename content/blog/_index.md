@@ -4,6 +4,8 @@ date: 2025-01-15
 draft: false
 ---
 
-This section comes from the `_index.md` file in the `blog` folder — easy to customize or remove.Here I’ll be sharing personal updates, project notes, and thoughts on tech and career. All posts live in the same `blog/` folder and are written in Markdown for simplicity and ease of use.
-Hugo also supports other content formats and translations, so I may add posts in multiple languages later on.
-Stay tuned for more!
+Here I share practical DevOps insights, project walkthroughs, and career reflections — from cloud infrastructure builds and CI/CD automation tips to lessons learned in real-world system migrations.
+
+Expect a mix of hands-on tutorials, architecture breakdowns, and occasional personal updates from my journey in tech. All posts are written in Markdown for simplicity, and I may publish in multiple languages when the topic calls for it.
+
+If you’re into AWS, Kubernetes, Terraform, automation pipelines, and reliability engineering, you’ll feel right at home here.
