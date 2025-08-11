@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
  }
  });
 });
-&lt;/script></description></item><item><title>Home</title><link>https://www.f12.biz/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/home/home/</guid><description>&lt;section id="about" class="section rad-animation-group pb-0" style="padding-top: 120px;">
+&lt;/script></description></item><item><title>Home</title><link>https://www.f12.biz/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/home/home/</guid><description>&lt;section id="about" class="section rad-animation-group pb-0">
  &lt;div class="rad-fade-down">
  &lt;div class="row d-flex flex-column-reverse flex-md-row">
  &lt;div class="about__profile-picture col-12 col-md-6">
@@ -216,14 +216,14 @@ document.addEventListener("DOMContentLoaded", function () {
  
  
 
- &lt;source srcset="./images/about/user-picture_hu_2a1801c65392f235.webp 1x, ./images/about/user-picture_hu_71e08f66f9f3ea4a.webp 2x" type="image/webp" />
- &lt;source srcset="./images/about/user-picture_hu_6dd6f9b7007bd154.png 1x, ./images/about/user-picture_hu_dcaaa4d8cca2fa34.png 2x" type="image/png">
+ &lt;source srcset="./images/about/user-picture_hu_fc3e9e9341acbb8b.webp 1x, ./images/about/user-picture_hu_7d59327749649457.webp 2x" type="image/webp" />
+ &lt;source srcset="./images/about/user-picture_hu_b0166363c2aff9d1.png 1x, ./images/about/user-picture_hu_ae1a81640fd169dc.png 2x" type="image/png">
 
  &lt;img
- width="619"
- height="535"
+ width="866"
+ height="749"
  class="lozad img-responsive image-left-overflow"
- data-src="./images/about/user-picture_hu_6dd6f9b7007bd154.png"
+ data-src="./images/about/user-picture_hu_b0166363c2aff9d1.png"
  alt=''
  src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
  loading="lazy"
@@ -233,11 +233,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
  &lt;/div>
  &lt;div class="col-12 col-md-6 my-auto">
- &lt;h1>DevOps &amp;amp; Platform Engineer&lt;/h1>
+ &lt;h1>Sr. DevOps / Platform Engineer&lt;/h1>
  &lt;div class="about-me content lead">
- &lt;/br>&lt;/br>Based in Valencia, California US, I specialize in IT infrastructure, support, and cloud operations—helping organizations scale with reliability and security. Most recently, I led the full technical integration of Praedicat into Moody’s, overseeing system migrations, decommissions, and compliance alignment. With a hands-on approach and a focus on clarity, automation, and cross-team collaboration, I bring over 15 years of experience across enterprise IT, security, and user support. I'm passionate about building systems that are stable, secure, and built to last—while fostering collaboration between people, processes, and platforms.
+ Based in Valencia, California, I help teams ship faster and safer by turning infrastructure into code and delivery into predictable pipelines. With 15+ years across enterprise IT—servers, networks, identity, and security—I focus on DevOps and platform engineering:— building reliable, observable, and cost-aware systems that scale. Core stack: AWS and Azure; Terraform and Ansible for IaC; Docker and Kubernetes for workloads; GitHub Actions and Jenkins for CI/CD; SSO and IAM with least-privilege access; AD and GPO for secure baselines on Windows, macOS, and Linux. I specialize in clean cutovers and steady modernization: codifying platforms, adopting GitOps practices, and adding guardrails such as policy as code, mandatory reviews, and promotion from dev to prod. I harden identity and endpoints, automate onboarding and offboarding, and make costs predictable through rightsizing, scheduled scaling, and budgets with alerts. Observability from day one—logs, metrics, and traces at every stage. My approach is repeatable: map the current state, define the target, codify it with IaC and pipelines, instrument it, document it, and transfer ownership. I favor small, reversible changes, strong version control, and collaboration across development, IT, and security. The result is a platform engineers enjoy using: self-service golden paths, clear docs, and feedback loops that improve deployment speed, reliability, and security while controlling cost. Open to senior DevOps and platform roles as well as select consulting on CI/CD bootstraps, Terraform landing zones, identity hardening, observability rollouts, and cost reviews.
  &lt;/div>
  
+ &lt;script id="setmore_script" type="text/javascript" src="https://assets.setmore.com/integration/static/setmoreIframeLive.js">&lt;/script>&lt;a style="float: none" id="Setmore_button_iframe" href="https://f12.setmore.com">&lt;img border="none" src="https://assets.setmore.com/integration/images/newdesign/others/book-now-button.svg" alt="Book an appointment with Denis Tolochko" />&lt;/a>
  &lt;/div>
  &lt;/div>
  &lt;/div>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title/><link>https://www.f12.biz/ru/</link><description>Recent content on</description><generator>Hugo</generator><language>ru</language><lastBuildDate>Mon, 01 Jan 0001 00:00:00 +0000</lastBuildDate><atom:link href="https://www.f12.biz/ru/index.xml" rel="self" type="application/rss+xml"/><item><title>Главная</title><link>https://www.f12.biz/ru/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/home/home/</guid><description>&lt;section id="about" class="section rad-animation-group pb-0" style="padding-top: 120px;">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title/><link>https://www.f12.biz/ru/</link><description>Recent content on</description><generator>Hugo</generator><language>ru</language><lastBuildDate>Mon, 01 Jan 0001 00:00:00 +0000</lastBuildDate><atom:link href="https://www.f12.biz/ru/index.xml" rel="self" type="application/rss+xml"/><item><title>Главная</title><link>https://www.f12.biz/ru/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/home/home/</guid><description>&lt;section id="about" class="section rad-animation-group pb-0">
  &lt;div class="rad-fade-down">
  &lt;div class="row d-flex flex-column-reverse flex-md-row">
  &lt;div class="about__profile-picture col-12 col-md-6">
@@ -48,6 +48,7 @@
  &lt;/br>&lt;/br>Живу в Валенсии, штат Калифорния (США). Моя специализация — IT-инфраструктура, техническая поддержка и облачные решения. Помогаю компаниям надёжно масштабироваться и обеспечивать стабильную работу систем. Недавно я возглавлял техническую интеграцию Praedicat в Moody’s: руководил миграцией систем, выводом оборудования из эксплуатации и приведением IT-среды в соответствие требованиям безопасности и комплаенса. Работаю с упором на практическое решение задач, автоматизацию и прозрачное взаимодействие между командами. У меня более 15 лет опыта в корпоративных IT, кибербезопасности и пользовательской поддержке. Мне важно строить стабильные и защищённые системы, которые служат долго, объединяя людей, процессы и технологии.
  &lt;/div>
  
+ &lt;script id="setmore_script" type="text/javascript" src="https://assets.setmore.com/integration/static/setmoreIframeLive.js">&lt;/script>&lt;a style="float: none" id="Setmore_button_iframe" href="https://f12.setmore.com">&lt;img border="none" src="https://assets.setmore.com/integration/images/newdesign/others/book-now-button.svg" alt="Book an appointment with Denis Tolochko" />&lt;/a>
  &lt;/div>
  &lt;/div>
  &lt;/div>
