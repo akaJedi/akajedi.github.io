@@ -8,11 +8,11 @@ draft = false
 
 {{< about-section
     title=""
-    content="</br></br>Based in Valencia, California US, I specialize in IT infrastructure, support, and cloud operations—helping organizations scale with reliability and security. Most recently, I led the full technical integration of Praedicat into Moody’s, overseeing system migrations, decommissions, and compliance alignment. With a hands-on approach and a focus on clarity, automation, and cross-team collaboration, I bring over 15 years of experience across enterprise IT, security, and user support. I'm passionate about building systems that are stable, secure, and built to last—while fostering collaboration between people, processes, and platforms."
+    content="Based in Valencia, California, I help teams ship faster and safer by turning infrastructure into code and delivery into predictable pipelines. With 15+ years across enterprise IT—servers, networks, identity, and security—I focus on DevOps and platform engineering:— building reliable, observable, and cost-aware systems that scale. Core stack: AWS and Azure; Terraform and Ansible for IaC; Docker and Kubernetes for workloads; GitHub Actions and Jenkins for CI/CD; SSO and IAM with least-privilege access; AD and GPO for secure baselines on Windows, macOS, and Linux. I specialize in clean cutovers and steady modernization: codifying platforms, adopting GitOps practices, and adding guardrails such as policy as code, mandatory reviews, and promotion from dev to prod. I harden identity and endpoints, automate onboarding and offboarding, and make costs predictable through rightsizing, scheduled scaling, and budgets with alerts. Observability from day one—logs, metrics, and traces at every stage. My approach is repeatable: map the current state, define the target, codify it with IaC and pipelines, instrument it, document it, and transfer ownership. I favor small, reversible changes, strong version control, and collaboration across development, IT, and security. The result is a platform engineers enjoy using: self-service golden paths, clear docs, and feedback loops that improve deployment speed, reliability, and security while controlling cost. Open to senior DevOps and platform roles as well as select consulting on CI/CD bootstraps, Terraform landing zones, identity hardening, observability rollouts, and cost reviews."
     button_icon="icon-user"
     button_url="/skills"
     imgSrc="images/about/user-picture.png"
-    imgScale="0.5"
+    imgScale="0.7"
     text_align="center"
  >}}
  
@@ -24,7 +24,6 @@ draft = false
 
 {{< education-list
     title="Education" 
-
 >}}
 
 {{< experience-section

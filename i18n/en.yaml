@@ -1,10 +1,10 @@
 ## Meta tags
 - id: "meta_title"
-  translation: "Denis Tolochko | Senior IT & Infrastructure Specialist – Cloud, Support, DevOps"
+  translation: "Senior DevOps & Platform Engineer — Denis Tolochko"
 - id: "meta_description"
-  translation: "Senior IT professional with 15+ years of experience in infrastructure, support, cloud operations, and DevOps. Based in California, open to remote and hybrid roles."
+  translation: "DevOps/Platform engineer in Valencia, CA. AWS, Terraform, Kubernetes; CI/CD with GitHub Actions/Jenkins; SSO/IAM. Building reliable, secure, cost-aware systems."
 - id: "meta_keywords"
-  translation: "Denis Tolochko, Senior IT Technician, Senior Systems Administrator, IT Infrastructure Engineer, Cloud Operations Specialist, IT Support Engineer, DevOps Support, IT Governance Analyst, AWS Systems Engineer, Microsoft 365 Admin, Infrastructure Decommissioning, Hybrid IT Support, Remote IT Engineer, Technical Support Analyst, Praedicat Moody's Migration, Data Center Operations, Linux Windows macOS Admin, Python Automation Scripts, Technical Documentation, Santa Clarita IT Specialist, Valencia California IT Jobs, Freelance IT Support California, Remote Systems Administrator, Hugo DevOps Portfolio"
+  translation: "DevOps, Platform Engineering, AWS, Azure, Terraform, Ansible, Kubernetes, Docker, CI/CD, GitHub Actions, Jenkins, SSO, IAM, Observability, Prometheus, Grafana, CloudWatch, Infrastructure as Code, Site Reliability, Windows, macOS, Linux, Valencia CA, Volutetech, Denis Tolochko"
 - id: "meta_author"
   translation: "Denis Tolochko"
 - id: "meta_image"
@@ -92,4 +92,6 @@
 
 ## Homepage about
 - id: "about_title"
-  translation: "DevOps & Platform Engineer"
+  translation: "Sr. DevOps / Platform Engineer"
+- id: "about_subtitle"
+  translation: "AWS • IaC • CI/CD • Security"

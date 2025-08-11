@@ -75,7 +75,7 @@
   {{ $sectionId = . }}
 {{ end }}
 
-<section {{if $sectionId}} id="{{ $sectionId }}"{{end}} class="section rad-animation-group pb-0" style="padding-top: 120px;">
+<section {{if $sectionId}} id="{{ $sectionId }}"{{end}} class="section rad-animation-group pb-0">
   <div class="rad-fade-down">
     <div class="row d-flex flex-column-reverse flex-md-row">
       <div class="about__profile-picture col-12 col-md-6">
@@ -92,6 +92,7 @@
             {{ $btnText }}
           </a>
         {{ end }}
+        <script id="setmore_script" type="text/javascript" src="https://assets.setmore.com/integration/static/setmoreIframeLive.js"></script><a style="float: none" id="Setmore_button_iframe" href="https://f12.setmore.com"><img border="none" src="https://assets.setmore.com/integration/images/newdesign/others/book-now-button.svg" alt="Book an appointment with Denis Tolochko" /></a>
       </div>
     </div>
   </div>

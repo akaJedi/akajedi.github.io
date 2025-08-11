@@ -155,7 +155,7 @@ weight = 3
 #  weight = 4
 
 [[languages.en.menus.header]]
-name = "Notes"
+name = "Blog"
 URL = "/blog"
 weight = 5
 
@@ -272,8 +272,8 @@ URL = "scss/adritian.scss"
     theme = "light"
 
 [params.colorTheme.selector.disable]
-footer = true
-header = true
+footer = false
+header = false
 mobileHeader = true
 ## by default we allow override AND automatic selection
 
