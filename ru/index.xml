@@ -26,14 +26,14 @@
  
  
 
- &lt;source srcset="../images/about/user-picture_hu_2a1801c65392f235.webp 1x, ../images/about/user-picture_hu_71e08f66f9f3ea4a.webp 2x" type="image/webp" />
- &lt;source srcset="../images/about/user-picture_hu_6dd6f9b7007bd154.png 1x, ../images/about/user-picture_hu_dcaaa4d8cca2fa34.png 2x" type="image/png">
+ &lt;source srcset="../images/about/user-picture_hu_9dd183a9eb851e21.webp 1x, ../images/about/user-picture_hu_f7806c10415993e1.webp 2x" type="image/webp" />
+ &lt;source srcset="../images/about/user-picture_hu_669cd4b7772405e3.png 1x, ../images/about/user-picture_hu_6f3af1b5e40d3ac7.png 2x" type="image/png">
 
  &lt;img
  width="619"
  height="535"
  class="lozad img-responsive image-left-overflow"
- data-src="../images/about/user-picture_hu_6dd6f9b7007bd154.png"
+ data-src="../images/about/user-picture_hu_669cd4b7772405e3.png"
  alt=''
  src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
  loading="lazy"
