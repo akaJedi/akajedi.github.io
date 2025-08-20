@@ -303,7 +303,7 @@ showJobCard = false # Set to false to hide the job card
       unsafe = true
   [markup.highlight]
     lineNos = false
-    style = "github"
+    style = "dracula"
   [markup.goldmark.parser]
     attribute = true
 

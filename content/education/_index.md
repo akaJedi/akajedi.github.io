@@ -1,23 +1,3 @@
-{{- $contextType := printf "%T" . -}}
-{{- $isShortcode := (eq $contextType "*hugolib.ShortcodeWithPage") -}}
-
-{{/*
-  sectionId: Optional argument to override the default HTML id for this section. If not provided, the default id is used. */}}
-{{ $sectionId := "education" }}
-{{ with .Get "sectionId" }}
-  {{ $sectionId = . }}
-{{ end }}
-
-{{- /* Title */}}
-{{- $title := "" -}}
-
-{{- if $isShortcode }}
-  {{- $title = .Get "title" | default ( i18n "education_title" ) -}}
-{{ else }}
-  {{- $title = i18n "education_title" -}}
-{{ end }}
-
-
 
 <section
   id="{{ $sectionId }}"

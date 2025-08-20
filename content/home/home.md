@@ -16,6 +16,7 @@ draft = false
 
 {{< education-list
     title="Education" 
+    content="k"
 >}}
 
 {{< experience-section
