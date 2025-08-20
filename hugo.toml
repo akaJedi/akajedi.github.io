@@ -304,6 +304,9 @@ showJobCard = false # Set to false to hide the job card
   [markup.highlight]
     lineNos = false
     style = "github"
+  [markup.goldmark.parser]
+    attribute = true
+
 
 [imaging]
   resampleFilter = "Lanczos"

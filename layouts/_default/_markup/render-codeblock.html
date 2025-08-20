@@ -1,0 +1,35 @@
+{{/* get the code language; .Type is provided by Hugo for code blocks */}}
+{{- $lang := .Type | default "text" -}}
+{{- $html := highlight .Inner $lang "" -}}
+
+<div class="codewrap" data-lang="{{ $lang }}">
+  {{- with .Attributes.title -}}
+    <div class="code-title">{{ . }}</div>
+  {{- end -}}
+  <button class="code-copy" type="button" aria-label="Copy code">Copy</button>
+  {{ $html | safeHTML }}
+</div>
+
+{{- if not (.Page.Scratch.Get "codecopy_injected") -}}
+  <style>
+    .codewrap{position:relative;margin:1rem 0}
+    .code-title{font:600 .9rem/1.2 system-ui;margin:0 0 .35rem .1rem;opacity:.8}
+    .codewrap pre{padding:1rem 2.6rem 1rem 1rem;overflow:auto}
+    .code-copy{position:absolute;top:.4rem;right:.4rem;border:0;padding:.35rem .6rem;
+      font:500 .85rem/1 system-ui;border-radius:.4rem;cursor:pointer;opacity:.8}
+    .code-copy:active{transform:scale(.98)}
+  </style>
+  <script>
+    document.addEventListener('click', (e) => {
+      if (!e.target.classList.contains('code-copy')) return;
+      const pre = e.target.parentElement.querySelector('pre');
+      const text = pre ? pre.innerText : '';
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = e.target, old = btn.textContent;
+        btn.textContent = 'Copied';
+        setTimeout(() => btn.textContent = old, 1200);
+      });
+    });
+  </script>
+  {{- .Page.Scratch.Set "codecopy_injected" true -}}
+{{- end -}}

@@ -83,9 +83,10 @@
       </div>
       <div class="col-12 col-md-6{{ if eq $vAlign "center" }} my-auto{{ else if eq $vAlign "top" }} align-self-start{{ else if eq $vAlign "bottom" }} align-self-end{{ end }}{{ if eq $hAlign "center" }} text-center{{ else if eq $hAlign "right" }} text-end{{ end }}">
         <h1>{{ $title }}</h1>
-        <div class="about-me content lead">
-          {{ $content }}
-        </div>
+<div class="about-me content lead" id="bio">
+  {{ $content }}
+</div>
+
         {{ if $btnText }}
           <a href="{{ $btnURL | absURL }}" target="_blank" class="btn btn-primary">
             <i class="{{ $btnIcon }}"></i>
@@ -97,3 +98,9 @@
     </div>
   </div>
 </section>
+
+<script>
+  document.getElementById("bio").addEventListener("click", function() {
+    this.classList.toggle("expanded");
+  });
+</script>
