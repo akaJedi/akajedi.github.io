@@ -3,7 +3,7 @@ The content you see here comes from the contents of the &lt;code>content/project
 &lt;p>This project is in the file &lt;code>projects/swiss-fintech.md&lt;/code>.&lt;/p>
 &lt;p>In the markdown file frontmatter you can also define additional parameters, such as the link:&lt;/p>
 &lt;div class="codewrap" data-lang="text">&lt;button class="code-copy" type="button" aria-label="Copy code">Copy&lt;/button>
- &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-text" data-lang="text">&lt;span style="display:flex;">&lt;span>link: &amp;#34;https://www.adrianmoreno.info&amp;#34; # optional URL to link the logo to
+ &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-text" data-lang="text">&lt;span style="display:flex;">&lt;span>link: &amp;#34;https://www.adrianmoreno.info&amp;#34; # optional URL to link the logo to
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>params:
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> button:

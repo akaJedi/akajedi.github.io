@@ -11,48 +11,48 @@ Here’s a simple end-to-end example using AWS S3."><meta property="og:locale" c
 🌑 Dark
 <span class="theme-icon dark d-none" aria-hidden=true></span></button></li><li><button type=button class="dropdown-item d-flex align-items-center" data-bs-theme-value=auto aria-pressed=false>
 ✨ Auto
-<span class="theme-icon light d-none" aria-hidden=true></span></button></li></ul></div></li></ul></div></div></nav></div></header><section id=breadcrumb-bar class="breadcrumb-bar container"><ul class="breadcrumbs d-print-none"><li class=breadcrum-item><span><a href=../../>Home</a></span></li><li class=breadcrum-item><span><a href=../../blog>Blog</a></span></li><li class="breadcrum-item current">Code Snippet</li></ul></section><main class=container><section id=blog-single class="blog-single section section--border-bottom rad-animation-group flex-grow-1"><div id=main-content><h1><a href=../../blog/code-snippet/>Code Snippet</a></h1><aside id=meta class=light-border-bottom><div><section>Published on<h4 id=date>Tue Aug 19, 2025</h4>·<h4 id=wordcount>125 Words</h4></section></div></aside><div class="row flex-column-reverse flex-md-row rad-fade-down"><div class=col-12><p>Terraform lets you preview, deploy, and clean up infrastructure with just a few commands.<br>Here’s a simple end-to-end example using AWS S3.</p><div class=codewrap data-lang=bash><button class=code-copy type=button aria-label="Copy code">Copy</button><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#57606a># 1. Create project folder</span>
-</span></span><span style=display:flex><span>mkdir terraform-demo <span style=color:#0550ae>&amp;&amp;</span> <span style=color:#6639ba>cd</span> terraform-demo
+<span class="theme-icon light d-none" aria-hidden=true></span></button></li></ul></div></li></ul></div></div></nav></div></header><section id=breadcrumb-bar class="breadcrumb-bar container"><ul class="breadcrumbs d-print-none"><li class=breadcrum-item><span><a href=../../>Home</a></span></li><li class=breadcrum-item><span><a href=../../blog>Blog</a></span></li><li class="breadcrum-item current">Code Snippet</li></ul></section><main class=container><section id=blog-single class="blog-single section section--border-bottom rad-animation-group flex-grow-1"><div id=main-content><h1><a href=../../blog/code-snippet/>Code Snippet</a></h1><aside id=meta class=light-border-bottom><section></br>Published on :<h4 id=date>Tue Aug 19, 2025</h4>·<h4 id=wordcount>125 Words</h4></br></br></section></aside><div class="row flex-column-reverse flex-md-row rad-fade-down"><div class=col-12><p>Terraform lets you preview, deploy, and clean up infrastructure with just a few commands.<br>Here’s a simple end-to-end example using AWS S3.</p><div class=codewrap data-lang=bash><button class=code-copy type=button aria-label="Copy code">Copy</button><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#6272a4># 1. Create project folder</span>
+</span></span><span style=display:flex><span>mkdir terraform-demo <span style=color:#ff79c6>&amp;&amp;</span> <span style=color:#8be9fd;font-style:italic>cd</span> terraform-demo
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#57606a># 2. Create main.tf with this content:</span>
-</span></span><span style=display:flex><span>cat &gt; main.tf <span style=color:#0a3069>&lt;&lt;&#39;EOF&#39;
-</span></span></span><span style=display:flex><span><span style=color:#0a3069>terraform {
-</span></span></span><span style=display:flex><span><span style=color:#0a3069>  required_version = &#34;&gt;= 1.6.0&#34;
-</span></span></span><span style=display:flex><span><span style=color:#0a3069>  required_providers {
-</span></span></span><span style=display:flex><span><span style=color:#0a3069>    aws = {
-</span></span></span><span style=display:flex><span><span style=color:#0a3069>      source  = &#34;hashicorp/aws&#34;
-</span></span></span><span style=display:flex><span><span style=color:#0a3069>      version = &#34;&gt;= 5.0&#34;
-</span></span></span><span style=display:flex><span><span style=color:#0a3069>    }
-</span></span></span><span style=display:flex><span><span style=color:#0a3069>  }
-</span></span></span><span style=display:flex><span><span style=color:#0a3069>}
-</span></span></span><span style=display:flex><span><span style=color:#0a3069>
-</span></span></span><span style=display:flex><span><span style=color:#0a3069>provider &#34;aws&#34; {
-</span></span></span><span style=display:flex><span><span style=color:#0a3069>  region = &#34;us-west-2&#34;
-</span></span></span><span style=display:flex><span><span style=color:#0a3069>}
-</span></span></span><span style=display:flex><span><span style=color:#0a3069>
-</span></span></span><span style=display:flex><span><span style=color:#0a3069>resource &#34;aws_s3_bucket&#34; &#34;demo&#34; {
-</span></span></span><span style=display:flex><span><span style=color:#0a3069>  bucket = &#34;demo-${random_id.suffix.hex}&#34;
-</span></span></span><span style=display:flex><span><span style=color:#0a3069>}
-</span></span></span><span style=display:flex><span><span style=color:#0a3069>
-</span></span></span><span style=display:flex><span><span style=color:#0a3069>resource &#34;random_id&#34; &#34;suffix&#34; {
-</span></span></span><span style=display:flex><span><span style=color:#0a3069>  byte_length = 2
-</span></span></span><span style=display:flex><span><span style=color:#0a3069>}
-</span></span></span><span style=display:flex><span><span style=color:#0a3069>EOF</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># 2. Create main.tf with this content:</span>
+</span></span><span style=display:flex><span>cat &gt; main.tf <span style=color:#f1fa8c>&lt;&lt;&#39;EOF&#39;
+</span></span></span><span style=display:flex><span><span style=color:#f1fa8c>terraform {
+</span></span></span><span style=display:flex><span><span style=color:#f1fa8c>  required_version = &#34;&gt;= 1.6.0&#34;
+</span></span></span><span style=display:flex><span><span style=color:#f1fa8c>  required_providers {
+</span></span></span><span style=display:flex><span><span style=color:#f1fa8c>    aws = {
+</span></span></span><span style=display:flex><span><span style=color:#f1fa8c>      source  = &#34;hashicorp/aws&#34;
+</span></span></span><span style=display:flex><span><span style=color:#f1fa8c>      version = &#34;&gt;= 5.0&#34;
+</span></span></span><span style=display:flex><span><span style=color:#f1fa8c>    }
+</span></span></span><span style=display:flex><span><span style=color:#f1fa8c>  }
+</span></span></span><span style=display:flex><span><span style=color:#f1fa8c>}
+</span></span></span><span style=display:flex><span><span style=color:#f1fa8c>
+</span></span></span><span style=display:flex><span><span style=color:#f1fa8c>provider &#34;aws&#34; {
+</span></span></span><span style=display:flex><span><span style=color:#f1fa8c>  region = &#34;us-west-2&#34;
+</span></span></span><span style=display:flex><span><span style=color:#f1fa8c>}
+</span></span></span><span style=display:flex><span><span style=color:#f1fa8c>
+</span></span></span><span style=display:flex><span><span style=color:#f1fa8c>resource &#34;aws_s3_bucket&#34; &#34;demo&#34; {
+</span></span></span><span style=display:flex><span><span style=color:#f1fa8c>  bucket = &#34;demo-${random_id.suffix.hex}&#34;
+</span></span></span><span style=display:flex><span><span style=color:#f1fa8c>}
+</span></span></span><span style=display:flex><span><span style=color:#f1fa8c>
+</span></span></span><span style=display:flex><span><span style=color:#f1fa8c>resource &#34;random_id&#34; &#34;suffix&#34; {
+</span></span></span><span style=display:flex><span><span style=color:#f1fa8c>  byte_length = 2
+</span></span></span><span style=display:flex><span><span style=color:#f1fa8c>}
+</span></span></span><span style=display:flex><span><span style=color:#f1fa8c>EOF</span>
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#57606a># 3. Initialize project</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># 3. Initialize project</span>
 </span></span><span style=display:flex><span>terraform init
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#57606a># 4. Preview changes</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># 4. Preview changes</span>
 </span></span><span style=display:flex><span>terraform plan
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#57606a># 5. Apply changes</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># 5. Apply changes</span>
 </span></span><span style=display:flex><span>terraform apply -auto-approve
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#57606a># 6. Verify resource</span>
-</span></span><span style=display:flex><span>aws s3 ls <span style=color:#1f2328>|</span> grep demo
+</span></span><span style=display:flex><span><span style=color:#6272a4># 6. Verify resource</span>
+</span></span><span style=display:flex><span>aws s3 ls | grep demo
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#57606a># 7. Clean up</span>
-</span></span><span style=display:flex><span>terraform destroy -auto-approve</span></span></code></pre></div></div><style>.codewrap{position:relative;margin:1rem 0}.code-title{font:600 .9rem/1.2 system-ui;margin:0 0 .35rem .1rem;opacity:.8}.codewrap pre{padding:1rem 2.6rem 1rem 1rem;overflow:auto}.code-copy{position:absolute;top:.4rem;right:.4rem;border:0;padding:.35rem .6rem;font:500 .85rem/1 system-ui;border-radius:.4rem;cursor:pointer;opacity:.8}.code-copy:active{transform:scale(.98)}</style><script>document.addEventListener("click",e=>{if(!e.target.classList.contains("code-copy"))return;const t=e.target.parentElement.querySelector("pre"),n=t?t.innerText:"";navigator.clipboard.writeText(n).then(()=>{const t=e.target,n=t.textContent;t.textContent="Copied",setTimeout(()=>t.textContent=n,1200)})})</script></div></div><aside class="content-browser light-border-top">Continue reading<div><a class=previous href=../../blog/oop-quick-note/>↩ OOP — Quick Note</a>
+</span></span><span style=display:flex><span><span style=color:#6272a4># 7. Clean up</span>
+</span></span><span style=display:flex><span>terraform destroy -auto-approve</span></span></code></pre></div></div><style>.codewrap{position:relative;margin:1rem 0}.code-title{font:600 .9rem/1.2 system-ui;margin:0 0 .35rem .1rem;opacity:.8}.codewrap pre{padding:1rem 2.6rem 1rem 1rem;overflow:auto}.code-copy{position:absolute;top:.4rem;right:.4rem;border:0;padding:.35rem .6rem;font:500 .85rem/1 system-ui;border-radius:.4rem;cursor:pointer;opacity:.8}.code-copy:active{transform:scale(.98)}</style><script>document.addEventListener("click",e=>{if(!e.target.classList.contains("code-copy"))return;const t=e.target.parentElement.querySelector("pre"),n=t?t.innerText:"";navigator.clipboard.writeText(n).then(()=>{const t=e.target,n=t.textContent;t.textContent="Copied",setTimeout(()=>t.textContent=n,1200)})})</script></div></div><aside class="content-browser light-border-top">Continue reading<div><a class=previous href=../../blog/getting-started-with-go/>↩ Getting Started With Go</a>
 ■
 <a class=next href=../../blog/infrastructure-as-code-shift-devops/>Infrastructure as Code Shift Devops ↪</a></div></aside><div id=disqus_thread><script>(function(){var e=document,t=e.createElement("script");t.src="https://f12-comments.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></div></section></main><div class=d-print-none><footer class="footer w-100 d-print-none"><section id=contact class="section section--contact pt-0"><div class=container><div class="contact w-100"><h2>Reach out</h2><div class="row pt-2"><div class="col-12 col-lg-7"><form action=https://green-rice-1ea7.denis-f21.workers.dev method=POST class=contact__form><div class=row><div class="col-12 col-sm-6"><input type=text name=full_name class=form-control placeholder="Your name"></div><div class="col-12 col-sm-6"><input type=email name=email class=form-control placeholder="Your e-mail"></div></div><div class="row pt-4"><div class=col-12><input type=tel name=phone class=form-control placeholder="Your phone"></div></div><div class="row pt-4"><div class=col-12><textarea name=message class=form-control rows=2 placeholder="Your text"></textarea></div></div><div class="row pt-4"><div class=col-12><button type=submit class="btn btn-primary">Send message</button></div></div><div id=message style=margin-top:20px></div></form></div><div class="col-12 col-lg-5 contact__info"></div></div></div></div></section><script>document.addEventListener("DOMContentLoaded",function(){const e=document.querySelector("form"),t=document.getElementById("message");if(!e||!t)return;e.addEventListener("submit",async function(n){n.preventDefault();const s=e.querySelector("[name='full_name']").value.trim(),o=e.querySelector("[name='email']").value.trim(),a=e.querySelector("[name='phone']").value.trim(),i=e.querySelector("[name='message']").value.trim(),r=e.querySelector("[name='secret_field']")?.value||"";if(!s||!o||!i){t.textContent="❗Please fill out your name, email, and message.",t.style.color="red";return}const c={name:s,email:o,phone:a,message:i,secret_field:r};try{const n=await fetch(e.action,{method:e.method,headers:{"Content-Type":"application/json"},body:JSON.stringify(c)}),s=await n.json();s.success?(t.textContent="✅ Your message has been sent successfully!",t.style.color="green",e.reset()):(t.textContent="❌ Something went wrong. Please try again.",t.style.color="red")}catch{t.textContent="⚠️ Failed to send. Network error.",t.style.color="red"}})})</script><div class="container items"><div class=container><div class="row w-100 align-items-center"><div class="footer_left col-12 col-lg-4 mb-3 mb-lg-0 text-center text-lg-start"><div class=footer__copy><span>© Denis Tolochko</span></div></div><div class="footer_links col-12 col-lg-6 mb-3 mb-lg-0 text-center text-lg-start"><ul class="navbar-nav w-100 align-items-center justify-content-center justify-content-lg-start d-flex flex-wrap gap-2"><li class=nav-item><a class=nav-link href=../../>HOME</a></li><li class=nav-item><a class=nav-link href=../../#about>ABOUT</a></li><li class=nav-item><a class=nav-link href=../../#portfolio>PORTFOLIO</a></li><li class=nav-item><a class=nav-link href=../../#contact>CONTACT</a></li></ul></div><div class="footer_right col-12 col-lg-2 mb-3 mb-lg-0 text-center text-lg-end"><div class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-2 d-grid col-12"><div id=footer-color-selector class='d-grid gap-2 col-6 mx-auto nav-link dropdown dropup'><button class="btn btn-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center show bd-theme-selector" id=bd-theme-footer type=button aria-expanded=true data-bs-toggle=dropdown data-bs-display=static aria-label='Toggle theme'>
 <span class="theme-icon auto d-none" aria-hidden=true></span>
