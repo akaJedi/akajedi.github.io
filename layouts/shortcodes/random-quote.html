@@ -1,0 +1,5 @@
+{{ $quotes := site.Data.quotes }}
+{{ $quote := index (shuffle $quotes) 0 }}
+<blockquote style="font-size:1.2rem; font-style:italic; color:#333; border-left:6px solid #478079; padding:0.75rem 1rem; margin:1.5rem 0; background:#f1f5f4; border-radius:6px;">
+  {{ $quote | safeHTML }}
+</blockquote>

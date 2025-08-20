@@ -27,6 +27,17 @@
     <div class="row rad-fade-down">
       <div class="col-12">
         <h2>{{ $title }}</h2>
+          <div class="education-note mt-4">
+            <p>
+              Alongside my formal studies in programming and law, I invested heavily in modern IT disciplines.  
+              I completed an intensive <strong>QA program in Silicon Valley, California</strong>, focused on manual and automation testing with extensive labs, projects, and real-world practice.  
+              I also earned certifications in <strong>DevOps Foundations: Continuous Delivery/Continuous Integration</strong> (LinkedIn, 2025), and regularly study advanced technical courses on <strong>Pluralsight, Udemy, and LinkedIn Learning</strong>.
+            </p>
+            <p>
+              These experiences extend my education beyond traditional degrees, giving me a solid foundation in <strong>QA engineering, automation, and DevOps practices</strong>.  
+              Combined with 15+ years in IT operations, system administration, and cloud infrastructure, this ensures I bring not just theory, but proven, professional-level expertise to every project.
+            </p>
+          </div>
         <div class="row pt-2 pt-md-4">
           {{ range where .Site.RegularPages "Type" "education" }}
           <div class="col-12 col-sm-6 mb-4 mb-sm-0">
@@ -38,6 +49,9 @@
           </div>
           {{ end }}
         </div>
+          <p style="font-style: italic; color:#555;">
+              P.S. I am currently focused on mastering advanced <strong>DevOps practices for Infrastructure as Code (IaC)</strong> and working toward additional industry certifications.
+          </p>
       </div>
     </div>
   </div>

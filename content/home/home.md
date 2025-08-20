@@ -4,19 +4,36 @@ type = "home"
 draft = false
 +++
 
+
+
 {{< about-section
-    title=""
-    content="<p>Based in Valencia, California, I help teams ship faster and safer by turning infrastructure into code and delivery into predictable pipelines. With 15+ years across enterprise IT—servers, networks, identity, and security—I focus on DevOps and platform engineering:— building reliable, observable, and cost-aware systems that scale. Core stack: AWS and Azure; Terraform and Ansible for IaC; Docker and Kubernetes for workloads; GitHub Actions and Jenkins for CI/CD; SSO and IAM with least-privilege access; AD and GPO for secure baselines on Windows, macOS, and Linux. I specialize in clean cutovers and steady modernization: codifying platforms, adopting GitOps practices, and adding guardrails such as policy as code, mandatory reviews, and promotion from dev to prod. I harden identity and endpoints, automate onboarding and offboarding, and make costs predictable through rightsizing, scheduled scaling, and budgets with alerts. Observability from day one—logs, metrics, and traces at every stage. My approach is repeatable: map the current state, define the target, codify it with IaC and pipelines, instrument it, document it, and transfer ownership. I favor small, reversible changes, strong version control, and collaboration across development, IT, and security. The result is a platform engineers enjoy using: self-service golden paths, clear docs, and feedback loops that improve deployment speed, reliability, and security while controlling cost. Open to senior DevOps and platform roles as well as select consulting on CI/CD bootstraps, Terraform landing zones, identity hardening, observability rollouts, and cost reviews.</p>"
+    title="Sr. DevOps / Platform Engineer"
+    content="<p>Based in Valencia, California, I help teams ship faster and safer by turning infrastructure into code and delivery into predictable pipelines. With 15+ years across enterprise IT, I focus on DevOps and platform engineering—building reliable, observable, and cost-aware systems that scale.</p><p>Core stack: AWS and Azure; Terraform and Ansible for IaC; Docker and Kubernetes for workloads; GitHub Actions and Jenkins for CI/CD. I harden identity and endpoints, automate onboarding and offboarding, and make costs predictable through rightsizing, scheduled scaling, and budgets with alerts.</p><p>Open to senior DevOps and platform roles as well as select consulting on CI/CD bootstraps, Terraform landing zones, identity hardening, observability rollouts, and cost reviews.</p>"
     button_icon="icon-user"
     button_url="/skills"
     imgSrc="images/about/user-picture.png"
-    imgScale="0.7"
+    imgScale="0.6"
     text_align="center"
  >}}
 
+{{< random-quote >}}
+
+
+{{< platform-links >}} 
+  {{< link icon="square-twitter" url="https://twitter.com/denistolochko" >}} 
+  {{< link icon="linkedin" url="https://www.linkedin.com/in/denistolochko" >}} 
+  {{< link icon="square-github" url="https://github.com/akajedi" >}} 
+  {{< link icon="x-twitter" url="https://twitter.com/denistolochko" >}} 
+  {{< link icon="instagram" url="https://www.instagram.com/zetxek/" >}} 
+  {{< link icon="tiktok" url="#" >}} 
+  {{< link icon="yelp" url="https://www.yelp.com/" >}} 
+  {{< link icon="bluesky" url="https://www.bluesky.com/" >}} 
+  {{< link icon="threads" url="https://www.threads.net/" >}} 
+  {{< link icon="user" url="https://www.f12.biz" >}} 
+{{< /platform-links >}}
+
 {{< education-list
     title="Education" 
-    content="k"
 >}}
 
 {{< experience-section
@@ -28,4 +45,3 @@ draft = false
 
 {{< testimonial-section
     title="Colleague Feedback" >}}
-
