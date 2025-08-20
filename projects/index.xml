@@ -2,15 +2,16 @@
 The content you see here comes from the contents of the &lt;code>content/projects&lt;/code> folder.&lt;/p>
 &lt;p>This project is in the file &lt;code>projects/swiss-fintech.md&lt;/code>.&lt;/p>
 &lt;p>In the markdown file frontmatter you can also define additional parameters, such as the link:&lt;/p>
-&lt;pre tabindex="0">&lt;code>link: &amp;#34;https://www.adrianmoreno.info&amp;#34; # optional URL to link the logo to
-
-params:
- button:
- icon: &amp;#34;icon-arrow-right&amp;#34;
- btnText: &amp;#34;Case Study&amp;#34;
- URL: &amp;#34;https://www.adrianmoreno.info&amp;#34;
- image: 
- src: &amp;#34;images/works/swissfintech.jpg&amp;#34;
- scale: 0.5
- 
-&lt;/code>&lt;/pre></description></item></channel></rss>
+&lt;div class="codewrap" data-lang="text">&lt;button class="code-copy" type="button" aria-label="Copy code">Copy&lt;/button>
+ &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-text" data-lang="text">&lt;span style="display:flex;">&lt;span>link: &amp;#34;https://www.adrianmoreno.info&amp;#34; # optional URL to link the logo to
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>params:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> button:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> icon: &amp;#34;icon-arrow-right&amp;#34;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> btnText: &amp;#34;Case Study&amp;#34;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> URL: &amp;#34;https://www.adrianmoreno.info&amp;#34;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> image: 
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> src: &amp;#34;images/works/swissfintech.jpg&amp;#34;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> scale: 0.5
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+&lt;/div></description></item></channel></rss>
