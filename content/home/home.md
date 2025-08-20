@@ -23,12 +23,10 @@ draft = false
   {{< link icon="square-twitter" url="https://twitter.com/denistolochko" >}} 
   {{< link icon="linkedin" url="https://www.linkedin.com/in/denistolochko" >}} 
   {{< link icon="square-github" url="https://github.com/akajedi" >}} 
-  {{< link icon="x-twitter" url="https://twitter.com/denistolochko" >}} 
-  {{< link icon="instagram" url="https://www.instagram.com/zetxek/" >}} 
-  {{< link icon="tiktok" url="#" >}} 
-  {{< link icon="yelp" url="https://www.yelp.com/" >}} 
-  {{< link icon="bluesky" url="https://www.bluesky.com/" >}} 
-  {{< link icon="threads" url="https://www.threads.net/" >}} 
+  {{< link icon="keybase" url="https://twitter.com/denistolochko" >}} 
+  {{< link icon="instagram" url="https://www.instagram.com/@denishavefun" >}} 
+  {{< link icon="tiktok" url="https://www.tiktok.com/@denistolochko" >}} 
+  {{< link icon="threads" url="https://www.threads.net/@denishavefun" >}} 
   {{< link icon="user" url="https://www.f12.biz" >}} 
 {{< /platform-links >}}
 
