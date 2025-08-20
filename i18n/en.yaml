@@ -82,7 +82,7 @@
   translation: "Download resume"
 
 - id: "experience_button2_url"
-  translation: "/img/general/user-smile-fill.svg"
+  translation: "DenisTolochkoResume.docx"
 
 - id: "experience_button3"
   translation: "View Portfolio"
