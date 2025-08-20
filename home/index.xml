@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Homes on</title><link>https://www.f12.biz/home/</link><description>Recent content in Homes on</description><generator>Hugo</generator><language>en</language><atom:link href="https://www.f12.biz/home/index.xml" rel="self" type="application/rss+xml"/><item><title>Home</title><link>https://www.f12.biz/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/home/home/</guid><description>&lt;section id="about" class="section rad-animation-group pb-0">
  &lt;div class="rad-fade-down">
  &lt;div class="row d-flex flex-column-reverse flex-md-row">
- &lt;div class="about__profile-picture col-12 col-md-6">
+ &lt;div class="about__profile-picture col-12 col-md-6 text-center">
  
 
 
@@ -44,5 +44,5 @@
  &lt;/div>
  &lt;div class="col-12 col-md-6 my-auto">
  &lt;h1>Sr. DevOps / Platform Engineer&lt;/h1>
-&lt;div class="about-me content lead" id="bio">
+ &lt;div class="about-me content lead" id="bio">
  &lt;p>Based in Valencia, California, I help teams ship faster and safer by turning infrastructure into code and delivery into predictable pipelines. With 15+ years across enterprise IT—servers, networks, identity, and security—I focus on DevOps and platform engineering:— building reliable, observable, and cost-aware systems that scale. Core stack: AWS and Azure; Terraform and Ansible for IaC; Docker and Kubernetes for workloads; GitHub Actions and Jenkins for CI/CD; SSO and IAM with least-privilege access; AD and GPO for secure baselines on Windows, macOS, and Linux. I specialize in clean cutovers and steady modernization: codifying platforms, adopting GitOps practices, and adding guardrails such as policy as code, mandatory reviews, and promotion from dev to prod. I harden identity and endpoints, automate onboarding and offboarding, and make costs predictable through rightsizing, scheduled scaling, and budgets with alerts. Observability from day one—logs, metrics, and traces at every stage. My approach is repeatable: map the current state, define the target, codify it with IaC and pipelines, instrument it, document it, and transfer ownership. I favor small, reversible changes, strong version control, and collaboration across development, IT, and security. The result is a platform engineers enjoy using: self-service golden paths, clear docs, and feedback loops that improve deployment speed, reliability, and security while controlling cost. Open to senior DevOps and platform roles as well as select consulting on CI/CD bootstraps, Terraform landing zones, identity hardening, observability rollouts, and cost reviews.&lt;/p></description></item></channel></rss>
