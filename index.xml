@@ -220,14 +220,14 @@ document.addEventListener("DOMContentLoaded", function () {
  
  
 
- &lt;source srcset="./images/about/user-picture_hu_52350c620d4f4ef7.webp 1x, ./images/about/user-picture_hu_810a95ab58acedc.webp 2x" type="image/webp" />
- &lt;source srcset="./images/about/user-picture_hu_673fb2ca34571d68.png 1x, ./images/about/user-picture_hu_9c57a436b7ac6fca.png 2x" type="image/png">
+ &lt;source srcset="./images/about/user-picture_hu_596504744a1065d6.webp 1x, ./images/about/user-picture_hu_9a5d9fee94bd2f1b.webp 2x" type="image/webp" />
+ &lt;source srcset="./images/about/user-picture_hu_a41e06a1a19c73a7.png 1x, ./images/about/user-picture_hu_fac7726411d7a497.png 2x" type="image/png">
 
  &lt;img
- width="866"
- height="749"
+ width="742"
+ height="642"
  class="lozad img-responsive image-left-overflow"
- data-src="./images/about/user-picture_hu_673fb2ca34571d68.png"
+ data-src="./images/about/user-picture_hu_a41e06a1a19c73a7.png"
  alt=''
  src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
  loading="lazy"
@@ -239,6 +239,6 @@ document.addEventListener("DOMContentLoaded", function () {
  &lt;div class="col-12 col-md-6 my-auto">
  &lt;h1>Sr. DevOps / Platform Engineer&lt;/h1>
  &lt;div class="about-me content lead" id="bio">
- &lt;p>Based in Valencia, California, I help teams ship faster and safer by turning infrastructure into code and delivery into predictable pipelines. With 15+ years across enterprise IT—servers, networks, identity, and security—I focus on DevOps and platform engineering:— building reliable, observable, and cost-aware systems that scale. Core stack: AWS and Azure; Terraform and Ansible for IaC; Docker and Kubernetes for workloads; GitHub Actions and Jenkins for CI/CD; SSO and IAM with least-privilege access; AD and GPO for secure baselines on Windows, macOS, and Linux. I specialize in clean cutovers and steady modernization: codifying platforms, adopting GitOps practices, and adding guardrails such as policy as code, mandatory reviews, and promotion from dev to prod. I harden identity and endpoints, automate onboarding and offboarding, and make costs predictable through rightsizing, scheduled scaling, and budgets with alerts. Observability from day one—logs, metrics, and traces at every stage. My approach is repeatable: map the current state, define the target, codify it with IaC and pipelines, instrument it, document it, and transfer ownership. I favor small, reversible changes, strong version control, and collaboration across development, IT, and security. The result is a platform engineers enjoy using: self-service golden paths, clear docs, and feedback loops that improve deployment speed, reliability, and security while controlling cost. Open to senior DevOps and platform roles as well as select consulting on CI/CD bootstraps, Terraform landing zones, identity hardening, observability rollouts, and cost reviews.&lt;/p></description></item><item><title>Printable CV</title><link>https://www.f12.biz/cv/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/cv/</guid><description>&lt;p>ℹ This page is a demo of the printer-friendly output of the theme. You can find the source code in the demo repo (&lt;a href="https://raw.githubusercontent.com/zetxek/adritian-demo/refs/heads/main/content/cv.md%29">https://raw.githubusercontent.com/zetxek/adritian-demo/refs/heads/main/content/cv.md)&lt;/a>. Try printing it directly from your browser!&lt;/p>
+ &lt;p>Based in Valencia, California, I help teams ship faster and safer by turning infrastructure into code and delivery into predictable pipelines. With 15+ years across enterprise IT, I focus on DevOps and platform engineering—building reliable, observable, and cost-aware systems that scale.&lt;/p>&lt;p>Core stack: AWS and Azure; Terraform and Ansible for IaC; Docker and Kubernetes for workloads; GitHub Actions and Jenkins for CI/CD. I harden identity and endpoints, automate onboarding and offboarding, and make costs predictable through rightsizing, scheduled scaling, and budgets with alerts.&lt;/p></description></item><item><title>Printable CV</title><link>https://www.f12.biz/cv/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/cv/</guid><description>&lt;p>ℹ This page is a demo of the printer-friendly output of the theme. You can find the source code in the demo repo (&lt;a href="https://raw.githubusercontent.com/zetxek/adritian-demo/refs/heads/main/content/cv.md%29">https://raw.githubusercontent.com/zetxek/adritian-demo/refs/heads/main/content/cv.md)&lt;/a>. Try printing it directly from your browser!&lt;/p>
 &lt;h3 id="about-me">About me&lt;/h3>
 &lt;p>I am a passionate software engineer with over 10 years of experience building web applications and distributed systems. My expertise spans full-stack development, cloud architecture, and leading engineering teams to deliver impactful solutions. I thrive on solving complex technical challenges while mentoring others and fostering a collaborative engineering culture.&lt;/p></description></item><item><title>Search</title><link>https://www.f12.biz/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/search/</guid><description>search</description></item></channel></rss>
