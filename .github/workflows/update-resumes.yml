@@ -30,7 +30,7 @@ jobs:
         run: pip install pyyaml requests
 
       - name: Enrich with VirusTotal
-        run: python scripts/virustotal-update.py
+        run: python scripts/vt-update.py
         env:
           VT_API_KEY: ${{ secrets.VT_API_KEY }}
 
