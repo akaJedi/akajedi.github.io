@@ -1,9 +1,11 @@
 {{ define "main" }}
 <main class="resume-page">
-</br>
+  <br/>
   <h1>📄 Resume Hub</h1>
-  <p>I maintain several role-focused versions of my resume depending on the project scope.
-  Below you can find the most up-to-date versions, including file integrity hashes.</p>
+  <p>
+    I maintain several role-focused versions of my resume depending on the project scope.
+    Below you can find the most up-to-date versions, including file integrity hashes.
+  </p>
 
   <table style="width:100%; border-collapse: collapse; text-align:left;">
     <thead>
@@ -22,8 +24,15 @@
         <tr style="border-bottom: 1px solid #eee;">
           <td style="padding:8px;">{{ $role }}</td>
           <td style="padding:8px;">
-            {{ if eq .format "PDF" }} <a href="/{{ .name }}" title="Download PDF">📄 PDF</a>{{ end }}
-            {{ if eq .format "DOCX" }} <a href="/{{ .name }}" title="Download Word">📘 DOCX</a>{{ end }}
+            {{ if eq .format "PDF" }}
+              <a href="/{{ .name }}" title="Download PDF">📄 PDF</a>
+            {{ end }}
+            {{ if eq .format "DOCX" }}
+              <a href="/{{ .name }}" title="Download Word">📘 DOCX</a>
+              {{ if .vt }}
+                &nbsp; <a href="{{ .vt }}" target="_blank" title="VirusTotal Scan">🔍 VT</a>
+              {{ end }}
+            {{ end }}
           </td>
           <td style="padding:8px;">{{ .size }}</td>
           <td style="padding:8px;">{{ .updated }}</td>
@@ -34,4 +43,17 @@
     </tbody>
   </table>
 </main>
+<div style="margin-left: 40px;">
+
+
+        <br/><br/><br/>
+        <h3>Linux / macOS</h3>
+        <pre><code class="language-bash">shasum -a 256 filename.docx</code></pre>
+
+        <h3>Ubuntu / Debian</h3>
+        <pre><code class="language-bash">sha256sum filename.docx</code></pre>
+
+        <h3>Windows (PowerShell)</h3>
+        <pre><code class="language-powershell">Get-FileHash filename.docx -Algorithm SHA256</code></pre>
+</div>
 {{ end }}
