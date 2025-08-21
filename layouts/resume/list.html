@@ -50,6 +50,13 @@
       {{ end }}
     </tbody>
   </table>
+
+    <p style="margin-top: 2rem;">
+  To ensure the authenticity of the files you download, each resume version is accompanied
+  by its SHA-256 hash. You can verify the downloaded file against the provided hash using
+  the following commands, depending on your operating system:
+</p>
+
   <section class="verify-block">
     <h3>Linux / macOS</h3>
     <pre><code class="language-bash">shasum -a 256 filename.docx</code></pre>
@@ -60,6 +67,11 @@
     <h3>Windows (PowerShell)</h3>
     <pre><code class="language-powershell">Get-FileHash filename.docx -Algorithm SHA256</code></pre>
     </section>
+<p>
+  If the hash you compute matches the one shown here, the file has not been altered and
+  is safe to use. Any mismatch means the file may be incomplete or tampered with, and you
+  should download it again directly from this page.
+</p>
 
 </main>
 
