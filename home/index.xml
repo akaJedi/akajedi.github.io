@@ -40,9 +40,9 @@
  decoding="async"
  />
  &lt;/picture>
-
+ 
  &lt;/div>
  &lt;div class="col-12 col-md-6 my-auto">
- &lt;h1>Sr. DevOps / Platform Engineer&lt;/h1>
+ &lt;h1 style="font-size: 1.5rem">Sr. DevOps / Platform Engineer&lt;/h1>
  &lt;div class="about-me content lead" id="bio">
- &lt;p>Based in Valencia, California, I help teams ship faster and safer by turning infrastructure into code and delivery into predictable pipelines. With 15+ years across enterprise IT, I focus on DevOps and platform engineering—building reliable, observable, and cost-aware systems that scale.&lt;/p>&lt;p>Core stack: AWS and Azure; Terraform and Ansible for IaC; Docker and Kubernetes for workloads; GitHub Actions and Jenkins for CI/CD. I harden identity and endpoints, automate onboarding and offboarding, and make costs predictable through rightsizing, scheduled scaling, and budgets with alerts.&lt;/p></description></item></channel></rss>
+ &lt;p>Based in Valencia, California, I help teams ship faster and safer by turning infrastructure into code and delivery into predictable pipelines. With 15+ years across enterprise IT, I focus on DevOps and platform engineering—building reliable, observable, and cost-aware systems that scale.&lt;/p></description></item></channel></rss>
