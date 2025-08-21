@@ -12,7 +12,7 @@ draft = false
     button_icon="icon-user"
     button_url="/skills"
     imgSrc="images/about/user-picture.png"
-    imgScale="0.6"
+    imgScale="0.5"
     text_align="center"
  >}}
 
