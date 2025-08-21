@@ -94,6 +94,34 @@ skill_categories:
         level: 75
         years: "10+"
         description: "Lifecycle tracking, procurement, vendor coordination"
+
+  - name: "DevOps & Infrastructure as Code"
+    skills:
+      - name: "Infrastructure as Code (IaC)"
+        level: 90
+        years: "4+"
+        description: "Terraform, Ansible, and CloudFormation for repeatable, scalable deployments"
+      - name: "CI/CD Pipelines"
+        level: 85
+        years: "5+"
+        description: "GitHub Actions, Jenkins, and GitOps practices for automated delivery"
+      - name: "Cloud Platforms"
+        level: 90
+        years: "6+"
+        description: "AWS and Azure multi-environment operations, cost optimization, security hardening"
+      - name: "Containerization & Orchestration"
+        level: 80
+        years: "4+"
+        description: "Docker & Kubernetes for scalable workloads and hybrid environments"
+      - name: "Automation & Scripting"
+        level: 85
+        years: "8+"
+        description: "Python, Bash, and PowerShell to reduce manual tasks and improve visibility"
+      - name: "Monitoring & Observability"
+        level: 75
+        years: "5+"
+        description: "Prometheus, Grafana, CloudWatch for proactive monitoring and alerting"
+
 ---
 
 As a technology professional with over 15 years of hands-on experience, I’ve cultivated a diverse skill set across infrastructure operations, cloud administration, systems integration, and security. This skills overview reflects both depth and breadth — from managing large-scale technical transitions and supporting hybrid environments, to implementing automation, maintaining enterprise-grade infrastructure, and driving operational excellence. My background bridges on-premise and cloud-native systems, combining pragmatic support expertise with modern DevOps principles.
