@@ -8,6 +8,7 @@ description = ""
 tags = []
 topics = []
 +++
+![Example image](/img/blog/iac.jpeg)
 
 Infrastructure used to be a mess of tickets, console clicks, and “works on my machine.”  
 With Infrastructure as Code, that’s over.  
