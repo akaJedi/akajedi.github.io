@@ -8,6 +8,9 @@ on:
       - main
   workflow_dispatch:   # 👈 manual trigger support
 
+permissions:
+  contents: write
+
 jobs:
   update:
     if: github.actor != 'github-actions[bot]'
