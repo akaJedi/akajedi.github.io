@@ -1,4 +1,12 @@
 # Auto-generated resume metadata
+- title: "Cybersecurity Specialist"
+  files:
+    - name: "DenisTolochko_CybersecuritySpecialist_07232025.docx"
+      format: "DOCX"
+      size: "20 KB"
+      updated: "2025-07-23"
+      hash: "3095fa1b9293"
+
 - title: "Generic Resume"
   files:
     - name: "DenisTolochko_GenericResume_08202025.docx"
@@ -14,4 +22,36 @@
       size: "2756 KB"
       updated: "2025-08-21"
       hash: "e444280b8133"
+
+- title: "ITGovernance"
+  files:
+    - name: "DenisTolochko_ITGovernance_07262025.docx"
+      format: "DOCX"
+      size: "40 KB"
+      updated: "2025-07-26"
+      hash: "6df0c50d43f7"
+
+- title: "Senior Client Platform Engineer"
+  files:
+    - name: "DenisTolochko_SeniorClientPlatformEngineer_08022025.docx"
+      format: "DOCX"
+      size: "196 KB"
+      updated: "2025-08-02"
+      hash: "73de69316054"
+
+- title: "Senior Technical Support Analyst"
+  files:
+    - name: "DenisTolochko_SeniorTechnicalSupportAnalyst_07232025.docx"
+      format: "DOCX"
+      size: "16 KB"
+      updated: "2025-07-23"
+      hash: "6fcc1505f786"
+
+- title: "Technical Support Engineer"
+  files:
+    - name: "DenisTolochko_TechnicalSupportEngineer_07232025.docx"
+      format: "DOCX"
+      size: "16 KB"
+      updated: "2025-07-23"
+      hash: "8164d9d82e0b"
 
