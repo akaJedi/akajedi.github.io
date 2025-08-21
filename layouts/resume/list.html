@@ -36,7 +36,15 @@
           </td>
           <td style="padding:8px;">{{ .size }}</td>
           <td style="padding:8px;">{{ .updated }}</td>
-          <td style="padding:8px; font-family:monospace;">{{ .hash }}</td>
+<td class="hash-cell" style="padding:8px; font-family:monospace;">
+  {{ .hash }}
+  <a href="javascript:void(0)" onclick="showHash('{{ .hash_full }}')" 
+     style="margin-left:6px; font-size:0.8em; color:#007acc; text-decoration:underline; cursor:pointer;">
+    [full]
+  </a>
+</td>
+
+
         </tr>
         {{ end }}
       {{ end }}
@@ -54,4 +62,22 @@
     </section>
 
 </main>
+
+<div id="hashModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeHash()">&times;</span>
+    <pre id="fullHash"></pre>
+  </div>
+</div>
+
+<script>
+function showHash(hash) {
+  document.getElementById("fullHash").innerText = hash;
+  document.getElementById("hashModal").style.display = "block";
+}
+function closeHash() {
+  document.getElementById("hashModal").style.display = "none";
+}
+</script>
+
 {{ end }}

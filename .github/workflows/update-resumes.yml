@@ -1,0 +1,43 @@
+name: Update Resume Metadata
+
+on:
+  push:
+    paths:
+      - "static/DenisTolochko_*"
+    branches:
+      - main
+
+jobs:
+  update:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Bash generator
+        run: bash scripts/resume-list-generator.sh
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: pip install pyyaml requests
+
+      - name: Enrich with VirusTotal
+        run: python scripts/virustotal-update.py
+        env:
+          VT_API_KEY: ${{ secrets.VT_API_KEY }}
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add data/resumes.yaml
+          git commit -m "Update resumes.yaml with VT links" || echo "No changes"
+          git push
