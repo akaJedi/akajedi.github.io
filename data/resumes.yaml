@@ -1,65 +1,72 @@
-# Auto-generated resume metadata
----
-- title: "Cybersecurity Specialist"
+- title: Cybersecurity Specialist
   files:
-    - name: "DenisTolochko_CybersecuritySpecialist_07232025.docx"
-      format: "DOCX"
-      size: "20 KB"
-      updated: "2025-07-23"
-      hash: "3095fa1b9293"
-      hash_full: "3095fa1b92936aa67707ecd55697f2eb184a0a9d986bd485be1cb1339739117d"
-
-- title: "Generic Resume"
+  - name: DenisTolochko_CybersecuritySpecialist_07232025.docx
+    format: DOCX
+    size: 20 KB
+    updated: '2025-08-21'
+    hash: 3095fa1b9293
+    hash_full: 3095fa1b92936aa67707ecd55697f2eb184a0a9d986bd485be1cb1339739117d
+    vt: not scanned
+- title: Generic Resume
   files:
-    - name: "DenisTolochko_GenericResume_08202025.docx"
-      format: "DOCX"
-      size: "196 KB"
-      updated: "2025-08-20"
-      hash: "6e8ad124c635"
-      hash_full: "6e8ad124c6358cae8856a7940b6d7406500facc38e1f8b6330a5c8ab64ae4a6b"
-
-- title: "Hardware Deployment Engineer"
+  - name: DenisTolochko_GenericResume_08202025.docx
+    format: DOCX
+    size: 196 KB
+    updated: '2025-08-21'
+    hash: 6e8ad124c635
+    hash_full: 6e8ad124c6358cae8856a7940b6d7406500facc38e1f8b6330a5c8ab64ae4a6b
+    vt: not scanned
+- title: Hardware Deployment Engineer
   files:
-    - name: "DenisTolochko_HardwareDeploymentEngineer_08202025.docx"
-      format: "DOCX"
-      size: "2756 KB"
-      updated: "2025-08-21"
-      hash: "e444280b8133"
-      hash_full: "e444280b813376189a22838173dd3369c6884f909a7441cb123dbdf299237a21"
-
-- title: "ITGovernance"
+  - name: DenisTolochko_HardwareDeploymentEngineer_08202025.docx
+    format: DOCX
+    size: 2756 KB
+    updated: '2025-08-21'
+    hash: e444280b8133
+    hash_full: e444280b813376189a22838173dd3369c6884f909a7441cb123dbdf299237a21
+    vt: not scanned
+- title: ITGovernance
   files:
-    - name: "DenisTolochko_ITGovernance_07262025.docx"
-      format: "DOCX"
-      size: "40 KB"
-      updated: "2025-07-26"
-      hash: "6df0c50d43f7"
-      hash_full: "6df0c50d43f71122a5001be2c1119f1e41dfec8fb41bcd7f4e61b075b54be606"
-
-- title: "Senior Client Platform Engineer"
+  - name: DenisTolochko_ITGovernance_07262025.docx
+    format: DOCX
+    size: 40 KB
+    updated: '2025-08-21'
+    hash: 6df0c50d43f7
+    hash_full: 6df0c50d43f71122a5001be2c1119f1e41dfec8fb41bcd7f4e61b075b54be606
+    vt: not scanned
+- title: ITSystems Engineer
   files:
-    - name: "DenisTolochko_SeniorClientPlatformEngineer_08022025.docx"
-      format: "DOCX"
-      size: "196 KB"
-      updated: "2025-08-02"
-      hash: "73de69316054"
-      hash_full: "73de69316054459912117892c1f787b653ebef6d7b2588807ba969d2c05b2ef5"
-
-- title: "Senior Technical Support Analyst"
+  - name: DenisTolochko_ITSystemsEngineer_08022025.docx
+    format: DOCX
+    size: 196 KB
+    updated: '2025-08-21'
+    hash: c506ddad7fbd
+    hash_full: c506ddad7fbda5dc15fbd243867f65cc58ab232a1d05f4a4c4178872ce7d9c3f
+    vt: not scanned
+- title: Senior Client Platform Engineer
   files:
-    - name: "DenisTolochko_SeniorTechnicalSupportAnalyst_07232025.docx"
-      format: "DOCX"
-      size: "16 KB"
-      updated: "2025-07-23"
-      hash: "6fcc1505f786"
-      hash_full: "6fcc1505f786f0b5049a2d8a3e784d286366cb680f79b0f18d872f2c10216ad5"
-
-- title: "Technical Support Engineer"
+  - name: DenisTolochko_SeniorClientPlatformEngineer_08022025.docx
+    format: DOCX
+    size: 196 KB
+    updated: '2025-08-21'
+    hash: 73de69316054
+    hash_full: 73de69316054459912117892c1f787b653ebef6d7b2588807ba969d2c05b2ef5
+    vt: not scanned
+- title: Senior Technical Support Analyst
   files:
-    - name: "DenisTolochko_TechnicalSupportEngineer_07232025.docx"
-      format: "DOCX"
-      size: "16 KB"
-      updated: "2025-07-23"
-      hash: "8164d9d82e0b"
-      hash_full: "8164d9d82e0b9850d5a63e9f36b4af682db91730ddd4e5ad6d7b2de5d4fe8103"
-
+  - name: DenisTolochko_SeniorTechnicalSupportAnalyst_07232025.docx
+    format: DOCX
+    size: 16 KB
+    updated: '2025-08-21'
+    hash: 6fcc1505f786
+    hash_full: 6fcc1505f786f0b5049a2d8a3e784d286366cb680f79b0f18d872f2c10216ad5
+    vt: not scanned
+- title: Technical Support Engineer
+  files:
+  - name: DenisTolochko_TechnicalSupportEngineer_07232025.docx
+    format: DOCX
+    size: 16 KB
+    updated: '2025-08-21'
+    hash: 8164d9d82e0b
+    hash_full: 8164d9d82e0b9850d5a63e9f36b4af682db91730ddd4e5ad6d7b2de5d4fe8103
+    vt: not scanned
