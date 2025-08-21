@@ -6,6 +6,7 @@ on:
       - "static/DenisTolochko_*"
     branches:
       - main
+  workflow_dispatch:   # 👈 manual trigger support
 
 jobs:
   update:
