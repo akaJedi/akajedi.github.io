@@ -79,10 +79,10 @@
   translation: "https://www.linkedin.com/in/denistolochko/"
 
 - id: "experience_button2"
-  translation: "Download resume"
+  translation: "Resume Hub"
 
 - id: "experience_button2_url"
-  translation: "DenisTolochkoResume.docx"
+  translation: "/resume"
 
 - id: "experience_button3"
   translation: "View Portfolio"

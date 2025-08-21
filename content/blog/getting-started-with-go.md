@@ -9,6 +9,8 @@ tags = []
 topics = []
 +++
 
+![Example image](/img/blog/go.jpeg)
+
 Go (or Golang) is a modern programming language created by Google, designed to be **simple, fast, and reliable**.  
 If you want to try it out, you don’t need much — just a machine (Windows or Linux) and a bit of curiosity.  
 <!--more-->

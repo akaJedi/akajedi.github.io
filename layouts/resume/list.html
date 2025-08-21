@@ -1,0 +1,37 @@
+{{ define "main" }}
+<main class="resume-page">
+</br>
+  <h1>📄 Resume Hub</h1>
+  <p>I maintain several role-focused versions of my resume depending on the project scope.
+  Below you can find the most up-to-date versions, including file integrity hashes.</p>
+
+  <table style="width:100%; border-collapse: collapse; text-align:left;">
+    <thead>
+      <tr style="border-bottom: 2px solid #ccc;">
+        <th style="padding:8px;">Role / Focus</th>
+        <th style="padding:8px;">Files</th>
+        <th style="padding:8px;">Size</th>
+        <th style="padding:8px;">Updated</th>
+        <th style="padding:8px;">SHA256</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ range .Site.Data.resumes }}
+        {{ $role := .title }}
+        {{ range .files }}
+        <tr style="border-bottom: 1px solid #eee;">
+          <td style="padding:8px;">{{ $role }}</td>
+          <td style="padding:8px;">
+            {{ if eq .format "PDF" }} <a href="/{{ .name }}" title="Download PDF">📄 PDF</a>{{ end }}
+            {{ if eq .format "DOCX" }} <a href="/{{ .name }}" title="Download Word">📘 DOCX</a>{{ end }}
+          </td>
+          <td style="padding:8px;">{{ .size }}</td>
+          <td style="padding:8px;">{{ .updated }}</td>
+          <td style="padding:8px; font-family:monospace;">{{ .hash }}</td>
+        </tr>
+        {{ end }}
+      {{ end }}
+    </tbody>
+  </table>
+</main>
+{{ end }}
