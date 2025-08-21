@@ -42,18 +42,16 @@
       {{ end }}
     </tbody>
   </table>
+  <section class="verify-block">
+    <h3>Linux / macOS</h3>
+    <pre><code class="language-bash">shasum -a 256 filename.docx</code></pre>
+
+    <h3>Ubuntu / Debian</h3>
+    <pre><code class="language-bash">sha256sum filename.docx</code></pre>
+
+    <h3>Windows (PowerShell)</h3>
+    <pre><code class="language-powershell">Get-FileHash filename.docx -Algorithm SHA256</code></pre>
+    </section>
+
 </main>
-<div style="margin-left: 40px;">
-
-
-        <br/><br/><br/>
-        <h3>Linux / macOS</h3>
-        <pre><code class="language-bash">shasum -a 256 filename.docx</code></pre>
-
-        <h3>Ubuntu / Debian</h3>
-        <pre><code class="language-bash">sha256sum filename.docx</code></pre>
-
-        <h3>Windows (PowerShell)</h3>
-        <pre><code class="language-powershell">Get-FileHash filename.docx -Algorithm SHA256</code></pre>
-</div>
 {{ end }}

@@ -23,3 +23,20 @@ footer {
   margin-top: auto;
 }
 
+.verify-block {
+  margin: 2rem 0 2rem 2.5rem;  /* spacing top/bottom + left indent */
+}
+
+.verify-block h3 {
+  margin-top: 2.5rem;
+  font-size: 1.1rem;
+}
+
+.verify-block pre {
+  background: #1e1e1e;       /* or theme background */
+  color: #f8f8f2;            /* readable text */
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
