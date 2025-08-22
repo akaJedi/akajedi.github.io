@@ -35,14 +35,26 @@
             {{ end }}
           </td>
           <td style="padding:8px;">{{ .size }}</td>
-          <td style="padding:8px;">{{ .updated }}</td>
-<td class="hash-cell" style="padding:8px; font-family:monospace;">
-  {{ .hash }}
-  <a href="javascript:void(0)" onclick="showHash('{{ .hash_full }}')" 
-     style="margin-left:6px; font-size:0.8em; color:#007acc; text-decoration:underline; cursor:pointer;">
-    [full]
-  </a>
-</td>
+
+          <td style="padding:8px;">
+            {{- $fname := .name -}}
+            {{- $m := findRESubmatch `_(\d{2})(\d{2})(\d{4})\.` $fname -}}
+            {{- if gt (len $m) 0 -}}
+              {{- $mm := index (index $m 0) 1 -}}
+              {{- $dd := index (index $m 0) 2 -}}
+              {{- $yy := index (index $m 0) 3 -}}
+              {{- (time (printf "%s-%s-%s" $yy $mm $dd)).Format "2006-01-02" -}}
+            {{- else -}}—{{- end -}}
+          </td>
+
+
+          <td class="hash-cell" style="padding:8px; font-family:monospace;">
+            {{ .hash }}
+            <a href="javascript:void(0)" onclick="showHash('{{ .hash_full }}')" 
+              style="margin-left:6px; font-size:0.8em; color:#007acc; text-decoration:underline; cursor:pointer;">
+              [full]
+            </a>
+          </td>
 
 
         </tr>
