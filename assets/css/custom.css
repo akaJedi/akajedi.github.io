@@ -108,3 +108,32 @@ footer {
 .close { float:right; font-size:20px; cursor:pointer; }
 
 .hash-cell:hover .tooltip { display:block; }
+
+.hero-links {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.hero-links a {
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+.hero-links a.btn-primary {
+  background: #478079;
+  color: white;
+}
+.hero-links a.btn-secondary {
+  background: #444;
+  color: white;
+}
+.hero-links a.btn-tertiary {
+  background: #eee;
+  color: #333;
+}
+.hero-links a:hover {
+  opacity: 0.85;
+}
