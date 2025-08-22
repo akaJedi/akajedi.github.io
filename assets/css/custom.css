@@ -1,12 +1,7 @@
 #bio {
-  max-height: 200px;      /* collapsed */
-  overflow: hidden;
-  cursor: pointer;        /* make it clear it’s clickable */
-  transition: max-height 0.4s ease;
-}
-
-#bio.expanded {
-  max-height: none;       /* full text when expanded */
+  max-height: none !important;
+  overflow: visible !important;
+  cursor: default !important;
 }
 
 body {
