@@ -12,7 +12,6 @@ I keep my communication simple and transparent. If you’d like to connect, here
 
 ### 📅 Schedule a Meeting
 The easiest way is to use my scheduling system:  
-👉 [Book a meeting on Setmore](https://f12.setmore.com)  
 
 Pick a time that works best for you — it automatically adjusts for time zones and avoids back-and-forth emails.
 
