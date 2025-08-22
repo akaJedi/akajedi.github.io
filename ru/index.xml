@@ -53,12 +53,6 @@
  &lt;/div>
 &lt;/section>
 
-&lt;script>
- document.getElementById("bio").addEventListener("click", function() {
- this.classList.toggle("expanded");
- });
-&lt;/script>
-
 
 
 
