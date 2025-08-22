@@ -64,13 +64,32 @@ footer {
 }
 
 .verify-block pre {
-  background: #282c34;    /* more modern dark */
+  background: #869cc9;    /* more modern dark */
   color: #f8f8f2;
   padding: 0.75rem 1rem;
   border-radius: 8px;
   overflow-x: auto;
   font-size: 0.95rem;
   position: relative;
+}
+
+/* Style for verify-block code samples */
+.verify-block pre {
+  background: #478079;          /* dark background */
+  color: #f8f8f2;               /* light text */
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1.5rem auto;          /* center horizontally */
+  max-width: 700px;             /* control width */
+  box-shadow: 0 2px 6px rgba(138, 108, 108, 0.3);
+  overflow-x: auto;             /* scroll if too wide */
+}
+
+/* Make code text consistent */
+.verify-block code {
+  font-family: "Fira Code", monospace;
+  font-size: 0.95rem;
+  white-space: pre-wrap;        /* allow wrapping if needed */
 }
 
 .hash-full {
