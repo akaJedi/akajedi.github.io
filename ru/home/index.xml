@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Homes on</title><link>https://www.f12.biz/ru/home/</link><description>Recent content in Homes on</description><generator>Hugo</generator><language>ru</language><atom:link href="https://www.f12.biz/ru/home/index.xml" rel="self" type="application/rss+xml"/><item><title>Главная</title><link>https://www.f12.biz/ru/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/home/home/</guid><description>&lt;section id="about" class="section rad-animation-group pb-0">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Homes on</title><link>https://www.f12.biz/ru/home/</link><description>Recent content in Homes on</description><generator>Hugo</generator><language>ru</language><atom:link href="https://www.f12.biz/ru/home/index.xml" rel="self" type="application/rss+xml"/><item><title>Home</title><link>https://www.f12.biz/ru/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/home/home/</guid><description>&lt;section id="about" class="section rad-animation-group pb-0">
  &lt;div class="rad-fade-down">
  &lt;div class="row d-flex flex-column-reverse flex-md-row">
  &lt;div class="about__profile-picture col-12 col-md-6 text-center">
@@ -26,14 +26,14 @@
  
  
 
- &lt;source srcset="../../images/about/user-picture_hu_9dd183a9eb851e21.webp 1x, ../../images/about/user-picture_hu_f7806c10415993e1.webp 2x" type="image/webp" />
- &lt;source srcset="../../images/about/user-picture_hu_669cd4b7772405e3.png 1x, ../../images/about/user-picture_hu_6f3af1b5e40d3ac7.png 2x" type="image/png">
+ &lt;source srcset="../../images/about/user-picture_hu_596504744a1065d6.webp 1x, ../../images/about/user-picture_hu_9a5d9fee94bd2f1b.webp 2x" type="image/webp" />
+ &lt;source srcset="../../images/about/user-picture_hu_a41e06a1a19c73a7.png 1x, ../../images/about/user-picture_hu_fac7726411d7a497.png 2x" type="image/png">
 
  &lt;img
- width="619"
- height="535"
+ width="742"
+ height="642"
  class="lozad img-responsive image-left-overflow"
- data-src="../../images/about/user-picture_hu_669cd4b7772405e3.png"
+ data-src="../../images/about/user-picture_hu_a41e06a1a19c73a7.png"
  alt=''
  src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
  loading="lazy"
@@ -43,79 +43,6 @@
  
  &lt;/div>
  &lt;div class="col-12 col-md-6 my-auto">
- &lt;h1 style="font-size: 1.5rem">Давайте знакомиться&lt;/h1>
+ &lt;h1 style="font-size: 1.5rem">Sr. DevOps / Platform Engineer&lt;/h1>
  &lt;div class="about-me content lead" id="bio">
- &lt;/br>&lt;/br>Живу в Валенсии, штат Калифорния (США). Моя специализация — IT-инфраструктура, техническая поддержка и облачные решения. Помогаю компаниям надёжно масштабироваться и обеспечивать стабильную работу систем. Недавно я возглавлял техническую интеграцию Praedicat в Moody’s: руководил миграцией систем, выводом оборудования из эксплуатации и приведением IT-среды в соответствие требованиям безопасности и комплаенса. Работаю с упором на практическое решение задач, автоматизацию и прозрачное взаимодействие между командами. У меня более 15 лет опыта в корпоративных IT, кибербезопасности и пользовательской поддержке. Мне важно строить стабильные и защищённые системы, которые служат долго, объединяя людей, процессы и технологии.
- &lt;/div>
- 
- &lt;div class="hero-links">
- &lt;a class="btn btn-primary" href="../../resume/">📄 Resume&lt;/a>
- &lt;a class="btn btn-secondary" href="../../blog/">✍️ Blog&lt;/a>
- &lt;a class="btn btn-tertiary" href="../../contact/">📬 Contact&lt;/a>
-&lt;/div>
-
- &lt;/div>
- &lt;/div>
- &lt;/div>
-&lt;/section>
-
-
-
-
-&lt;div class="container">
- &lt;div class="row platform-links shortcode">
- &lt;div class="col-12">
-	
-	 
-	&lt;a
-	 href="https://www.linkedin.com/in/denistolochko/"
-	 target="_blank"
-	 rel="noopener noreferrer"
-	 aria-label="linkedin"
-	 >&lt;i class="icon-linkedin">&lt;/i>
-	&lt;/a>
-
-	
-	 
-	&lt;a
-	 href="https://github.com/akajedi"
-	 target="_blank"
-	 rel="noopener noreferrer"
-	 aria-label="square-github"
-	 >&lt;i class="icon-square-github">&lt;/i>
-	&lt;/a>
-
-	
-	 
-	&lt;a
-	 href="https://instagram.com/denishavefun"
-	 target="_blank"
-	 rel="noopener noreferrer"
-	 aria-label="instagram"
-	 >&lt;i class="icon-instagram">&lt;/i>
-	&lt;/a>
-
-&lt;/div>
- &lt;/div>
-&lt;/div>
-
-
-
-
-
-
-
-&lt;section
- id="education"
- class="section section--border-bottom rad-animation-group"
->
- &lt;div class="container-education">
- &lt;div class="row rad-fade-down">
- &lt;div class="col-12">
- &lt;h2>Образование&lt;/h2>
- &lt;div class="education-note mt-4">
- &lt;p>
- Alongside my formal studies in programming and law, I invested heavily in modern IT disciplines. 
- I completed an intensive &lt;strong>QA program in Silicon Valley, California&lt;/strong>, focused on manual and automation testing with extensive labs, projects, and real-world practice. 
- I also earned certifications in &lt;strong>DevOps Foundations: Continuous Delivery/Continuous Integration&lt;/strong> (LinkedIn, 2025), and regularly study advanced technical courses on &lt;strong>Pluralsight, Udemy, and LinkedIn Learning&lt;/strong>.
- &lt;/p></description></item></channel></rss>
+ &lt;p>Я живу в Валенсии, Калифорния, и помогаю командам выпускать продукты быстрее и безопаснее, превращая инфраструктуру в код и деливери — в предсказуемые пайплайны. Более 15 лет в корпоративной ИТ-сфере я специализируюсь на DevOps и платформенной инженерии: строю надёжные, наблюдаемые и экономически эффективные системы, которые масштабируются вместе с бизнесом. Мой основной стек: AWS и Azure; Terraform и Ansible для IaC; Docker и Kubernetes для рабочих нагрузок; GitHub Actions и Jenkins для CI/CD. Я укрепляю систему идентификации и конечные устройства, автоматизирую процессы онбординга и офбординга, делаю расходы предсказуемыми за счёт оптимизации ресурсов, планового масштабирования и бюджетов с оповещениями.&lt;/p></description></item></channel></rss>
