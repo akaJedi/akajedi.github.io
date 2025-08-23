@@ -1,0 +1,97 @@
+## Meta tags
+- id: "meta_title"
+  translation: "Senior DevOps & Platform Engineer — Denis Tolochko"
+- id: "meta_description"
+  translation: "DevOps/Platform engineer in Valencia, CA. AWS, Terraform, Kubernetes; CI/CD with GitHub Actions/Jenkins; SSO/IAM. Building reliable, secure, cost-aware systems."
+- id: "meta_keywords"
+  translation: "DevOps, Platform Engineering, AWS, Azure, Terraform, Ansible, Kubernetes, Docker, CI/CD, GitHub Actions, Jenkins, SSO, IAM, Observability, Prometheus, Grafana, CloudWatch, Infrastructure as Code, Site Reliability, Windows, macOS, Linux, Valencia CA, Volutetech, Denis Tolochko"
+- id: "meta_author"
+  translation: "Denis Tolochko"
+- id: "meta_image"
+  translation: "/img/general/og-image.jpg"
+
+## Header
+
+- id: "logo_alt"
+  translation: "f12.biz logo"
+
+- id: "logo_text1"
+  translation: "Денис"
+
+- id: "logo_text2"
+  translation: "Толочко"
+
+## General
+- id: "skipToMainContent"
+  translation: "Skip to main content"
+
+- id: "toggle_navigation"
+  translation: "Toggle navigation"
+
+## Footer
+- id: "footer_notice"
+  translation: "© Denis Tolochko"
+
+- id: "language"
+  translation: "Language"
+
+- id: "toggle_theme"
+  translation: "Toggle theme"
+
+- id: "theme_light"
+  translation: "☀️ Light"
+- id: "theme_dark"
+  translation: "🌑 Dark"
+- id: "theme_auto"
+  translation: "✨ Auto"
+
+## Homepage head title
+- id: "head_title"
+  translation: "DevOps & Platform Engineer | AWS, Kubernetes, Terraform | California"
+
+- id: "head_description"
+  translation: "The website created to provide more information about my experience as systems administrator."
+
+
+## Blog
+- id: "read_more"
+  translation: "Read more"
+
+- id: "published_on"
+  translation: "Published on "
+
+- id: "continue_reading"
+  translation: "Continue reading"
+
+## 404 Page
+- id: "404_title"
+  translation: "Page not found"
+- id: "404_description"  
+  translation: "Sorry, but the page you were looking for could not be found."
+- id: "404_button"
+  translation: "Back to homepage"
+
+## Homepage experience
+- id: "experience_button"
+  translation: "LinkedIn" 
+
+- id: "experience_button_url"
+  translation: "https://www.linkedin.com/in/denistolochko/"
+
+- id: "experience_button2"
+  translation: "Resume Hub"
+
+- id: "experience_button2_url"
+  translation: "/resume"
+
+- id: "experience_button3"
+  translation: "View Portfolio"
+
+- id: "experience_button3_url"
+  translation: "/experience"
+
+## Homepage about
+- id: "about_title"
+  translation: "Sr. DevOps / Platform Engineer"
+- id: "about_subtitle"
+  translation: "AWS • IaC • CI/CD • Security"

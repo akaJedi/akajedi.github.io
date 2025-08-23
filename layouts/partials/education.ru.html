@@ -1,0 +1,56 @@
+{{- $contextType := printf "%T" . -}}
+{{- $isShortcode := (eq $contextType "*hugolib.ShortcodeWithPage") -}}
+
+{{/*
+  sectionId: Optional argument to override the default HTML id for this section. If not provided, the default id is used. */}}
+{{ $sectionId := "education" }}
+{{ with .Get "sectionId" }}
+  {{ $sectionId = . }}
+{{ end }}
+
+{{- /* Title */}}
+{{- $title := "" -}}
+
+{{- if $isShortcode }}
+  {{- $title = .Get "title" | default ( i18n "education_title" ) -}}
+{{ else }}
+  {{- $title = i18n "education_title" -}}
+{{ end }}
+
+
+
+<section
+  id="{{ $sectionId }}"
+  class="section section--border-bottom rad-animation-group"
+>
+  <div class="container-education">
+    <div class="row rad-fade-down">
+      <div class="col-12">
+        <h2>{{ $title }}</h2>
+          <div class="education-note mt-4">
+            <p>Наряду с формальным образованием в области программирования и юриспруденции, я много инвестировал в современные IT-дисциплины.  
+              Я прошёл интенсивную <strong>QA-программу в Кремниевой долине, Калифорния</strong>, сосредоточенную на ручном и автоматизированном тестировании с обширными лабораторными работами, проектами и практикой, близкой к реальным условиям.  
+              Также я получил сертификаты по курсу <strong>DevOps Foundations: Continuous Delivery/Continuous Integration</strong> (LinkedIn, 2025) и регулярно изучаю продвинутые технические курсы на <strong>Pluralsight, Udemy и LinkedIn Learning</strong>.</p>
+              <p>Этот опыт расширяет моё образование за рамки традиционных дипломов, формируя прочную базу в <strong>QA-инжиниринге, автоматизации и практиках DevOps</strong>.  
+              В сочетании с 15+ годами опыта в IT-операциях, системном администрировании и облачной инфраструктуре это гарантирует, что я привношу в каждый проект не только теорию, но и проверенную на практике профессиональную экспертизу.</p>
+
+          </div>
+        <div class="row pt-2 pt-md-4">
+          {{ range where .Site.RegularPages "Type" "education" }}
+          <div class="col-12 col-sm-6 mb-4 mb-sm-0">
+            <div class="education">
+              <div class="education__date">{{ .Params.year }}</div>
+              <div class="education__title">{{ .Params.university }}</div>
+              <div class="education__degree">{{ .Params.degree }}</div>
+            </div>
+          </div>
+          {{ end }}
+        </div>
+          </br>
+          <p style="font-style: italic; color:#555;">
+              P.S. В настоящее время я сосредоточен на освоении передовых практик DevOps для Infrastructure as Code (IaC) и стремлюсь к получению дополнительных отраслевых сертификатов.
+          </p>
+      </div>
+    </div>
+  </div>
+</section>

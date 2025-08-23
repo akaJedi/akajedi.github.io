@@ -119,8 +119,8 @@ disableTags = false
 enable = true
 
 [params.languages.selector.disable]
-footer = true
-header = true
+footer = false
+header = false
 mobileHeader = true
 
 [languages]
