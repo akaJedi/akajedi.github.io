@@ -16,7 +16,6 @@ function corsHeaders(request) {
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": reqHeaders,
     "Access-Control-Max-Age": "86400",
-    // add if you use cookies/credentials: "Access-Control-Allow-Credentials": "true",
     "Vary": "Origin",
   };
 }
@@ -30,6 +29,31 @@ export default {
     if (request.method !== "POST") {
       return new Response("Only POST allowed", { status: 405, headers: corsHeaders(request) });
     }
+
+    // Identify which site/page sent the request
+    const hdrOrigin  = request.headers.get("Origin")   || "";
+    const hdrReferer = request.headers.get("Referer")  || "";
+    let siteOrigin = "";
+    let siteHost   = "";
+    let sitePage   = "";
+
+    try {
+      if (hdrOrigin) {
+        const u = new URL(hdrOrigin);
+        siteOrigin = u.origin;
+        siteHost   = u.host;
+      }
+    } catch (_) {}
+    try {
+      if (hdrReferer) {
+        const r = new URL(hdrReferer);
+        if (!siteOrigin) { // if Origin missing, fall back to Referer origin
+          siteOrigin = r.origin;
+          siteHost   = r.host;
+        }
+        sitePage = r.href; // full page URL for context
+      }
+    } catch (_) {}
 
     const contentType = request.headers.get("content-type") || "";
     let formData;
@@ -48,6 +72,14 @@ export default {
     const phone = formData.phone?.trim() || "";
     const honeypot = formData.secret_field?.trim();
 
+    // Bonus: drop bots filling the honeypot
+    if (honeypot) {
+      return new Response(JSON.stringify({ success: true }), {
+        status: 200,
+        headers: { ...corsHeaders(request), "Content-Type": "application/json" },
+      });
+    }
+
     if (!name || !email || !message) {
       return new Response(JSON.stringify({ error: "Missing required fields" }), {
         status: 400,
@@ -63,8 +95,15 @@ export default {
       });
     }
 
+    // Build the message, including the sending site
+    const siteLine = siteHost
+      ? `🌐 Site: ${siteHost}${sitePage ? `\n🔗 Page: ${sitePage}` : ""}`
+      : `🌐 Site: (unknown)\n${hdrOrigin ? `Origin: ${hdrOrigin}\n` : ""}${hdrReferer ? `Referer: ${hdrReferer}\n` : ""}`;
+
     const textMessage =
       `New message:\n` +
+      `${siteLine}\n` +
+      `\n` +
       `👤 ${name}\n` +
       `📧 ${email}\n` +
       (phone ? `📱 ${phone}\n` : "") +
