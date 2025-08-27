@@ -3,7 +3,8 @@ const ALLOWED_ORIGINS = [
   "https://f12.biz",
   "https://f12-biz.pages.dev",
   "https://netlify.f12.biz",
-  "https://f12-biz.netlify.app"
+  "https://f12-biz.netlify.app",
+  "https://github.f12.biz"
 ];
 
 function corsHeaders(request) {
