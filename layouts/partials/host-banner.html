@@ -1,0 +1,35 @@
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const hostname = window.location.hostname;
+    let message = "";
+
+    if (hostname === "localhost" || hostname === "127.0.0.1") {
+      message = "💻 Running on Localhost (dev mode)";
+    } else if (hostname.includes("github.io")) {
+      message = "🚀 Hosted via GitHub Pages";
+    } else if (hostname.includes("netlify.app")) {
+      message = "☁️ Hosted via Netlify";
+    } else if (hostname.includes("cfpages.dev")) {
+      message = "🌀 Hosted via Cloudflare Pages";
+    } else if (hostname.includes("f12.biz")) {
+      message = "🌐 Hosted via Custom Domain (f12.biz)";
+    }
+
+    if (message) {
+      const hostBanner = document.createElement("div");
+      hostBanner.innerText = message;
+      hostBanner.style.cssText = `
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: #222;
+        color: #fff;
+        text-align: center;
+        padding: 8px 0;
+        font-size: 14px;
+        z-index: 9999;
+      `;
+      document.body.appendChild(hostBanner);
+    }
+  });
+</script>
