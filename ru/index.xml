@@ -1,7 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title/><link>https://www.f12.biz/ru/</link><description>Recent content on</description><generator>Hugo</generator><language>ru</language><lastBuildDate>Fri, 25 Aug 2000 09:53:42 +0200</lastBuildDate><atom:link href="https://www.f12.biz/ru/index.xml" rel="self" type="application/rss+xml"/><item><title>Юргинский Техникум Отраслевых Технологий и Права</title><link>https://www.f12.biz/ru/education/ymt/</link><pubDate>Fri, 25 Aug 2000 09:53:42 +0200</pubDate><guid>https://www.f12.biz/ru/education/ymt/</guid><description/></item><item><title>Томский Государственный Университет</title><link>https://www.f12.biz/ru/education/tgu/</link><pubDate>Wed, 25 Aug 1999 09:53:42 +0200</pubDate><guid>https://www.f12.biz/ru/education/tgu/</guid><description/></item><item><title>Home</title><link>https://www.f12.biz/ru/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/home/home/</guid><description>&lt;section id="about" class="section rad-animation-group pb-0">
- &lt;div class="rad-fade-down">
- &lt;div class="row d-flex flex-column-reverse flex-md-row">
- &lt;div class="about__profile-picture col-12 col-md-6 text-center">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title/><link>https://www.f12.biz/ru/</link><description>Recent content on</description><generator>Hugo</generator><language>ru</language><lastBuildDate>Fri, 01 Dec 2017 00:00:00 +0100</lastBuildDate><atom:link href="https://www.f12.biz/ru/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>https://www.f12.biz/ru/experience/it-engineer/</link><pubDate>Fri, 01 Dec 2017 00:00:00 +0100</pubDate><guid>https://www.f12.biz/ru/experience/it-engineer/</guid><description>&lt;p&gt;Я работал &lt;strong&gt;старшим системным администратором&lt;/strong&gt; и &lt;strong&gt;администратором сетевой безопасности&lt;/strong&gt;.&lt;br&gt;
+В мои обязанности входила защита и поддержка высоконагруженной инфраструктуры в нескольких регионах.&lt;br&gt;
+Моя роль включала проведение внутренних аудитов безопасности, тесное взаимодействие с командами white-hat для проведения тестов на проникновение,&lt;br&gt;
+а также внедрение инструментов мониторинга для обеспечения видимости и обнаружения угроз в реальном времени.&lt;/p&gt;
+&lt;p&gt;Я координировал установку обновлений системы, управлял планами аварийного восстановления и поддерживал надёжные резервные копии&lt;br&gt;
+для обеспечения устойчивости работы. Кроме того, я решал сложные сетевые проблемы, развёртывал антивирусные решения и агенты управления активами&lt;br&gt;
+в различных средах, а также следил за тем, чтобы все системы соответствовали требованиям безопасности и стандартам комплаенса.&lt;/p&gt;</description></item><item><title/><link>https://www.f12.biz/ru/experience/software-engineer/</link><pubDate>Thu, 01 Dec 2011 00:00:00 +0100</pubDate><guid>https://www.f12.biz/ru/experience/software-engineer/</guid><description>&lt;p&gt;&lt;strong&gt;T3Leads&lt;/strong&gt;, ведущий поставщик услуг по генерации онлайн-лидов и партнёрских сетей,
+специализируется на предоставлении качественных лидов по займам до зарплаты для финансовой индустрии.&lt;br&gt;
+Сеть компании насчитывает более 10 000 активных партнёров, а деятельность охватывает США, Великобританию, Канаду и Австралию.&lt;/p&gt;
+&lt;p&gt;Работая PHP-разработчиком в &lt;strong&gt;T3Leads&lt;/strong&gt;, я отвечал за использование различных технологий для создания сайтов и веб-приложений,
+а также за разработку удобных интерфейсов фронтенда и бэкенда с применением HTML, PHP, CSS и JavaScript.&lt;br&gt;
+Я эффективно работал самостоятельно с минимальным надзором, поддерживая тесное взаимодействие с руководящей командой.&lt;/p&gt;</description></item><item><title>Юргинский Техникум Отраслевых Технологий и Права</title><link>https://www.f12.biz/ru/education/ymt/</link><pubDate>Fri, 25 Aug 2000 09:53:42 +0200</pubDate><guid>https://www.f12.biz/ru/education/ymt/</guid><description/></item><item><title>Томский Государственный Университет</title><link>https://www.f12.biz/ru/education/tgu/</link><pubDate>Wed, 25 Aug 1999 09:53:42 +0200</pubDate><guid>https://www.f12.biz/ru/education/tgu/</guid><description/></item><item><title>Home</title><link>https://www.f12.biz/ru/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/home/home/</guid><description>&lt;section id="about" class="section rad-animation-group pb-0"&gt;
+ &lt;div class="rad-fade-down"&gt;
+ &lt;div class="row d-flex flex-column-reverse flex-md-row"&gt;
+ &lt;div class="about__profile-picture col-12 col-md-6 text-center"&gt;
  
 
 
@@ -22,12 +33,12 @@
  
 
 
- &lt;picture class="">
+ &lt;picture class=""&gt;
  
  
 
- &lt;source srcset="../images/about/user-picture_hu_596504744a1065d6.webp 1x, ../images/about/user-picture_hu_9a5d9fee94bd2f1b.webp 2x" type="image/webp" />
- &lt;source srcset="../images/about/user-picture_hu_a41e06a1a19c73a7.png 1x, ../images/about/user-picture_hu_fac7726411d7a497.png 2x" type="image/png">
+ &lt;source srcset="../images/about/user-picture_hu_596504744a1065d6.webp 1x, ../images/about/user-picture_hu_9a5d9fee94bd2f1b.webp 2x" type="image/webp" /&gt;
+ &lt;source srcset="../images/about/user-picture_hu_a41e06a1a19c73a7.png 1x, ../images/about/user-picture_hu_fac7726411d7a497.png 2x" type="image/png"&gt;
 
  &lt;img
  width="742"
@@ -38,11 +49,11 @@
  src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
  loading="lazy"
  decoding="async"
- />
- &lt;/picture>
+ /&gt;
+ &lt;/picture&gt;
  
- &lt;/div>
- &lt;div class="col-12 col-md-6 my-auto">
- &lt;h1 style="font-size: 1.5rem">Sr. DevOps / Platform Engineer&lt;/h1>
- &lt;div class="about-me content lead" id="bio">
- &lt;p>Я живу в Валенсии, Калифорния, и помогаю командам выпускать продукты быстрее и безопаснее, превращая инфраструктуру в код и деливери — в предсказуемые пайплайны. Более 15 лет в корпоративной ИТ-сфере я специализируюсь на DevOps и платформенной инженерии: строю надёжные, наблюдаемые и экономически эффективные системы, которые масштабируются вместе с бизнесом. Мой основной стек: AWS и Azure; Terraform и Ansible для IaC; Docker и Kubernetes для рабочих нагрузок; GitHub Actions и Jenkins для CI/CD. Я укрепляю систему идентификации и конечные устройства, автоматизирую процессы онбординга и офбординга, делаю расходы предсказуемыми за счёт оптимизации ресурсов, планового масштабирования и бюджетов с оповещениями.&lt;/p></description></item></channel></rss>
+ &lt;/div&gt;
+ &lt;div class="col-12 col-md-6 my-auto"&gt;
+ &lt;h1 style="font-size: 1.5rem"&gt;Sr. DevOps / Platform Engineer&lt;/h1&gt;
+ &lt;div class="about-me content lead" id="bio"&gt;
+ &lt;p&gt;Я живу в Валенсии, Калифорния, и помогаю командам выпускать продукты быстрее и безопаснее, превращая инфраструктуру в код и деливери — в предсказуемые пайплайны. Более 15 лет в корпоративной ИТ-сфере я специализируюсь на DevOps и платформенной инженерии: строю надёжные, наблюдаемые и экономически эффективные системы, которые масштабируются вместе с бизнесом. Мой основной стек: AWS и Azure; Terraform и Ansible для IaC; Docker и Kubernetes для рабочих нагрузок; GitHub Actions и Jenkins для CI/CD. Я укрепляю систему идентификации и конечные устройства, автоматизирую процессы онбординга и офбординга, делаю расходы предсказуемыми за счёт оптимизации ресурсов, планового масштабирования и бюджетов с оповещениями.&lt;/p&gt;</description></item></channel></rss>

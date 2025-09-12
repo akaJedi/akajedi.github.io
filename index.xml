@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title/><link>https://www.f12.biz/</link><description>Recent content on</description><generator>Hugo</generator><language>en</language><lastBuildDate>Thu, 21 Aug 2025 15:37:56 -0700</lastBuildDate><atom:link href="https://www.f12.biz/index.xml" rel="self" type="application/rss+xml"/><item><title>Hugo Best Cms Choice</title><link>https://www.f12.biz/blog/hugo-best-cms-choice/</link><pubDate>Thu, 21 Aug 2025 15:37:56 -0700</pubDate><guid>https://www.f12.biz/blog/hugo-best-cms-choice/</guid><description>&lt;p>&lt;img src="./img/blog/hugo-cms.jpeg" alt="Example image">&lt;/p>
-&lt;p>When evaluating different content management systems (CMS), I explored a variety of options — from modern Node.js projects to traditional PHP-based platforms. Each offered unique features, but none matched the performance and workflow efficiency of &lt;strong>Hugo CMS&lt;/strong>.&lt;/p></description></item><item><title>Infrastructure as Code Shift Devops</title><link>https://www.f12.biz/blog/infrastructure-as-code-shift-devops/</link><pubDate>Tue, 19 Aug 2025 18:35:26 -0700</pubDate><guid>https://www.f12.biz/blog/infrastructure-as-code-shift-devops/</guid><description>&lt;p>&lt;img src="./img/blog/iac.jpeg" alt="Example image">&lt;/p>
-&lt;p>Infrastructure used to be a mess of tickets, console clicks, and “works on my machine.”&lt;br>
-With Infrastructure as Code, that’s over.&lt;/p></description></item><item><title>Code Snippet</title><link>https://www.f12.biz/blog/code-snippet/</link><pubDate>Tue, 19 Aug 2025 17:53:43 -0700</pubDate><guid>https://www.f12.biz/blog/code-snippet/</guid><description>&lt;p>Terraform lets you preview, deploy, and clean up infrastructure with just a few commands.&lt;br>
-Here’s a simple end-to-end example using AWS S3.&lt;/p></description></item><item><title>Getting Started With Go</title><link>https://www.f12.biz/blog/getting-started-with-go/</link><pubDate>Wed, 21 May 2025 10:28:08 -0700</pubDate><guid>https://www.f12.biz/blog/getting-started-with-go/</guid><description>&lt;p>&lt;img src="./img/blog/go.jpeg" alt="Example image">&lt;/p>
-&lt;p>Go (or Golang) is a modern programming language created by Google, designed to be &lt;strong>simple, fast, and reliable&lt;/strong>.&lt;br>
-If you want to try it out, you don’t need much — just a machine (Windows or Linux) and a bit of curiosity.&lt;/p></description></item><item><title>OOP — Quick Note</title><link>https://www.f12.biz/blog/oop-quick-note/</link><pubDate>Thu, 07 Aug 2025 20:35:00 -0700</pubDate><guid>https://www.f12.biz/blog/oop-quick-note/</guid><description>&lt;p>Object-Oriented Programming (OOP) — just writing this down to keep it fresh.&lt;/p>
-&lt;p>It’s a way of organizing code around &lt;em>objects&lt;/em> and &lt;em>classes&lt;/em>. Helps with keeping code readable, reusable, and more structured.&lt;/p></description></item><item><title>PGP public key for security@f12.biz</title><link>https://www.f12.biz/pgp-key/</link><pubDate>Mon, 04 Aug 2025 15:46:57 -0700</pubDate><guid>https://www.f12.biz/pgp-key/</guid><description>&lt;code>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title/><link>https://www.f12.biz/</link><description>Recent content on</description><generator>Hugo</generator><language>en</language><lastBuildDate>Thu, 21 Aug 2025 15:37:56 -0700</lastBuildDate><atom:link href="https://www.f12.biz/index.xml" rel="self" type="application/rss+xml"/><item><title>Hugo Best Cms Choice</title><link>https://www.f12.biz/blog/hugo-best-cms-choice/</link><pubDate>Thu, 21 Aug 2025 15:37:56 -0700</pubDate><guid>https://www.f12.biz/blog/hugo-best-cms-choice/</guid><description>&lt;p&gt;&lt;img src="./img/blog/hugo-cms.jpeg" alt="Example image"&gt;&lt;/p&gt;
+&lt;p&gt;When evaluating different content management systems (CMS), I explored a variety of options — from modern Node.js projects to traditional PHP-based platforms. Each offered unique features, but none matched the performance and workflow efficiency of &lt;strong&gt;Hugo CMS&lt;/strong&gt;.&lt;/p&gt;</description></item><item><title>Infrastructure as Code Shift Devops</title><link>https://www.f12.biz/blog/infrastructure-as-code-shift-devops/</link><pubDate>Tue, 19 Aug 2025 18:35:26 -0700</pubDate><guid>https://www.f12.biz/blog/infrastructure-as-code-shift-devops/</guid><description>&lt;p&gt;&lt;img src="./img/blog/iac.jpeg" alt="Example image"&gt;&lt;/p&gt;
+&lt;p&gt;Infrastructure used to be a mess of tickets, console clicks, and “works on my machine.”&lt;br&gt;
+With Infrastructure as Code, that’s over.&lt;/p&gt;</description></item><item><title>Code Snippet</title><link>https://www.f12.biz/blog/code-snippet/</link><pubDate>Tue, 19 Aug 2025 17:53:43 -0700</pubDate><guid>https://www.f12.biz/blog/code-snippet/</guid><description>&lt;p&gt;Terraform lets you preview, deploy, and clean up infrastructure with just a few commands.&lt;br&gt;
+Here’s a simple end-to-end example using AWS S3.&lt;/p&gt;</description></item><item><title>Getting Started With Go</title><link>https://www.f12.biz/blog/getting-started-with-go/</link><pubDate>Wed, 21 May 2025 10:28:08 -0700</pubDate><guid>https://www.f12.biz/blog/getting-started-with-go/</guid><description>&lt;p&gt;&lt;img src="./img/blog/go.jpeg" alt="Example image"&gt;&lt;/p&gt;
+&lt;p&gt;Go (or Golang) is a modern programming language created by Google, designed to be &lt;strong&gt;simple, fast, and reliable&lt;/strong&gt;.&lt;br&gt;
+If you want to try it out, you don’t need much — just a machine (Windows or Linux) and a bit of curiosity.&lt;/p&gt;</description></item><item><title>OOP — Quick Note</title><link>https://www.f12.biz/blog/oop-quick-note/</link><pubDate>Thu, 07 Aug 2025 20:35:00 -0700</pubDate><guid>https://www.f12.biz/blog/oop-quick-note/</guid><description>&lt;p&gt;Object-Oriented Programming (OOP) — just writing this down to keep it fresh.&lt;/p&gt;
+&lt;p&gt;It’s a way of organizing code around &lt;em&gt;objects&lt;/em&gt; and &lt;em&gt;classes&lt;/em&gt;. Helps with keeping code readable, reusable, and more structured.&lt;/p&gt;</description></item><item><title>PGP public key for security@f12.biz</title><link>https://www.f12.biz/pgp-key/</link><pubDate>Mon, 04 Aug 2025 15:46:57 -0700</pubDate><guid>https://www.f12.biz/pgp-key/</guid><description>&lt;code&gt;
 -----BEGIN PGP PUBLIC KEY BLOCK-----
-&lt;p>xsFNBGiRIhYBEADRQGM0Yk6unDiHHec2JIoWxSShDzld7fmn5Mi/X53ZITiSRJzE
+&lt;p&gt;xsFNBGiRIhYBEADRQGM0Yk6unDiHHec2JIoWxSShDzld7fmn5Mi/X53ZITiSRJzE
 YwunvkSOragsH3drgJB98oKMx+pf9rjq7AAYQrFekk+3Hiel38+2XL4GbMSl9VrE
 pzLSql8eWqv+iQssGx30RfGlyHt+9Z7f062bKvvAqxhn3JfQfw86BexAkWRNExu8
 XBhrkkbJ84y4OqzIf9kT9zDgkwT/eSZprvzL5jbv4tvM/+2z+O4/LAh43lENROkh
@@ -66,34 +66,34 @@ eK6BxWvme01+4+RBszeJrhVHqOkX4GBF5OBnkvuMf3icv8Dp6y3NiJQr6dQZ415c
 +3pbpCiuezlHEoyhjg7Xtj658LptleBw+p9SO3LWnHayqpJdWXKDFyeYR6wfOrq2
 ZaUY+LKfIPIDn7BWoHme/wti59me4oq8cCVKBuMlQkeyIOhwHfugUHuMIR+p0GHx
 cOkde+zIpTxIzqS/ZqPFxq+HZpdZw2PHDATgeaxc0l82Cq0z6v2cx6W1
-=lVdb&lt;/p>
-&lt;p>&amp;mdash;&amp;ndash;END PGP PUBLIC KEY BLOCK&amp;mdash;&amp;ndash;
-&lt;/code>&lt;/p></description></item><item><title>Vulnerability Disclosure Policy for f12.biz</title><link>https://www.f12.biz/security-policy/</link><pubDate>Mon, 04 Aug 2025 15:46:57 -0700</pubDate><guid>https://www.f12.biz/security-policy/</guid><description>&lt;p>&lt;/p>
+=lVdb&lt;/p&gt;
+&lt;p&gt;&amp;mdash;&amp;ndash;END PGP PUBLIC KEY BLOCK&amp;mdash;&amp;ndash;
+&lt;/code&gt;&lt;/p&gt;</description></item><item><title>Vulnerability Disclosure Policy for f12.biz</title><link>https://www.f12.biz/security-policy/</link><pubDate>Mon, 04 Aug 2025 15:46:57 -0700</pubDate><guid>https://www.f12.biz/security-policy/</guid><description>&lt;p&gt;&lt;/p&gt;
 ## Introduction
-&lt;p>We at f12.biz take the security of our users and infrastructure seriously. We welcome and encourage the responsible disclosure of security vulnerabilities.&lt;/p>
-&lt;p>If you discover a vulnerability, we ask that you report it directly to us so that we can take appropriate action. We are committed to investigating all legitimate reports and resolving the issues as quickly as possible.&lt;/p>
-&lt;hr>
-&lt;h2 id="reporting-a-vulnerability">Reporting a Vulnerability&lt;/h2>
-&lt;p>Please send detailed reports of potential vulnerabilities to:&lt;/p></description></item><item><title>Website Launch: My Digital Home Is Live</title><link>https://www.f12.biz/blog/site-launched/</link><pubDate>Sun, 03 Aug 2025 00:00:00 +0000</pubDate><guid>https://www.f12.biz/blog/site-launched/</guid><description>&lt;p>🚀 After years of hands-on IT experience, managing infrastructure, supporting teams, and diving deep into DevOps — I finally took time to build something for myself.&lt;/p></description></item><item><title>Graziella Nutella</title><link>https://www.f12.biz/testimonial/stephen-jones/</link><pubDate>Fri, 18 Jul 2025 21:53:18 +0100</pubDate><guid>https://www.f12.biz/testimonial/stephen-jones/</guid><description>&lt;p>I strongly recommend Denis! He is resourceful, clever, and patient. For 6 years he did everything IT-related at Praedicat. An essential team member. It was a pleasure working with you, Denis. I miss sitting next to you everyday!&lt;/p></description></item><item><title>Sr. Technical Support Analyst</title><link>https://www.f12.biz/experience/sr-technical-support-analyst/</link><pubDate>Tue, 01 Jul 2025 00:00:00 +0100</pubDate><guid>https://www.f12.biz/experience/sr-technical-support-analyst/</guid><description>&lt;p>As the sole in-house IT administrator at Praedicat, I was fully responsible for managing and maintaining the company&amp;rsquo;s IT infrastructure across multiple locations. My role combined hands-on technical support with long-term infrastructure planning, ensuring system reliability, security, and scalability for a growing organization.&lt;/p>
-&lt;p>I led the procurement, deployment, and lifecycle management of hardware, including desktops, laptops, servers, and network equipment. I managed inventory, vendor coordination, and internal asset tracking while supporting all staff with technical troubleshooting and end-user support across macOS, Windows, and Linux systems.&lt;/p></description></item><item><title>Febrianto Setiawan</title><link>https://www.f12.biz/testimonial/febrianto-setiawan/</link><pubDate>Mon, 25 Nov 2024 21:50:45 +0100</pubDate><guid>https://www.f12.biz/testimonial/febrianto-setiawan/</guid><description>&lt;p>Working with Denis has been a good experience. If you&amp;rsquo;re looking for a skilled and dependable IT professional, I highly recommend connecting with Denis!&lt;/p></description></item><item><title>Michael Ragland</title><link>https://www.f12.biz/testimonial/michael-ragland/</link><pubDate>Mon, 25 Nov 2024 21:50:45 +0100</pubDate><guid>https://www.f12.biz/testimonial/michael-ragland/</guid><description>&lt;p>Denis is an extraordinary IT professional who keeps things running and solves issues with speed and precision. Your company would be lucky to have him on board.&lt;/p></description></item><item><title>Tigran Makaryan</title><link>https://www.f12.biz/testimonial/tigran-makaryan/</link><pubDate>Mon, 25 Nov 2024 21:50:45 +0100</pubDate><guid>https://www.f12.biz/testimonial/tigran-makaryan/</guid><description>&lt;p>I would strongly recommend Denis — he brings solid technical expertise and is a great team player. Any company would benefit from having him on their team.&lt;/p></description></item><item><title>Andrew Simmons</title><link>https://www.f12.biz/testimonial/andrew-simmons/</link><pubDate>Mon, 25 Nov 2024 21:30:46 +0100</pubDate><guid>https://www.f12.biz/testimonial/andrew-simmons/</guid><description>&lt;p>I echo everything Stephen C. Jones has said about Denis, he was a great team member and immensely helped me. Good luck Denis 💪&lt;/p></description></item><item><title>Slava Rybalka</title><link>https://www.f12.biz/testimonial/slava-rybalka/</link><pubDate>Mon, 25 Nov 2024 21:30:46 +0100</pubDate><guid>https://www.f12.biz/testimonial/slava-rybalka/</guid><description>&lt;p>Denis is an expert in everything related to system administration, linux, and IT. He would be a fantastic asset for any organization. I highly recommend him.&lt;/p></description></item><item><title/><link>https://www.f12.biz/experience/sr-systems-administrator-and-it-engineer/</link><pubDate>Tue, 01 Oct 2024 00:00:00 +0100</pubDate><guid>https://www.f12.biz/experience/sr-systems-administrator-and-it-engineer/</guid><description>&lt;p>As the sole in-house IT administrator at Praedicat, I was fully responsible for managing and maintaining the company&amp;rsquo;s IT infrastructure across multiple locations. My role combined hands-on technical support with long-term infrastructure planning, ensuring system reliability, security, and scalability for a growing organization.&lt;/p>
-&lt;p>I led the procurement, deployment, and lifecycle management of hardware, including desktops, laptops, servers, and network equipment. I managed inventory, vendor coordination, and internal asset tracking while supporting all staff with technical troubleshooting and end-user support across macOS, Windows, and Linux systems.&lt;/p></description></item><item><title>Ztos</title><link>https://www.f12.biz/client-work/ztos/</link><pubDate>Sun, 25 Aug 2024 10:23:39 +0200</pubDate><guid>https://www.f12.biz/client-work/ztos/</guid><description/></item><item><title>Zoo</title><link>https://www.f12.biz/client-work/zoo/</link><pubDate>Sun, 25 Aug 2024 10:23:08 +0200</pubDate><guid>https://www.f12.biz/client-work/zoo/</guid><description/></item><item><title>Kanba</title><link>https://www.f12.biz/client-work/kanba/</link><pubDate>Sun, 25 Aug 2024 10:22:34 +0200</pubDate><guid>https://www.f12.biz/client-work/kanba/</guid><description/></item><item><title>Goldline</title><link>https://www.f12.biz/client-work/goldline/</link><pubDate>Sun, 25 Aug 2024 10:21:48 +0200</pubDate><guid>https://www.f12.biz/client-work/goldline/</guid><description/></item><item><title>Earth 2.0</title><link>https://www.f12.biz/client-work/earth2.0/</link><pubDate>Sun, 25 Aug 2024 10:17:12 +0200</pubDate><guid>https://www.f12.biz/client-work/earth2.0/</guid><description/></item><item><title>Asgardia</title><link>https://www.f12.biz/client-work/asgardia/</link><pubDate>Sun, 25 Aug 2024 09:53:42 +0200</pubDate><guid>https://www.f12.biz/client-work/asgardia/</guid><description/></item><item><title>Radity Finance - UI Kit</title><link>https://www.f12.biz/projects/radity-finance-uikit/</link><pubDate>Sun, 25 Aug 2024 09:53:42 +0200</pubDate><guid>https://www.f12.biz/projects/radity-finance-uikit/</guid><description>&lt;p>We have been receiving a lot of requests for a Finance Kit recently due to the popularity of Fintech.&lt;/p></description></item><item><title>Robo Advisor</title><link>https://www.f12.biz/projects/robo-advisor/</link><pubDate>Sun, 25 Aug 2024 09:53:42 +0200</pubDate><guid>https://www.f12.biz/projects/robo-advisor/</guid><description>&lt;p>Robo Advisor is a Swiss Wealth Manager and wants to create the best digital experience for its UNHW clients across the world. We started with a whiteboard.&lt;/p></description></item><item><title>Swiss Fintech Website</title><link>https://www.f12.biz/projects/swiss-fintech/</link><pubDate>Sun, 25 Aug 2024 09:53:42 +0200</pubDate><guid>https://www.f12.biz/projects/swiss-fintech/</guid><description>&lt;p>Here you can add additional context, description, links, etc.
-The content you see here comes from the contents of the &lt;code>content/projects&lt;/code> folder.&lt;/p>
-&lt;p>This project is in the file &lt;code>projects/swiss-fintech.md&lt;/code>.&lt;/p>
-&lt;p>In the markdown file frontmatter you can also define additional parameters, such as the link:&lt;/p>
-&lt;div class="codewrap" data-lang="text">&lt;button class="code-copy" type="button" aria-label="Copy code">Copy&lt;/button>
- &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-text" data-lang="text">&lt;span style="display:flex;">&lt;span>link: &amp;#34;https://www.adrianmoreno.info&amp;#34; # optional URL to link the logo to
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>params:
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> button:
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> icon: &amp;#34;icon-arrow-right&amp;#34;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> btnText: &amp;#34;Case Study&amp;#34;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> URL: &amp;#34;https://www.adrianmoreno.info&amp;#34;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> image: 
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> src: &amp;#34;images/works/swissfintech.jpg&amp;#34;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> scale: 0.5
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
-&lt;/div></description></item><item><title/><link>https://www.f12.biz/experience/it-engineer/</link><pubDate>Fri, 01 Dec 2017 00:00:00 +0100</pubDate><guid>https://www.f12.biz/experience/it-engineer/</guid><description>&lt;p>I served as a Senior Systems Administrator and Network Security Administrator. I was responsible for securing and maintaining a high-traffic infrastructure across multiple regions. My role involved leading internal security audits, working closely with white-hat teams for penetration testing, and deploying monitoring tools to ensure real-time visibility and threat detection. I coordinated system patching, managed disaster recovery plans, and maintained reliable backups for operational resilience. Additionally, I resolved complex network issues, deployed antivirus and asset management agents across environments, and ensured all systems met security and compliance standards. My work directly supported the stability and scalability of a distributed infrastructure serving thousands of affiliates worldwide&lt;/p></description></item><item><title/><link>https://www.f12.biz/experience/systems-administrator/</link><pubDate>Sat, 01 Dec 2012 00:00:00 +0100</pubDate><guid>https://www.f12.biz/experience/systems-administrator/</guid><description>&lt;p>T3Leads is the world’s premier online lead generation firm and affiliate network. T3Leads’ expertise is in providing quality payday loan leads, as the go-to pay-per-lead affiliate network for the financial sector. With over 10,000 active affiliates, T3Leads currently operates in the US, UK, Canada, and Australia.&lt;/p>
-&lt;p>As a Senior Systems Administrator &amp;amp; Network Security Administrator at T3Leads, my responsibilities include: Network Security
+&lt;p&gt;We at f12.biz take the security of our users and infrastructure seriously. We welcome and encourage the responsible disclosure of security vulnerabilities.&lt;/p&gt;
+&lt;p&gt;If you discover a vulnerability, we ask that you report it directly to us so that we can take appropriate action. We are committed to investigating all legitimate reports and resolving the issues as quickly as possible.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="reporting-a-vulnerability"&gt;Reporting a Vulnerability&lt;/h2&gt;
+&lt;p&gt;Please send detailed reports of potential vulnerabilities to:&lt;/p&gt;</description></item><item><title>Website Launch: My Digital Home Is Live</title><link>https://www.f12.biz/blog/site-launched/</link><pubDate>Sun, 03 Aug 2025 00:00:00 +0000</pubDate><guid>https://www.f12.biz/blog/site-launched/</guid><description>&lt;p&gt;🚀 After years of hands-on IT experience, managing infrastructure, supporting teams, and diving deep into DevOps — I finally took time to build something for myself.&lt;/p&gt;</description></item><item><title>Graziella Nutella</title><link>https://www.f12.biz/testimonial/stephen-jones/</link><pubDate>Fri, 18 Jul 2025 21:53:18 +0100</pubDate><guid>https://www.f12.biz/testimonial/stephen-jones/</guid><description>&lt;p&gt;I strongly recommend Denis! He is resourceful, clever, and patient. For 6 years he did everything IT-related at Praedicat. An essential team member. It was a pleasure working with you, Denis. I miss sitting next to you everyday!&lt;/p&gt;</description></item><item><title>Sr. Technical Support Analyst</title><link>https://www.f12.biz/experience/sr-technical-support-analyst/</link><pubDate>Tue, 01 Jul 2025 00:00:00 +0100</pubDate><guid>https://www.f12.biz/experience/sr-technical-support-analyst/</guid><description>&lt;p&gt;As the sole in-house IT administrator at Praedicat, I was fully responsible for managing and maintaining the company&amp;rsquo;s IT infrastructure across multiple locations. My role combined hands-on technical support with long-term infrastructure planning, ensuring system reliability, security, and scalability for a growing organization.&lt;/p&gt;
+&lt;p&gt;I led the procurement, deployment, and lifecycle management of hardware, including desktops, laptops, servers, and network equipment. I managed inventory, vendor coordination, and internal asset tracking while supporting all staff with technical troubleshooting and end-user support across macOS, Windows, and Linux systems.&lt;/p&gt;</description></item><item><title>Febrianto Setiawan</title><link>https://www.f12.biz/testimonial/febrianto-setiawan/</link><pubDate>Mon, 25 Nov 2024 21:50:45 +0100</pubDate><guid>https://www.f12.biz/testimonial/febrianto-setiawan/</guid><description>&lt;p&gt;Working with Denis has been a good experience. If you&amp;rsquo;re looking for a skilled and dependable IT professional, I highly recommend connecting with Denis!&lt;/p&gt;</description></item><item><title>Michael Ragland</title><link>https://www.f12.biz/testimonial/michael-ragland/</link><pubDate>Mon, 25 Nov 2024 21:50:45 +0100</pubDate><guid>https://www.f12.biz/testimonial/michael-ragland/</guid><description>&lt;p&gt;Denis is an extraordinary IT professional who keeps things running and solves issues with speed and precision. Your company would be lucky to have him on board.&lt;/p&gt;</description></item><item><title>Tigran Makaryan</title><link>https://www.f12.biz/testimonial/tigran-makaryan/</link><pubDate>Mon, 25 Nov 2024 21:50:45 +0100</pubDate><guid>https://www.f12.biz/testimonial/tigran-makaryan/</guid><description>&lt;p&gt;I would strongly recommend Denis — he brings solid technical expertise and is a great team player. Any company would benefit from having him on their team.&lt;/p&gt;</description></item><item><title>Andrew Simmons</title><link>https://www.f12.biz/testimonial/andrew-simmons/</link><pubDate>Mon, 25 Nov 2024 21:30:46 +0100</pubDate><guid>https://www.f12.biz/testimonial/andrew-simmons/</guid><description>&lt;p&gt;I echo everything Stephen C. Jones has said about Denis, he was a great team member and immensely helped me. Good luck Denis 💪&lt;/p&gt;</description></item><item><title>Slava Rybalka</title><link>https://www.f12.biz/testimonial/slava-rybalka/</link><pubDate>Mon, 25 Nov 2024 21:30:46 +0100</pubDate><guid>https://www.f12.biz/testimonial/slava-rybalka/</guid><description>&lt;p&gt;Denis is an expert in everything related to system administration, linux, and IT. He would be a fantastic asset for any organization. I highly recommend him.&lt;/p&gt;</description></item><item><title/><link>https://www.f12.biz/experience/sr-systems-administrator-and-it-engineer/</link><pubDate>Tue, 01 Oct 2024 00:00:00 +0100</pubDate><guid>https://www.f12.biz/experience/sr-systems-administrator-and-it-engineer/</guid><description>&lt;p&gt;As the sole in-house IT administrator at Praedicat, I was fully responsible for managing and maintaining the company&amp;rsquo;s IT infrastructure across multiple locations. My role combined hands-on technical support with long-term infrastructure planning, ensuring system reliability, security, and scalability for a growing organization.&lt;/p&gt;
+&lt;p&gt;I led the procurement, deployment, and lifecycle management of hardware, including desktops, laptops, servers, and network equipment. I managed inventory, vendor coordination, and internal asset tracking while supporting all staff with technical troubleshooting and end-user support across macOS, Windows, and Linux systems.&lt;/p&gt;</description></item><item><title>Ztos</title><link>https://www.f12.biz/client-work/ztos/</link><pubDate>Sun, 25 Aug 2024 10:23:39 +0200</pubDate><guid>https://www.f12.biz/client-work/ztos/</guid><description/></item><item><title>Zoo</title><link>https://www.f12.biz/client-work/zoo/</link><pubDate>Sun, 25 Aug 2024 10:23:08 +0200</pubDate><guid>https://www.f12.biz/client-work/zoo/</guid><description/></item><item><title>Kanba</title><link>https://www.f12.biz/client-work/kanba/</link><pubDate>Sun, 25 Aug 2024 10:22:34 +0200</pubDate><guid>https://www.f12.biz/client-work/kanba/</guid><description/></item><item><title>Goldline</title><link>https://www.f12.biz/client-work/goldline/</link><pubDate>Sun, 25 Aug 2024 10:21:48 +0200</pubDate><guid>https://www.f12.biz/client-work/goldline/</guid><description/></item><item><title>Earth 2.0</title><link>https://www.f12.biz/client-work/earth2.0/</link><pubDate>Sun, 25 Aug 2024 10:17:12 +0200</pubDate><guid>https://www.f12.biz/client-work/earth2.0/</guid><description/></item><item><title>Asgardia</title><link>https://www.f12.biz/client-work/asgardia/</link><pubDate>Sun, 25 Aug 2024 09:53:42 +0200</pubDate><guid>https://www.f12.biz/client-work/asgardia/</guid><description/></item><item><title>Radity Finance - UI Kit</title><link>https://www.f12.biz/projects/radity-finance-uikit/</link><pubDate>Sun, 25 Aug 2024 09:53:42 +0200</pubDate><guid>https://www.f12.biz/projects/radity-finance-uikit/</guid><description>&lt;p&gt;We have been receiving a lot of requests for a Finance Kit recently due to the popularity of Fintech.&lt;/p&gt;</description></item><item><title>Robo Advisor</title><link>https://www.f12.biz/projects/robo-advisor/</link><pubDate>Sun, 25 Aug 2024 09:53:42 +0200</pubDate><guid>https://www.f12.biz/projects/robo-advisor/</guid><description>&lt;p&gt;Robo Advisor is a Swiss Wealth Manager and wants to create the best digital experience for its UNHW clients across the world. We started with a whiteboard.&lt;/p&gt;</description></item><item><title>Swiss Fintech Website</title><link>https://www.f12.biz/projects/swiss-fintech/</link><pubDate>Sun, 25 Aug 2024 09:53:42 +0200</pubDate><guid>https://www.f12.biz/projects/swiss-fintech/</guid><description>&lt;p&gt;Here you can add additional context, description, links, etc.
+The content you see here comes from the contents of the &lt;code&gt;content/projects&lt;/code&gt; folder.&lt;/p&gt;
+&lt;p&gt;This project is in the file &lt;code&gt;projects/swiss-fintech.md&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;In the markdown file frontmatter you can also define additional parameters, such as the link:&lt;/p&gt;
+&lt;div class="codewrap" data-lang="text"&gt;&lt;button class="code-copy" type="button" aria-label="Copy code"&gt;Copy&lt;/button&gt;
+ &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;link: &amp;#34;https://www.adrianmoreno.info&amp;#34; # optional URL to link the logo to
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;params:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; button:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; icon: &amp;#34;icon-arrow-right&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; btnText: &amp;#34;Case Study&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; URL: &amp;#34;https://www.adrianmoreno.info&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; image: 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; src: &amp;#34;images/works/swissfintech.jpg&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; scale: 0.5
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;</description></item><item><title/><link>https://www.f12.biz/experience/it-engineer/</link><pubDate>Fri, 01 Dec 2017 00:00:00 +0100</pubDate><guid>https://www.f12.biz/experience/it-engineer/</guid><description>&lt;p&gt;I served as a Senior Systems Administrator and Network Security Administrator. I was responsible for securing and maintaining a high-traffic infrastructure across multiple regions. My role involved leading internal security audits, working closely with white-hat teams for penetration testing, and deploying monitoring tools to ensure real-time visibility and threat detection. I coordinated system patching, managed disaster recovery plans, and maintained reliable backups for operational resilience. Additionally, I resolved complex network issues, deployed antivirus and asset management agents across environments, and ensured all systems met security and compliance standards. My work directly supported the stability and scalability of a distributed infrastructure serving thousands of affiliates worldwide&lt;/p&gt;</description></item><item><title/><link>https://www.f12.biz/experience/systems-administrator/</link><pubDate>Sat, 01 Dec 2012 00:00:00 +0100</pubDate><guid>https://www.f12.biz/experience/systems-administrator/</guid><description>&lt;p&gt;T3Leads is the world’s premier online lead generation firm and affiliate network. T3Leads’ expertise is in providing quality payday loan leads, as the go-to pay-per-lead affiliate network for the financial sector. With over 10,000 active affiliates, T3Leads currently operates in the US, UK, Canada, and Australia.&lt;/p&gt;
+&lt;p&gt;As a Senior Systems Administrator &amp;amp; Network Security Administrator at T3Leads, my responsibilities include: Network Security
 • Ensuring system security, spearheading security audits, and working with the Hi Level White Hackers team for penetration testing
 • Utilizing security tools to monitor the networks and reporting and responding immediately to security or usability issues and incidents
 • Writing custom monitoring plugins to ensure system security
@@ -103,67 +103,67 @@ The content you see here comes from the contents of the &lt;code>content/project
 • Scheduling, creating, and verifying backups on a regular and ad hoc basis
 • Deploying backup, antivirus, monitoring, blade logic, and asset management agents as servers are added into the network
 • Hands on experience with computer forensics, penetration and vulnerability testing tools, and conducting internal audits, vulnerability scanning, firewall, penetration testing
-• Install, diagnose, repair, and upgrade all hardware, applications and equipment, including regulation of any software incidents&lt;/p></description></item><item><title/><link>https://www.f12.biz/experience/software-engineer/</link><pubDate>Thu, 01 Dec 2011 00:00:00 +0100</pubDate><guid>https://www.f12.biz/experience/software-engineer/</guid><description>&lt;p>T3Leads, the leading provider of online lead generation and affiliate network services, specializes in delivering top-notch payday loan leads to the financial industry. With a thriving network of over 10,000 active affiliates, the company operates globally, serving clients in the US, UK, Canada, and Australia.&lt;/p>
-&lt;p>As a PHP Developer at T3Leads, I was responsible for using a variety of technologies to create websites and web applications, and developing user-friendly front- and back-end interfaces using HTML, PHP, CSS, and JavaScript. I was able to work independently with minimal supervision, maintaining a close working relationship with the Executive team.&lt;/p></description></item><item><title>Yurga Technical College of Industry and Law</title><link>https://www.f12.biz/education/ymt/</link><pubDate>Fri, 25 Aug 2000 09:53:42 +0200</pubDate><guid>https://www.f12.biz/education/ymt/</guid><description/></item><item><title>Tomsk State University</title><link>https://www.f12.biz/education/tgu/</link><pubDate>Wed, 25 Aug 1999 09:53:42 +0200</pubDate><guid>https://www.f12.biz/education/tgu/</guid><description/></item><item><title>Contact</title><link>https://www.f12.biz/contact/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/contact/</guid><description>&lt;p>I keep my communication simple and transparent. If you’d like to connect, here are the ways to reach me:&lt;/p>
-&lt;hr>
-&lt;h3 id="-schedule-a-meeting">📅 Schedule a Meeting&lt;/h3>
-&lt;p>The easiest way is to use my scheduling system:&lt;/p>
-&lt;p>Pick a time that works best for you — it automatically adjusts for time zones and avoids back-and-forth emails.&lt;/p>
-&lt;a id="Setmore_button_iframe" href="https://f12.setmore.com" style="display:flex; align-items:center; gap:8px; text-decoration:none; background:#478079; padding:10px 16px; border-radius:8px; color:white; font-size:16px; font-weight:600;">
- &lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" height="20" width="20" viewBox="0 0 24 24" stroke="currentColor">
- &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10m-11 6h12a2 2 0 002-2V7a2 2 0 00-2-2h-1V3m-10 2v2H7a2 2 0 00-2 2v10a2 2 0 002 2h10"/>
- &lt;/svg>
+• Install, diagnose, repair, and upgrade all hardware, applications and equipment, including regulation of any software incidents&lt;/p&gt;</description></item><item><title/><link>https://www.f12.biz/experience/software-engineer/</link><pubDate>Thu, 01 Dec 2011 00:00:00 +0100</pubDate><guid>https://www.f12.biz/experience/software-engineer/</guid><description>&lt;p&gt;T3Leads, the leading provider of online lead generation and affiliate network services, specializes in delivering top-notch payday loan leads to the financial industry. With a thriving network of over 10,000 active affiliates, the company operates globally, serving clients in the US, UK, Canada, and Australia.&lt;/p&gt;
+&lt;p&gt;As a PHP Developer at T3Leads, I was responsible for using a variety of technologies to create websites and web applications, and developing user-friendly front- and back-end interfaces using HTML, PHP, CSS, and JavaScript. I was able to work independently with minimal supervision, maintaining a close working relationship with the Executive team.&lt;/p&gt;</description></item><item><title>Yurga Technical College of Industry and Law</title><link>https://www.f12.biz/education/ymt/</link><pubDate>Fri, 25 Aug 2000 09:53:42 +0200</pubDate><guid>https://www.f12.biz/education/ymt/</guid><description/></item><item><title>Tomsk State University</title><link>https://www.f12.biz/education/tgu/</link><pubDate>Wed, 25 Aug 1999 09:53:42 +0200</pubDate><guid>https://www.f12.biz/education/tgu/</guid><description/></item><item><title>Contact</title><link>https://www.f12.biz/contact/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/contact/</guid><description>&lt;p&gt;I keep my communication simple and transparent. If you’d like to connect, here are the ways to reach me:&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id="-schedule-a-meeting"&gt;📅 Schedule a Meeting&lt;/h3&gt;
+&lt;p&gt;The easiest way is to use my scheduling system:&lt;/p&gt;
+&lt;p&gt;Pick a time that works best for you — it automatically adjusts for time zones and avoids back-and-forth emails.&lt;/p&gt;
+&lt;a id="Setmore_button_iframe" href="https://f12.setmore.com" style="display:flex; align-items:center; gap:8px; text-decoration:none; background:#478079; padding:10px 16px; border-radius:8px; color:white; font-size:16px; font-weight:600;"&gt;
+ &lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" height="20" width="20" viewBox="0 0 24 24" stroke="currentColor"&gt;
+ &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10m-11 6h12a2 2 0 002-2V7a2 2 0 00-2-2h-1V3m-10 2v2H7a2 2 0 00-2 2v10a2 2 0 002 2h10"/&gt;
+ &lt;/svg&gt;
  Schedule Meeting
-&lt;/a>
-&lt;hr>
-&lt;h3 id="-send-a-message">✉️ Send a Message&lt;/h3>
-&lt;p>If you prefer to write, you can send me a message directly. I review messages regularly and will respond as soon as possible.&lt;br>
-&lt;em>Tip: please include your topic or project context so I can reply quickly and effectively.&lt;/em>&lt;/p></description></item><item><title>Footer</title><link>https://www.f12.biz/footer/footer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/footer/footer/</guid><description>&lt;section id="contact" class="section section--contact pt-0">
- &lt;div class="container">
- &lt;div class="contact w-100">
- &lt;h2>Reach out&lt;/h2>
- &lt;div class="row pt-2">
- &lt;div class="col-12 col-lg-7">
- &lt;form action="https://green-rice-1ea7.denis-f21.workers.dev" method="POST" class="contact__form">
- &lt;div class="row">
- &lt;div class="col-12 col-sm-6">
- &lt;input type="text" name="full_name" class="form-control" placeholder="Your name">
- &lt;/div>
- &lt;div class="col-12 col-sm-6">
- &lt;input type="email" name="email" class="form-control" placeholder="Your e-mail">
- &lt;/div>
- &lt;/div>
- &lt;div class="row pt-4">
- &lt;div class="col-12">
- &lt;input type="tel" name="phone" class="form-control" placeholder="Your phone">
- &lt;/div>
- &lt;/div>
- &lt;div class="row pt-4">
- &lt;div class="col-12">
- &lt;textarea name="message" class="form-control" rows="2" placeholder="Your text">&lt;/textarea>
- &lt;/div>
- &lt;/div>
- &lt;div class="row pt-4">
- &lt;div class="col-12">
- &lt;button type="submit" class="btn btn-primary">Send message&lt;/button>
- &lt;/div>
- &lt;/div>
- &lt;div id="message" style="margin-top: 20px;">&lt;/div>
- &lt;/form>
- &lt;/div>
- &lt;div class="col-12 col-lg-5 contact__info">
+&lt;/a&gt;
+&lt;hr&gt;
+&lt;h3 id="-send-a-message"&gt;✉️ Send a Message&lt;/h3&gt;
+&lt;p&gt;If you prefer to write, you can send me a message directly. I review messages regularly and will respond as soon as possible.&lt;br&gt;
+&lt;em&gt;Tip: please include your topic or project context so I can reply quickly and effectively.&lt;/em&gt;&lt;/p&gt;</description></item><item><title>Footer</title><link>https://www.f12.biz/footer/footer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/footer/footer/</guid><description>&lt;section id="contact" class="section section--contact pt-0"&gt;
+ &lt;div class="container"&gt;
+ &lt;div class="contact w-100"&gt;
+ &lt;h2&gt;Reach out&lt;/h2&gt;
+ &lt;div class="row pt-2"&gt;
+ &lt;div class="col-12 col-lg-7"&gt;
+ &lt;form action="https://green-rice-1ea7.denis-f21.workers.dev" method="POST" class="contact__form"&gt;
+ &lt;div class="row"&gt;
+ &lt;div class="col-12 col-sm-6"&gt;
+ &lt;input type="text" name="full_name" class="form-control" placeholder="Your name"&gt;
+ &lt;/div&gt;
+ &lt;div class="col-12 col-sm-6"&gt;
+ &lt;input type="email" name="email" class="form-control" placeholder="Your e-mail"&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="row pt-4"&gt;
+ &lt;div class="col-12"&gt;
+ &lt;input type="tel" name="phone" class="form-control" placeholder="Your phone"&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="row pt-4"&gt;
+ &lt;div class="col-12"&gt;
+ &lt;textarea name="message" class="form-control" rows="2" placeholder="Your text"&gt;&lt;/textarea&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="row pt-4"&gt;
+ &lt;div class="col-12"&gt;
+ &lt;button type="submit" class="btn btn-primary"&gt;Send message&lt;/button&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div id="message" style="margin-top: 20px;"&gt;&lt;/div&gt;
+ &lt;/form&gt;
+ &lt;/div&gt;
+ &lt;div class="col-12 col-lg-5 contact__info"&gt;
  
 
  
  
  
- &lt;/div>
- &lt;/div>
- &lt;/div>
- &lt;/div>
-&lt;/section>
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+&lt;/section&gt;
 
-&lt;script>
+&lt;script&gt;
 document.addEventListener("DOMContentLoaded", function () {
  const form = document.querySelector("form");
  const messageBox = document.getElementById("message");
@@ -209,10 +209,10 @@ document.addEventListener("DOMContentLoaded", function () {
  }
  });
 });
-&lt;/script></description></item><item><title>Home</title><link>https://www.f12.biz/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/home/home/</guid><description>&lt;section id="about" class="section rad-animation-group pb-0">
- &lt;div class="rad-fade-down">
- &lt;div class="row d-flex flex-column-reverse flex-md-row">
- &lt;div class="about__profile-picture col-12 col-md-6 text-center">
+&lt;/script&gt;</description></item><item><title>Home</title><link>https://www.f12.biz/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/home/home/</guid><description>&lt;section id="about" class="section rad-animation-group pb-0"&gt;
+ &lt;div class="rad-fade-down"&gt;
+ &lt;div class="row d-flex flex-column-reverse flex-md-row"&gt;
+ &lt;div class="about__profile-picture col-12 col-md-6 text-center"&gt;
  
 
 
@@ -233,12 +233,12 @@ document.addEventListener("DOMContentLoaded", function () {
  
 
 
- &lt;picture class="">
+ &lt;picture class=""&gt;
  
  
 
- &lt;source srcset="./images/about/user-picture_hu_9dd183a9eb851e21.webp 1x, ./images/about/user-picture_hu_f7806c10415993e1.webp 2x" type="image/webp" />
- &lt;source srcset="./images/about/user-picture_hu_669cd4b7772405e3.png 1x, ./images/about/user-picture_hu_6f3af1b5e40d3ac7.png 2x" type="image/png">
+ &lt;source srcset="./images/about/user-picture_hu_9dd183a9eb851e21.webp 1x, ./images/about/user-picture_hu_f7806c10415993e1.webp 2x" type="image/webp" /&gt;
+ &lt;source srcset="./images/about/user-picture_hu_669cd4b7772405e3.png 1x, ./images/about/user-picture_hu_6f3af1b5e40d3ac7.png 2x" type="image/png"&gt;
 
  &lt;img
  width="619"
@@ -249,13 +249,13 @@ document.addEventListener("DOMContentLoaded", function () {
  src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
  loading="lazy"
  decoding="async"
- />
- &lt;/picture>
+ /&gt;
+ &lt;/picture&gt;
  
- &lt;/div>
- &lt;div class="col-12 col-md-6 my-auto">
- &lt;h1 style="font-size: 1.5rem">Sr. DevOps / Platform Engineer&lt;/h1>
- &lt;div class="about-me content lead" id="bio">
- &lt;p>Based in Valencia, California, I help teams ship faster and safer by turning infrastructure into code and delivery into predictable pipelines. With 15+ years across enterprise IT, I focus on DevOps and platform engineering—building reliable, observable, and cost-aware systems that scale.&lt;/p></description></item><item><title>Printable CV</title><link>https://www.f12.biz/cv/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/cv/</guid><description>&lt;p>ℹ This page is a demo of the printer-friendly output of the theme. You can find the source code in the demo repo (&lt;a href="https://raw.githubusercontent.com/zetxek/adritian-demo/refs/heads/main/content/cv.md%29">https://raw.githubusercontent.com/zetxek/adritian-demo/refs/heads/main/content/cv.md)&lt;/a>. Try printing it directly from your browser!&lt;/p>
-&lt;h3 id="about-me">About me&lt;/h3>
-&lt;p>I am a passionate software engineer with over 10 years of experience building web applications and distributed systems. My expertise spans full-stack development, cloud architecture, and leading engineering teams to deliver impactful solutions. I thrive on solving complex technical challenges while mentoring others and fostering a collaborative engineering culture.&lt;/p></description></item><item><title>Search</title><link>https://www.f12.biz/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/search/</guid><description>search</description></item></channel></rss>
+ &lt;/div&gt;
+ &lt;div class="col-12 col-md-6 my-auto"&gt;
+ &lt;h1 style="font-size: 1.5rem"&gt;Sr. DevOps / Platform Engineer&lt;/h1&gt;
+ &lt;div class="about-me content lead" id="bio"&gt;
+ &lt;p&gt;Based in Valencia, California, I help teams ship faster and safer by turning infrastructure into code and delivery into predictable pipelines. With expirience across enterprise IT, I focus on DevOps and platform engineering—building reliable, observable, and cost-aware systems that scale.&lt;/p&gt;&lt;p&gt;Core stack: AWS and Azure; Terraform and Ansible for IaC; Docker and Kubernetes for workloads; GitHub Actions and Jenkins for CI/CD. I harden identity and endpoints, automate onboarding and offboarding, and make costs predictable through rightsizing, scheduled scaling, and budgets with alerts.&lt;/p&gt;</description></item><item><title>Printable CV</title><link>https://www.f12.biz/cv/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/cv/</guid><description>&lt;p&gt;ℹ This page is a demo of the printer-friendly output of the theme. You can find the source code in the demo repo (&lt;a href="https://raw.githubusercontent.com/zetxek/adritian-demo/refs/heads/main/content/cv.md%29"&gt;https://raw.githubusercontent.com/zetxek/adritian-demo/refs/heads/main/content/cv.md)&lt;/a&gt;. Try printing it directly from your browser!&lt;/p&gt;
+&lt;h3 id="about-me"&gt;About me&lt;/h3&gt;
+&lt;p&gt;I am a passionate software engineer with over 10 years of experience building web applications and distributed systems. My expertise spans full-stack development, cloud architecture, and leading engineering teams to deliver impactful solutions. I thrive on solving complex technical challenges while mentoring others and fostering a collaborative engineering culture.&lt;/p&gt;</description></item><item><title>Search</title><link>https://www.f12.biz/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/search/</guid><description>search</description></item></channel></rss>
