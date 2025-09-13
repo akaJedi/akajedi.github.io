@@ -5,16 +5,14 @@
 
     if (hostname === "localhost" || hostname === "127.0.0.1") {
       message = "💻 Running on Localhost (dev mode)";
-    } else if (hostname.includes("github.io")) {
-      message = "🚀 Hosted via GitHub Pages";
-    } else if (hostname.includes("netlify.app")) {
+    } else if (hostname.includes("www.f12.biz")) {
+      message = "🚀 Hosted via GitHub Pages + Custom Domain";
+    } else if (hostname.includes("f12-biz.netlify.app")) {
       message = "☁️ Hosted via Netlify";
-    } else if (hostname.includes("cfpages.dev")) {
+    } else if (hostname.includes("f12-biz.pages.dev")) {
       message = "🌀 Hosted via Cloudflare Pages";
-    } else if (hostname.includes("f12.biz")) {
-      message = "🌐 Hosted via Custom Domain (f12.biz)";
-    }
-
+    } 
+    
     if (message) {
       const hostBanner = document.createElement("div");
       hostBanner.innerText = message;
