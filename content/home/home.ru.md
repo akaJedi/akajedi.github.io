@@ -5,7 +5,8 @@ draft = false
 +++
 
 <div class="terminal-hero" style="max-width: 900px; margin: 8rem auto 3rem; padding: 2rem;">
-<pre style="padding: 2rem; border-radius: 8px; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.95rem; overflow-x: auto; line-height: 1.4;">
+<!-- Desktop terminal view -->
+<pre class="d-none d-md-block" style="padding: 2rem; border-radius: 8px; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.95rem; overflow-x: auto; line-height: 1.4;">
 <code style="line-height: 1.4;"><span class="color-green">$</span> whoami
 <span class="color-green">denis@f12</span>:<span class="color-blue">~</span>$ cat about.txt
 
@@ -22,40 +23,19 @@ draft = false
 
 <span class="color-green">denis@f12</span>:<span class="color-blue">~</span>$ <span class="color-white">_</span></code>
 </pre>
-</div>
 
-{{< spacer >}}
-
-<div class="container" style="max-width: 1000px;">
-<div class="row">
-<div class="col-12">
-
-<h3 style="font-family: monospace; margin-bottom: 1.5rem;">// Основной стек</h3>
-
-<div class="row">
-<div class="col-md-6 mb-4">
-<div style="background: #f5f5f5; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #478079;">
-<pre style="background: transparent; margin: 0; padding: 0;"><code>const infrastructure = {
-  cloud: ["AWS", "Azure"],
-  iac: ["Terraform", "Ansible"],
-  containers: ["Docker", "Kubernetes"],
-  cicd: ["GitHub Actions", "Jenkins"]
-}</code></pre>
-</div>
-</div>
-
-<div class="col-md-6 mb-4">
-<div style="background: #f5f5f5; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #478079;">
-<pre style="background: transparent; margin: 0; padding: 0;"><code>const focus = {
-  monitoring: ["Prometheus", "Grafana"],
-  security: ["SSO", "IAM", "Zero Trust"],
-  automation: ["Python", "Bash", "PowerShell"]
-}</code></pre>
-</div>
-</div>
-</div>
-
-</div>
+<!-- Mobile simple view -->
+<div class="d-md-none text-center" style="padding: 2rem 1rem;">
+<h1 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Денис Толочко</h1>
+<h2 style="font-size: 1.1rem; font-weight: normal; margin-bottom: 1rem; color: #666;">IT Systems Operations Engineer</h2>
+<p style="margin-bottom: 0.5rem; color: #888;">Валенсия, Калифорния</p>
+<hr style="margin: 1.5rem auto; width: 60%; opacity: 0.3;">
+<ul style="list-style: none; padding: 0; text-align: left; max-width: 280px; margin: 0 auto;">
+<li style="margin-bottom: 0.5rem;">» Инфраструктура как код</li>
+<li style="margin-bottom: 0.5rem;">» Облачная архитектура (AWS/Azure)</li>
+<li style="margin-bottom: 0.5rem;">» DevOps и платформенная инженерия</li>
+<li style="margin-bottom: 0.5rem;">» Безопасность и соответствие</li>
+</ul>
 </div>
 </div>
 
@@ -64,7 +44,7 @@ draft = false
 <div class="container text-center" style="max-width: 800px;">
 <h3 style="font-family: monospace; margin-bottom: 1rem;">$ cat current_role.txt</h3>
 <p style="font-size: 1.1rem; line-height: 1.8;">
-IT Systems Operations Engineer - Строю надёжную, масштабируемую инфраструктуру. Автоматизирую всё. Делаю развёртывания скучными (в хорошем смысле). Превращаю хаос облаков в предсказуемые системы, которым команды могут доверять.
+IT Systems Operations Engineer - Строю надёжную, масштабируемую инфраструктуру. Автоматизирую всё. Делаю развёртывания скучными. Превращаю хаос облаков в предсказуемые системы, которым команды могут доверять.
 </p>
 </div>
 

@@ -12,9 +12,9 @@ languageCode = "en"
     shortname = 'your-disqus-shortname'
 	
 [outputs]
-  page = ["HTML"]
+  page = ["HTML", "JSON"]
   home = ["HTML", "RSS", "JSON"]
-  section = ["HTML", "RSS"]
+  section = ["HTML", "RSS", "JSON"]
   taxonomy = ["HTML", "RSS"]
   term = ["HTML", "RSS"]
   footer = []
