@@ -4,42 +4,87 @@ type = "home"
 draft = false
 +++
 
+<div class="terminal-hero" style="max-width: 900px; margin: 8rem auto 3rem; padding: 2rem;">
+<pre style="background: #1e1e1e; color: #00ff00; padding: 2rem; border-radius: 8px; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.9rem; overflow-x: auto;">
+<code>$ whoami
+denis@f12:~$ cat about.txt
 
+╔═══════════════════════════════════════════════════════════╗
+║  DENIS TOLOCHKO                                           ║
+║  IT Systems Operations Engineer                           ║
+║  Valencia, CA                                             ║
+╚═══════════════════════════════════════════════════════════╝
 
-{{< about-section
-    title="Senior IT Systems & Operations Engineer"
-    content="<p>Based in Valencia, California, I help teams ship faster and safer by turning infrastructure into code and delivery into predictable pipelines. With experience across enterprise IT, I focus on DevOps and platform engineering—building reliable, observable, and cost-aware systems that scale.</p><p>Core stack: AWS and Azure; Terraform and Ansible for IaC; Docker and Kubernetes for workloads; GitHub Actions and Jenkins for CI/CD. I harden identity and endpoints, automate onboarding and offboarding, and make costs predictable through rightsizing, scheduled scaling, and budgets with alerts.</p><p>Currently working as a Senior IT Systems and Operations Engineer, where I architect and maintain enterprise infrastructure, implement automation strategies, and drive operational excellence across cloud and on-premises environments.</p>"
-    button_icon="icon-user"
-    button_url="/skills"
-    imgSrc="images/about/user-picture.png"
-    imgScale="0.5"
-    text_align="center"
- >}}
+» Infrastructure as Code
+» Cloud Architecture (AWS/Azure)
+» DevOps & Platform Engineering
+» Security & Compliance
 
-{{< random-quote >}}
+denis@f12:~$ _</code>
+</pre>
+</div>
 
+{{< spacer >}}
 
-{{< platform-links >}} 
-  {{< link icon="square-twitter" url="https://twitter.com/denistolochko" >}} 
-  {{< link icon="linkedin" url="https://www.linkedin.com/in/denistolochko" >}} 
-  {{< link icon="square-github" url="https://github.com/akajedi" >}} 
-  {{< link icon="keybase" url="https://twitter.com/denistolochko" >}} 
-  {{< link icon="instagram" url="https://www.instagram.com/@denishavefun" >}} 
-  {{< link icon="tiktok" url="https://www.tiktok.com/@denistolochko" >}} 
-  {{< link icon="threads" url="https://www.threads.net/@denishavefun" >}} 
-  {{< link icon="user" url="https://www.f12.biz" >}} 
+<div class="container" style="max-width: 1000px;">
+<div class="row">
+<div class="col-12">
+
+<h3 style="font-family: monospace; margin-bottom: 1.5rem;">// Core Stack</h3>
+
+<div class="row">
+<div class="col-md-6 mb-4">
+<div style="background: #f5f5f5; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #478079;">
+<pre style="background: transparent; margin: 0; padding: 0;"><code>const infrastructure = {
+  cloud: ["AWS", "Azure"],
+  iac: ["Terraform", "Ansible"],
+  containers: ["Docker", "Kubernetes"],
+  cicd: ["GitHub Actions", "Jenkins"]
+}</code></pre>
+</div>
+</div>
+
+<div class="col-md-6 mb-4">
+<div style="background: #f5f5f5; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #478079;">
+<pre style="background: transparent; margin: 0; padding: 0;"><code>const focus = {
+  monitoring: ["Prometheus", "Grafana"],
+  security: ["SSO", "IAM", "Zero Trust"],
+  automation: ["Python", "Bash", "PowerShell"]
+}</code></pre>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+{{< spacer >}}
+
+<div class="container text-center" style="max-width: 800px;">
+<h3 style="font-family: monospace; margin-bottom: 1rem;">$ cat current_role.txt</h3>
+<p style="font-size: 1.1rem; line-height: 1.8;">
+IT Systems Operations Engineer - Building reliable, scalable infrastructure. Automating everything. Making deployments boring (in a good way). Turning cloud chaos into predictable systems that teams can trust.
+</p>
+</div>
+
+{{< spacer >}}
+
+<div class="container text-center">
+<div class="hero-links" style="justify-content: center;">
+<a href="/about" class="btn-primary">➜ /about</a>
+<a href="/skills" class="btn-secondary">➜ /skills</a>
+<a href="/blog" class="btn-tertiary">➜ /blog</a>
+</div>
+</div>
+
+{{< spacer >}}
+
+{{< platform-links >}}
+  {{< link icon="square-github" url="https://github.com/akajedi" >}}
+  {{< link icon="linkedin" url="https://www.linkedin.com/in/denistolochko" >}}
+  {{< link icon="square-twitter" url="https://twitter.com/denistolochko" >}}
+  {{< link icon="keybase" url="https://twitter.com/denistolochko" >}}
 {{< /platform-links >}}
 
-{{< education-list
-    title="Education" 
->}}
-
-{{< experience-section
-    title="Experience"
-    intro_title="IT Infrastructure & Cloud Operations Lead | Systems, Security, DevOps"
-    intro_description="<p>Over the course of my career, I have built a deep and well-rounded foundation in IT operations, system administration, infrastructure engineering, and cloud integration, combining technical expertise with practical problem-solving. My professional path has taken me through organizations of all sizes — from agile startups and high-growth technology firms to large-scale, globally distributed enterprises — where I have planned, implemented, and maintained mission-critical systems that directly support core business functions.</p> <p>I have successfully led high-impact infrastructure transitions, including cloud migrations, data center consolidations, enterprise network upgrades, and hybrid environment integrations, ensuring minimal downtime and smooth adoption across teams. My work spans Windows, macOS, and Linux platforms, with hands-on experience in AWS, Microsoft Azure, VMware, Docker, Kubernetes, and infrastructure-as-code solutions such as Terraform and Ansible. I have collaborated closely with development, security, and business stakeholders, bridging the gap between technical requirements and organizational objectives while ensuring compliance with security frameworks and best practices.</p> <p>In every role, I bring a solutions-focused approach centered on reliability, performance optimization, and security hardening. This includes implementing proactive monitoring with tools like Prometheus, Grafana, and CloudWatch; refining CI/CD pipelines with GitHub Actions and Jenkins; enforcing identity and access controls through SSO, IAM, and Active Directory; and establishing governance policies that support long-term operational efficiency. I have a proven ability to troubleshoot complex technical issues, design resilient architectures, and optimize cloud resources for cost-effectiveness while maintaining a secure, well-maintained environment.</p><p> Beyond day-to-day operations, I actively contribute to modernization efforts — introducing automation to reduce manual workloads, codifying infrastructure for repeatable deployments, and improving disaster recovery and business continuity plans. Whether supporting end users, advising on technical strategy, or leading infrastructure upgrades, my consistent priority is enabling teams to work faster, smarter, and more securely while aligning technology with organizational goals.</p>"
->}}
-
-
-{{< testimonial-section
-    title="Colleague Feedback" >}}
+{{< spacer >}}

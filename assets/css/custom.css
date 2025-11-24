@@ -157,3 +157,7 @@ footer {
   opacity: 0.85;
 }
 
+/* Hide contact form only on home page */
+body.home .section--contact {
+  display: none;
+}

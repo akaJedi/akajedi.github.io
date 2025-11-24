@@ -5,7 +5,7 @@ draft = false
 +++
 
 {{< contact-section
-    title="Reach out" 
+    title="Reach out"
     contact_form_name="Your name"
     contact_form_email="Your e-mail"
     contact_form_message="Your text"

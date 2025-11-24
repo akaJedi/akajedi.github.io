@@ -4,42 +4,87 @@ type = "home"
 draft = false
 +++
 
+<div class="terminal-hero" style="max-width: 900px; margin: 8rem auto 3rem; padding: 2rem;">
+<pre style="background: #1e1e1e; color: #00ff00; padding: 2rem; border-radius: 8px; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.9rem; overflow-x: auto;">
+<code>$ whoami
+denis@f12:~$ cat about.txt
 
+╔═══════════════════════════════════════════════════════════╗
+║  ДЕНИС ТОЛОЧКО                                            ║
+║  IT Systems Operations Engineer                           ║
+║  Валенсия, Калифорния                                     ║
+╚═══════════════════════════════════════════════════════════╝
 
-{{< about-section
-    title="Sr. DevOps / Platform Engineer"
-    content="<p>Я живу в Валенсии, Калифорния, и помогаю командам выпускать продукты быстрее и безопаснее, превращая инфраструктуру в код и деливери — в предсказуемые пайплайны. Более 15 лет в корпоративной ИТ-сфере я специализируюсь на DevOps и платформенной инженерии: строю надёжные, наблюдаемые и экономически эффективные системы, которые масштабируются вместе с бизнесом. Мой основной стек: AWS и Azure; Terraform и Ansible для IaC; Docker и Kubernetes для рабочих нагрузок; GitHub Actions и Jenkins для CI/CD. Я укрепляю систему идентификации и конечные устройства, автоматизирую процессы онбординга и офбординга, делаю расходы предсказуемыми за счёт оптимизации ресурсов, планового масштабирования и бюджетов с оповещениями.</p><p>Открыт для старших ролей в области DevOps и платформенной инженерии, а также для выборочного консалтинга по CI/CD-стартам, Terraform landing zones, усилению безопасности идентичности, внедрению систем наблюдаемости и анализу затрат.</p>"
-    button_icon="icon-user"
-    button_url="/skills"
-    imgSrc="images/about/user-picture.png"
-    imgScale="0.6"
-    text_align="center"
- >}}
+» Инфраструктура как код
+» Облачная архитектура (AWS/Azure)
+» DevOps и платформенная инженерия
+» Безопасность и соответствие
 
-{{< random-quote >}}
+denis@f12:~$ _</code>
+</pre>
+</div>
 
+{{< spacer >}}
 
-{{< platform-links >}} 
-  {{< link icon="square-twitter" url="https://twitter.com/denistolochko" >}} 
-  {{< link icon="linkedin" url="https://www.linkedin.com/in/denistolochko" >}} 
-  {{< link icon="square-github" url="https://github.com/akajedi" >}} 
-  {{< link icon="keybase" url="https://twitter.com/denistolochko" >}} 
-  {{< link icon="instagram" url="https://www.instagram.com/@denishavefun" >}} 
-  {{< link icon="tiktok" url="https://www.tiktok.com/@denistolochko" >}} 
-  {{< link icon="threads" url="https://www.threads.net/@denishavefun" >}} 
-  {{< link icon="user" url="https://www.f12.biz" >}} 
+<div class="container" style="max-width: 1000px;">
+<div class="row">
+<div class="col-12">
+
+<h3 style="font-family: monospace; margin-bottom: 1.5rem;">// Основной стек</h3>
+
+<div class="row">
+<div class="col-md-6 mb-4">
+<div style="background: #f5f5f5; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #478079;">
+<pre style="background: transparent; margin: 0; padding: 0;"><code>const infrastructure = {
+  cloud: ["AWS", "Azure"],
+  iac: ["Terraform", "Ansible"],
+  containers: ["Docker", "Kubernetes"],
+  cicd: ["GitHub Actions", "Jenkins"]
+}</code></pre>
+</div>
+</div>
+
+<div class="col-md-6 mb-4">
+<div style="background: #f5f5f5; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #478079;">
+<pre style="background: transparent; margin: 0; padding: 0;"><code>const focus = {
+  monitoring: ["Prometheus", "Grafana"],
+  security: ["SSO", "IAM", "Zero Trust"],
+  automation: ["Python", "Bash", "PowerShell"]
+}</code></pre>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+{{< spacer >}}
+
+<div class="container text-center" style="max-width: 800px;">
+<h3 style="font-family: monospace; margin-bottom: 1rem;">$ cat current_role.txt</h3>
+<p style="font-size: 1.1rem; line-height: 1.8;">
+IT Systems Operations Engineer - Строю надёжную, масштабируемую инфраструктуру. Автоматизирую всё. Делаю развёртывания скучными (в хорошем смысле). Превращаю хаос облаков в предсказуемые системы, которым команды могут доверять.
+</p>
+</div>
+
+{{< spacer >}}
+
+<div class="container text-center">
+<div class="hero-links" style="justify-content: center;">
+<a href="/about" class="btn-primary">➜ /about</a>
+<a href="/skills" class="btn-secondary">➜ /skills</a>
+<a href="/blog" class="btn-tertiary">➜ /blog</a>
+</div>
+</div>
+
+{{< spacer >}}
+
+{{< platform-links >}}
+  {{< link icon="square-github" url="https://github.com/akajedi" >}}
+  {{< link icon="linkedin" url="https://www.linkedin.com/in/denistolochko" >}}
+  {{< link icon="square-twitter" url="https://twitter.com/denistolochko" >}}
+  {{< link icon="keybase" url="https://twitter.com/denistolochko" >}}
 {{< /platform-links >}}
 
-{{< education-list
-    title="Образование" 
->}}
-
-{{< experience-section
-    title="Experience"
-    intro_title="IT Infrastructure & Cloud Operations Lead | Systems, Security, DevOps"
-    intro_description="<p>За время своей карьеры я выстроил глубокую и разностороннюю базу в области IT-операций, системного администрирования, инженерии инфраструктуры и облачной интеграции, совмещая техническую экспертизу с практическим решением задач. Мой профессиональный путь проходил через организации разных масштабов — от гибких стартапов и быстрорастущих технологических компаний до крупных глобально распределённых предприятий — где я планировал, внедрял и поддерживал бизнес-критичные системы, напрямую обеспечивающие ключевые функции бизнеса.</p><p>Я успешно руководил инфраструктурными трансформациями с высоким влиянием: миграциями в облако, консолидацией дата-центров, модернизацией корпоративных сетей и интеграцией гибридных сред, обеспечивая минимальные простои и плавное внедрение для команд. Моя работа охватывает платформы Windows, macOS и Linux, при этом у меня есть практический опыт работы с AWS, Microsoft Azure, VMware, Docker, Kubernetes, а также с инфраструктурой-как-код (Terraform и Ansible). Я тесно взаимодействовал с командами разработки, безопасности и бизнес-подразделениями, соединяя технические требования с организационными целями и обеспечивая соответствие нормативам безопасности и лучшим практикам.</p><p>В каждой роли я привношу ориентированный на решения подход, сосредоточенный на надёжности, оптимизации производительности и усилении безопасности. Это включает внедрение проактивного мониторинга с использованием Prometheus, Grafana и CloudWatch; улучшение CI/CD пайплайнов с GitHub Actions и Jenkins; применение систем управления идентичностью и доступом через SSO, IAM и Active Directory; а также разработку политик управления, поддерживающих долгосрочную операционную эффективность. У меня есть подтверждённый опыт устранения сложных технических проблем, проектирования отказоустойчивых архитектур и оптимизации облачных ресурсов для снижения затрат при сохранении безопасности и стабильности среды.</p><p>Помимо повседневных операций, я активно участвую в процессах модернизации — внедряю автоматизацию для сокращения ручного труда, перевожу инфраструктуру в код для повторяемых развёртываний, совершенствую планы аварийного восстановления и обеспечения непрерывности бизнеса. Поддерживая пользователей, консультируя по технической стратегии или руководя модернизацией инфраструктуры, я неизменно ставлю приоритетом обеспечение более быстрой, умной и безопасной работы команд при выравнивании технологий с целями организации.</p>"
->}}
-
-
-{{< testimonial-section
-    title="Colleague Feedback" >}}
+{{< spacer >}}
