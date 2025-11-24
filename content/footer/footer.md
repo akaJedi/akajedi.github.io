@@ -21,19 +21,33 @@ draft = false
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  const form = document.querySelector("form");
+  const form = document.querySelector(".contact__form");
   const messageBox = document.getElementById("message");
 
-  if (!form || !messageBox) return;
+  if (!form || !messageBox) {
+    console.error("Form or message box not found");
+    return;
+  }
 
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const name = form.querySelector("[name='full_name']").value.trim();
-    const email = form.querySelector("[name='email']").value.trim();
-    const phone = form.querySelector("[name='phone']").value.trim();
-    const message = form.querySelector("[name='message']").value.trim();
-    const secret = form.querySelector("[name='secret_field']")?.value || "";
+    const nameInput = form.querySelector("[name='full_name']");
+    const emailInput = form.querySelector("[name='email']");
+    const phoneInput = form.querySelector("[name='phone']");
+    const messageInput = form.querySelector("[name='message']");
+
+    if (!nameInput || !emailInput || !messageInput) {
+      console.error("Required form fields not found");
+      messageBox.textContent = "❌ Form error. Please refresh the page.";
+      messageBox.style.color = "red";
+      return;
+    }
+
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const phone = phoneInput.value.trim();
+    const message = messageInput.value.trim();
 
     if (!name || !email || !message) {
       messageBox.textContent = "❗Please fill out your name, email, and message.";
@@ -41,25 +55,43 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    const data = { name, email, phone, message, secret_field: secret };
+    const data = {
+      full_name: name,
+      email: email,
+      phone: phone,
+      message: message
+    };
+
+    messageBox.textContent = "Sending...";
+    messageBox.style.color = "#478079";
 
     try {
+      console.log("Sending to:", form.action);
+      console.log("Data:", data);
+
       const response = await fetch(form.action, {
         method: form.method,
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
         body: JSON.stringify(data),
       });
 
+      console.log("Response status:", response.status);
       const result = await response.json();
-      if (result.success) {
+      console.log("Result:", result);
+
+      if (result.success || response.ok) {
         messageBox.textContent = "✅ Your message has been sent successfully!";
         messageBox.style.color = "green";
         form.reset();
       } else {
-        messageBox.textContent = "❌ Something went wrong. Please try again.";
+        messageBox.textContent = `❌ ${result.error || result.message || 'Something went wrong. Please try again.'}`;
         messageBox.style.color = "red";
       }
-    } catch {
+    } catch (error) {
+      console.error("Form submission error:", error);
       messageBox.textContent = "⚠️ Failed to send. Network error.";
       messageBox.style.color = "red";
     }
