@@ -3,17 +3,14 @@ summaryInclude = 60;
 const fuseOptions = {
   shouldSort: true,
   includeMatches: true,
-  threshold: 0.0,
-  tokenize: true,
-  location: 0,
-  distance: 100,
-  maxPatternLength: 32,
-  minMatchCharLength: 1,
+  threshold: 0.4,
+  ignoreLocation: true,
+  minMatchCharLength: 2,
   keys: [
-    { name: "title", weight: 0.9 },
-    { name: "contents", weight: 0.5 },
-    { name: "tags", weight: 0.3 },
-    { name: "categories", weight: 0.3 },
+    { name: "title", weight: 0.8 },
+    { name: "contents", weight: 0.7 },
+    { name: "tags", weight: 0.5 },
+    { name: "categories", weight: 0.5 },
   ],
 };
 

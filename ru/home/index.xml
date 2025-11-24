@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Homes on</title><link>https://www.f12.biz/ru/home/</link><description>Recent content in Homes on</description><generator>Hugo</generator><language>ru</language><atom:link href="https://www.f12.biz/ru/home/index.xml" rel="self" type="application/rss+xml"/><item><title>Home</title><link>https://www.f12.biz/ru/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/home/home/</guid><description>&lt;div class="terminal-hero" style="max-width: 900px; margin: 8rem auto 3rem; padding: 2rem;"&gt;
-&lt;pre style="padding: 2rem; border-radius: 8px; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.95rem; overflow-x: auto; line-height: 1.4;"&gt;
+&lt;!-- Desktop terminal view --&gt;
+&lt;pre class="d-none d-md-block" style="padding: 2rem; border-radius: 8px; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.95rem; overflow-x: auto; line-height: 1.4;"&gt;
 &lt;code style="line-height: 1.4;"&gt;&lt;span class="color-green"&gt;$&lt;/span&gt; whoami
 &lt;span class="color-green"&gt;denis@f12&lt;/span&gt;:&lt;span class="color-blue"&gt;~&lt;/span&gt;$ cat about.txt
 &lt;p&gt;&lt;span class="color-white"&gt;╔═══════════════════════════════════════════════════════════╗
@@ -13,53 +14,8 @@
 &lt;span class="color-orange"&gt;»&lt;/span&gt; &lt;span class="color-white"&gt;Безопасность и соответствие&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span class="color-green"&gt;denis@f12&lt;/span&gt;:&lt;span class="color-blue"&gt;~&lt;/span&gt;$ &lt;span class="color-white"&gt;_&lt;/span&gt;&lt;/code&gt;
 &lt;/pre&gt;&lt;/p&gt;
-&lt;/div&gt;
-
-
-
-
- 
-
-
-&lt;div class="spacer pt-5"&gt;&lt;/div&gt;
-&lt;div class="container" style="max-width: 1000px;"&gt;
-&lt;div class="row"&gt;
-&lt;div class="col-12"&gt;
-&lt;h3 style="font-family: monospace; margin-bottom: 1.5rem;"&gt;// Основной стек&lt;/h3&gt;
-&lt;div class="row"&gt;
-&lt;div class="col-md-6 mb-4"&gt;
-&lt;div style="background: #f5f5f5; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #478079;"&gt;
-&lt;pre style="background: transparent; margin: 0; padding: 0;"&gt;&lt;code&gt;const infrastructure = {
- cloud: ["AWS", "Azure"],
- iac: ["Terraform", "Ansible"],
- containers: ["Docker", "Kubernetes"],
- cicd: ["GitHub Actions", "Jenkins"]
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="col-md-6 mb-4"&gt;
-&lt;div style="background: #f5f5f5; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #478079;"&gt;
-&lt;pre style="background: transparent; margin: 0; padding: 0;"&gt;&lt;code&gt;const focus = {
- monitoring: ["Prometheus", "Grafana"],
- security: ["SSO", "IAM", "Zero Trust"],
- automation: ["Python", "Bash", "PowerShell"]
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-
-
-
- 
-
-
-&lt;div class="spacer pt-5"&gt;&lt;/div&gt;
-&lt;div class="container text-center" style="max-width: 800px;"&gt;
-&lt;h3 style="font-family: monospace; margin-bottom: 1rem;"&gt;$ cat current_role.txt&lt;/h3&gt;
-&lt;p style="font-size: 1.1rem; line-height: 1.8;"&gt;
-IT Systems Operations Engineer - Строю надёжную, масштабируемую инфраструктуру. Автоматизирую всё. Делаю развёртывания скучными (в хорошем смысле). Превращаю хаос облаков в предсказуемые системы, которым команды могут доверять.
-&lt;/p&gt;</description></item></channel></rss>
+&lt;!-- Mobile simple view --&gt;
+&lt;div class="d-md-none text-center" style="padding: 2rem 1rem;"&gt;
+&lt;h1 style="font-size: 1.5rem; margin-bottom: 0.5rem;"&gt;Денис Толочко&lt;/h1&gt;
+&lt;h2 style="font-size: 1.1rem; font-weight: normal; margin-bottom: 1rem; color: #666;"&gt;IT Systems Operations Engineer&lt;/h2&gt;
+&lt;p style="margin-bottom: 0.5rem; color: #888;"&gt;Валенсия, Калифорния&lt;/p&gt;</description></item></channel></rss>
