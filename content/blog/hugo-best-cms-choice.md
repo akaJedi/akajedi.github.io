@@ -1,7 +1,7 @@
 +++
 title = "Hugo Best Cms Choice"
 date = 2025-08-21T15:37:56-07:00
-draft = false
+draft = true
 featured = false
 weight = 100  # Lower weight appears first in featured sections
 description = ""

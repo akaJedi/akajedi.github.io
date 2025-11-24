@@ -16,10 +16,10 @@
   translation: "f12.biz logo"
 
 - id: "logo_text1"
-  translation: "Denis"
+  translation: "//"
 
 - id: "logo_text2"
-  translation: "Tolochko"
+  translation: "f12"
 
 ## General
 - id: "skipToMainContent"

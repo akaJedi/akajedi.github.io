@@ -1,40 +1,33 @@
-<article class="post summary col-12">
-  <header>
-    <h2 class="post-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
-    <div class="post-meta">
-      <div>
-        <div class="post-meta-info">
-          <span class="published-label">{{ i18n "published_on" }}</span> 
-          <time class="date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Mon Jan 2, 2006" }}</time> · 
-          <span class="wordcount">{{ .WordCount }} Words</span>
-        </div>
-        {{ with .GetTerms "topics" }}
-        <ul class="topics">
-          {{ range . }}
-          <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
-          {{ end }}
-        </ul>
-        {{ end }} {{ with .GetTerms "tags" }}
-        <ul class="tags">
-          {{ range . }}
-          <li class="border"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
-          {{ end }}
-        </ul>
-        {{ end }}
-      </div>
+<article class="post summary col-12" style="background: #f8f9fa; border-left: 4px solid #478079; padding: 1.5rem; margin-bottom: 1.5rem; border-radius: 4px;">
+  <header style="margin-bottom: 1rem;">
+    <h3 class="post-title" style="margin-bottom: 0.5rem;">
+      <a href="{{ .RelPermalink }}" style="text-decoration: none; color: #212529;">{{ .Title }}</a>
+    </h3>
+    <div class="post-meta" style="font-size: 0.9rem; color: #6c757d; font-family: monospace;">
+      <time class="date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+      <span style="margin: 0 0.5rem;">•</span>
+      <span class="wordcount">{{ .WordCount }} words</span>
+      <span style="margin: 0 0.5rem;">•</span>
+      <span class="read-time">~{{ div .WordCount 200 }} min read</span>
     </div>
+    {{ with .GetTerms "tags" }}
+    <div class="tags" style="margin-top: 0.75rem;">
+      {{ range . }}
+      <span style="display: inline-block; background: #e9ecef; padding: 0.25rem 0.75rem; border-radius: 3px; font-size: 0.85rem; margin-right: 0.5rem; margin-bottom: 0.5rem;">
+        <a href="{{ .RelPermalink }}" style="text-decoration: none; color: #495057;">{{ .LinkTitle }}</a>
+      </span>
+      {{ end }}
+    </div>
+    {{ end }}
   </header>
-  <div class="post-summary post-content">
-  {{ .Summary | safeHTML }}
+
+  <div class="post-summary post-content" style="margin-bottom: 1rem; line-height: 1.6;">
+    {{ .Summary | safeHTML }}
   </div>
 
-  <footer class="">
-    <div class="row">
-      <div class="col-12 col-lg-4">
-        <a class="btn btn-outline-secondary btn-sm" href="{{ .RelPermalink }}"
-          >{{ i18n "read_more" }}&nbsp;&raquo;</a
-        >
-      </div>
-    </div>
+  <footer>
+    <a class="btn btn-sm" href="{{ .RelPermalink }}" style="background: #478079; color: white; padding: 0.5rem 1rem; border-radius: 4px; text-decoration: none; font-size: 0.9rem;">
+      Read more →
+    </a>
   </footer>
 </article>

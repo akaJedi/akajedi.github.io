@@ -8,12 +8,13 @@ description = ""
 tags = []
 topics = []
 +++
-![Example image](/img/blog/iac.jpeg)
 
-Infrastructure used to be a mess of tickets, console clicks, and “works on my machine.”  
-With Infrastructure as Code, that’s over.  
+Infrastructure used to be a mess of tickets, console clicks, and "works on my machine."
+With Infrastructure as Code, that's over.
 
 <!--more-->
+
+![Example image](/img/blog/iac.jpeg)
 
 Now we describe servers, networks, and cloud resources the same way we write software: in code, versioned in Git. The result?  
 - Environments you can spin up and tear down the same way every time.  

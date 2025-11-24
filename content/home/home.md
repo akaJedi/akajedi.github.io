@@ -5,22 +5,22 @@ draft = false
 +++
 
 <div class="terminal-hero" style="max-width: 900px; margin: 8rem auto 3rem; padding: 2rem;">
-<pre style="background: #1e1e1e; color: #00ff00; padding: 2rem; border-radius: 8px; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.9rem; overflow-x: auto;">
-<code>$ whoami
-denis@f12:~$ cat about.txt
+<pre style="padding: 2rem; border-radius: 8px; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.95rem; overflow-x: auto; line-height: 1.4;">
+<code style="line-height: 1.4;"><span class="color-green">$</span> whoami
+<span class="color-green">denis@f12</span>:<span class="color-blue">~</span>$ cat about.txt
 
-╔═══════════════════════════════════════════════════════════╗
+<span class="color-white">╔═══════════════════════════════════════════════════════════╗
 ║  DENIS TOLOCHKO                                           ║
 ║  IT Systems Operations Engineer                           ║
 ║  Valencia, CA                                             ║
-╚═══════════════════════════════════════════════════════════╝
+╚═══════════════════════════════════════════════════════════╝</span>
 
-» Infrastructure as Code
-» Cloud Architecture (AWS/Azure)
-» DevOps & Platform Engineering
-» Security & Compliance
+<span class="color-orange">»</span> <span class="color-white">Infrastructure as Code</span>
+<span class="color-orange">»</span> <span class="color-white">Cloud Architecture (AWS/Azure)</span>
+<span class="color-orange">»</span> <span class="color-white">DevOps & Platform Engineering</span>
+<span class="color-orange">»</span> <span class="color-white">Security & Compliance</span>
 
-denis@f12:~$ _</code>
+<span class="color-green">denis@f12</span>:<span class="color-blue">~</span>$ <span class="color-white">_</span></code>
 </pre>
 </div>
 
