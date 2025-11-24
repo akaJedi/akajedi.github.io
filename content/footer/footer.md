@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const data = {
-      full_name: name,
+      name: name,
       email: email,
       phone: phone,
       message: message
@@ -92,7 +92,8 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     } catch (error) {
       console.error("Form submission error:", error);
-      messageBox.textContent = "⚠️ Failed to send. Network error.";
+      console.error("Error details:", error.message, error.stack);
+      messageBox.textContent = `⚠️ Failed to send. ${error.message || 'Network error.'}`;
       messageBox.style.color = "red";
     }
   });
