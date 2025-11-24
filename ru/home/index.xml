@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Homes on</title><link>https://www.f12.biz/ru/home/</link><description>Recent content in Homes on</description><generator>Hugo</generator><language>ru</language><atom:link href="https://www.f12.biz/ru/home/index.xml" rel="self" type="application/rss+xml"/><item><title>Home</title><link>https://www.f12.biz/ru/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/home/home/</guid><description>&lt;div class="terminal-hero" style="max-width: 900px; margin: 8rem auto 3rem; padding: 2rem;"&gt;
-&lt;pre style="background: #1e1e1e; color: #00ff00; padding: 2rem; border-radius: 8px; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.9rem; overflow-x: auto;"&gt;
-&lt;code&gt;$ whoami
-denis@f12:~$ cat about.txt
-&lt;p&gt;╔═══════════════════════════════════════════════════════════╗
+&lt;pre style="padding: 2rem; border-radius: 8px; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.95rem; overflow-x: auto; line-height: 1.4;"&gt;
+&lt;code style="line-height: 1.4;"&gt;&lt;span class="color-green"&gt;$&lt;/span&gt; whoami
+&lt;span class="color-green"&gt;denis@f12&lt;/span&gt;:&lt;span class="color-blue"&gt;~&lt;/span&gt;$ cat about.txt
+&lt;p&gt;&lt;span class="color-white"&gt;╔═══════════════════════════════════════════════════════════╗
 ║ ДЕНИС ТОЛОЧКО ║
 ║ IT Systems Operations Engineer ║
 ║ Валенсия, Калифорния ║
-╚═══════════════════════════════════════════════════════════╝&lt;/p&gt;
-&lt;p&gt;» Инфраструктура как код
-» Облачная архитектура (AWS/Azure)
-» DevOps и платформенная инженерия
-» Безопасность и соответствие&lt;/p&gt;
-&lt;p&gt;denis@f12:~$ _&lt;/code&gt;
+╚═══════════════════════════════════════════════════════════╝&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class="color-orange"&gt;»&lt;/span&gt; &lt;span class="color-white"&gt;Инфраструктура как код&lt;/span&gt;
+&lt;span class="color-orange"&gt;»&lt;/span&gt; &lt;span class="color-white"&gt;Облачная архитектура (AWS/Azure)&lt;/span&gt;
+&lt;span class="color-orange"&gt;»&lt;/span&gt; &lt;span class="color-white"&gt;DevOps и платформенная инженерия&lt;/span&gt;
+&lt;span class="color-orange"&gt;»&lt;/span&gt; &lt;span class="color-white"&gt;Безопасность и соответствие&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class="color-green"&gt;denis@f12&lt;/span&gt;:&lt;span class="color-blue"&gt;~&lt;/span&gt;$ &lt;span class="color-white"&gt;_&lt;/span&gt;&lt;/code&gt;
 &lt;/pre&gt;&lt;/p&gt;
 &lt;/div&gt;
 
