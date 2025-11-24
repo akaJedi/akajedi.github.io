@@ -9,51 +9,68 @@
 Сеть компании насчитывает более 10 000 активных партнёров, а деятельность охватывает США, Великобританию, Канаду и Австралию.&lt;/p&gt;
 &lt;p&gt;Работая PHP-разработчиком в &lt;strong&gt;T3Leads&lt;/strong&gt;, я отвечал за использование различных технологий для создания сайтов и веб-приложений,
 а также за разработку удобных интерфейсов фронтенда и бэкенда с применением HTML, PHP, CSS и JavaScript.&lt;br&gt;
-Я эффективно работал самостоятельно с минимальным надзором, поддерживая тесное взаимодействие с руководящей командой.&lt;/p&gt;</description></item><item><title>Юргинский Техникум Отраслевых Технологий и Права</title><link>https://www.f12.biz/ru/education/ymt/</link><pubDate>Fri, 25 Aug 2000 09:53:42 +0200</pubDate><guid>https://www.f12.biz/ru/education/ymt/</guid><description/></item><item><title>Томский Государственный Университет</title><link>https://www.f12.biz/ru/education/tgu/</link><pubDate>Wed, 25 Aug 1999 09:53:42 +0200</pubDate><guid>https://www.f12.biz/ru/education/tgu/</guid><description/></item><item><title>Home</title><link>https://www.f12.biz/ru/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/home/home/</guid><description>&lt;section id="about" class="section rad-animation-group pb-0"&gt;
- &lt;div class="rad-fade-down"&gt;
- &lt;div class="row d-flex flex-column-reverse flex-md-row"&gt;
- &lt;div class="about__profile-picture col-12 col-md-6 text-center"&gt;
+Я эффективно работал самостоятельно с минимальным надзором, поддерживая тесное взаимодействие с руководящей командой.&lt;/p&gt;</description></item><item><title>Юргинский Техникум Отраслевых Технологий и Права</title><link>https://www.f12.biz/ru/education/ymt/</link><pubDate>Fri, 25 Aug 2000 09:53:42 +0200</pubDate><guid>https://www.f12.biz/ru/education/ymt/</guid><description/></item><item><title>Томский Государственный Университет</title><link>https://www.f12.biz/ru/education/tgu/</link><pubDate>Wed, 25 Aug 1999 09:53:42 +0200</pubDate><guid>https://www.f12.biz/ru/education/tgu/</guid><description/></item><item><title>Home</title><link>https://www.f12.biz/ru/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/home/home/</guid><description>&lt;div class="terminal-hero" style="max-width: 900px; margin: 8rem auto 3rem; padding: 2rem;"&gt;
+&lt;pre style="background: #1e1e1e; color: #00ff00; padding: 2rem; border-radius: 8px; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.9rem; overflow-x: auto;"&gt;
+&lt;code&gt;$ whoami
+denis@f12:~$ cat about.txt
+&lt;p&gt;╔═══════════════════════════════════════════════════════════╗
+║ ДЕНИС ТОЛОЧКО ║
+║ IT Systems Operations Engineer ║
+║ Валенсия, Калифорния ║
+╚═══════════════════════════════════════════════════════════╝&lt;/p&gt;
+&lt;p&gt;» Инфраструктура как код
+» Облачная архитектура (AWS/Azure)
+» DevOps и платформенная инженерия
+» Безопасность и соответствие&lt;/p&gt;
+&lt;p&gt;denis@f12:~$ _&lt;/code&gt;
+&lt;/pre&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+
+
+
  
 
 
-
-
-
-
+&lt;div class="spacer pt-5"&gt;&lt;/div&gt;
+&lt;div class="container" style="max-width: 1000px;"&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-12"&gt;
+&lt;h3 style="font-family: monospace; margin-bottom: 1.5rem;"&gt;// Основной стек&lt;/h3&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-md-6 mb-4"&gt;
+&lt;div style="background: #f5f5f5; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #478079;"&gt;
+&lt;pre style="background: transparent; margin: 0; padding: 0;"&gt;&lt;code&gt;const infrastructure = {
+ cloud: ["AWS", "Azure"],
+ iac: ["Terraform", "Ansible"],
+ containers: ["Docker", "Kubernetes"],
+ cicd: ["GitHub Actions", "Jenkins"]
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="col-md-6 mb-4"&gt;
+&lt;div style="background: #f5f5f5; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #478079;"&gt;
+&lt;pre style="background: transparent; margin: 0; padding: 0;"&gt;&lt;code&gt;const focus = {
+ monitoring: ["Prometheus", "Grafana"],
+ security: ["SSO", "IAM", "Zero Trust"],
+ automation: ["Python", "Bash", "PowerShell"]
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 
 
 
 
  
- 
 
 
-
- 
- 
-
-
- &lt;picture class=""&gt;
- 
- 
-
- &lt;source srcset="../images/about/user-picture_hu_596504744a1065d6.webp 1x, ../images/about/user-picture_hu_9a5d9fee94bd2f1b.webp 2x" type="image/webp" /&gt;
- &lt;source srcset="../images/about/user-picture_hu_a41e06a1a19c73a7.png 1x, ../images/about/user-picture_hu_fac7726411d7a497.png 2x" type="image/png"&gt;
-
- &lt;img
- width="742"
- height="642"
- class="lozad img-responsive image-left-overflow"
- data-src="../images/about/user-picture_hu_a41e06a1a19c73a7.png"
- alt=''
- src="data:image/gif;base64,R0lGODlhBwACAIAAAP///wAAACH5BAEAAAEALAAAAAAHAAIAAAIDjI9YADs="
- loading="lazy"
- decoding="async"
- /&gt;
- &lt;/picture&gt;
- 
- &lt;/div&gt;
- &lt;div class="col-12 col-md-6 my-auto"&gt;
- &lt;h1 style="font-size: 1.5rem"&gt;Sr. DevOps / Platform Engineer&lt;/h1&gt;
- &lt;div class="about-me content lead" id="bio"&gt;
- &lt;p&gt;Я живу в Валенсии, Калифорния, и помогаю командам выпускать продукты быстрее и безопаснее, превращая инфраструктуру в код и деливери — в предсказуемые пайплайны. Более 15 лет в корпоративной ИТ-сфере я специализируюсь на DevOps и платформенной инженерии: строю надёжные, наблюдаемые и экономически эффективные системы, которые масштабируются вместе с бизнесом. Мой основной стек: AWS и Azure; Terraform и Ansible для IaC; Docker и Kubernetes для рабочих нагрузок; GitHub Actions и Jenkins для CI/CD. Я укрепляю систему идентификации и конечные устройства, автоматизирую процессы онбординга и офбординга, делаю расходы предсказуемыми за счёт оптимизации ресурсов, планового масштабирования и бюджетов с оповещениями.&lt;/p&gt;</description></item></channel></rss>
+&lt;div class="spacer pt-5"&gt;&lt;/div&gt;
+&lt;div class="container text-center" style="max-width: 800px;"&gt;
+&lt;h3 style="font-family: monospace; margin-bottom: 1rem;"&gt;$ cat current_role.txt&lt;/h3&gt;
+&lt;p style="font-size: 1.1rem; line-height: 1.8;"&gt;
+IT Systems Operations Engineer - Строю надёжную, масштабируемую инфраструктуру. Автоматизирую всё. Делаю развёртывания скучными (в хорошем смысле). Превращаю хаос облаков в предсказуемые системы, которым команды могут доверять.
+&lt;/p&gt;</description></item></channel></rss>
