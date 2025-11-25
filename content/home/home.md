@@ -2,6 +2,7 @@
 title =  "Home"
 type = "home"
 draft = false
+translationKey = "homepage"
 +++
 
 <div class="terminal-hero" style="max-width: 900px; margin: 8rem auto 3rem; padding: 2rem;">

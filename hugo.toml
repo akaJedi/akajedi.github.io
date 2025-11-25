@@ -4,6 +4,9 @@ canonifyURLs = true
 title = "Denis Tolochko Personal website"
 languageCode = "en"
 
+[pagination]
+pagerSize = 10
+
 
 # Exclude footer section from generating list pages (index.html and index.xml)
 

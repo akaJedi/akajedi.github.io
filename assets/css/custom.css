@@ -157,9 +157,14 @@ footer {
   opacity: 0.85;
 }
 
-/* Hide contact form only on home page */
-body.home .section--contact {
+/* Hide contact form everywhere except contact page */
+.section--contact {
   display: none;
+}
+
+/* Show contact form only on contact page */
+body.page-contact .section--contact {
+  display: block;
 }
 
 /* Theme-aware terminal styling */
@@ -232,4 +237,96 @@ body.home .section--contact {
 
 [data-bs-theme="dark"] .terminal-hero .color-white {
   color: #e5e7eb !important;
+}
+
+/* Tag Cloud Styling */
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0.5rem 0;
+}
+
+.tag-cloud-item {
+  display: inline-block;
+  padding: 0.3rem 0.7rem;
+  margin: 0.15rem;
+  background: var(--bs-secondary-bg);
+  color: var(--bs-body-color);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  border: 1px solid var(--bs-border-color);
+}
+
+.tag-cloud-item:hover {
+  background: #478079;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-color: #478079;
+}
+
+/* Increase spacing between blog posts */
+.posts-list .row--padded {
+  margin-bottom: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+}
+
+.posts-list .section--border-bottom {
+  border-bottom: 1px solid var(--bs-border-color) !important;
+  margin-bottom: 1.5rem !important;
+}
+
+/* Remove dots from pagination */
+.pagination {
+  list-style: none !important;
+  list-style-type: none !important;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+.pagination li,
+.pagination .page-item {
+  list-style: none !important;
+  list-style-type: none !important;
+}
+
+.pagination li::before,
+.pagination .page-item::before {
+  content: none !important;
+  display: none !important;
+}
+
+.pagination li::marker,
+.pagination .page-item::marker {
+  display: none !important;
+  content: none !important;
+}
+
+/* Compact series navigation */
+.content-browser {
+  padding: 0.75rem 0 !important;
+  margin: 1rem 0 !important;
+  font-size: 0.85rem !important;
+  line-height: 1.3 !important;
+}
+
+.content-browser div {
+  margin-top: 0.25rem !important;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.content-browser a {
+  display: inline-block;
+  max-width: 45%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

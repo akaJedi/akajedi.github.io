@@ -3,13 +3,27 @@
   <div class="sidebar-section categories">
     <h3>{{ i18n "categories" | default "Categories" }}</h3>
     {{ if .Site.Taxonomies.tags }}
-    <ul class="tags">
+    <div class="tag-cloud">
+      {{ $maxCount := 0 }}
+      {{ $minCount := 9999 }}
       {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
-      <li>
-        <a href="{{ "/tags/" | relLangURL }}{{ $name | urlize }}">{{ $name }}</a>
-      </li>
+        {{ $count := len $taxonomy.Pages }}
+        {{ if gt $count $maxCount }}{{ $maxCount = $count }}{{ end }}
+        {{ if lt $count $minCount }}{{ $minCount = $count }}{{ end }}
       {{ end }}
-    </ul>
+
+      {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
+        {{ $count := len $taxonomy.Pages }}
+        {{ $weight := div (sub $count $minCount) (sub $maxCount $minCount | default 1.0) }}
+        {{ $fontSize := add 1.0 (mul $weight 1.5) }}
+        <a href="{{ "/tags/" | relLangURL }}{{ $name | urlize }}"
+           class="tag-cloud-item"
+           style="font-size: {{ $fontSize }}rem;"
+           title="{{ $name }} ({{ $count }} {{ if eq $count 1 }}post{{ else }}posts{{ end }})">
+          {{ $name }}
+        </a>
+      {{ end }}
+    </div>
     {{ end }}
   </div>
   {{ end }}
