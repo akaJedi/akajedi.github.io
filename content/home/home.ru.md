@@ -14,7 +14,7 @@ translationKey = "homepage"
 <span class="color-white">╔═══════════════════════════════════════════════════════════╗
 ║  ДЕНИС ТОЛОЧКО                                            ║
 ║  IT Systems Operations Engineer                           ║
-║  Валенсия, Калифорния                                     ║
+║  Санта-Моника, Калифорния                                 ║
 ╚═══════════════════════════════════════════════════════════╝</span>
 
 <span class="color-orange">»</span> <span class="color-white">Инфраструктура как код</span>
@@ -29,7 +29,7 @@ translationKey = "homepage"
 <div class="d-md-none text-center" style="padding: 2rem 1rem;">
 <h1 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Денис Толочко</h1>
 <h2 style="font-size: 1.1rem; font-weight: normal; margin-bottom: 1rem; color: #666;">IT Systems Operations Engineer</h2>
-<p style="margin-bottom: 0.5rem; color: #888;">Валенсия, Калифорния</p>
+<p style="margin-bottom: 0.5rem; color: #888;">Санта-Моника, Калифорния</p>
 <hr style="margin: 1.5rem auto; width: 60%; opacity: 0.3;">
 <ul style="list-style: none; padding: 0; text-align: left; max-width: 280px; margin: 0 auto;">
 <li style="margin-bottom: 0.5rem;">» Инфраструктура как код</li>
@@ -67,5 +67,12 @@ IT Systems Operations Engineer - Строю надёжную, масштабир
   {{< link icon="square-twitter" url="https://twitter.com/denistolochko" >}}
   {{< link icon="keybase" url="https://twitter.com/denistolochko" >}}
 {{< /platform-links >}}
+
+{{< spacer >}}
+
+<div class="container" style="max-width: 900px;">
+<h2 style="font-family: monospace; text-align: center; margin-bottom: 2rem;">$ cat now.txt</h2>
+{{< now-section >}}
+</div>
 
 {{< spacer >}}

@@ -14,7 +14,7 @@ translationKey = "homepage"
 <span class="color-white">╔═══════════════════════════════════════════════════════════╗
 ║  DENIS TOLOCHKO                                           ║
 ║  IT Systems Operations Engineer                           ║
-║  Valencia, CA                                             ║
+║  Santa Monica, CA                                         ║
 ╚═══════════════════════════════════════════════════════════╝</span>
 
 <span class="color-orange">»</span> <span class="color-white">Infrastructure as Code</span>
@@ -29,7 +29,7 @@ translationKey = "homepage"
 <div class="d-md-none text-center" style="padding: 2rem 1rem;">
 <h1 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Denis Tolochko</h1>
 <h2 style="font-size: 1.1rem; font-weight: normal; margin-bottom: 1rem; color: #666;">IT Systems Operations Engineer</h2>
-<p style="margin-bottom: 0.5rem; color: #888;">Valencia, CA</p>
+<p style="margin-bottom: 0.5rem; color: #888;">Santa Monica, CA</p>
 <hr style="margin: 1.5rem auto; width: 60%; opacity: 0.3;">
 <ul style="list-style: none; padding: 0; text-align: left; max-width: 280px; margin: 0 auto;">
 <li style="margin-bottom: 0.5rem;">» Infrastructure as Code</li>
@@ -67,5 +67,12 @@ IT Systems Operations Engineer - Building reliable, scalable infrastructure. Aut
   {{< link icon="square-twitter" url="https://twitter.com/denistolochko" >}}
   {{< link icon="keybase" url="https://twitter.com/denistolochko" >}}
 {{< /platform-links >}}
+
+{{< spacer >}}
+
+<div class="container" style="max-width: 900px;">
+<h2 style="font-family: monospace; text-align: center; margin-bottom: 2rem;">$ cat now.txt</h2>
+{{< now-section >}}
+</div>
 
 {{< spacer >}}

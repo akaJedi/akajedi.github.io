@@ -1,0 +1,11 @@
+{{ $nowPage := .Site.GetPage "/now" }}
+{{ if $nowPage }}
+<div class="now-section">
+  <div class="now-content">
+    {{ $nowPage.Content | safeHTML }}
+  </div>
+  <p class="now-updated">
+    <small>{{ i18n "last_updated" | default "Last updated" }}: {{ $nowPage.Lastmod.Format "January 2, 2006" }}</small>
+  </p>
+</div>
+{{ end }}

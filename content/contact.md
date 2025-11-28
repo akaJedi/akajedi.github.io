@@ -2,6 +2,7 @@
 title: "Contact"
 type: "page"
 draft: false
+translationKey: "contact"
 ---
 
 

@@ -22,7 +22,7 @@ so far the placement can either be header or footer */}}
     {{ range $.Translations }}
     <li class="dropdown-item choice">
       <a class="dropdown-item translation btn-link d-flex align-items-center show" title="{{ .Language.LanguageName }}"
-        href="{{ .Permalink }}">{{ .Language.LanguageName }}</a>
+        href="{{ .RelPermalink }}">{{ .Language.LanguageName }}</a>
     </li>
     {{ end }}
   </ul>
