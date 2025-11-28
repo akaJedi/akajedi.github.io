@@ -43,7 +43,13 @@
           <div class="col-12 col-sm-6 mb-4 mb-sm-0">
             <div class="education">
               <div class="education__date">{{ .Params.year }}</div>
-              <div class="education__title">{{ .Params.university }}</div>
+              <div class="education__title">
+                {{ if .Params.website }}
+                  <a href="{{ .Params.website }}" target="_blank" rel="noopener noreferrer">{{ .Params.university }}</a>
+                {{ else }}
+                  {{ .Params.university }}
+                {{ end }}
+              </div>
               <div class="education__degree">{{ .Params.degree }}</div>
             </div>
           </div>
