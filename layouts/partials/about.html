@@ -75,14 +75,16 @@
   {{ $sectionId = . }}
 {{ end }}
 
-<section {{if $sectionId}} id="{{ $sectionId }}"{{end}} class="section rad-animation-group pb-0">
+<section {{if $sectionId}} id="{{ $sectionId }}"{{end}} class="section section--about rad-animation-group pb-0">
   <div class="rad-fade-down">
-    <div class="row d-flex flex-column-reverse flex-md-row">
-      <div class="about__profile-picture col-12 col-md-6 text-center">
-          {{ partial "lazypicture" (dict "src" $imgSrc "width" $imgWidth "height" $imgHeight "scale" $imgScale "class" "image-left-overflow")}}     
+    <div class="row d-flex flex-column-reverse flex-md-row align-items-md-center">
+      <!-- Image Column: Smaller, fixed width -->
+      <div class="about__profile-picture col-12 col-md-auto text-center text-md-start">
+          {{ partial "lazypicture" (dict "src" $imgSrc "width" $imgWidth "height" $imgHeight "scale" $imgScale "class" "about-image")}}
       </div>
-      <div class="col-12 col-md-6{{ if eq $vAlign "center" }} my-auto{{ else if eq $vAlign "top" }} align-self-start{{ else if eq $vAlign "bottom" }} align-self-end{{ end }}{{ if eq $hAlign "center" }} text-center{{ else if eq $hAlign "right" }} text-end{{ end }}">
-        <h1 style="font-size: 1.5rem">{{ $title }}</h1>
+      <!-- Text Column: Takes remaining space -->
+      <div class="about__content col-12 col-md{{ if eq $vAlign "center" }} my-auto{{ else if eq $vAlign "top" }} align-self-start{{ else if eq $vAlign "bottom" }} align-self-end{{ end }}{{ if eq $hAlign "center" }} text-center{{ else if eq $hAlign "right" }} text-end{{ end }}">
+        <h1 class="about__title">{{ $title }}</h1>
       <div class="about-me content lead" id="bio">
         {{ $content }}
       </div>

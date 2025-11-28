@@ -69,10 +69,3 @@ IT Systems Operations Engineer - Building reliable, scalable infrastructure. Aut
 {{< /platform-links >}}
 
 {{< spacer >}}
-
-<div class="container" style="max-width: 900px;">
-<h2 style="font-family: monospace; text-align: center; margin-bottom: 2rem;">$ cat now.txt</h2>
-{{< now-section >}}
-</div>
-
-{{< spacer >}}

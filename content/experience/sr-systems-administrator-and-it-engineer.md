@@ -1,8 +1,8 @@
 ---
 date: 2024-10-01T00:00:00+01:00
 draft: false
-title: "Sr. System Administrator & IT Engineer"
-jobTitle: "Sr. System Administrator & IT Engineer"
+title: "Sr. Systems Administrator & IT Engineer"
+jobTitle: "Sr. Systems Administrator & IT Engineer"
 company: "Praedicat, Inc"
 location: "Culver City, California"
 duration: "Nov 2018- Oct 2024"

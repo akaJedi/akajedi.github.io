@@ -4,7 +4,7 @@ draft: false
 title: "Sr. Technical Support Analyst"
 jobTitle: "Sr. Technical Support Analyst"
 company: "Moody's, Inc"
-location: "Culver City, California"
+location: "Remote"
 duration: "Oct 2024- Jul 2025"
 
 ---
