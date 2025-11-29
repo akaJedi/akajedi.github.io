@@ -239,46 +239,398 @@ body.page-contact .section--contact {
   color: #e5e7eb !important;
 }
 
-/* Tag Cloud Styling */
-.tag-cloud {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0.5rem 0;
+/* Sticky sidebar - ensure it stays in view below header */
+.blog-sidebar {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 6rem !important;
+  align-self: flex-start !important;
+  max-height: calc(100vh - 7rem) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  z-index: 10 !important;
 }
 
+/* Smooth scrolling for sidebar */
+.blog-sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: #478079 transparent;
+}
+
+.blog-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.blog-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.blog-sidebar::-webkit-scrollbar-thumb {
+  background: #478079;
+  border-radius: 3px;
+}
+
+.blog-sidebar::-webkit-scrollbar-thumb:hover {
+  background: #5a9d94;
+}
+
+/* Ensure parent containers allow sticky positioning */
+body, main, .container {
+  overflow: visible !important;
+}
+
+/* Datacenter Rack Styling for Tag Cloud */
+.sidebar-section.categories {
+  background: linear-gradient(to bottom, #2a2a2a 0%, #1a1a1a 100%);
+  padding: 1.5rem 1rem;
+  border-radius: 8px;
+  border: 3px solid #333;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5),
+              0 4px 12px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.sidebar-section.categories::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10px;
+  right: 10px;
+  height: 8px;
+  background: repeating-linear-gradient(
+    90deg,
+    #444 0px,
+    #444 3px,
+    transparent 3px,
+    transparent 8px
+  );
+  border-radius: 4px 4px 0 0;
+}
+
+.sidebar-section.categories::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  right: 10px;
+  height: 8px;
+  background: repeating-linear-gradient(
+    90deg,
+    #444 0px,
+    #444 3px,
+    transparent 3px,
+    transparent 8px
+  );
+  border-radius: 0 0 4px 4px;
+}
+
+.sidebar-section.categories h3 {
+  color: #478079;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+  padding: 0.5rem;
+  background: rgba(71, 128, 121, 0.1);
+  border: 1px solid #478079;
+  border-radius: 4px;
+}
+
+.tag-cloud {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem 0.5rem;
+}
+
+/* Rack Unit Style */
 .tag-cloud-item {
-  display: inline-block;
-  padding: 0.3rem 0.7rem;
-  margin: 0.15rem;
-  background: var(--bs-secondary-bg);
-  color: var(--bs-body-color);
+  display: flex;
+  align-items: center;
+  padding: 0.6rem 0.8rem;
+  background: linear-gradient(to right,
+    #2d2d2d 0%,
+    #3a3a3a 50%,
+    #2d2d2d 100%);
+  color: #e0e0e0 !important;
   text-decoration: none;
-  border-radius: 6px;
+  border: 1px solid #555;
+  border-left: 3px solid #478079;
+  border-radius: 3px;
   transition: all 0.3s ease;
   font-weight: 500;
-  border: 1px solid var(--bs-border-color);
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem !important;
+  position: relative;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1),
+              0 2px 4px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* LED indicator */
+.tag-cloud-item::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: #4CAF50;
+  border-radius: 50%;
+  margin-right: 0.8rem;
+  box-shadow: 0 0 8px #4CAF50;
+  animation: pulse 2s infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 8px #4CAF50;
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 4px #4CAF50;
+  }
+}
+
+/* Vent holes pattern */
+.tag-cloud-item::after {
+  content: '';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 12px;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 1px,
+    rgba(0, 0, 0, 0.3) 1px,
+    rgba(0, 0, 0, 0.3) 2px
+  );
+  border-radius: 2px;
+  opacity: 0.5;
 }
 
 .tag-cloud-item:hover {
-  background: #478079;
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border-color: #478079;
+  background: linear-gradient(to right,
+    #478079 0%,
+    #5a9d94 50%,
+    #478079 100%);
+  color: white !important;
+  border-left-color: #6fb3a8;
+  transform: translateX(4px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),
+              0 4px 12px rgba(71, 128, 121, 0.4);
 }
 
-/* Increase spacing between blog posts */
+.tag-cloud-item:hover::before {
+  background: #fff;
+  box-shadow: 0 0 12px #fff;
+}
+
+/* Mobile adjustments */
+@media (max-width: 767px) {
+  .tag-cloud-item {
+    font-size: 0.8rem !important;
+    padding: 0.5rem 0.6rem;
+  }
+}
+
+/* Green Display Style for Recent Posts */
+.sidebar-section.recent-posts {
+  background: linear-gradient(135deg, #1a2f1a 0%, #0d1f0d 50%, #1a2f1a 100%);
+  padding: 1.2rem;
+  border-radius: 8px;
+  border: 3px solid #2d4a2d;
+  box-shadow:
+    inset 0 0 20px rgba(80, 200, 120, 0.2),
+    inset 0 2px 10px rgba(0, 0, 0, 0.5),
+    0 4px 15px rgba(26, 47, 26, 0.6);
+  position: relative;
+  margin-top: 1.5rem;
+}
+
+.sidebar-section.recent-posts h3 {
+  color: #a8ffc4;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 8px rgba(168, 255, 196, 0.6);
+  border-bottom: 2px solid rgba(168, 255, 196, 0.3);
+  padding-bottom: 0.5rem;
+}
+
+.sidebar-section.recent-posts ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.sidebar-section.recent-posts li {
+  list-style: none !important;
+  margin-bottom: 0.2rem;
+  padding: 0.6rem 0.8rem;
+  background: #0d2617;
+  border-left: 3px solid #50c878;
+  border-radius: 3px;
+  transition: all 0.3s;
+}
+
+.sidebar-section.recent-posts li::before {
+  content: none !important;
+}
+
+.sidebar-section.recent-posts li:hover {
+  background: rgba(80, 200, 120, 0.15);
+  border-left-color: #7ee89d;
+  transform: translateX(3px);
+}
+
+.sidebar-section.recent-posts li a {
+  color: #7ee89d !important;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 0.3rem;
+  text-shadow: 0 0 4px rgba(126, 232, 157, 0.4);
+}
+
+.sidebar-section.recent-posts li a:hover {
+  color: #a8ffc4 !important;
+  text-shadow: 0 0 8px rgba(168, 255, 196, 0.6);
+}
+
+.sidebar-section.recent-posts .post-date {
+  color: #7bb8e8;
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  opacity: 0.9;
+  text-shadow: 0 0 3px rgba(123, 184, 232, 0.3);
+}
+
+/* Simple Category Filter Control */
+.category-filter-control {
+  margin: 1rem 0 1.5rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* Simple Toggle Switch */
+.simple-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+  cursor: pointer;
+}
+
+.simple-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.simple-switch .switch-slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #555;
+  border-radius: 13px;
+  transition: all 0.3s;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.simple-switch .switch-slider::before {
+  content: '';
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: all 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Active state */
+.simple-switch input:checked + .switch-slider {
+  background: #478079;
+}
+
+.simple-switch input:checked + .switch-slider::before {
+  transform: translateX(24px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* Hover effect */
+.simple-switch:hover .switch-slider {
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3),
+              0 0 8px rgba(71, 128, 121, 0.4);
+}
+
+/* Hidden categories */
+.tag-cloud-item.filtered-out {
+  display: none;
+}
+
+/* Yellow LED indicator for low-count categories */
+.tag-cloud-item.low-count::before {
+  background: #FFC107;
+  box-shadow: 0 0 8px #FFC107;
+  animation: pulse-yellow 2s infinite;
+}
+
+@keyframes pulse-yellow {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 8px #FFC107;
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 4px #FFC107;
+  }
+}
+
+.tag-cloud-item.low-count:hover::before {
+  background: #FFD54F;
+  box-shadow: 0 0 12px #FFD54F;
+}
+
+/* Blog posts - no separator */
 .posts-list .row--padded {
-  margin-bottom: 1.5rem !important;
-  padding-bottom: 1.5rem !important;
+  margin-bottom: 0.25rem !important;
 }
 
 .posts-list .section--border-bottom {
-  border-bottom: 1px solid var(--bs-border-color) !important;
-  margin-bottom: 1.5rem !important;
+  border-bottom: none !important;
+}
+
+/* Override inline styles for article spacing */
+.posts-list article.post.summary {
+  margin-bottom: 0.2rem !important;
+}
+
+/* Smaller h1 for blog post titles */
+.posts-list h1,
+.post.summary h1 {
+  font-size: 1.2rem !important;
+  font-weight: 600 !important;
+}
+
+@media (min-width: 768px) {
+  .posts-list h1,
+  .post.summary h1 {
+    font-size: 1.35rem !important;
+  }
 }
 
 /* Remove dots from pagination */
@@ -370,7 +722,7 @@ body.page-contact .section--contact {
 
 /* Easter Egg - Hacker Mode */
 body.hacker-mode {
-  animation: glitch 0.3s infinite;
+  /* Removed shaking animation */
 }
 
 body.hacker-mode .terminal-hero pre {
@@ -423,37 +775,9 @@ body.hacker-mode .color-white {
   }
 }
 
-/* Easter Egg Notification */
+/* Easter Egg Notification - Hidden */
 .easter-egg-notification {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: linear-gradient(135deg, #0f0, #0a0);
-  color: #000;
-  padding: 1.5rem 2rem;
-  border-radius: 10px;
-  font-weight: bold;
-  font-size: 1.2rem;
-  text-align: center;
-  z-index: 9999;
-  box-shadow: 0 0 30px rgba(0, 255, 0, 0.8);
-  transform: translateY(-150px);
-  opacity: 0;
-  transition: all 0.3s ease;
-  border: 2px solid #0f0;
-  font-family: 'Courier New', monospace;
-}
-
-.easter-egg-notification.show {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.easter-egg-notification small {
-  display: block;
-  margin-top: 0.5rem;
-  font-size: 0.8rem;
-  opacity: 0.9;
+  display: none !important;
 }
 
 /* About Section Layout Fixes */
