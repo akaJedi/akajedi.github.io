@@ -60,6 +60,26 @@ This website is built using a modern static site architecture that combines Hugo
 └─────────────────┘
 ```
 
+The contact form is the only dynamic part of the site. It posts to a Cloudflare Worker, which sends the message to Telegram through the Telegram Bot API.
+
+```
+┌─────────────────┐
+│ Contact Form    │
+│  www.f12.biz    │
+└────────┬────────┘
+         │ POST JSON
+         ▼
+┌─────────────────┐
+│ Cloudflare      │
+│ Worker          │
+└────────┬────────┘
+         │ Telegram Bot API
+         ▼
+┌─────────────────┐
+│ Telegram Chat   │
+└─────────────────┘
+```
+
 ## Deployment Workflow
 
 ### 1. Local Development
@@ -138,6 +158,31 @@ Cloudflare sits in front of GitHub Pages providing:
 - **SSL/TLS**: Provides HTTPS encryption
 - **DDoS Protection**: Shields the site from attacks
 - **Performance**: Minification, compression, and optimization
+
+### Contact Form Worker
+
+The contact form is intentionally kept separate from the static website. The Hugo site only contains the public Worker URL and form JavaScript. The Telegram credentials are stored in Cloudflare Worker secrets/variables, not in this public repository.
+
+Required Cloudflare Worker configuration:
+
+- `TELEGRAM_TOKEN`: Telegram bot token from BotFather
+- `TELEGRAM_CHAT_ID`: destination Telegram chat id
+
+Operational notes:
+
+1. Create or rotate the bot token in BotFather.
+2. Open the bot in Telegram and send `/start` before testing.
+3. Use `https://api.telegram.org/bot<token>/getUpdates` to verify the chat id.
+4. Store the values in Cloudflare Worker settings as secrets/variables.
+5. Do not commit token values or chat ids to the public website repository.
+
+If the Worker returns `401 Unauthorized`, the bot token is invalid or missing. If it returns `400 Bad Request: chat not found`, the token works but the bot cannot access the configured chat yet.
+
+### Contact Form Health Check
+
+A scheduled GitHub Actions workflow (`.github/workflows/contact-form-healthcheck.yml`) sends a test payload to the production Worker once per day. This is an end-to-end production check: it verifies the Worker URL, CORS handling, Telegram token, chat id, and Telegram delivery path.
+
+The workflow does not store Telegram secrets. It uses only the public Worker URL and a harmless test message. A successful run requires an HTTP `200` response with `{"success": true}`.
 
 ## Resume Automation Workflow
 

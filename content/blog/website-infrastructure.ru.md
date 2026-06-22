@@ -61,6 +61,26 @@ slug: "website-infrastructure"
 └─────────────────┘
 ```
 
+Форма обратной связи — единственная динамическая часть сайта. Она отправляет JSON-запрос в Cloudflare Worker, а Worker пересылает сообщение в Telegram через Telegram Bot API.
+
+```
+┌─────────────────┐
+│ Contact Form    │
+│  www.f12.biz    │
+└────────┬────────┘
+         │ POST JSON
+         ▼
+┌─────────────────┐
+│ Cloudflare      │
+│ Worker          │
+└────────┬────────┘
+         │ Telegram Bot API
+         ▼
+┌─────────────────┐
+│ Telegram Chat   │
+└─────────────────┘
+```
+
 ## Процесс развёртывания
 
 ### 1. Локальная разработка
@@ -139,6 +159,31 @@ Cloudflare располагается перед GitHub Pages, предоста�
 - **SSL/TLS**: Обеспечивает HTTPS-шифрование
 - **Защита от DDoS**: Защищает сайт от атак
 - **Производительность**: Минификация, сжатие и оптимизация
+
+### Worker формы обратной связи
+
+Форма обратной связи намеренно отделена от статического сайта. Hugo-сайт содержит только публичный URL Worker и JavaScript формы. Учётные данные Telegram хранятся в секретах/переменных Cloudflare Worker, а не в этом публичном репозитории.
+
+Необходимая конфигурация Cloudflare Worker:
+
+- `TELEGRAM_TOKEN`: токен Telegram-бота из BotFather
+- `TELEGRAM_CHAT_ID`: id Telegram-чата назначения
+
+Операционные заметки:
+
+1. Создать или заменить токен бота в BotFather.
+2. Открыть бота в Telegram и отправить `/start` перед тестированием.
+3. Проверить chat id через `https://api.telegram.org/bot<token>/getUpdates`.
+4. Сохранить значения в настройках Cloudflare Worker как секреты/переменные.
+5. Не коммитить значения токенов или chat id в публичный репозиторий сайта.
+
+Если Worker возвращает `401 Unauthorized`, токен бота неверный или отсутствует. Если он возвращает `400 Bad Request: chat not found`, токен работает, но бот пока не имеет доступа к указанному чату.
+
+### Health check формы обратной связи
+
+Запланированный GitHub Actions workflow (`.github/workflows/contact-form-healthcheck.yml`) раз в день отправляет тестовый payload в production Worker. Это end-to-end проверка production-цепочки: URL Worker, CORS, Telegram token, chat id и путь доставки в Telegram.
+
+Workflow не хранит Telegram-секреты. Он использует только публичный URL Worker и безопасное тестовое сообщение. Успешный запуск требует HTTP `200` и ответа `{"success": true}`.
 
 ## Workflow автоматизации резюме
 
