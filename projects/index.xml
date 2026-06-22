@@ -3,7 +3,7 @@ The content you see here comes from the contents of the &lt;code&gt;content/proj
 &lt;p&gt;This project is in the file &lt;code&gt;projects/swiss-fintech.md&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;In the markdown file frontmatter you can also define additional parameters, such as the link:&lt;/p&gt;
 &lt;div class="codewrap" data-lang="text"&gt;&lt;button class="code-copy" type="button" aria-label="Copy code"&gt;Copy&lt;/button&gt;
- &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;link: &amp;#34;https://www.adrianmoreno.info&amp;#34; # optional URL to link the logo to
+ &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;link: &amp;#34;https://www.adrianmoreno.info&amp;#34; # optional URL to link the logo to
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;params:
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; button:
