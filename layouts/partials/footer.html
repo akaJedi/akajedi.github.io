@@ -1,15 +1,6 @@
 <footer class="footer w-100 d-print-none">
 
 
-    {{ $footer := where (where .Site.Pages "Type" "footer") "Lang" .Lang }}
-
-    {{ range (sort $footer "Date" "desc") }}
-      {{ if .File }}
-        {{ warnf "[FOOTER] Path: %s | Lang: %s | IsDraft: %t | Type: %s | Section: %s | Kind: %s" .File.Path .Lang .Draft .Type .Section .Kind }}
-      {{ end }}        
-      {{ .Content | safeHTML }}
-    {{ end }}
-
   <div class="container items">
     <div class="container">
       <div class="row w-100 align-items-center">
@@ -19,7 +10,7 @@
           </div>
         </div>
         <div class="footer_links col-12 col-lg-6 mb-3 mb-lg-0 text-center text-lg-start">
-          <ul class="navbar-nav w-100 align-items-center justify-content-center justify-content-lg-start d-flex flex-wrap gap-2">
+          <ul class="footer__nav w-100 align-items-center justify-content-center justify-content-lg-start d-flex flex-wrap gap-2">
             {{ range .Site.Menus.footer }}
             <li class="nav-item">
               <a class="nav-link" href="{{ .URL | relURL }}"

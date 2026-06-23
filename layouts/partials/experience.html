@@ -44,7 +44,7 @@
       {{ end }}
 
       {{ range first $totalCount (sort $xp "Date" "desc") }}
-      <div class="experience">
+      <div class="experience experience--{{ .File.TranslationBaseName }}">
         <a href="{{ .Permalink | relURL }}" class="experience__link">
           <div class="experience__header">
             {{ $img := resources.Get .Params.companyLogo }}

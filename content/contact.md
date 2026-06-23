@@ -29,6 +29,18 @@ Pick a time that works best for you — it automatically adjusts for time zones 
 If you prefer to write, you can send me a message directly. I review messages regularly and will respond as soon as possible.  
 *Tip: please include your topic or project context so I can reply quickly and effectively.*
 
+{{< contact-section
+    title="Send a Message"
+    contact_form_name="Your name"
+    contact_form_email="Your e-mail"
+    contact_form_message="Your text"
+    contact_form_phone="Your phone"
+    contact_button="Send message"
+    form_action="https://green-rice-1ea7.denis-f21.workers.dev"
+    form_method="POST"
+    contact_form_rows="5"
+>}}
+
 ---
 
 ### 🔑 Secure Communication

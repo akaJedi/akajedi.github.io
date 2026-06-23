@@ -5,67 +5,89 @@ draft = false
 translationKey = "homepage"
 +++
 
-<div class="terminal-hero" style="max-width: 900px; margin: 8rem auto 3rem; padding: 2rem;">
-<!-- Desktop terminal view -->
-<pre class="d-none d-md-block" style="padding: 2rem; border-radius: 8px; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.95rem; overflow-x: auto; line-height: 1.4;">
-<code style="line-height: 1.4;"><span class="color-green">$</span> whoami
-<span class="color-green">denis@f12</span>:<span class="color-blue">~</span>$ cat about.txt
+<section class="summer-hero" aria-labelledby="summer-hero-title">
+  <div class="summer-hero__copy">
+    <p class="summer-kicker">Summer 2026 / Infrastructure risk intelligence</p>
+    <h1 id="summer-hero-title">Denis Tolochko</h1>
+    <p class="summer-hero__role">IT Systems Operations Engineer</p>
+    <p class="summer-hero__lead">I build reliable infrastructure, cloud operations, and automation systems for teams that need technology to stay calm under pressure.</p>
+    <div class="summer-hero__actions" aria-label="Primary links">
+      <a href="/about">About</a>
+      <a href="/skills">Skills</a>
+      <a href="/blog">Field notes</a>
+    </div>
+  </div>
+  <div class="summer-signal" aria-hidden="true">
+    <div class="summer-signal__ring summer-signal__ring--one"></div>
+    <div class="summer-signal__ring summer-signal__ring--two"></div>
+    <div class="summer-signal__panel">
+      <span class="summer-signal__label">operational exposure</span>
+      <strong>15+ years</strong>
+      <span>systems, support, cloud, automation</span>
+    </div>
+    <div class="summer-signal__grid">
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</section>
 
-<span class="color-white">╔═══════════════════════════════════════════════════════════╗
-║  DENIS TOLOCHKO                                           ║
-║  IT Systems Operations Engineer                           ║
-║  Santa Monica, CA                                         ║
-╚═══════════════════════════════════════════════════════════╝</span>
+<section class="summer-band summer-band--intro">
+  <div class="summer-band__eyebrow">Current role</div>
+  <div class="summer-band__content">
+    <h2>Turning cloud chaos into predictable systems.</h2>
+    <p>IT Systems Operations Engineer focused on infrastructure as code, AWS and Azure operations, DevOps workflows, security-minded administration, and practical automation. The goal is simple: make deployments boring and systems trustworthy.</p>
+  </div>
+</section>
 
-<span class="color-orange">»</span> <span class="color-white">Infrastructure as Code</span>
-<span class="color-orange">»</span> <span class="color-white">Cloud Architecture (AWS/Azure)</span>
-<span class="color-orange">»</span> <span class="color-white">DevOps & Platform Engineering</span>
-<span class="color-orange">»</span> <span class="color-white">Security & Compliance</span>
+<section class="summer-capabilities" aria-label="Core capabilities">
+  <article>
+    <span>01</span>
+    <h3>Infrastructure</h3>
+    <p>Cloud, hybrid systems, identity, endpoints, virtualization, networking, and the operational discipline needed to keep them useful.</p>
+  </article>
+  <article>
+    <span>02</span>
+    <h3>Automation</h3>
+    <p>Scripts, repeatable workflows, infrastructure-as-code patterns, monitoring, and small tools that remove recurring manual work.</p>
+  </article>
+  <article>
+    <span>03</span>
+    <h3>Risk Signals</h3>
+    <p>Security, reliability, backup readiness, incident patterns, dependency health, and the weak signals that become outages if ignored.</p>
+  </article>
+</section>
 
-<span class="color-green">denis@f12</span>:<span class="color-blue">~</span>$ <span class="color-white">_</span></code>
-</pre>
+<section class="summer-proof">
+  <div>
+    <p class="summer-kicker">Selected paths</p>
+    <h2>Experience across support, systems, and transitions.</h2>
+  </div>
+  <div class="summer-proof__links">
+    <a href="/experience">Experience</a>
+    <a href="/resume">Resume</a>
+    <a href="/now">Now</a>
+  </div>
+</section>
 
-<!-- Mobile simple view -->
-<div class="d-md-none text-center" style="padding: 2rem 1rem;">
-<h1 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Denis Tolochko</h1>
-<h2 style="font-size: 1.1rem; font-weight: normal; margin-bottom: 1rem; color: #666;">IT Systems Operations Engineer</h2>
-<p style="margin-bottom: 0.5rem; color: #888;">Santa Monica, CA</p>
-<hr style="margin: 1.5rem auto; width: 60%; opacity: 0.3;">
-<ul style="list-style: none; padding: 0; text-align: left; max-width: 280px; margin: 0 auto;">
-<li style="margin-bottom: 0.5rem;">» Infrastructure as Code</li>
-<li style="margin-bottom: 0.5rem;">» Cloud Architecture (AWS/Azure)</li>
-<li style="margin-bottom: 0.5rem;">» DevOps & Platform Engineering</li>
-<li style="margin-bottom: 0.5rem;">» Security & Compliance</li>
-</ul>
-</div>
-</div>
+<section class="summer-notes">
+  <div class="summer-notes__visual" aria-hidden="true">
+    <span></span><span></span><span></span><span></span>
+  </div>
+  <div>
+    <p class="summer-kicker">Notes and research</p>
+    <h2>Writing about infrastructure, operations, and the work behind the work.</h2>
+    <p>Short technical notes, longer career reflections, and practical documentation from systems work.</p>
+    <a class="summer-read-more" href="/blog">Read the blog</a>
+  </div>
+</section>
 
-{{< spacer >}}
-
-<div class="container text-center" style="max-width: 800px;">
-<h3 style="font-family: monospace; margin-bottom: 1rem;">$ cat current_role.txt</h3>
-<p style="font-size: 1.1rem; line-height: 1.8;">
-IT Systems Operations Engineer - Building reliable, scalable infrastructure. Automating everything. Making deployments boring. Turning cloud chaos into predictable systems that teams can trust.
-</p>
-</div>
-
-{{< spacer >}}
-
-<div class="container text-center">
-<div class="hero-links" style="justify-content: center;">
-<a href="/about" class="btn-primary">➜ /about</a>
-<a href="/skills" class="btn-secondary">➜ /skills</a>
-<a href="/blog" class="btn-tertiary">➜ /blog</a>
-</div>
-</div>
-
-{{< spacer >}}
-
-{{< platform-links >}}
-  {{< link icon="square-github" url="https://github.com/akajedi" >}}
-  {{< link icon="linkedin" url="https://www.linkedin.com/in/denistolochko" >}}
-  {{< link icon="square-twitter" url="https://twitter.com/denistolochko" >}}
-  {{< link icon="keybase" url="https://twitter.com/denistolochko" >}}
-{{< /platform-links >}}
-
-{{< spacer >}}
+<section class="summer-social">
+  {{< platform-links >}}
+    {{< link icon="square-github" url="https://github.com/akajedi" >}}
+    {{< link icon="linkedin" url="https://www.linkedin.com/in/denistolochko" >}}
+    {{< link icon="square-twitter" url="https://twitter.com/denistolochko" >}}
+    {{< link icon="keybase" url="https://twitter.com/denistolochko" >}}
+  {{< /platform-links >}}
+</section>

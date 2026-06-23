@@ -24,7 +24,7 @@
             {{ $xpCount := len $xp }}
 
             {{ range $index, $element := first $xpCount (sort $xp "Date" "desc") }}
-            <div class="experience row">
+            <div class="experience experience--{{ .File.TranslationBaseName }} row">
                 <div class="experience__header col-12 col-md-3 d-flex align-items-start">
                     {{ $img := resources.Get .Params.companyLogo }}
                     {{ with $img }}

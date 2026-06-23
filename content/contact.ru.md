@@ -29,6 +29,18 @@ translationKey: "contact"
 Если вы предпочитаете написать, вы можете отправить мне сообщение напрямую. Я регулярно проверяю сообщения и отвечу как можно скорее.
 *Совет: пожалуйста, укажите тему или контекст проекта, чтобы я мог ответить быстро и эффективно.*
 
+{{< contact-section
+    title="Отправить сообщение"
+    contact_form_name="Ваше имя"
+    contact_form_email="Ваш e-mail"
+    contact_form_message="Ваше сообщение"
+    contact_form_phone="Ваш телефон"
+    contact_button="Отправить"
+    form_action="https://green-rice-1ea7.denis-f21.workers.dev"
+    form_method="POST"
+    contact_form_rows="5"
+>}}
+
 ---
 
 ### 🔑 Безопасная связь
