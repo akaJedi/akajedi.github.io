@@ -1,21 +1,32 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Homes on</title><link>https://www.f12.biz/home/</link><description>Recent content in Homes on</description><generator>Hugo</generator><language>en</language><atom:link href="https://www.f12.biz/home/index.xml" rel="self" type="application/rss+xml"/><item><title>Home</title><link>https://www.f12.biz/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/home/home/</guid><description>&lt;div class="terminal-hero" style="max-width: 900px; margin: 8rem auto 3rem; padding: 2rem;"&gt;
-&lt;!-- Desktop terminal view --&gt;
-&lt;pre class="d-none d-md-block" style="padding: 2rem; border-radius: 8px; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.95rem; overflow-x: auto; line-height: 1.4;"&gt;
-&lt;code style="line-height: 1.4;"&gt;&lt;span class="color-green"&gt;$&lt;/span&gt; whoami
-&lt;span class="color-green"&gt;denis@f12&lt;/span&gt;:&lt;span class="color-blue"&gt;~&lt;/span&gt;$ cat about.txt
-&lt;p&gt;&lt;span class="color-white"&gt;╔═══════════════════════════════════════════════════════════╗
-║ DENIS TOLOCHKO ║
-║ IT Systems Operations Engineer ║
-║ Santa Monica, CA ║
-╚═══════════════════════════════════════════════════════════╝&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span class="color-orange"&gt;»&lt;/span&gt; &lt;span class="color-white"&gt;Infrastructure as Code&lt;/span&gt;
-&lt;span class="color-orange"&gt;»&lt;/span&gt; &lt;span class="color-white"&gt;Cloud Architecture (AWS/Azure)&lt;/span&gt;
-&lt;span class="color-orange"&gt;»&lt;/span&gt; &lt;span class="color-white"&gt;DevOps &amp;amp; Platform Engineering&lt;/span&gt;
-&lt;span class="color-orange"&gt;»&lt;/span&gt; &lt;span class="color-white"&gt;Security &amp;amp; Compliance&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span class="color-green"&gt;denis@f12&lt;/span&gt;:&lt;span class="color-blue"&gt;~&lt;/span&gt;$ &lt;span class="color-white"&gt;_&lt;/span&gt;&lt;/code&gt;
-&lt;/pre&gt;&lt;/p&gt;
-&lt;!-- Mobile simple view --&gt;
-&lt;div class="d-md-none text-center" style="padding: 2rem 1rem;"&gt;
-&lt;h1 style="font-size: 1.5rem; margin-bottom: 0.5rem;"&gt;Denis Tolochko&lt;/h1&gt;
-&lt;h2 style="font-size: 1.1rem; font-weight: normal; margin-bottom: 1rem; color: #666;"&gt;IT Systems Operations Engineer&lt;/h2&gt;
-&lt;p style="margin-bottom: 0.5rem; color: #888;"&gt;Santa Monica, CA&lt;/p&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Homes on</title><link>https://www.f12.biz/home/</link><description>Recent content in Homes on</description><generator>Hugo</generator><language>en</language><atom:link href="https://www.f12.biz/home/index.xml" rel="self" type="application/rss+xml"/><item><title>Home</title><link>https://www.f12.biz/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/home/home/</guid><description>&lt;section class="summer-hero" aria-labelledby="summer-hero-title"&gt;
+ &lt;div class="summer-hero__copy"&gt;
+ &lt;p class="summer-kicker"&gt;Summer 2026 / Infrastructure risk intelligence&lt;/p&gt;
+ &lt;h1 id="summer-hero-title"&gt;Denis Tolochko&lt;/h1&gt;
+ &lt;p class="summer-hero__role"&gt;IT Systems Operations Engineer&lt;/p&gt;
+ &lt;p class="summer-hero__lead"&gt;I build reliable infrastructure, cloud operations, and automation systems for teams that need technology to stay calm under pressure.&lt;/p&gt;
+ &lt;div class="summer-hero__actions" aria-label="Primary links"&gt;
+ &lt;a href="../about"&gt;About&lt;/a&gt;
+ &lt;a href="../skills"&gt;Skills&lt;/a&gt;
+ &lt;a href="../blog"&gt;Field notes&lt;/a&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="summer-signal" aria-hidden="true"&gt;
+ &lt;div class="summer-signal__ring summer-signal__ring--one"&gt;&lt;/div&gt;
+ &lt;div class="summer-signal__ring summer-signal__ring--two"&gt;&lt;/div&gt;
+ &lt;div class="summer-signal__panel"&gt;
+ &lt;span class="summer-signal__label"&gt;operational exposure&lt;/span&gt;
+ &lt;strong&gt;15+ years&lt;/strong&gt;
+ &lt;span&gt;systems, support, cloud, automation&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;div class="summer-signal__grid"&gt;
+ &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+ &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+ &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+&lt;/section&gt;
+&lt;section class="summer-band summer-band--intro"&gt;
+ &lt;div class="summer-band__eyebrow"&gt;Current role&lt;/div&gt;
+ &lt;div class="summer-band__content"&gt;
+ &lt;h2&gt;Turning cloud chaos into predictable systems.&lt;/h2&gt;
+ &lt;p&gt;IT Systems Operations Engineer focused on infrastructure as code, AWS and Azure operations, DevOps workflows, security-minded administration, and practical automation. The goal is simple: make deployments boring and systems trustworthy.&lt;/p&gt;</description></item></channel></rss>
