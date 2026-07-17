@@ -1,26 +1,19 @@
+{{- if and .Site.Params.analytics.googleAnalytics.enabled .Site.Params.analytics.googleAnalytics.code }}
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.analytics.googleAnalytics.code }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "{{ .Site.Params.analytics.googleAnalytics.code }}");
+</script>
+{{- end }}
+
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 <meta name="theme-color" content="#478079" />
-
-{{- if .Site.Params.analytics.googleTagManager.enabled }}
-  <link rel="preconnect" href="https://www.googletagmanager.com" />
-{{- end }}
-{{- if .Site.Params.analytics.googleAnalytics.enabled }}
-  {{- if .Site.Params.analytics.googleAnalytics.code }}
-    <!-- Google tag (gtag.js) - moved to bottom for non-blocking -->
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '{{ .Site.Params.analytics.googleAnalytics.code}}');
-    </script>
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.analytics.googleAnalytics.code }}"></script>
-  {{- end }}
-{{- end }}
-
+<link rel="preconnect" href="https://www.googletagmanager.com" />
 
 <title>
   {{ if .IsHome }}
@@ -124,16 +117,6 @@
   <!-- disabled color theme selector -->
 {{- end }}
 
-{{- if .Site.Params.analytics.google_tag_manager.enabled }}
-  <!-- Google tag (gtag.js), google analytics -->
-  <script
-    defer
-    src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.analytics.google_tag_manager.code }}"></script>
-  {{- $analytics := resources.Get "js/gtag.js" | resources.Minify }}
-  <script defer src="{{ $analytics.Permalink }}"></script>
-{{- else }}
-  <!-- no google tag displayed -->
-{{- end }}
 <!-- Preload lozad for faster image loading -->
 <link rel="preload" href="{{ "js/library/lozad.min.js" | absURL }}" as="script">
 <script async src="{{ "js/library/lozad.min.js" | absURL }}"></script>
