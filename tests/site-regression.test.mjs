@@ -68,6 +68,7 @@ test("Hugo generates the site's core routes", async () => {
     "skills/index.html",
     "search/index.html",
     "blog/yurga-station/index.html",
+    "blog/page/2/index.html",
     "index.json",
   ];
 
@@ -206,9 +207,12 @@ test("homepage mini slideshow keeps its ten-second interval and controls", async
   assert.match(script, /prefers-reduced-motion:\s*reduce/);
   assert.match(script, /IntersectionObserver/);
   assert.match(script, /querySelectorAll\("\[data-signal-pads\]"\)/);
-  assert.match(script, /window\.AudioContext \|\| window\.webkitAudioContext/);
   assert.match(script, /querySelectorAll\("\[data-signal-wheel\]"\)/);
   assert.match(script, /orbit\.playbackRate/);
+  assert.match(script, /querySelectorAll\("\[data-preference-ring\]"\)/);
+  assert.match(script, /data-bs-theme-value/);
+  assert.match(script, /querySelector\("\[data-ring-center\]"\)/);
+  assert.match(script, /window\.location\.assign/);
   assert.match(script, /unlockClicks === 3/);
   assert.match(script, /localStorage\.setItem\("preferences-unlocked", "true"\)/);
   assert.match(script, /localStorage\.removeItem\("preferences-unlocked"\)/);
@@ -217,9 +221,14 @@ test("homepage mini slideshow keeps its ten-second interval and controls", async
   assert.match(html, /data-interval=10000/);
   assert.match(html, /data-signal-pads/);
   assert.match(html, /data-signal-wheel/);
-  assert.match(html, /data-signal-sets/);
-  assert.equal(occurrences(html, "data-signal-set="), 3);
   assert.doesNotMatch(html, /data-signal-recorder|data-record-download/);
+  assert.match(html, /data-preference-ring/);
+  assert.equal(
+    occurrences(html, "data-ring-action="),
+    4,
+    "preference ring must retain four invisible quadrant actions",
+  );
+  assert.doesNotMatch(html, /summer-signal__shortcut-guide|RING SHORTCUTS/);
   assert.match(html, /localStorage\.getItem\("preferences-unlocked"\)/);
   assert.match(html, /signal-carousel\.js/);
 
@@ -232,53 +241,27 @@ test("homepage mini slideshow keeps its ten-second interval and controls", async
   );
 });
 
-test("DJ pads expose three stable twelve-sound sets with persistent switching", async () => {
-  const [script, manifestSource, loopFiles, fallbackFiles, chillFiles] = await Promise.all([
+test("only tile four plays the supplied coffee track and tiles stay hidden on mobile", async () => {
+  const [script, css, html, audio] = await Promise.all([
     readSource("static/js/signal-carousel.js"),
-    readSource("static/audio/loops/manifest.json"),
-    readdir(path.join(root, "static", "audio", "loops")),
-    readdir(path.join(root, "static", "audio", "dj-pads")),
-    readdir(path.join(root, "static", "audio", "chill")),
+    readSource("assets/css/custom.css"),
+    readBuilt("index.html"),
+    stat(path.join(output, "audio/sound-04.mp3")),
   ]);
-  const manifest = JSON.parse(manifestSource);
-  const mp3Loops = loopFiles.filter((name) => name.endsWith(".mp3")).sort();
-  const chillWavs = chillFiles.filter((name) => name.endsWith(".wav")).sort();
 
-  assert.equal(manifest.length, 12, "the production setup must contain exactly twelve loops");
-  assert.deepEqual(manifest, Array.from({ length: 12 }, (_, itemIndex) => "sequence-" + String(itemIndex + 1).padStart(2, "0") + ".mp3"));
-  assert.equal(new Set(manifest).size, manifest.length, "loop manifest must be unique");
-  assert.deepEqual(new Set(manifest), new Set(mp3Loops), "manifest must index every supplied MP3 loop");
-  assert.equal(fallbackFiles.filter((name) => name.endsWith(".wav")).length, 12);
-  assert.deepEqual(chillWavs, Array.from({ length: 12 }, (_, itemIndex) => "chill-" + String(itemIndex + 1).padStart(2, "0") + ".wav"));
-  assert.match(script, /const soundSets = \[sequencePads, fallbackPads, chillPads\]/);
-  assert.match(script, /localStorage\.getItem\("signal-sound-set"\)/);
-  assert.match(script, /selectSoundSet\(Number\(button\.dataset\.signalSet\)\)/);
-  assert.match(script, /const stopAllPads/);
-  assert.match(script, /audio\.loop = assignment\.loop/);
-  assert.match(script, /activeLoops\.get\(index\)/);
-  assert.match(script, /playing\.pause\(\)/);
-  assert.match(script, /\/audio\/dj-pads\//);
-  assert.match(script, /playSynthFallback/);
-  assert.match(script, /attack\.stop\(now \+ 0\.08\);\n  \};\n\n  const playPadSound/);
-  assert.doesNotMatch(script, /playPadTone/);
-  assert.doesNotMatch(script, /await padAssignments/);
-  assert.match(script, /activeLoops\.set\(index, audio\);\n      await audio\.play\(\)/);
-
-  const headers = await Promise.all(
-    [...manifest.slice(0, 2), ...fallbackFiles.slice(0, 2)].map((name, index) =>
-      readFile(path.join(
-        root,
-        "static",
-        "audio",
-        index < 2 ? "loops" : "dj-pads",
-        name,
-      ))),
-  );
-  headers.slice(0, 2).forEach((audio) => assert.ok(audio.length > 1000));
-  headers.slice(2).forEach((audio) => assert.equal(audio.subarray(0, 4).toString(), "RIFF"));
-  const chillHeaders = await Promise.all(chillWavs.slice(0, 2).map((name) =>
-    readFile(path.join(root, "static", "audio", "chill", name))));
-  chillHeaders.forEach((audio) => assert.equal(audio.subarray(0, 4).toString(), "RIFF"));
+  assert.match(script, /classList\.add\("is-hit"\)/);
+  assert.match(script, /if \(index === 3\)[\s\S]*playCoffeeTrack\(\)/);
+  assert.match(script, /new Audio\("\/audio\/sound-04\.mp3"\)/);
+  assert.match(script, /coffeeTrack\.play\(\)/);
+  assert.match(script, /classList\.add\("is-coffee-active"\)/);
+  assert.doesNotMatch(script, /autoplay|AudioContext|playPadSound|signal-sound-set/);
+  assert.ok(audio.isFile());
+  assert.ok(audio.size > 1000, "coffee track must not be empty");
+  assert.match(html, /data-signal-pads/);
+  assert.doesNotMatch(html, /data-signal-sets|data-signal-set=/);
+  assert.match(css, /Visual-only signal panel:[\s\S]*summer-signal__grid\[data-signal-pads\][\s\S]*display: none !important/);
+  assert.match(css, /Invisible four-way preference ring hit areas[\s\S]*background:\s*transparent;[\s\S]*box-shadow:\s*none/);
+  assert.match(css, /span:nth-child\(4\):hover[\s\S]*linear-gradient\(145deg, #a87958, #5d3b29\)/);
 });
 
 test("Worker CORS allows every supported site and rejects arbitrary origins", async () => {
@@ -388,4 +371,19 @@ test("Worker validates submissions and sends the expected Telegram payload", asy
   } finally {
     globalThis.fetch = originalFetch;
   }
+});
+
+test("blog introduction appears only on page one and collapses on mobile", async () => {
+  const [firstPage, secondPage, russianPage, css] = await Promise.all([
+    readBuilt("blog/index.html"),
+    readBuilt("blog/page/2/index.html"),
+    readBuilt("ru/blog/index.html"),
+    readSource("assets/css/custom.css"),
+  ]);
+
+  assert.match(firstPage, /class=blog-archive__hero/);
+  assert.doesNotMatch(secondPage, /class=blog-archive__hero/);
+  assert.match(firstPage, /class=blog-archive__intro-toggle/);
+  assert.match(russianPage, /Показать описание/);
+  assert.match(css, /@media \(max-width:\s*575px\)[\s\S]*blog-archive__intro-toggle:not\(\[open\]\)[\s\S]*display:\s*none/);
 });

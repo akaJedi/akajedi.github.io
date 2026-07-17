@@ -5,12 +5,23 @@
   {{ $latest := first 1 $pages }}
 
   <div id="main-content" class="blog-archive flex-grow-1">
+    {{ if eq $paginator.PageNumber 1 }}
     <section class="blog-archive__hero" aria-labelledby="blog-archive-title">
       <div>
         <p class="summer-kicker">Field notes / Systems and risk</p>
         <h1 id="blog-archive-title">{{ .Title }}</h1>
-        {{ with .Description }}<p>{{ . }}</p>{{ end }}
-        {{ if .Content }}<div class="blog-archive__intro">{{ .Content }}</div>{{ end }}
+        {{ if or .Description .Content }}
+          <details class="blog-archive__intro-toggle">
+            <summary>
+              <span class="blog-archive__intro-more">{{ if eq .Lang "ru" }}Показать описание{{ else }}Show introduction{{ end }}</span>
+              <span class="blog-archive__intro-less">{{ if eq .Lang "ru" }}Скрыть описание{{ else }}Hide introduction{{ end }}</span>
+            </summary>
+            <div class="blog-archive__intro">
+              {{ with .Description }}<p>{{ . }}</p>{{ end }}
+              {{ .Content }}
+            </div>
+          </details>
+        {{ end }}
       </div>
       <aside class="blog-archive__stats" aria-label="Blog archive stats">
         <span>{{ len $pages }}</span>
@@ -18,6 +29,7 @@
         <small>Infrastructure, operations, history, and practical documentation.</small>
       </aside>
     </section>
+    {{ end }}
 
     {{ if and (eq $paginator.PageNumber 1) $featuredPosts }}
       <section class="blog-spotlight" aria-label="Featured writing">

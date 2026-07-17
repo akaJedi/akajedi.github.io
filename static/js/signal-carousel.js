@@ -1,190 +1,57 @@
 (() => {
   const carousels = document.querySelectorAll("[data-signal-carousel]");
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const padNotes = [261.63, 293.66, 329.63, 392, 440, 523.25, 587.33, 659.25, 783.99, 880, 1046.5, 1174.66];
-  const fallbackPads = [
-    "01-kick.wav", "02-snare.wav", "03-closed-hat.wav", "04-open-hat.wav",
-    "05-clap.wav", "06-bass-drop.wav", "07-laser.wav", "08-riser.wav",
-    "09-vinyl-scratch.wav", "10-rewind.wav", "11-horn.wav", "12-glitch.wav",
-  ].map((name) => ({
-    label: name.replace(/^\d+-/, "").replace(/\.wav$/i, "").replaceAll("-", " "),
-    loop: false,
-    url: `/audio/dj-pads/${name}`,
-  }));
-  const makeNumberedSet = (directory, prefix, extension, loop) =>
-    Array.from({ length: 12 }, (_, index) => {
-      const number = String(index + 1).padStart(2, "0");
-      return {
-        label: prefix + " " + number,
-        loop,
-        url: "/audio/" + directory + "/" + prefix + "-" + number + "." + extension,
-      };
-    });
-  const sequencePads = makeNumberedSet("loops", "sequence", "mp3", true);
-  const chillPads = makeNumberedSet("chill", "chill", "wav", true);
-  const soundSets = [sequencePads, fallbackPads, chillPads];
-  let selectedSet = 0;
-  try {
-    const storedSet = Number(localStorage.getItem("signal-sound-set"));
-    if (Number.isInteger(storedSet) && storedSet >= 0 && storedSet < soundSets.length) selectedSet = storedSet;
-  } catch (_) {
-    // Storage is optional; the first set remains the default.
-  }
-  let currentPads = soundSets[selectedSet];
-  const padGroups = [];
-  const activeLoops = new Map();
   const padTimers = new WeakMap();
-  let audioContext;
-  let masterOutput;
+  let coffeeTrack;
 
-  const ensureAudio = async () => {
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContext) return null;
-
-    if (!audioContext) {
-      audioContext = new AudioContext();
-      masterOutput = audioContext.createGain();
-      masterOutput.gain.value = 0.82;
-      masterOutput.connect(audioContext.destination);
+  const playCoffeeTrack = () => {
+    if (!coffeeTrack) {
+      coffeeTrack = new Audio("/audio/sound-04.mp3");
+      coffeeTrack.preload = "none";
+      coffeeTrack.volume = 0.58;
     }
 
-    if (audioContext.state === "suspended") {
-      await audioContext.resume();
-    }
-
-    return audioContext.state === "running" ? audioContext : null;
-  };
-
-  const playSynthFallback = async (index) => {
-    const context = await ensureAudio();
-    if (!context || !masterOutput) return;
-
-    const now = context.currentTime;
-    const oscillator = context.createOscillator();
-    const attack = context.createOscillator();
-    const gain = context.createGain();
-    const attackGain = context.createGain();
-
-    oscillator.type = index % 3 === 0 ? "square" : index % 3 === 1 ? "triangle" : "sine";
-    oscillator.frequency.setValueAtTime(padNotes[index], now);
-    oscillator.frequency.exponentialRampToValueAtTime(padNotes[index] * 0.97, now + 0.42);
-    gain.gain.setValueAtTime(0.0001, now);
-    gain.gain.exponentialRampToValueAtTime(0.42, now + 0.012);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.48);
-
-    attack.type = "square";
-    attack.frequency.setValueAtTime(1400 + index * 35, now);
-    attack.frequency.exponentialRampToValueAtTime(700 + index * 20, now + 0.07);
-    attackGain.gain.setValueAtTime(0.16, now);
-    attackGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.075);
-
-    oscillator.connect(gain);
-    attack.connect(attackGain);
-    gain.connect(masterOutput);
-    attackGain.connect(masterOutput);
-    oscillator.start(now);
-    attack.start(now);
-    oscillator.stop(now + 0.5);
-    attack.stop(now + 0.08);
-  };
-
-  const playPadSound = async (index) => {
-    const playing = activeLoops.get(index);
-    if (playing) {
-      playing.pause();
-      playing.currentTime = 0;
-      activeLoops.delete(index);
-      return false;
-    }
-
-    try {
-      const assignment = currentPads[index];
-      const audio = new Audio(assignment.url);
-      audio.loop = assignment.loop;
-      audio.preload = "auto";
-      audio.playsInline = true;
-      audio.volume = 0.9;
-      if (assignment.loop) activeLoops.set(index, audio);
-      await audio.play();
-      if (activeLoops.get(index) !== audio) {
-        audio.pause();
-        return false;
-      }
-      if (assignment.loop) {
-        audio.addEventListener("ended", () => {
-          if (activeLoops.get(index) === audio) activeLoops.delete(index);
-        });
-      }
-      return assignment.loop;
-    } catch (error) {
-      const failed = activeLoops.get(index);
-      if (failed) activeLoops.delete(index);
-      console.warn("DJ sample unavailable; using synthesized fallback", error);
-      await playSynthFallback(index);
-      return false;
-    }
-  };
-
-  const stopAllPads = () => {
-    activeLoops.forEach((audio) => {
-      audio.pause();
-      audio.currentTime = 0;
-    });
-    activeLoops.clear();
-    padGroups.forEach(({ pads }) => pads.forEach((pad) => {
-      pad.classList.remove("is-playing", "is-hit");
-      pad.setAttribute("aria-pressed", "false");
-    }));
-  };
-
-  const syncPadLabels = () => {
-    padGroups.forEach(({ pads, groupLabel }) => pads.forEach((pad, index) => {
-      const assignment = currentPads[index];
-      pad.setAttribute("aria-label", groupLabel + " " + (index + 1) + ": " + assignment.label);
-      pad.title = assignment.label;
-    }));
-  };
-
-  const selectSoundSet = (index, persist = true) => {
-    if (!Number.isInteger(index) || !soundSets[index]) return;
-    stopAllPads();
-    selectedSet = index;
-    currentPads = soundSets[index];
-    syncPadLabels();
-    document.querySelectorAll("[data-signal-set]").forEach((button) => {
-      const active = Number(button.dataset.signalSet) === index;
-      button.classList.toggle("is-active", active);
-      button.setAttribute("aria-pressed", String(active));
-    });
-    if (persist) {
-      try { localStorage.setItem("signal-sound-set", String(index)); } catch (_) {}
+    coffeeTrack.pause();
+    coffeeTrack.currentTime = 0;
+    const playback = coffeeTrack.play();
+    if (playback) {
+      playback.catch(() => {});
     }
   };
 
   document.querySelectorAll("[data-signal-pads]").forEach((padGrid) => {
     const pads = [...padGrid.querySelectorAll("span")];
-    const groupLabel = padGrid.getAttribute("aria-label") || "Sound pad";
-    padGroups.push({ pads, groupLabel });
-
+    const groupLabel = padGrid.getAttribute("aria-label") || "Interactive color tiles";
+    const coffeeLabel = padGrid.dataset.coffeeLabel || "Coffee music";
 
     pads.forEach((pad, index) => {
       pad.setAttribute("role", "button");
       pad.setAttribute("tabindex", "0");
-      pad.setAttribute("aria-pressed", "false");
-      pad.setAttribute("aria-label", `${groupLabel} ${index + 1}`);
+      pad.setAttribute(
+        "aria-label",
+        index === 3 ? `${groupLabel} ${index + 1}: ${coffeeLabel}` : `${groupLabel} ${index + 1}`,
+      );
       pad.style.setProperty("--pad-hue", String((index * 29 + 12) % 360));
 
       const activate = () => {
+        if (index === 3) {
+          window.clearTimeout(padTimers.get(pad));
+          pad.classList.add("is-coffee-active");
+          pad.classList.remove("is-coffee-pulse");
+          void pad.offsetWidth;
+          pad.classList.add("is-coffee-pulse");
+          padTimers.set(
+            pad,
+            window.setTimeout(() => pad.classList.remove("is-coffee-pulse"), 520),
+          );
+          playCoffeeTrack();
+          return;
+        }
+
         window.clearTimeout(padTimers.get(pad));
         pad.classList.remove("is-hit");
         void pad.offsetWidth;
         pad.classList.add("is-hit");
-        playPadSound(index)
-          .then((isPlaying) => {
-            pad.classList.toggle("is-playing", isPlaying);
-            pad.setAttribute("aria-pressed", String(isPlaying));
-          })
-          .catch((error) => console.warn("Sound pad playback failed", error));
         padTimers.set(
           pad,
           window.setTimeout(() => pad.classList.remove("is-hit"), 240),
@@ -201,13 +68,72 @@
     });
   });
 
+  const setTheme = (theme) => {
+    const themeButton = document.querySelector(`[data-bs-theme-value="${theme}"]`);
+    if (themeButton) {
+      themeButton.click();
+      return;
+    }
 
-  document.querySelectorAll("[data-signal-sets]").forEach((setControl) => {
-    setControl.querySelectorAll("[data-signal-set]").forEach((button) => {
-      button.addEventListener("click", () => selectSoundSet(Number(button.dataset.signalSet)));
+    document.documentElement.setAttribute("data-bs-theme", theme);
+    document.documentElement.removeAttribute("data-theme-auto");
+    try {
+      localStorage.setItem("theme", theme);
+    } catch (_) {
+      // The selected theme still applies to this page when storage is unavailable.
+    }
+  };
+
+  const setLanguage = (language) => {
+    const currentLanguage = (document.documentElement.lang || "en")
+      .toLowerCase()
+      .split("-")[0];
+    if (currentLanguage === language) return;
+
+    const translatedPage = [...document.querySelectorAll("a.translation")].find((link) => {
+      const label = `${link.title} ${link.textContent}`.toLowerCase();
+      return language === "ru" ? /рус|russian/.test(label) : /англ|english/.test(label);
     });
+    window.location.assign(translatedPage?.href || (language === "ru" ? "/ru/" : "/"));
+  };
+
+  document.querySelectorAll("[data-preference-ring]").forEach((ring) => {
+    const actionButtons = [...ring.querySelectorAll("[data-ring-action]")];
+
+    const syncRingState = () => {
+      const currentTheme = document.documentElement.getAttribute("data-bs-theme") || "light";
+      const currentLanguage = (document.documentElement.lang || "en")
+        .toLowerCase()
+        .split("-")[0];
+
+      actionButtons.forEach((button) => {
+        const action = button.dataset.ringAction;
+        const active = action === currentTheme || action === currentLanguage;
+        button.classList.toggle("is-active", active);
+        button.setAttribute("aria-pressed", String(active));
+      });
+    };
+
+    actionButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const action = button.dataset.ringAction;
+        if (action === "light" || action === "dark") {
+          setTheme(action);
+          syncRingState();
+        } else if (action === "ru" || action === "en") {
+          setLanguage(action);
+        }
+      });
+    });
+
+    new MutationObserver(syncRingState).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-bs-theme"],
+    });
+    syncRingState();
   });
-  selectSoundSet(selectedSet, false);
+
 
   document.querySelectorAll("[data-signal-wheel]").forEach((wheel) => {
     let startY = 0;
@@ -278,7 +204,7 @@
     const toggle = carousel.querySelector("[data-signal-toggle]");
     const preferenceTrigger = carousel
       .closest(".summer-signal")
-      ?.querySelector(".summer-signal__ring--two");
+      ?.querySelector("[data-ring-center]");
     const interval = Number(carousel.dataset.interval) || 10000;
     const pauseLabel = carousel.dataset.pauseLabel || "Pause slideshow";
     const resumeLabel = carousel.dataset.resumeLabel || "Resume slideshow";
@@ -313,7 +239,7 @@
 
         unlockTimer = window.setTimeout(() => {
           unlockClicks = 0;
-        }, 5000);
+        }, 1200);
       });
     }
 
