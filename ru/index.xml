@@ -202,18 +202,114 @@
  &lt;div class="summer-band__eyebrow"&gt;Текущая роль&lt;/div&gt;
  &lt;div class="summer-band__content"&gt;
  &lt;h2&gt;Превращаю облачный хаос в предсказуемые системы.&lt;/h2&gt;
- &lt;p&gt;Работаю с инфраструктурой как кодом, AWS и Azure, DevOps-процессами, безопасным администрированием и практичной автоматизацией. Цель проста: скучные развёртывания и системы, которым можно доверять.&lt;/p&gt;</description></item><item><title>Связаться</title><link>https://www.f12.biz/ru/contact/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/contact/</guid><description>&lt;p&gt;Я придерживаюсь простого и прозрачного общения. Если вы хотите связаться, вот способы как со мной связаться:&lt;/p&gt;
-&lt;hr&gt;
-&lt;h3 id="-запланировать-встречу"&gt;📅 Запланировать встречу&lt;/h3&gt;
-&lt;p&gt;Самый простой способ — использовать мою систему планирования:&lt;/p&gt;
-&lt;p&gt;Выберите удобное для вас время — система автоматически учитывает часовые пояса и избавляет от лишней переписки.&lt;/p&gt;
-&lt;a id="Setmore_button_iframe" href="https://f12.setmore.com" style="display:flex; align-items:center; gap:8px; text-decoration:none; background:#478079; padding:10px 16px; border-radius:8px; color:white; font-size:16px; font-weight:600;"&gt;
- &lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" height="20" width="20" viewBox="0 0 24 24" stroke="currentColor"&gt;
- &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10m-11 6h12a2 2 0 002-2V7a2 2 0 00-2-2h-1V3m-10 2v2H7a2 2 0 00-2 2v10a2 2 0 002 2h10"/&gt;
- &lt;/svg&gt;
- Запланировать встречу
-&lt;/a&gt;
-&lt;hr&gt;
-&lt;h3 id="-отправить-сообщение"&gt;✉️ Отправить сообщение&lt;/h3&gt;
-&lt;p&gt;Если вы предпочитаете написать, вы можете отправить мне сообщение напрямую. Я регулярно проверяю сообщения и отвечу как можно скорее.
-&lt;em&gt;Совет: пожалуйста, укажите тему или контекст проекта, чтобы я мог ответить быстро и эффективно.&lt;/em&gt;&lt;/p&gt;</description></item></channel></rss>
+ &lt;p&gt;Работаю с инфраструктурой как кодом, AWS и Azure, DevOps-процессами, безопасным администрированием и практичной автоматизацией. Цель проста: скучные развёртывания и системы, которым можно доверять.&lt;/p&gt;</description></item><item><title>Связаться</title><link>https://www.f12.biz/ru/contact/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/contact/</guid><description>&lt;section id="contact-message" class="section section--contact pt-0"&gt;
+ &lt;div class="container"&gt;
+ &lt;div class="contact w-100"&gt;
+ &lt;h2&gt;Отправить сообщение&lt;/h2&gt;
+ &lt;div class="row pt-2"&gt;
+ &lt;div class="col-12 col-lg-7"&gt;
+ &lt;form action="https://green-rice-1ea7.denis-f21.workers.dev" method="POST" class="contact__form"&gt;
+ &lt;div class="row"&gt;
+ &lt;div class="col-12 col-sm-6 contact-field"&gt;
+ &lt;label for="contact-message-name"&gt;Ваше имя&lt;/label&gt;
+ &lt;input id="contact-message-name" type="text" name="full_name" class="form-control" autocomplete="name" required placeholder="Ваше имя"&gt;
+ &lt;/div&gt;
+ &lt;div class="col-12 col-sm-6 contact-field"&gt;
+ &lt;label for="contact-message-email"&gt;Ваш email&lt;/label&gt;
+ &lt;input id="contact-message-email" type="email" name="email" class="form-control" autocomplete="email" required placeholder="Ваш email"&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="row pt-4"&gt;
+ &lt;div class="col-12 contact-field"&gt;
+ &lt;label for="contact-message-phone"&gt;
+ &lt;span&gt;Ваш телефон&lt;/span&gt;
+ &lt;span&gt;(необязательно)&lt;/span&gt;
+ &lt;/label&gt;
+ &lt;input id="contact-message-phone" type="tel" name="phone" class="form-control" autocomplete="tel" placeholder="Ваш телефон"&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="row pt-4"&gt;
+ &lt;div class="col-12 contact-field"&gt;
+ &lt;label for="contact-message-message"&gt;Чем я могу помочь?&lt;/label&gt;
+ &lt;textarea id="contact-message-message" name="message" class="form-control" rows="6" required placeholder="Чем я могу помочь?"&gt;&lt;/textarea&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="row pt-4"&gt;
+ &lt;div class="col-12"&gt;
+ &lt;button type="submit" class="btn btn-primary"&gt;Отправить сообщение&lt;/button&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="contact__message" role="status" aria-live="polite"&gt;&lt;/div&gt;
+ &lt;/form&gt;
+ &lt;/div&gt;
+ &lt;div class="col-12 col-lg-5 contact__info"&gt;
+ 
+
+ 
+ 
+ 
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;script&gt;
+document.addEventListener("DOMContentLoaded", function () {
+ document.querySelectorAll(".contact__form").forEach(function (form) {
+ const messageBox = form.querySelector(".contact__message");
+ if (!messageBox) return;
+
+ form.addEventListener("submit", async function (event) {
+ event.preventDefault();
+
+ const nameInput = form.querySelector("[name='full_name']");
+ const emailInput = form.querySelector("[name='email']");
+ const phoneInput = form.querySelector("[name='phone']");
+ const messageInput = form.querySelector("[name='message']");
+
+ if (!nameInput || !emailInput || !messageInput) {
+ messageBox.textContent = "\"Ошибка формы. Обновите страницу.\"";
+ messageBox.dataset.state = "error";
+ return;
+ }
+
+ const data = {
+ name: nameInput.value.trim(),
+ email: emailInput.value.trim(),
+ phone: phoneInput ? phoneInput.value.trim() : "",
+ message: messageInput.value.trim()
+ };
+
+ if (!data.name || !data.email || !data.message) {
+ messageBox.textContent = "\"Заполните имя, email и сообщение.\"";
+ messageBox.dataset.state = "error";
+ return;
+ }
+
+ messageBox.textContent = "\"Отправка...\"";
+ messageBox.dataset.state = "pending";
+
+ try {
+ const response = await fetch(form.action, {
+ method: form.method,
+ headers: { "Content-Type": "application/json", "Accept": "application/json" },
+ body: JSON.stringify(data)
+ });
+ const result = await response.json();
+ if (result.success || response.ok) {
+ messageBox.textContent = "\"Ваше сообщение успешно отправлено.\"";
+ messageBox.dataset.state = "success";
+ form.reset();
+ } else {
+ messageBox.textContent = result.error || result.message || "\"Что-то пошло не так. Попробуйте ещё раз.\"";
+ messageBox.dataset.state = "error";
+ }
+ } catch (error) {
+ messageBox.textContent = "\"Не удалось отправить сообщение. Попробуйте ещё раз.\"";
+ messageBox.dataset.state = "error";
+ }
+ });
+ });
+});
+&lt;/script&gt;</description></item></channel></rss>

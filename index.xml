@@ -232,21 +232,117 @@ The content you see here comes from the contents of the &lt;code&gt;content/proj
 &lt;p&gt;The work was part of a social and charitable program supporting people with disabilities and those affected by the Chernobyl disaster, combining technical expertise with community service.&lt;/p&gt;
 &lt;p&gt;Key contributions:&lt;/p&gt;
 &lt;p&gt;Accepted and processed non-ferrous metals from public&lt;/p&gt;</description></item><item><title>Yurga Technical College of Industry and Law</title><link>https://www.f12.biz/education/ymt/</link><pubDate>Fri, 25 Aug 2000 09:53:42 +0200</pubDate><guid>https://www.f12.biz/education/ymt/</guid><description/></item><item><title>Machinist / Lathe Operator</title><link>https://www.f12.biz/experience/machinist/</link><pubDate>Wed, 01 Mar 2000 00:00:00 +0100</pubDate><guid>https://www.f12.biz/experience/machinist/</guid><description>&lt;p&gt;Worked on a universal 16K20 lathe and two STP-220AP CNC machines. Programmed and operated turning equipment, performed machine setup, and ensured precision control throughout the machining process. Manufactured components for the hydraulic systems of forklifts produced at the plant during that period.&lt;/p&gt;
-&lt;p&gt;Operated the STP-220AP CNC lathe equipped with the NC-210 control system, CSD feed drives, and DELTA main drive. Performed setup, tooling adjustments, and execution of precision turning programs. Read technical drawings, verified dimensions, and ensured machining accuracy.&lt;/p&gt;</description></item><item><title>Tomsk State University</title><link>https://www.f12.biz/education/tgu/</link><pubDate>Wed, 25 Aug 1999 09:53:42 +0200</pubDate><guid>https://www.f12.biz/education/tgu/</guid><description/></item><item><title>Yurga Secondary School</title><link>https://www.f12.biz/education/yurga-secondary-school/</link><pubDate>Sun, 25 Aug 1996 09:53:42 +0200</pubDate><guid>https://www.f12.biz/education/yurga-secondary-school/</guid><description/></item><item><title>Contact</title><link>https://www.f12.biz/contact/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/contact/</guid><description>&lt;p&gt;I keep my communication simple and transparent. If you’d like to connect, here are the ways to reach me:&lt;/p&gt;
-&lt;hr&gt;
-&lt;h3 id="-schedule-a-meeting"&gt;📅 Schedule a Meeting&lt;/h3&gt;
-&lt;p&gt;The easiest way is to use my scheduling system:&lt;/p&gt;
-&lt;p&gt;Pick a time that works best for you — it automatically adjusts for time zones and avoids back-and-forth emails.&lt;/p&gt;
-&lt;a id="Setmore_button_iframe" href="https://f12.setmore.com" style="display:flex; align-items:center; gap:8px; text-decoration:none; background:#478079; padding:10px 16px; border-radius:8px; color:white; font-size:16px; font-weight:600;"&gt;
- &lt;svg xmlns="http://www.w3.org/2000/svg" fill="none" height="20" width="20" viewBox="0 0 24 24" stroke="currentColor"&gt;
- &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10m-11 6h12a2 2 0 002-2V7a2 2 0 00-2-2h-1V3m-10 2v2H7a2 2 0 00-2 2v10a2 2 0 002 2h10"/&gt;
- &lt;/svg&gt;
- Schedule Meeting
-&lt;/a&gt;
-&lt;hr&gt;
-&lt;h3 id="-send-a-message"&gt;✉️ Send a Message&lt;/h3&gt;
-&lt;p&gt;If you prefer to write, you can send me a message directly. I review messages regularly and will respond as soon as possible.&lt;br&gt;
-&lt;em&gt;Tip: please include your topic or project context so I can reply quickly and effectively.&lt;/em&gt;&lt;/p&gt;</description></item><item><title>Home</title><link>https://www.f12.biz/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/home/home/</guid><description>&lt;section class="summer-hero" aria-labelledby="summer-hero-title"&gt;
+&lt;p&gt;Operated the STP-220AP CNC lathe equipped with the NC-210 control system, CSD feed drives, and DELTA main drive. Performed setup, tooling adjustments, and execution of precision turning programs. Read technical drawings, verified dimensions, and ensured machining accuracy.&lt;/p&gt;</description></item><item><title>Tomsk State University</title><link>https://www.f12.biz/education/tgu/</link><pubDate>Wed, 25 Aug 1999 09:53:42 +0200</pubDate><guid>https://www.f12.biz/education/tgu/</guid><description/></item><item><title>Yurga Secondary School</title><link>https://www.f12.biz/education/yurga-secondary-school/</link><pubDate>Sun, 25 Aug 1996 09:53:42 +0200</pubDate><guid>https://www.f12.biz/education/yurga-secondary-school/</guid><description/></item><item><title>Contact</title><link>https://www.f12.biz/contact/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/contact/</guid><description>&lt;section id="contact-message" class="section section--contact pt-0"&gt;
+ &lt;div class="container"&gt;
+ &lt;div class="contact w-100"&gt;
+ &lt;h2&gt;Send a message&lt;/h2&gt;
+ &lt;div class="row pt-2"&gt;
+ &lt;div class="col-12 col-lg-7"&gt;
+ &lt;form action="https://green-rice-1ea7.denis-f21.workers.dev" method="POST" class="contact__form"&gt;
+ &lt;div class="row"&gt;
+ &lt;div class="col-12 col-sm-6 contact-field"&gt;
+ &lt;label for="contact-message-name"&gt;Your name&lt;/label&gt;
+ &lt;input id="contact-message-name" type="text" name="full_name" class="form-control" autocomplete="name" required placeholder="Your name"&gt;
+ &lt;/div&gt;
+ &lt;div class="col-12 col-sm-6 contact-field"&gt;
+ &lt;label for="contact-message-email"&gt;Your email&lt;/label&gt;
+ &lt;input id="contact-message-email" type="email" name="email" class="form-control" autocomplete="email" required placeholder="Your email"&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="row pt-4"&gt;
+ &lt;div class="col-12 contact-field"&gt;
+ &lt;label for="contact-message-phone"&gt;
+ &lt;span&gt;Your phone&lt;/span&gt;
+ &lt;span&gt;(optional)&lt;/span&gt;
+ &lt;/label&gt;
+ &lt;input id="contact-message-phone" type="tel" name="phone" class="form-control" autocomplete="tel" placeholder="Your phone"&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="row pt-4"&gt;
+ &lt;div class="col-12 contact-field"&gt;
+ &lt;label for="contact-message-message"&gt;How can I help?&lt;/label&gt;
+ &lt;textarea id="contact-message-message" name="message" class="form-control" rows="6" required placeholder="How can I help?"&gt;&lt;/textarea&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="row pt-4"&gt;
+ &lt;div class="col-12"&gt;
+ &lt;button type="submit" class="btn btn-primary"&gt;Transmit message&lt;/button&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="contact__message" role="status" aria-live="polite"&gt;&lt;/div&gt;
+ &lt;/form&gt;
+ &lt;/div&gt;
+ &lt;div class="col-12 col-lg-5 contact__info"&gt;
+ 
+
+ 
+ 
+ 
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;script&gt;
+document.addEventListener("DOMContentLoaded", function () {
+ document.querySelectorAll(".contact__form").forEach(function (form) {
+ const messageBox = form.querySelector(".contact__message");
+ if (!messageBox) return;
+
+ form.addEventListener("submit", async function (event) {
+ event.preventDefault();
+
+ const nameInput = form.querySelector("[name='full_name']");
+ const emailInput = form.querySelector("[name='email']");
+ const phoneInput = form.querySelector("[name='phone']");
+ const messageInput = form.querySelector("[name='message']");
+
+ if (!nameInput || !emailInput || !messageInput) {
+ messageBox.textContent = "\"Form error. Please refresh the page.\"";
+ messageBox.dataset.state = "error";
+ return;
+ }
+
+ const data = {
+ name: nameInput.value.trim(),
+ email: emailInput.value.trim(),
+ phone: phoneInput ? phoneInput.value.trim() : "",
+ message: messageInput.value.trim()
+ };
+
+ if (!data.name || !data.email || !data.message) {
+ messageBox.textContent = "\"Please fill out your name, email, and message.\"";
+ messageBox.dataset.state = "error";
+ return;
+ }
+
+ messageBox.textContent = "\"Sending...\"";
+ messageBox.dataset.state = "pending";
+
+ try {
+ const response = await fetch(form.action, {
+ method: form.method,
+ headers: { "Content-Type": "application/json", "Accept": "application/json" },
+ body: JSON.stringify(data)
+ });
+ const result = await response.json();
+ if (result.success || response.ok) {
+ messageBox.textContent = "\"Your message has been sent successfully.\"";
+ messageBox.dataset.state = "success";
+ form.reset();
+ } else {
+ messageBox.textContent = result.error || result.message || "\"Something went wrong. Please try again.\"";
+ messageBox.dataset.state = "error";
+ }
+ } catch (error) {
+ messageBox.textContent = "\"Failed to send. Please try again.\"";
+ messageBox.dataset.state = "error";
+ }
+ });
+ });
+});
+&lt;/script&gt;</description></item><item><title>Home</title><link>https://www.f12.biz/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/home/home/</guid><description>&lt;section class="summer-hero" aria-labelledby="summer-hero-title"&gt;
  &lt;div class="summer-hero__copy"&gt;
  &lt;p class="summer-kicker"&gt;Infrastructure / Operations / Automation&lt;/p&gt;
  &lt;h1 id="summer-hero-title"&gt;Denis Tolochko&lt;/h1&gt;
