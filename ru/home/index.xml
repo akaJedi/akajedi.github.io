@@ -1,21 +1,52 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Homes on</title><link>https://www.f12.biz/ru/home/</link><description>Recent content in Homes on</description><generator>Hugo</generator><language>ru</language><atom:link href="https://www.f12.biz/ru/home/index.xml" rel="self" type="application/rss+xml"/><item><title>Home</title><link>https://www.f12.biz/ru/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/home/home/</guid><description>&lt;div class="terminal-hero" style="max-width: 900px; margin: 8rem auto 3rem; padding: 2rem;"&gt;
-&lt;!-- Desktop terminal view --&gt;
-&lt;pre class="d-none d-md-block" style="padding: 2rem; border-radius: 8px; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.95rem; overflow-x: auto; line-height: 1.4;"&gt;
-&lt;code style="line-height: 1.4;"&gt;&lt;span class="color-green"&gt;$&lt;/span&gt; whoami
-&lt;span class="color-green"&gt;denis@f12&lt;/span&gt;:&lt;span class="color-blue"&gt;~&lt;/span&gt;$ cat about.txt
-&lt;p&gt;&lt;span class="color-white"&gt;╔═══════════════════════════════════════════════════════════╗
-║ ДЕНИС ТОЛОЧКО ║
-║ IT Systems Operations Engineer ║
-║ Санта-Моника, Калифорния ║
-╚═══════════════════════════════════════════════════════════╝&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span class="color-orange"&gt;»&lt;/span&gt; &lt;span class="color-white"&gt;Инфраструктура как код&lt;/span&gt;
-&lt;span class="color-orange"&gt;»&lt;/span&gt; &lt;span class="color-white"&gt;Облачная архитектура (AWS/Azure)&lt;/span&gt;
-&lt;span class="color-orange"&gt;»&lt;/span&gt; &lt;span class="color-white"&gt;DevOps и платформенная инженерия&lt;/span&gt;
-&lt;span class="color-orange"&gt;»&lt;/span&gt; &lt;span class="color-white"&gt;Безопасность и соответствие&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span class="color-green"&gt;denis@f12&lt;/span&gt;:&lt;span class="color-blue"&gt;~&lt;/span&gt;$ &lt;span class="color-white"&gt;_&lt;/span&gt;&lt;/code&gt;
-&lt;/pre&gt;&lt;/p&gt;
-&lt;!-- Mobile simple view --&gt;
-&lt;div class="d-md-none text-center" style="padding: 2rem 1rem;"&gt;
-&lt;h1 style="font-size: 1.5rem; margin-bottom: 0.5rem;"&gt;Денис Толочко&lt;/h1&gt;
-&lt;h2 style="font-size: 1.1rem; font-weight: normal; margin-bottom: 1rem; color: #666;"&gt;IT Systems Operations Engineer&lt;/h2&gt;
-&lt;p style="margin-bottom: 0.5rem; color: #888;"&gt;Санта-Моника, Калифорния&lt;/p&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Homes on</title><link>https://www.f12.biz/ru/home/</link><description>Recent content in Homes on</description><generator>Hugo</generator><language>ru</language><atom:link href="https://www.f12.biz/ru/home/index.xml" rel="self" type="application/rss+xml"/><item><title>Главная</title><link>https://www.f12.biz/ru/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/home/home/</guid><description>&lt;section class="summer-hero" aria-labelledby="summer-hero-title"&gt;
+ &lt;div class="summer-hero__copy"&gt;
+ &lt;p class="summer-kicker"&gt;Инфраструктура / Эксплуатация / Автоматизация&lt;/p&gt;
+ &lt;h1 id="summer-hero-title"&gt;Денис Толочко&lt;/h1&gt;
+ &lt;p class="summer-hero__role"&gt;Инженер по эксплуатации ИТ-систем&lt;/p&gt;
+ &lt;p class="summer-hero__lead"&gt;Создаю надёжную инфраструктуру, облачные процессы и автоматизацию для команд, которым нужны спокойные и предсказуемые технологии.&lt;/p&gt;
+ &lt;div class="summer-hero__actions" aria-label="Основные разделы"&gt;
+ &lt;a href="../../ru/about/"&gt;Обо мне&lt;/a&gt;
+ &lt;a href="../../skills/"&gt;Навыки&lt;/a&gt;
+ &lt;a href="../../ru/blog/"&gt;Заметки&lt;/a&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="summer-signal"&gt;
+ &lt;div class="summer-signal__ring summer-signal__ring--one" aria-hidden="true"&gt;&lt;/div&gt;
+ &lt;div class="summer-signal__ring summer-signal__ring--two" aria-hidden="true"&gt;&lt;/div&gt;
+ &lt;div class="summer-signal__panel" data-signal-carousel data-interval="10000" data-pause-label="Остановить слайд-шоу" data-resume-label="Продолжить слайд-шоу"&gt;
+ &lt;div class="summer-signal__slides" aria-live="off"&gt;
+ &lt;div class="summer-signal__slide is-active" data-signal-slide aria-hidden="false"&gt;
+ &lt;span class="summer-signal__label"&gt;Глубина опыта&lt;/span&gt;
+ &lt;strong&gt;15+ лет&lt;/strong&gt;
+ &lt;span&gt;системы, поддержка, облака и автоматизация&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;div class="summer-signal__slide" data-signal-slide aria-hidden="true"&gt;
+ &lt;span class="summer-signal__label"&gt;Модель реализации&lt;/span&gt;
+ &lt;strong&gt;Cloud + IaC&lt;/strong&gt;
+ &lt;span&gt;повторяемые среды с меньшим числом сюрпризов&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;div class="summer-signal__slide" data-signal-slide aria-hidden="true"&gt;
+ &lt;span class="summer-signal__label"&gt;Практика надёжности&lt;/span&gt;
+ &lt;strong&gt;Контроль + восстановление&lt;/strong&gt;
+ &lt;span&gt;мониторинг, резервные копии и готовность к инцидентам&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="summer-signal__controls"&gt;
+ &lt;span class="summer-signal__lights" aria-hidden="true"&gt;
+ &lt;i class="is-active"&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;
+ &lt;/span&gt;
+ &lt;button type="button" class="summer-signal__toggle" data-signal-toggle aria-label="Остановить слайд-шоу" aria-pressed="false"&gt;&lt;/button&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class="summer-signal__grid" aria-hidden="true"&gt;
+ &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+ &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+ &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+&lt;/section&gt;
+&lt;section class="summer-band summer-band--intro"&gt;
+ &lt;div class="summer-band__eyebrow"&gt;Текущая роль&lt;/div&gt;
+ &lt;div class="summer-band__content"&gt;
+ &lt;h2&gt;Превращаю облачный хаос в предсказуемые системы.&lt;/h2&gt;
+ &lt;p&gt;Работаю с инфраструктурой как кодом, AWS и Azure, DevOps-процессами, безопасным администрированием и практичной автоматизацией. Цель проста: скучные развёртывания и системы, которым можно доверять.&lt;/p&gt;</description></item></channel></rss>
