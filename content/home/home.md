@@ -18,7 +18,7 @@ translationKey = "homepage"
     </div>
   </div>
   <div class="summer-signal">
-    <div class="summer-signal__ring summer-signal__ring--one" aria-hidden="true"></div>
+    <div class="summer-signal__ring summer-signal__ring--one" data-signal-wheel role="button" tabindex="0" aria-label="Swipe down to accelerate the wheel"></div>
     <div class="summer-signal__ring summer-signal__ring--two" aria-hidden="true"></div>
     <div class="summer-signal__panel" data-signal-carousel data-interval="10000" data-pause-label="Pause slideshow" data-resume-label="Resume slideshow">
       <div class="summer-signal__slides" aria-live="off">
@@ -44,8 +44,13 @@ translationKey = "homepage"
         </span>
         <button type="button" class="summer-signal__toggle" data-signal-toggle aria-label="Pause slideshow" aria-pressed="false"></button>
       </div>
+      <div class="summer-signal__sets" data-signal-sets role="group" aria-label="Sound set">
+        <button type="button" class="is-active" data-signal-set="0" aria-pressed="true"><span>01</span><small>LOOPS</small></button>
+        <button type="button" data-signal-set="1" aria-pressed="false"><span>02</span><small>FX</small></button>
+        <button type="button" data-signal-set="2" aria-pressed="false"><span>03</span><small>CHILL</small></button>
+      </div>
     </div>
-    <div class="summer-signal__grid" aria-hidden="true">
+    <div class="summer-signal__grid" data-signal-pads role="group" aria-label="Sound performance pads">
       <span></span><span></span><span></span><span></span>
       <span></span><span></span><span></span><span></span>
       <span></span><span></span><span></span><span></span>

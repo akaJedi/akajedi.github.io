@@ -1102,6 +1102,12 @@ a {
 }
 
 .summer-signal__ring--one {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.summer-signal__ring--one {
   width: 190px;
   height: 190px;
   top: 0;
@@ -3106,7 +3112,7 @@ body.page-about .hero-links .btn:hover { transform: translateY(-3px); }
   .home .summer-hero__copy > :nth-child(3) { animation-delay: 150ms; }
   .home .summer-hero__copy > :nth-child(4) { animation-delay: 220ms; }
   .home .summer-hero__copy > :nth-child(5) { animation-delay: 290ms; }
-  .summer-signal__ring--one { animation: signal-orbit 18s linear infinite; }
+  .summer-signal__ring--one { animation: signal-orbit 18s linear infinite; will-change: transform; }
   .summer-notes__visual span { animation: signal-pulse 3.2s ease-in-out infinite alternate; }
   .summer-notes__visual span:nth-child(2) { animation-delay: -0.8s; }
   .summer-notes__visual span:nth-child(3) { animation-delay: -1.6s; }
@@ -3170,6 +3176,43 @@ body.page-about .hero-links .btn:hover { transform: translateY(-3px); }
 .summer-notes__visual,
 .summer-signal__panel {
   min-width: 0;
+}
+
+.header .language-selector,
+.header .theme-selector,
+.footer_right {
+  display: none !important;
+}
+
+@media (min-width: 992px) {
+  .header > .container {
+    width: calc(100% - 3rem);
+    max-width: 1180px;
+    padding-inline: 0;
+  }
+
+  body.home .header > .container {
+    width: 100%;
+    max-width: none;
+    padding-inline: clamp(1.25rem, 5vw, 4rem);
+  }
+
+  .header .container-fluid {
+    padding-inline: 0;
+  }
+
+  .header .navbar-brand {
+    margin-inline: 0 !important;
+  }
+
+  html.preferences-unlocked .header .language-selector,
+  html.preferences-unlocked .header .theme-selector {
+    display: block !important;
+  }
+
+  html.preferences-unlocked .footer_right {
+    display: block !important;
+  }
 }
 
 @media (max-width: 991px) {
@@ -3625,9 +3668,85 @@ body.has-host-environment-banner {
   transition: background-color 240ms ease, box-shadow 240ms ease;
 }
 
+.summer-signal__ring--two {
+  cursor: pointer;
+  user-select: none;
+}
+
+.summer-signal__grid[data-signal-pads] span {
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  outline: 0;
+  touch-action: manipulation;
+  transition: background-color 90ms ease, box-shadow 90ms ease, transform 90ms ease;
+}
+
+.summer-signal__grid[data-signal-pads] span:hover {
+  background: color-mix(in srgb, var(--summer-surface-raised) 78%, var(--summer-cyan));
+}
+
+.summer-signal__grid[data-signal-pads] span:focus-visible {
+  box-shadow: inset 0 0 0 3px var(--summer-orange);
+}
+
+.summer-signal__grid[data-signal-pads] span.is-hit {
+  background: hsl(var(--pad-hue) 92% 58%);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.88),
+    0 0 22px hsl(var(--pad-hue) 92% 58% / 0.85);
+  transform: scale(0.94);
+}
+
+.summer-signal__grid[data-signal-pads] span.is-playing {
+  background: hsl(var(--pad-hue) 84% 48%);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.88),
+    0 0 18px hsl(var(--pad-hue) 92% 58% / 0.72);
+}
+
 .summer-signal__lights i.is-active {
   background: var(--summer-orange);
   box-shadow: 0 0 0 2px rgba(255, 154, 76, 0.14), 0 0 9px rgba(255, 154, 76, 0.72);
+}
+
+.summer-signal__sets {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  margin-top: 0.65rem;
+}
+
+.summer-signal__sets button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 30px;
+  padding: 0.25rem 0.35rem;
+  border: 1px solid rgba(121, 200, 213, 0.22);
+  border-radius: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.62);
+  font: 700 0.68rem/1 "Space Grotesk", sans-serif;
+  cursor: pointer;
+}
+
+.summer-signal__sets button small {
+  font-size: 0.52rem;
+  letter-spacing: 0.08em;
+}
+
+.summer-signal__sets button.is-active {
+  border-color: var(--summer-cyan);
+  background: rgba(121, 200, 213, 0.12);
+  color: var(--summer-cyan);
+  box-shadow: inset 0 -2px 0 var(--summer-orange);
+}
+
+.summer-signal__sets button:focus-visible {
+  outline: 2px solid var(--summer-orange) !important;
+  outline-offset: 2px;
 }
 
 .summer-signal__toggle {
@@ -3682,6 +3801,86 @@ body.has-host-environment-banner {
 
   .summer-signal__slide strong {
     font-size: 1.75rem;
+  }
+}
+
+.summer-signal__ring--one.is-wheel-dragging {
+  cursor: grabbing;
+  border-color: var(--summer-orange);
+  filter: saturate(1.35) drop-shadow(0 0 14px rgba(246, 138, 51, 0.38));
+}
+
+.summer-signal__ring--one:focus-visible {
+  outline: 3px solid var(--summer-orange);
+  outline-offset: 5px;
+}
+
+.summer-signal__toggle::before {
+  content: "";
+  display: block;
+  width: 11px;
+  height: 12px;
+  margin: auto;
+  background: linear-gradient(90deg, currentColor 0 36%, transparent 36% 64%, currentColor 64% 100%);
+}
+
+.summer-signal__panel.is-paused .summer-signal__toggle::before {
+  content: "";
+  width: 12px;
+  height: 13px;
+  background: currentColor;
+  clip-path: polygon(8% 0, 100% 50%, 8% 100%);
+}
+
+
+@media (max-width: 575px) {
+  .summer-signal {
+    width: 100vw;
+    min-height: 100svh;
+    margin-right: calc(50% - 50vw);
+    margin-left: calc(50% - 50vw);
+    overflow: hidden;
+    background: color-mix(in srgb, var(--summer-paper) 90%, var(--summer-deep));
+  }
+
+  .summer-signal__panel {
+    top: 0.75rem;
+    right: 0.75rem;
+    bottom: auto;
+    left: 0.75rem;
+    width: auto;
+    min-height: 11.75rem;
+    padding: 1rem;
+  }
+
+  .summer-signal__slides { min-height: 7.75rem; }
+
+  .summer-signal__ring--one {
+    top: 12rem;
+    right: 1rem;
+    width: 64px;
+    height: 64px;
+    z-index: 7;
+    box-shadow: inset 0 0 0 8px rgba(110, 184, 199, 0.1), inset 0 0 0 18px rgba(36, 75, 107, 0.08);
+  }
+
+  .summer-signal__grid {
+    inset: 16.25rem 0.75rem 0.75rem;
+    z-index: 4;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: auto;
+    gap: 5px;
+    transform: none;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .summer-signal__grid[data-signal-pads] span {
+    border: 1px solid rgba(16, 38, 59, 0.18);
+    border-radius: 3px;
+    box-shadow: 0 8px 18px rgba(16, 38, 59, 0.1);
   }
 }
 

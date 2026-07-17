@@ -14,3 +14,10 @@ hugo.linux
 
 # Node.js dependencies
 /node_modules/
+
+# Regression test output
+/.test-public/
+/.test-cache/
+
+# Original audio masters (production uses converted MP3 assets)
+/audio-sources/
