@@ -3,6 +3,7 @@ title: "Technical Skills"
 date: 2025-05-19T14:56:00+01:00
 draft: false
 description: "A comprehensive overview of technical skills and expertise across various domains."
+searchDescription: "Cloud, support, security, automation, and DevOps skills across enterprise environments."
 skill_categories:
   - name: "Cloud & Infrastructure"
     skills:

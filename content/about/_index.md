@@ -1,5 +1,6 @@
 +++
 title =  "About"
+searchDescription = "IT Systems Operations Engineer focused on infrastructure, automation, and cloud operations."
 draft = false
 +++
 

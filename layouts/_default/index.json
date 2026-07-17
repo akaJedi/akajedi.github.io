@@ -1,5 +1,63 @@
 {{- $.Scratch.Add "index" slice -}}
-{{- range .Site.RegularPages -}}
-    {{- $.Scratch.Add "index" (dict "title" .Title "tags" .Params.tags "categories" .Params.categories "contents" .Plain "permalink" .Permalink) -}}
+{{- range .Site.Pages -}}
+  {{- if and (or .IsPage .IsSection) (not .IsHome) (not .Draft) (not .Params.searchExclude) -}}
+    {{- $description := "" -}}
+    {{- if eq .Kind "section" -}}
+      {{- if eq .Section "about" -}}
+        {{- if eq .Lang "ru" -}}
+          {{- $description = "Специалист по IT-операциям и инфраструктуре, автоматизации и облачным системам." -}}
+        {{- else -}}
+          {{- $description = "IT Systems Operations Engineer focused on infrastructure, automation, and cloud operations." -}}
+        {{- end -}}
+      {{- else if eq .Section "experience" -}}
+        {{- if eq .Lang "ru" -}}
+          {{- $description = "История карьеры в IT-операциях, инфраструктуре, поддержке и крупных миграциях." -}}
+        {{- else -}}
+          {{- $description = "Career history in IT operations, infrastructure engineering, support, and enterprise migrations." -}}
+        {{- end -}}
+      {{- else if eq .Section "skills" -}}
+        {{- $description = "Cloud, support, security, automation, and DevOps skills across enterprise environments." -}}
+      {{- else if eq .Section "resume" -}}
+        {{- $description = "Downloadable resumes for hardware deployment and DevOps/platform roles." -}}
+      {{- else if eq .Section "blog" -}}
+        {{- if eq .Lang "ru" -}}
+          {{- $description = "Технические заметки, разборы проектов и размышления о карьере и автоматизации." -}}
+        {{- else -}}
+          {{- $description = "Technical notes, project writeups, and career reflections on infrastructure and automation." -}}
+        {{- end -}}
+      {{- end -}}
+    {{- else if .Params.searchDescription -}}
+      {{- $description = .Params.searchDescription -}}
+    {{- else if .Description -}}
+      {{- $description = .Description -}}
+    {{- else if .Params.description -}}
+      {{- $description = .Params.description -}}
+    {{- end -}}
+    {{- $description = $description | plainify | htmlUnescape | replaceRE "\\s+" " " | trim " " -}}
+    {{- $summary := "" -}}
+    {{- with .Summary -}}
+      {{- $summary = . | plainify | htmlUnescape | replaceRE "\\s+" " " | trim " " -}}
+    {{- end -}}
+    {{- $contents := .Content | plainify | htmlUnescape | replaceRE "\\s+" " " | trim " " -}}
+    {{- $tags := "" -}}
+    {{- with .Params.tags -}}
+      {{- $tags = delimit . ", " -}}
+    {{- end -}}
+    {{- $categories := "" -}}
+    {{- with .Params.categories -}}
+      {{- $categories = delimit . ", " -}}
+    {{- end -}}
+    {{- $.Scratch.Add "index" (dict
+      "title" .Title
+      "link" .RelPermalink
+      "section" .Section
+      "kind" .Kind
+      "tags" $tags
+      "categories" $categories
+      "description" $description
+      "summary" $summary
+      "contents" $contents
+    ) -}}
+  {{- end -}}
 {{- end -}}
 {{- $.Scratch.Get "index" | jsonify -}}

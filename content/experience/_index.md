@@ -1,5 +1,6 @@
 ---
 title: My Expirience
+searchDescription: "Career history in IT operations, infrastructure engineering, support, and enterprise migrations."
 ---
 
 I specialize in DevOps, cloud platforms, and infrastructure automation, with hands-on experience in AWS, Azure, and hybrid on-prem systems. I’ve supported development and production workloads across Windows, macOS, and Linux, focusing on automation, reliability, and cost efficiency. My work includes designing infrastructure for global teams, building CI/CD pipelines, and transforming legacy environments into cloud-native platforms.

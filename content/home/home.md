@@ -7,25 +7,45 @@ translationKey = "homepage"
 
 <section class="summer-hero" aria-labelledby="summer-hero-title">
   <div class="summer-hero__copy">
-    <p class="summer-kicker">Summer 2026 / Infrastructure risk intelligence</p>
+    <p class="summer-kicker">Infrastructure / Operations / Automation</p>
     <h1 id="summer-hero-title">Denis Tolochko</h1>
     <p class="summer-hero__role">IT Systems Operations Engineer</p>
     <p class="summer-hero__lead">I build reliable infrastructure, cloud operations, and automation systems for teams that need technology to stay calm under pressure.</p>
     <div class="summer-hero__actions" aria-label="Primary links">
-      <a href="/about">About</a>
-      <a href="/skills">Skills</a>
-      <a href="/blog">Field notes</a>
+      <a href="/about/">About</a>
+      <a href="/skills/">Skills</a>
+      <a href="/blog/">Field notes</a>
     </div>
   </div>
-  <div class="summer-signal" aria-hidden="true">
-    <div class="summer-signal__ring summer-signal__ring--one"></div>
-    <div class="summer-signal__ring summer-signal__ring--two"></div>
-    <div class="summer-signal__panel">
-      <span class="summer-signal__label">operational exposure</span>
-      <strong>15+ years</strong>
-      <span>systems, support, cloud, automation</span>
+  <div class="summer-signal">
+    <div class="summer-signal__ring summer-signal__ring--one" aria-hidden="true"></div>
+    <div class="summer-signal__ring summer-signal__ring--two" aria-hidden="true"></div>
+    <div class="summer-signal__panel" data-signal-carousel data-interval="10000" data-pause-label="Pause slideshow" data-resume-label="Resume slideshow">
+      <div class="summer-signal__slides" aria-live="off">
+        <div class="summer-signal__slide is-active" data-signal-slide aria-hidden="false">
+          <span class="summer-signal__label">Operational depth</span>
+          <strong>15+ years</strong>
+          <span>across systems, support, cloud, and automation</span>
+        </div>
+        <div class="summer-signal__slide" data-signal-slide aria-hidden="true">
+          <span class="summer-signal__label">Delivery model</span>
+          <strong>Cloud + IaC</strong>
+          <span>repeatable environments with fewer surprises</span>
+        </div>
+        <div class="summer-signal__slide" data-signal-slide aria-hidden="true">
+          <span class="summer-signal__label">Reliability practice</span>
+          <strong>Observe + Recover</strong>
+          <span>monitoring, backups, and incident readiness</span>
+        </div>
+      </div>
+      <div class="summer-signal__controls">
+        <span class="summer-signal__lights" aria-hidden="true">
+          <i class="is-active"></i><i></i><i></i>
+        </span>
+        <button type="button" class="summer-signal__toggle" data-signal-toggle aria-label="Pause slideshow" aria-pressed="false"></button>
+      </div>
     </div>
-    <div class="summer-signal__grid">
+    <div class="summer-signal__grid" aria-hidden="true">
       <span></span><span></span><span></span><span></span>
       <span></span><span></span><span></span><span></span>
       <span></span><span></span><span></span><span></span>
@@ -65,9 +85,9 @@ translationKey = "homepage"
     <h2>Experience across support, systems, and transitions.</h2>
   </div>
   <div class="summer-proof__links">
-    <a href="/experience">Experience</a>
-    <a href="/resume">Resume</a>
-    <a href="/now">Now</a>
+    <a href="/experience/">Experience</a>
+    <a href="/resume/">Resume</a>
+    <a href="/now/">Now</a>
   </div>
 </section>
 
@@ -79,7 +99,7 @@ translationKey = "homepage"
     <p class="summer-kicker">Notes and research</p>
     <h2>Writing about infrastructure, operations, and the work behind the work.</h2>
     <p>Short technical notes, longer career reflections, and practical documentation from systems work.</p>
-    <a class="summer-read-more" href="/blog">Read the blog</a>
+    <a class="summer-read-more" href="/blog/">Read the blog</a>
   </div>
 </section>
 
@@ -88,6 +108,6 @@ translationKey = "homepage"
     {{< link icon="square-github" url="https://github.com/akajedi" >}}
     {{< link icon="linkedin" url="https://www.linkedin.com/in/denistolochko" >}}
     {{< link icon="square-twitter" url="https://twitter.com/denistolochko" >}}
-    {{< link icon="keybase" url="https://twitter.com/denistolochko" >}}
+    {{< link icon="email" url="/contact/" >}}
   {{< /platform-links >}}
 </section>
