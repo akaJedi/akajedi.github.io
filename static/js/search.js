@@ -57,7 +57,10 @@ function buildSnippet(item) {
   );
 
   if (!source) {
-    return "No preview available";
+    const section = normalizeText(item.section);
+    return section
+      ? `Open this ${section} page for more details.`
+      : "Open this page for more details.";
   }
 
   if (source.length <= snippetMaxLength) {
@@ -240,7 +243,10 @@ function executeSearch(searchQuery) {
     searchResults.innerHTML =
       '<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>';
 
-    fetch("/index.json")
+    const searchSection = document.getElementById("main-content");
+    const searchIndexURL = searchSection?.dataset.searchIndex || "/index.json";
+
+    fetch(searchIndexURL)
       .then((response) => {
         if (!response.ok) {
           throw new Error(
@@ -254,7 +260,15 @@ function executeSearch(searchQuery) {
           throw new Error("Received invalid data format from server");
         }
 
-        const fuse = new Fuse(data, fuseOptions);
+        const uniquePages = Array.from(
+          new Map(
+            data
+              .filter((item) => item && (item.link || item.permalink) && item.title)
+              .map((item) => [item.link || item.permalink, item]),
+          ).values(),
+        );
+
+        const fuse = new Fuse(uniquePages, fuseOptions);
         const result = fuse.search(searchQuery);
 
         searchResults.innerHTML = "";

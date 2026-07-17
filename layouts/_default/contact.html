@@ -1,0 +1,93 @@
+{{ define "main" }}
+{{- $ru := eq .Lang "ru" -}}
+<section id="main" class="contact-page">
+  <header class="contact-page__hero">
+    <div class="contact-page__eyebrow">
+      <span>{{ if $ru }}Контакт{{ else }}Contact{{ end }}</span>
+      <span>{{ if $ru }}Открытый канал / 01{{ else }}Open channel / 01{{ end }}</span>
+    </div>
+    <div class="contact-page__hero-grid">
+      <h1>
+        {{ if $ru }}
+          Сделаем ваши системы<br><em>эффективнее.</em>
+        {{ else }}
+          Let’s make your systems<br>work <em>better.</em>
+        {{ end }}
+      </h1>
+      <div class="contact-page__intro">
+        <p>
+          {{ if $ru }}
+            Задача по инфраструктуре, облачный проект или технический вопрос? Выберите удобный канал и добавьте контекст.
+          {{ else }}
+            Infrastructure challenge, cloud project, or just a technical question? Choose the channel that fits and send the context.
+          {{ end }}
+        </p>
+        <p class="contact-page__status">
+          <span aria-hidden="true"></span>
+          {{ if $ru }}Открыт для предметного разговора{{ else }}Available for focused conversations{{ end }}
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <div class="contact-page__grid">
+    <div class="contact-page__routes">
+      <article class="contact-route">
+        <div class="contact-route__meta">
+          <span>01</span>
+          <span>{{ if $ru }}Календарь{{ else }}Calendar{{ end }}</span>
+        </div>
+        <h2>{{ if $ru }}Запланировать встречу{{ else }}Schedule a meeting{{ end }}</h2>
+        <p>
+          {{ if $ru }}
+            Выберите удобное время. Календарь автоматически учтёт часовые пояса — без лишней переписки.
+          {{ else }}
+            Pick a convenient time. The calendar handles time zones automatically, with no back-and-forth.
+          {{ end }}
+        </p>
+        <a class="contact-route__action" href="https://f12.setmore.com">
+          <span>{{ if $ru }}Выбрать время{{ else }}Choose a time{{ end }}</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+      </article>
+
+      <article class="contact-route contact-route--secure">
+        <div class="contact-route__meta">
+          <span>02</span>
+          <span>{{ if $ru }}Шифрование{{ else }}Encrypted{{ end }}</span>
+        </div>
+        <h2>{{ if $ru }}Безопасная связь{{ else }}Secure communication{{ end }}</h2>
+        <p>
+          {{ if $ru }}
+            Для конфиденциальной информации используйте проверенный публичный профиль или мой открытый ключ.
+          {{ else }}
+            For sensitive details, use a verified public identity or encrypt your message with my public key.
+          {{ end }}
+        </p>
+        <div class="contact-route__links">
+          <a href="https://keybase.io/akajedi">Keybase <span aria-hidden="true">↗</span></a>
+          <a href="/pgp-key">
+            {{ if $ru }}Открытый PGP-ключ{{ else }}PGP public key{{ end }}
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </article>
+    </div>
+
+    <div class="contact-page__message">
+      <div class="contact-page__message-meta">
+        <span>{{ if $ru }}03 / Прямое сообщение{{ else }}03 / Direct message{{ end }}</span>
+        <span>{{ if $ru }}Обычно отвечаю за 1–2 рабочих дня{{ else }}Typically replies within 1–2 business days{{ end }}</span>
+      </div>
+      {{ .Content }}
+      <p class="contact-page__privacy">
+        {{ if $ru }}
+          Ваши данные используются только для ответа на это сообщение.
+        {{ else }}
+          Your details are used only to respond to this message.
+        {{ end }}
+      </p>
+    </div>
+  </div>
+</section>
+{{ end }}

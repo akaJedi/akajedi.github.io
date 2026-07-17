@@ -7,6 +7,24 @@
 
 {{- $contextType := printf "%T" . -}}
 {{- $isShortcode := (eq $contextType "*hugolib.ShortcodeWithPage") -}}
+{{- $page := . -}}
+{{- if $isShortcode }}{{ $page = .Page }}{{ end -}}
+{{- $optional_label := "optional" -}}
+{{- if eq $page.Lang "ru" }}{{ $optional_label = "необязательно" }}{{ end -}}
+{{- $form_error := "Form error. Please refresh the page." -}}
+{{- $required_error := "Please fill out your name, email, and message." -}}
+{{- $sending_message := "Sending..." -}}
+{{- $success_message := "Your message has been sent successfully." -}}
+{{- $generic_error := "Something went wrong. Please try again." -}}
+{{- $failed_message := "Failed to send. Please try again." -}}
+{{- if eq $page.Lang "ru" -}}
+  {{- $form_error = "Ошибка формы. Обновите страницу." -}}
+  {{- $required_error = "Заполните имя, email и сообщение." -}}
+  {{- $sending_message = "Отправка..." -}}
+  {{- $success_message = "Ваше сообщение успешно отправлено." -}}
+  {{- $generic_error = "Что-то пошло не так. Попробуйте ещё раз." -}}
+  {{- $failed_message = "Не удалось отправить сообщение. Попробуйте ещё раз." -}}
+{{- end -}}
 
 {{ $sectionId := "contact" }}
 {{ if $isShortcode }}
@@ -146,21 +164,28 @@
                 <div class="col-12 col-lg-7">
                     <form action="{{ $form_action }}" method="{{ $form_method }}" class="contact__form">
                         <div class="row">
-                            <div class="col-12 col-sm-6">
-                                <input type="text" name="full_name" class="form-control" {{ $name_placeholder_attr | safeHTMLAttr }}>
+                            <div class="col-12 col-sm-6 contact-field">
+                                <label for="{{ $sectionId }}-name">{{ $name_placeholder }}</label>
+                                <input id="{{ $sectionId }}-name" type="text" name="full_name" class="form-control" autocomplete="name" required {{ $name_placeholder_attr | safeHTMLAttr }}>
                             </div>
-                            <div class="col-12 col-sm-6">
-                                <input type="email" name="email" class="form-control" {{ $email_placeholder_attr | safeHTMLAttr }}>
-                            </div>
-                        </div>
-                        <div class="row pt-4">
-                            <div class="col-12">
-                                <input type="tel" name="phone" class="form-control" {{ $phone_placeholder_attr | safeHTMLAttr }}>
+                            <div class="col-12 col-sm-6 contact-field">
+                                <label for="{{ $sectionId }}-email">{{ $email_placeholder }}</label>
+                                <input id="{{ $sectionId }}-email" type="email" name="email" class="form-control" autocomplete="email" required {{ $email_placeholder_attr | safeHTMLAttr }}>
                             </div>
                         </div>
                         <div class="row pt-4">
-                            <div class="col-12">
-                                <textarea name="message" class="form-control" rows="{{ $message_rows }}" {{ $message_placeholder_attr | safeHTMLAttr }}></textarea>
+                            <div class="col-12 contact-field">
+                                <label for="{{ $sectionId }}-phone">
+                                  <span>{{ $phone_placeholder }}</span>
+                                  <span>({{ $optional_label }})</span>
+                                </label>
+                                <input id="{{ $sectionId }}-phone" type="tel" name="phone" class="form-control" autocomplete="tel" {{ $phone_placeholder_attr | safeHTMLAttr }}>
+                            </div>
+                        </div>
+                        <div class="row pt-4">
+                            <div class="col-12 contact-field">
+                                <label for="{{ $sectionId }}-message">{{ $message_placeholder }}</label>
+                                <textarea id="{{ $sectionId }}-message" name="message" class="form-control" rows="{{ $message_rows }}" required {{ $message_placeholder_attr | safeHTMLAttr }}></textarea>
                             </div>
                         </div>
                         <div class="row pt-4">
@@ -168,7 +193,7 @@
                                 <button type="submit" class="btn btn-primary">{{ $button_text }}</button>
                             </div>
                         </div>
-                        <div class="contact__message" aria-live="polite"></div>
+                        <div class="contact__message" role="status" aria-live="polite"></div>
                     </form>
                 </div>
                 <div class="col-12 col-lg-5 contact__info">
@@ -207,7 +232,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const messageInput = form.querySelector("[name='message']");
 
       if (!nameInput || !emailInput || !messageInput) {
-        messageBox.textContent = "Form error. Please refresh the page.";
+        messageBox.textContent = {{ $form_error | jsonify }};
         messageBox.dataset.state = "error";
         return;
       }
@@ -220,12 +245,12 @@ document.addEventListener("DOMContentLoaded", function () {
       };
 
       if (!data.name || !data.email || !data.message) {
-        messageBox.textContent = "Please fill out your name, email, and message.";
+        messageBox.textContent = {{ $required_error | jsonify }};
         messageBox.dataset.state = "error";
         return;
       }
 
-      messageBox.textContent = "Sending...";
+      messageBox.textContent = {{ $sending_message | jsonify }};
       messageBox.dataset.state = "pending";
 
       try {
@@ -236,15 +261,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         const result = await response.json();
         if (result.success || response.ok) {
-          messageBox.textContent = "Your message has been sent successfully.";
+          messageBox.textContent = {{ $success_message | jsonify }};
           messageBox.dataset.state = "success";
           form.reset();
         } else {
-          messageBox.textContent = result.error || result.message || "Something went wrong. Please try again.";
+          messageBox.textContent = result.error || result.message || {{ $generic_error | jsonify }};
           messageBox.dataset.state = "error";
         }
       } catch (error) {
-        messageBox.textContent = "Failed to send. Please try again.";
+        messageBox.textContent = {{ $failed_message | jsonify }};
         messageBox.dataset.state = "error";
       }
     });

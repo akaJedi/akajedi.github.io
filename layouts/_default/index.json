@@ -1,6 +1,9 @@
-{{- $.Scratch.Add "index" slice -}}
-{{- range .Site.Pages -}}
-  {{- if and (or .IsPage .IsSection) (not .IsHome) (not .Draft) (not .Params.searchExclude) -}}
+{{- $.Scratch.Set "index" slice -}}
+{{- $seen := newScratch -}}
+{{- range .Site.RegularPages -}}
+  {{- $link := .RelPermalink -}}
+  {{- if and (not .Draft) (not .Params.searchExclude) (not ($seen.Get $link)) -}}
+    {{- $seen.Set $link true -}}
     {{- $description := "" -}}
     {{- if eq .Kind "section" -}}
       {{- if eq .Section "about" -}}
@@ -28,17 +31,12 @@
       {{- end -}}
     {{- else if .Params.searchDescription -}}
       {{- $description = .Params.searchDescription -}}
-    {{- else if .Description -}}
-      {{- $description = .Description -}}
     {{- else if .Params.description -}}
       {{- $description = .Params.description -}}
     {{- end -}}
-    {{- $description = $description | plainify | htmlUnescape | replaceRE "\\s+" " " | trim " " -}}
-    {{- $summary := "" -}}
-    {{- with .Summary -}}
-      {{- $summary = . | plainify | htmlUnescape | replaceRE "\\s+" " " | trim " " -}}
-    {{- end -}}
-    {{- $contents := .Content | plainify | htmlUnescape | replaceRE "\\s+" " " | trim " " -}}
+    {{- $description = $description | plainify | htmlUnescape | replaceRE "\\s+" " " | strings.TrimSpace -}}
+    {{- $contents := .RawContent | markdownify | plainify | htmlUnescape | replaceRE "\\s+" " " | strings.TrimSpace -}}
+    {{- $summary := $contents | truncate 220 -}}
     {{- $tags := "" -}}
     {{- with .Params.tags -}}
       {{- $tags = delimit . ", " -}}
@@ -49,7 +47,7 @@
     {{- end -}}
     {{- $.Scratch.Add "index" (dict
       "title" .Title
-      "link" .RelPermalink
+      "link" $link
       "section" .Section
       "kind" .Kind
       "tags" $tags

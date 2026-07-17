@@ -1,6 +1,9 @@
 const ALLOWED_ORIGINS = [
+  "http://localhost:1313",
+  "http://127.0.0.1:1313",
   "https://www.f12.biz",
   "https://f12.biz",
+  "https://cloudflare.f12.biz",
   "https://f12-biz.pages.dev",
   "https://netlify.f12.biz",
   "https://f12-biz.netlify.app",

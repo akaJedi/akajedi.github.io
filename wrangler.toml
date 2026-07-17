@@ -1,0 +1,7 @@
+name = "green-rice-1ea7"
+main = "content/worker.js"
+compatibility_date = "2025-08-04"
+preview_urls = false
+
+[observability]
+enabled = true
