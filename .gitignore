@@ -1,13 +1,16 @@
-# Generated files by hugo
+# Generated files by Hugo
 /public/
 /resources/_gen/
 /assets/jsconfig.json
 hugo_stats.json
 
-# Executable may be added to repository
+# Hugo executables
 hugo.exe
 hugo.darwin
 hugo.linux
 
-# Temporary lock file while building
+# Temporary Hugo lock file
 /.hugo_build.lock
+
+# Node.js dependencies
+/node_modules/

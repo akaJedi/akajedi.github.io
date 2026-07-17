@@ -1,71 +1,113 @@
 +++
-title =  "Home"
+title = "Главная"
 type = "home"
 draft = false
 translationKey = "homepage"
 +++
 
-<div class="terminal-hero" style="max-width: 900px; margin: 8rem auto 3rem; padding: 2rem;">
-<!-- Desktop terminal view -->
-<pre class="d-none d-md-block" style="padding: 2rem; border-radius: 8px; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.95rem; overflow-x: auto; line-height: 1.4;">
-<code style="line-height: 1.4;"><span class="color-green">$</span> whoami
-<span class="color-green">denis@f12</span>:<span class="color-blue">~</span>$ cat about.txt
+<section class="summer-hero" aria-labelledby="summer-hero-title">
+  <div class="summer-hero__copy">
+    <p class="summer-kicker">Инфраструктура / Эксплуатация / Автоматизация</p>
+    <h1 id="summer-hero-title">Денис Толочко</h1>
+    <p class="summer-hero__role">Инженер по эксплуатации ИТ-систем</p>
+    <p class="summer-hero__lead">Создаю надёжную инфраструктуру, облачные процессы и автоматизацию для команд, которым нужны спокойные и предсказуемые технологии.</p>
+    <div class="summer-hero__actions" aria-label="Основные разделы">
+      <a href="/ru/about/">Обо мне</a>
+      <a href="/skills/">Навыки</a>
+      <a href="/ru/blog/">Заметки</a>
+    </div>
+  </div>
+  <div class="summer-signal">
+    <div class="summer-signal__ring summer-signal__ring--one" aria-hidden="true"></div>
+    <div class="summer-signal__ring summer-signal__ring--two" aria-hidden="true"></div>
+    <div class="summer-signal__panel" data-signal-carousel data-interval="10000" data-pause-label="Остановить слайд-шоу" data-resume-label="Продолжить слайд-шоу">
+      <div class="summer-signal__slides" aria-live="off">
+        <div class="summer-signal__slide is-active" data-signal-slide aria-hidden="false">
+          <span class="summer-signal__label">Глубина опыта</span>
+          <strong>15+ лет</strong>
+          <span>системы, поддержка, облака и автоматизация</span>
+        </div>
+        <div class="summer-signal__slide" data-signal-slide aria-hidden="true">
+          <span class="summer-signal__label">Модель реализации</span>
+          <strong>Cloud + IaC</strong>
+          <span>повторяемые среды с меньшим числом сюрпризов</span>
+        </div>
+        <div class="summer-signal__slide" data-signal-slide aria-hidden="true">
+          <span class="summer-signal__label">Практика надёжности</span>
+          <strong>Контроль + восстановление</strong>
+          <span>мониторинг, резервные копии и готовность к инцидентам</span>
+        </div>
+      </div>
+      <div class="summer-signal__controls">
+        <span class="summer-signal__lights" aria-hidden="true">
+          <i class="is-active"></i><i></i><i></i>
+        </span>
+        <button type="button" class="summer-signal__toggle" data-signal-toggle aria-label="Остановить слайд-шоу" aria-pressed="false"></button>
+      </div>
+    </div>
+    <div class="summer-signal__grid" aria-hidden="true">
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</section>
 
-<span class="color-white">╔═══════════════════════════════════════════════════════════╗
-║  ДЕНИС ТОЛОЧКО                                            ║
-║  IT Systems Operations Engineer                           ║
-║  Санта-Моника, Калифорния                                 ║
-╚═══════════════════════════════════════════════════════════╝</span>
+<section class="summer-band summer-band--intro">
+  <div class="summer-band__eyebrow">Текущая роль</div>
+  <div class="summer-band__content">
+    <h2>Превращаю облачный хаос в предсказуемые системы.</h2>
+    <p>Работаю с инфраструктурой как кодом, AWS и Azure, DevOps-процессами, безопасным администрированием и практичной автоматизацией. Цель проста: скучные развёртывания и системы, которым можно доверять.</p>
+  </div>
+</section>
 
-<span class="color-orange">»</span> <span class="color-white">Инфраструктура как код</span>
-<span class="color-orange">»</span> <span class="color-white">Облачная архитектура (AWS/Azure)</span>
-<span class="color-orange">»</span> <span class="color-white">DevOps и платформенная инженерия</span>
-<span class="color-orange">»</span> <span class="color-white">Безопасность и соответствие</span>
+<section class="summer-capabilities" aria-label="Основные компетенции">
+  <article>
+    <span>01</span>
+    <h3>Инфраструктура</h3>
+    <p>Облачные и гибридные системы, идентификация, конечные устройства, виртуализация, сети и дисциплина эксплуатации.</p>
+  </article>
+  <article>
+    <span>02</span>
+    <h3>Автоматизация</h3>
+    <p>Скрипты, повторяемые процессы, инфраструктура как код, мониторинг и небольшие инструменты, устраняющие ручную работу.</p>
+  </article>
+  <article>
+    <span>03</span>
+    <h3>Сигналы риска</h3>
+    <p>Безопасность, надёжность, резервное копирование, инциденты, зависимости и слабые сигналы будущих сбоев.</p>
+  </article>
+</section>
 
-<span class="color-green">denis@f12</span>:<span class="color-blue">~</span>$ <span class="color-white">_</span></code>
-</pre>
+<section class="summer-proof">
+  <div>
+    <p class="summer-kicker">Профессиональный путь</p>
+    <h2>Опыт в поддержке, системах и технологических переходах.</h2>
+  </div>
+  <div class="summer-proof__links">
+    <a href="/ru/experience/">Опыт</a>
+    <a href="/resume/">Резюме</a>
+    <a href="/ru/now/">Сейчас</a>
+  </div>
+</section>
 
-<!-- Mobile simple view -->
-<div class="d-md-none text-center" style="padding: 2rem 1rem;">
-<h1 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Денис Толочко</h1>
-<h2 style="font-size: 1.1rem; font-weight: normal; margin-bottom: 1rem; color: #666;">IT Systems Operations Engineer</h2>
-<p style="margin-bottom: 0.5rem; color: #888;">Санта-Моника, Калифорния</p>
-<hr style="margin: 1.5rem auto; width: 60%; opacity: 0.3;">
-<ul style="list-style: none; padding: 0; text-align: left; max-width: 280px; margin: 0 auto;">
-<li style="margin-bottom: 0.5rem;">» Инфраструктура как код</li>
-<li style="margin-bottom: 0.5rem;">» Облачная архитектура (AWS/Azure)</li>
-<li style="margin-bottom: 0.5rem;">» DevOps и платформенная инженерия</li>
-<li style="margin-bottom: 0.5rem;">» Безопасность и соответствие</li>
-</ul>
-</div>
-</div>
+<section class="summer-notes">
+  <div class="summer-notes__visual" aria-hidden="true">
+    <span></span><span></span><span></span><span></span>
+  </div>
+  <div>
+    <p class="summer-kicker">Заметки и исследования</p>
+    <h2>Пишу об инфраструктуре, эксплуатации и работе за кулисами.</h2>
+    <p>Короткие технические заметки, размышления о карьере и практическая документация из системной работы.</p>
+    <a class="summer-read-more" href="/ru/blog/">Читать блог</a>
+  </div>
+</section>
 
-{{< spacer >}}
-
-<div class="container text-center" style="max-width: 800px;">
-<h3 style="font-family: monospace; margin-bottom: 1rem;">$ cat current_role.txt</h3>
-<p style="font-size: 1.1rem; line-height: 1.8;">
-IT Systems Operations Engineer - Строю надёжную, масштабируемую инфраструктуру. Автоматизирую всё. Делаю развёртывания скучными. Превращаю хаос облаков в предсказуемые системы, которым команды могут доверять.
-</p>
-</div>
-
-{{< spacer >}}
-
-<div class="container text-center">
-<div class="hero-links" style="justify-content: center;">
-<a href="/about" class="btn-primary">➜ /about</a>
-<a href="/skills" class="btn-secondary">➜ /skills</a>
-<a href="/blog" class="btn-tertiary">➜ /blog</a>
-</div>
-</div>
-
-{{< spacer >}}
-
-{{< platform-links >}}
-  {{< link icon="square-github" url="https://github.com/akajedi" >}}
-  {{< link icon="linkedin" url="https://www.linkedin.com/in/denistolochko" >}}
-  {{< link icon="square-twitter" url="https://twitter.com/denistolochko" >}}
-  {{< link icon="keybase" url="https://twitter.com/denistolochko" >}}
-{{< /platform-links >}}
-
-{{< spacer >}}
+<section class="summer-social" aria-label="Профили и контакты">
+  {{< platform-links >}}
+    {{< link icon="square-github" url="https://github.com/akajedi" >}}
+    {{< link icon="linkedin" url="https://www.linkedin.com/in/denistolochko" >}}
+    {{< link icon="square-twitter" url="https://twitter.com/denistolochko" >}}
+    {{< link icon="email" url="/ru/contact/" >}}
+  {{< /platform-links >}}
+</section>

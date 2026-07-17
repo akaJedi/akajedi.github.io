@@ -2,6 +2,7 @@
 title: "Resumes"
 date: 2025-08-20
 draft: false
+searchDescription: "Downloadable resumes for hardware deployment and DevOps/platform roles."
 ---
 
 # 📄 Resume Hub
