@@ -1,7 +1,24 @@
 name = "green-rice-1ea7"
-main = "content/worker.js"
-compatibility_date = "2025-08-04"
+main = "src/worker.ts"
+compatibility_date = "2026-06-01"
 preview_urls = false
 
 [observability]
 enabled = true
+
+[vars]
+ALLOWED_ORIGIN = "https://www.f12.biz,https://f12.biz,https://cloudflare.f12.biz,https://f12-biz.pages.dev,https://netlify.f12.biz,https://f12-biz.netlify.app,https://github.f12.biz"
+OWNER_TIMEZONE = "America/Los_Angeles"
+QUIET_HOURS_START = "23"
+QUIET_HOURS_END = "6"
+CLOSED_RETENTION_DAYS = "180"
+SPAM_RETENTION_DAYS = "30"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "website-chat"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+migrations_dir = "migrations"
+
+[triggers]
+crons = ["*/5 * * * *"]

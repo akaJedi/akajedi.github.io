@@ -137,7 +137,7 @@ test("search client uses the language-aware index and deduplicates results", asy
 test("contact form remains accessible and wired to the Worker", async () => {
   const html = await readBuilt("contact/index.html");
 
-  assert.equal(occurrences(html, "<form"), 1, "contact page must contain one form");
+  assert.equal((html.match(/<form[^>]*class=contact__form/g) || []).length, 1, "contact page must contain one legacy contact form");
   assert.equal(occurrences(html, "contact__form"), 2, "form class and script hook changed");
   assert.ok(html.includes("action=" + workerURL), "contact form Worker URL changed");
   assert.match(html, /name=full_name[^>]*required/);
@@ -262,115 +262,6 @@ test("only tile four plays the supplied coffee track and tiles stay hidden on mo
   assert.match(css, /Visual-only signal panel:[\s\S]*summer-signal__grid\[data-signal-pads\][\s\S]*display: none !important/);
   assert.match(css, /Invisible four-way preference ring hit areas[\s\S]*background:\s*transparent;[\s\S]*box-shadow:\s*none/);
   assert.match(css, /span:nth-child\(4\):hover[\s\S]*linear-gradient\(145deg, #a87958, #5d3b29\)/);
-});
-
-test("Worker CORS allows every supported site and rejects arbitrary origins", async () => {
-  const source = await readSource("content/worker.js");
-  const moduleURL =
-    "data:text/javascript;base64," + Buffer.from(source).toString("base64");
-  const worker = (await import(moduleURL)).default;
-
-  const allowed = [
-    "http://localhost:1313",
-    "http://127.0.0.1:1313",
-    "https://www.f12.biz",
-    "https://f12.biz",
-    "https://cloudflare.f12.biz",
-    "https://github.f12.biz",
-  ];
-
-  for (const origin of allowed) {
-    const response = await worker.fetch(
-      new Request(workerURL, {
-        method: "OPTIONS",
-        headers: { Origin: origin },
-      }),
-      {},
-    );
-    assert.equal(response.status, 204);
-    assert.equal(response.headers.get("Access-Control-Allow-Origin"), origin);
-  }
-
-  const response = await worker.fetch(
-    new Request(workerURL, {
-      method: "OPTIONS",
-      headers: { Origin: "https://attacker.example" },
-    }),
-    {},
-  );
-  assert.notEqual(
-    response.headers.get("Access-Control-Allow-Origin"),
-    "https://attacker.example",
-  );
-});
-
-test("Worker validates submissions and sends the expected Telegram payload", async () => {
-  const source = await readSource("content/worker.js");
-  const moduleURL =
-    "data:text/javascript;base64," + Buffer.from(source).toString("base64");
-  const worker = (await import(moduleURL)).default;
-
-  const invalid = await worker.fetch(
-    new Request(workerURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Origin: "http://localhost:1313",
-      },
-      body: JSON.stringify({ name: "", email: "", message: "" }),
-    }),
-    {},
-  );
-  assert.equal(invalid.status, 400);
-
-  const originalFetch = globalThis.fetch;
-  let telegramRequest;
-
-  globalThis.fetch = async (url, options) => {
-    telegramRequest = { url: String(url), options };
-    return new Response(JSON.stringify({ ok: true }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
-  };
-
-  try {
-    const response = await worker.fetch(
-      new Request(workerURL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Origin: "http://localhost:1313",
-          Referer: "http://localhost:1313/contact/",
-        },
-        body: JSON.stringify({
-          name: "Regression Test",
-          email: "tests@example.com",
-          phone: "+1 555 0100",
-          message: "No external message is sent.",
-        }),
-      }),
-      {
-        TELEGRAM_TOKEN: "fake-token",
-        TELEGRAM_CHAT_ID: "fake-chat",
-      },
-    );
-
-    assert.equal(response.status, 200);
-    assert.deepEqual(await response.json(), { success: true });
-    assert.equal(
-      telegramRequest.url,
-      "https://api.telegram.org/botfake-token/sendMessage",
-    );
-
-    const payload = JSON.parse(telegramRequest.options.body);
-    assert.equal(payload.chat_id, "fake-chat");
-    assert.match(payload.text, /Site: localhost:1313/);
-    assert.match(payload.text, /Regression Test/);
-    assert.match(payload.text, /tests@example\.com/);
-  } finally {
-    globalThis.fetch = originalFetch;
-  }
 });
 
 test("blog introduction appears only on page one and collapses on mobile", async () => {

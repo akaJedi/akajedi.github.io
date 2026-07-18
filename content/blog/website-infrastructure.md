@@ -60,7 +60,7 @@ This website is built using a modern static site architecture that combines Hugo
 └─────────────────┘
 ```
 
-The contact form is the only dynamic part of the site. It posts to a Cloudflare Worker, which sends the message to Telegram through the Telegram Bot API.
+The contact form and website chat are the dynamic parts of the site. They call a Cloudflare Worker, which persists chat leads in D1 and exchanges owner messages through the Telegram Bot API.
 
 ```
 ┌─────────────────┐
@@ -161,12 +161,12 @@ Cloudflare sits in front of GitHub Pages providing:
 
 ### Contact Form Worker
 
-The contact form is intentionally kept separate from the static website. The Hugo site only contains the public Worker URL and form JavaScript. The Telegram credentials are stored in Cloudflare Worker secrets/variables, not in this public repository.
+The contact and chat backends are intentionally kept separate from the static website. The Hugo site contains only the public Worker URL and frontend JavaScript. The Telegram credentials are stored in Cloudflare Worker secrets/variables, not in this public repository.
 
 Required Cloudflare Worker configuration:
 
-- `TELEGRAM_TOKEN`: Telegram bot token from BotFather
-- `TELEGRAM_CHAT_ID`: destination Telegram chat id
+- `TELEGRAM_BOT_TOKEN`: Telegram bot token from BotFather
+- `TELEGRAM_ADMIN_CHAT_ID`: destination Telegram chat id
 
 Operational notes:
 

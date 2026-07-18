@@ -163,6 +163,10 @@
             <div class="row pt-2">
                 <div class="col-12 col-lg-7">
                     <form action="{{ $form_action }}" method="{{ $form_method }}" class="contact__form">
+                        <div class="site-chat__trap" aria-hidden="true" hidden>
+                            <label for="{{ $sectionId }}-website">Website</label>
+                            <input id="{{ $sectionId }}-website" type="text" name="secret_field" tabindex="-1" autocomplete="off">
+                        </div>
                         <div class="row">
                             <div class="col-12 col-sm-6 contact-field">
                                 <label for="{{ $sectionId }}-name">{{ $name_placeholder }}</label>
@@ -230,6 +234,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const emailInput = form.querySelector("[name='email']");
       const phoneInput = form.querySelector("[name='phone']");
       const messageInput = form.querySelector("[name='message']");
+      const honeypotInput = form.querySelector("[name='secret_field']");
 
       if (!nameInput || !emailInput || !messageInput) {
         messageBox.textContent = {{ $form_error | jsonify }};
@@ -241,7 +246,8 @@ document.addEventListener("DOMContentLoaded", function () {
         name: nameInput.value.trim(),
         email: emailInput.value.trim(),
         phone: phoneInput ? phoneInput.value.trim() : "",
-        message: messageInput.value.trim()
+        message: messageInput.value.trim(),
+        secret_field: honeypotInput ? honeypotInput.value.trim() : ""
       };
 
       if (!data.name || !data.email || !data.message) {

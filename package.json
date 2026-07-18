@@ -1,29 +1,29 @@
 {
-  "comments": {
-    "dependencies": {},
-    "devDependencies": {
-      "@zetxek/adritian-theme-helper": "github.com/zetxek/adritian-free-hugo-theme",
-      "autoprefixer": "github.com/zetxek/adritian-free-hugo-theme",
-      "bootstrap": "github.com/zetxek/adritian-free-hugo-theme",
-      "bootstrap-print-css": "github.com/zetxek/adritian-free-hugo-theme",
-      "postcss": "github.com/zetxek/adritian-free-hugo-theme",
-      "postcss-cli": "github.com/zetxek/adritian-free-hugo-theme"
-    }
+  "name": "f12",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "hugo --gc --minify --environment production",
+    "check": "npm run typecheck && npm run test",
+    "generate:chill-set": "node scripts/generate-chill-set.mjs",
+    "generate:dj-kit": "node scripts/generate-dj-kit.mjs",
+    "generate:loop-manifest": "node scripts/generate-loop-manifest.mjs",
+    "test": "npm run test:site && npm run test:worker",
+    "test:site": "node --test tests/*.test.mjs",
+    "test:worker": "vitest run",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.18.6",
+    "@cloudflare/workers-types": "^5.20260718.1",
     "@zetxek/adritian-theme-helper": "^1.0.5",
     "autoprefixer": "^10.4.17",
     "bootstrap": "^5.3.7",
     "bootstrap-print-css": "^1.0.0",
     "postcss": "^8.5.10",
-    "postcss-cli": "^11.0.0"
-  },
-  "name": "f12",
-  "scripts": {
-    "generate:chill-set": "node scripts/generate-chill-set.mjs",
-    "generate:dj-kit": "node scripts/generate-dj-kit.mjs",
-    "generate:loop-manifest": "node scripts/generate-loop-manifest.mjs",
-    "test": "node --test tests/*.test.mjs"
-  },
-  "version": "0.1.0"
+    "postcss-cli": "^11.0.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.10",
+    "wrangler": "^4.112.0"
+  }
 }
