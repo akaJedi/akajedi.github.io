@@ -28,7 +28,7 @@ skill_categories:
     skills:
       - name: "Windows / macOS / Linux"
         level: 90
-        years: "15+"
+        years: "10+"
         description: "End-user support, server administration, hybrid environments"
       - name: "Microsoft 365"
         level: 85
@@ -36,7 +36,7 @@ skill_categories:
         description: "Teams, SharePoint, Exchange Online, OneDrive, admin center"
       - name: "Helpdesk / Tier 2-3 Support"
         level: 90
-        years: "15+"
+        years: "10+"
         description: "Technical troubleshooting, endpoint support, remote assistance"
       - name: "Jira / Confluence"
         level: 80

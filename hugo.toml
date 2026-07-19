@@ -92,6 +92,9 @@ sections = [
 
 homepageExperienceCount = 6
 
+[params.chat]
+turnstileSiteKey = "0x4AAAAAAD4sOfPnGSHV_XyB9s2FV7l-AJ0"
+
 [params.analytics]
 ## Analytics parameters.
 ### Supported so far: Vercel (Page Insights, Analytics)

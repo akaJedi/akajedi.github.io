@@ -9,7 +9,6 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const output = path.join(root, ".test-public");
 const cache = path.join(root, ".test-cache");
 const analyticsId = "G-LPLDLSPHQL";
-const workerURL = "https://green-rice-1ea7.denis-f21.workers.dev";
 
 const readSource = (relativePath) =>
   readFile(path.join(root, relativePath), "utf8");
@@ -79,6 +78,21 @@ test("Hugo generates the site's core routes", async () => {
   }
 });
 
+test("production builds exclude the localhost status taskbar", async () => {
+  const html = await readBuilt("index.html");
+  assert.doesNotMatch(html, /data-chat-devbar/);
+  assert.doesNotMatch(html, /Local link/);
+  assert.doesNotMatch(html, /host-environment-banner/);
+});
+
+test("rendered homepages never leak shortcode syntax or corrupted Unicode", async () => {
+  for (const page of ["index.html", "ru/index.html"]) {
+    const html = await readBuilt(page);
+    assert.doesNotMatch(html, /\{\{[<%]/, page + " leaked Hugo shortcode syntax");
+    assert.doesNotMatch(html, /�/, page + " contains a Unicode replacement character");
+  }
+});
+
 test("every core page contains exactly one Google Analytics tag", async () => {
   const pages = [
     "index.html",
@@ -134,21 +148,18 @@ test("search client uses the language-aware index and deduplicates results", asy
   assert.match(template, /data-search-index=/);
 });
 
-test("contact form remains accessible and wired to the Worker", async () => {
+test("contact route uses the persistent sidebar as its only message form", async () => {
   const html = await readBuilt("contact/index.html");
 
-  assert.equal(occurrences(html, "<form"), 1, "contact page must contain one form");
-  assert.equal(occurrences(html, "contact__form"), 2, "form class and script hook changed");
-  assert.ok(html.includes("action=" + workerURL), "contact form Worker URL changed");
-  assert.match(html, /name=full_name[^>]*required/);
-  assert.match(html, /name=email[^>]*required/);
-  assert.match(html, /name=message[^>]*required/);
-  assert.match(html, /role=status aria-live=polite/);
-
-  for (const field of ["name", "email", "phone", "message"]) {
-    assert.match(html, new RegExp("label for=contact-message-" + field));
-    assert.match(html, new RegExp("id=contact-message-" + field));
-  }
+  assert.equal((html.match(/class=contact__form/g) || []).length, 0, "legacy contact form must not render");
+  assert.equal((html.match(/data-chat-start-form/g) || []).length, 1, "chat start form must render once");
+  assert.match(html, /data-chat-contact-page/);
+  assert.match(html, /data-chat-contact-open/);
+  assert.match(html, /class=site-chat__channels/);
+  assert.match(html, /f12\.setmore\.com/);
+  assert.match(html, /keybase\.io\/akajedi/);
+  assert.match(html, /pgp-key/);
+  assert.doesNotMatch(html, /contact-page__fallback/);
 });
 
 test("skills percentages match their bars and experience stays visible", async () => {
@@ -192,7 +203,8 @@ test("shared grid, responsive layout, theme menu, and transparent fields stay in
   assert.match(css, /contact__form input,[\s\S]*color:\s*var\(--summer-ink\) !important/);
   assert.match(css, /@media \(max-width:\s*767px\)/);
   assert.match(css, /\.header \.language-selector,[\s\S]*\.footer_right\s*\{\s*display:\s*none !important/);
-  assert.match(css, /body\.home \.header > \.container \{[\s\S]*padding-inline: clamp\(1\.25rem, 5vw, 4rem\)/);
+  assert.match(css, /body\.home \.summer-hero \{[\s\S]*max-width: 1180px[\s\S]*width: calc\(100% - 3rem\)/);
+  assert.match(css, /body\.home \.header > \.container \{[\s\S]*max-width: 1180px[\s\S]*width: calc\(100% - 3rem\)/);
   assert.match(css, /@media \(min-width:\s*992px\)[\s\S]*html\.preferences-unlocked[\s\S]*display:\s*block !important/);
   assert.match(css, /@media \(max-width:\s*575px\)[\s\S]*\.summer-signal\s*\{[\s\S]*min-height:\s*100svh/);
 });
@@ -219,6 +231,12 @@ test("homepage mini slideshow keeps its ten-second interval and controls", async
   assert.doesNotMatch(script, /MediaRecorder|data-signal-recorder/);
   assert.match(html, /data-signal-carousel/);
   assert.match(html, /data-interval=10000/);
+  assert.equal(occurrences(html, "data-signal-slide"), 6);
+  assert.match(html, /Reliable systems/);
+  assert.match(html, /Remove toil/);
+  assert.match(html, /Least privilege/);
+  assert.match(html, /Clear handoffs/);
+  assert.doesNotMatch(html, /15\+ years/);
   assert.match(html, /data-signal-pads/);
   assert.match(html, /data-signal-wheel/);
   assert.doesNotMatch(html, /data-signal-recorder|data-record-download/);
@@ -262,115 +280,6 @@ test("only tile four plays the supplied coffee track and tiles stay hidden on mo
   assert.match(css, /Visual-only signal panel:[\s\S]*summer-signal__grid\[data-signal-pads\][\s\S]*display: none !important/);
   assert.match(css, /Invisible four-way preference ring hit areas[\s\S]*background:\s*transparent;[\s\S]*box-shadow:\s*none/);
   assert.match(css, /span:nth-child\(4\):hover[\s\S]*linear-gradient\(145deg, #a87958, #5d3b29\)/);
-});
-
-test("Worker CORS allows every supported site and rejects arbitrary origins", async () => {
-  const source = await readSource("content/worker.js");
-  const moduleURL =
-    "data:text/javascript;base64," + Buffer.from(source).toString("base64");
-  const worker = (await import(moduleURL)).default;
-
-  const allowed = [
-    "http://localhost:1313",
-    "http://127.0.0.1:1313",
-    "https://www.f12.biz",
-    "https://f12.biz",
-    "https://cloudflare.f12.biz",
-    "https://github.f12.biz",
-  ];
-
-  for (const origin of allowed) {
-    const response = await worker.fetch(
-      new Request(workerURL, {
-        method: "OPTIONS",
-        headers: { Origin: origin },
-      }),
-      {},
-    );
-    assert.equal(response.status, 204);
-    assert.equal(response.headers.get("Access-Control-Allow-Origin"), origin);
-  }
-
-  const response = await worker.fetch(
-    new Request(workerURL, {
-      method: "OPTIONS",
-      headers: { Origin: "https://attacker.example" },
-    }),
-    {},
-  );
-  assert.notEqual(
-    response.headers.get("Access-Control-Allow-Origin"),
-    "https://attacker.example",
-  );
-});
-
-test("Worker validates submissions and sends the expected Telegram payload", async () => {
-  const source = await readSource("content/worker.js");
-  const moduleURL =
-    "data:text/javascript;base64," + Buffer.from(source).toString("base64");
-  const worker = (await import(moduleURL)).default;
-
-  const invalid = await worker.fetch(
-    new Request(workerURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Origin: "http://localhost:1313",
-      },
-      body: JSON.stringify({ name: "", email: "", message: "" }),
-    }),
-    {},
-  );
-  assert.equal(invalid.status, 400);
-
-  const originalFetch = globalThis.fetch;
-  let telegramRequest;
-
-  globalThis.fetch = async (url, options) => {
-    telegramRequest = { url: String(url), options };
-    return new Response(JSON.stringify({ ok: true }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
-  };
-
-  try {
-    const response = await worker.fetch(
-      new Request(workerURL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Origin: "http://localhost:1313",
-          Referer: "http://localhost:1313/contact/",
-        },
-        body: JSON.stringify({
-          name: "Regression Test",
-          email: "tests@example.com",
-          phone: "+1 555 0100",
-          message: "No external message is sent.",
-        }),
-      }),
-      {
-        TELEGRAM_TOKEN: "fake-token",
-        TELEGRAM_CHAT_ID: "fake-chat",
-      },
-    );
-
-    assert.equal(response.status, 200);
-    assert.deepEqual(await response.json(), { success: true });
-    assert.equal(
-      telegramRequest.url,
-      "https://api.telegram.org/botfake-token/sendMessage",
-    );
-
-    const payload = JSON.parse(telegramRequest.options.body);
-    assert.equal(payload.chat_id, "fake-chat");
-    assert.match(payload.text, /Site: localhost:1313/);
-    assert.match(payload.text, /Regression Test/);
-    assert.match(payload.text, /tests@example\.com/);
-  } finally {
-    globalThis.fetch = originalFetch;
-  }
 });
 
 test("blog introduction appears only on page one and collapses on mobile", async () => {

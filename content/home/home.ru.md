@@ -11,11 +11,8 @@ translationKey = "homepage"
     <h1 id="summer-hero-title">Денис Толочко</h1>
     <p class="summer-hero__role">Инженер по эксплуатации ИТ-систем</p>
     <p class="summer-hero__lead">Создаю надёжную инфраструктуру, облачные процессы и автоматизацию для команд, которым нужны спокойные и предсказуемые технологии.</p>
-    <div class="summer-hero__actions" aria-label="Основные разделы">
-      <a href="/ru/about/">Обо мне</a>
-      <a href="/skills/">Навыки</a>
-      <a href="/ru/blog/">Заметки</a>
-    </div>
+    <p class="summer-hero__context">Моя работа находится на пересечении эксплуатации, безопасности и доставки изменений: улучшаю существующие среды, устраняю повторяющиеся задачи и оставляю командам понятные, управляемые и надёжные системы.</p>
+    <p class="summer-hero__note">Я открыт новым возможностям, практическому сотрудничеству и честной обратной связи. Стараюсь внимательно следить за сообщениями, поэтому, если вы видите точки соприкосновения или хотите обсудить идею, <a href="/ru/contact/">напишите мне</a>.</p>
   </div>
   <div class="summer-signal">
     <div class="summer-signal__ring summer-signal__ring--one" data-signal-wheel role="button" tabindex="0" aria-label="Проведите вниз, чтобы ускорить колесо"></div>
@@ -29,9 +26,9 @@ translationKey = "homepage"
     <div class="summer-signal__panel" data-signal-carousel data-interval="10000" data-pause-label="Остановить слайд-шоу" data-resume-label="Продолжить слайд-шоу">
       <div class="summer-signal__slides" aria-live="off">
         <div class="summer-signal__slide is-active" data-signal-slide aria-hidden="false">
-          <span class="summer-signal__label">Глубина опыта</span>
-          <strong>15+ лет</strong>
-          <span>системы, поддержка, облака и автоматизация</span>
+          <span class="summer-signal__label">Фокус эксплуатации</span>
+          <strong>Надёжные системы</strong>
+          <span>инфраструктура, которой удобно управлять и доверять</span>
         </div>
         <div class="summer-signal__slide" data-signal-slide aria-hidden="true">
           <span class="summer-signal__label">Модель реализации</span>
@@ -43,10 +40,25 @@ translationKey = "homepage"
           <strong>Контроль + восстановление</strong>
           <span>мониторинг, резервные копии и готовность к инцидентам</span>
         </div>
+        <div class="summer-signal__slide" data-signal-slide aria-hidden="true">
+          <span class="summer-signal__label">Принцип автоматизации</span>
+          <strong>Меньше рутины</strong>
+          <span>небольшие инструменты, которые возвращают время команде</span>
+        </div>
+        <div class="summer-signal__slide" data-signal-slide aria-hidden="true">
+          <span class="summer-signal__label">Подход к безопасности</span>
+          <strong>Минимум привилегий</strong>
+          <span>осмысленное управление идентификацией и доступом</span>
+        </div>
+        <div class="summer-signal__slide" data-signal-slide aria-hidden="true">
+          <span class="summer-signal__label">Формат сотрудничества</span>
+          <strong>Понятная передача</strong>
+          <span>документация и контекст остаются вместе с работой</span>
+        </div>
       </div>
       <div class="summer-signal__controls">
         <span class="summer-signal__lights" aria-hidden="true">
-          <i class="is-active"></i><i></i><i></i>
+          <i class="is-active"></i><i></i><i></i><i></i><i></i><i></i>
         </span>
         <button type="button" class="summer-signal__toggle" data-signal-toggle aria-label="Остановить слайд-шоу" aria-pressed="false"></button>
       </div>
@@ -114,6 +126,6 @@ translationKey = "homepage"
     {{< link icon="square-github" url="https://github.com/akajedi" >}}
     {{< link icon="linkedin" url="https://www.linkedin.com/in/denistolochko" >}}
     {{< link icon="square-twitter" url="https://twitter.com/denistolochko" >}}
-    {{< link icon="email" url="/ru/contact/" >}}
+    {{< link icon="email" label="Открыть чат на сайте" url="/ru/contact/" >}}
   {{< /platform-links >}}
 </section>

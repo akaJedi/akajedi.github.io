@@ -11,11 +11,8 @@ translationKey = "homepage"
     <h1 id="summer-hero-title">Denis Tolochko</h1>
     <p class="summer-hero__role">IT Systems Operations Engineer</p>
     <p class="summer-hero__lead">I build reliable infrastructure, cloud operations, and automation systems for teams that need technology to stay calm under pressure.</p>
-    <div class="summer-hero__actions" aria-label="Primary links">
-      <a href="/about/">About</a>
-      <a href="/skills/">Skills</a>
-      <a href="/blog/">Field notes</a>
-    </div>
+    <p class="summer-hero__context">My work sits where operations, security, and delivery meet: improving existing environments, removing repetitive work, and leaving teams with systems they can understand, maintain, and trust.</p>
+    <p class="summer-hero__note">I’m open to new opportunities, practical collaborations, and candid feedback. I do my best to stay attentive to these channels, so if you see a useful connection or have an idea worth exploring, <a href="/contact/">please get in touch</a>.</p>
   </div>
   <div class="summer-signal">
     <div class="summer-signal__ring summer-signal__ring--one" data-signal-wheel role="button" tabindex="0" aria-label="Swipe down to accelerate the wheel"></div>
@@ -29,9 +26,9 @@ translationKey = "homepage"
     <div class="summer-signal__panel" data-signal-carousel data-interval="10000" data-pause-label="Pause slideshow" data-resume-label="Resume slideshow">
       <div class="summer-signal__slides" aria-live="off">
         <div class="summer-signal__slide is-active" data-signal-slide aria-hidden="false">
-          <span class="summer-signal__label">Operational depth</span>
-          <strong>15+ years</strong>
-          <span>across systems, support, cloud, and automation</span>
+          <span class="summer-signal__label">Operational focus</span>
+          <strong>Reliable systems</strong>
+          <span>infrastructure people can operate and trust</span>
         </div>
         <div class="summer-signal__slide" data-signal-slide aria-hidden="true">
           <span class="summer-signal__label">Delivery model</span>
@@ -43,10 +40,25 @@ translationKey = "homepage"
           <strong>Observe + Recover</strong>
           <span>monitoring, backups, and incident readiness</span>
         </div>
+        <div class="summer-signal__slide" data-signal-slide aria-hidden="true">
+          <span class="summer-signal__label">Automation principle</span>
+          <strong>Remove toil</strong>
+          <span>small tools that return time to the team</span>
+        </div>
+        <div class="summer-signal__slide" data-signal-slide aria-hidden="true">
+          <span class="summer-signal__label">Security posture</span>
+          <strong>Least privilege</strong>
+          <span>identity and access designed with intent</span>
+        </div>
+        <div class="summer-signal__slide" data-signal-slide aria-hidden="true">
+          <span class="summer-signal__label">Collaboration mode</span>
+          <strong>Clear handoffs</strong>
+          <span>documentation and context that travel with the work</span>
+        </div>
       </div>
       <div class="summer-signal__controls">
         <span class="summer-signal__lights" aria-hidden="true">
-          <i class="is-active"></i><i></i><i></i>
+          <i class="is-active"></i><i></i><i></i><i></i><i></i><i></i>
         </span>
         <button type="button" class="summer-signal__toggle" data-signal-toggle aria-label="Pause slideshow" aria-pressed="false"></button>
       </div>
@@ -114,6 +126,6 @@ translationKey = "homepage"
     {{< link icon="square-github" url="https://github.com/akajedi" >}}
     {{< link icon="linkedin" url="https://www.linkedin.com/in/denistolochko" >}}
     {{< link icon="square-twitter" url="https://twitter.com/denistolochko" >}}
-    {{< link icon="email" url="/contact/" >}}
+    {{< link icon="email" label="Open website chat" url="/contact/" >}}
   {{< /platform-links >}}
 </section>

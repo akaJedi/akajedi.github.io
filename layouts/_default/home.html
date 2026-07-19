@@ -8,15 +8,11 @@
 	{{- end }}>
 
 <head>
-
     {{ partial "head.html" . }}
-
     {{ partial "head_custom.html" . }}
-
 </head>
 
 <body class="{{ if .IsHome }}home{{ end }}">
-
 	{{ partial "header.html" . }}
 
     {{ $home := where (where .Site.Pages "Type" "home") "Lang" .Lang }}
@@ -26,7 +22,6 @@
         <!-- DEFAULT -->
         {{ warnf "Adritian: No homepage found for lang '%s' (%d 'home' items). Please create a home in your content folder." .Lang ($homeCount) }}
         {{ warnf "Adritian: (deprecated) Using Site.Params.Sections to render homepage for lang '%s'." .Lang }}
-
         {{ range .Site.Params.sections }}
         {{ partial . $ }}
         {{ end }}
@@ -39,6 +34,7 @@
     {{ end }}
 
 	{{ partial "footer.html" . }}
+    {{ partial "chat-widget.html" . }}
     {{ partial "base-foot.html" . }}
 
     <!-- Easter Egg Script -->

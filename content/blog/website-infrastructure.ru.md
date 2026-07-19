@@ -61,7 +61,7 @@ slug: "website-infrastructure"
 └─────────────────┘
 ```
 
-Форма обратной связи — единственная динамическая часть сайта. Она отправляет JSON-запрос в Cloudflare Worker, а Worker пересылает сообщение в Telegram через Telegram Bot API.
+Форма обратной связи и чат — динамические части сайта. Они обращаются к Cloudflare Worker, который сохраняет обращения чата в D1 и обменивается сообщениями владельца через Telegram Bot API.
 
 ```
 ┌─────────────────┐
@@ -162,12 +162,12 @@ Cloudflare располагается перед GitHub Pages, предоста�
 
 ### Worker формы обратной связи
 
-Форма обратной связи намеренно отделена от статического сайта. Hugo-сайт содержит только публичный URL Worker и JavaScript формы. Учётные данные Telegram хранятся в секретах/переменных Cloudflare Worker, а не в этом публичном репозитории.
+Бэкенд формы и чата намеренно отделён от статического сайта. Hugo-сайт содержит только публичный URL Worker и клиентский JavaScript. Учётные данные Telegram хранятся в секретах/переменных Cloudflare Worker, а не в этом публичном репозитории.
 
 Необходимая конфигурация Cloudflare Worker:
 
-- `TELEGRAM_TOKEN`: токен Telegram-бота из BotFather
-- `TELEGRAM_CHAT_ID`: id Telegram-чата назначения
+- `TELEGRAM_BOT_TOKEN`: токен Telegram-бота из BotFather
+- `TELEGRAM_ADMIN_CHAT_ID`: id Telegram-чата назначения
 
 Операционные заметки:
 
