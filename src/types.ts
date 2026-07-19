@@ -18,7 +18,11 @@ export interface Env {
   TURNSTILE_EXPECTED_HOSTNAMES?: string;
   TURNSTILE_TEST_MODE?: string;
   SENTRY_DSN?: string;
-  SENTRY_TEST_TOKEN?: string;
+  SENTRY_TEST_KEY?: string;
+  SENTRY_TEST_ENABLED?: string;
+  SENTRY_SUCCESS_EVENT_SAMPLE_RATE?: string;
+  SENTRY_REJECTION_EVENT_SAMPLE_RATE?: string;
+  SENTRY_SLOW_REQUEST_MS?: string;
   ENVIRONMENT?: string;
 }
 

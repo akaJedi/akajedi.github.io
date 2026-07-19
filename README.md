@@ -341,11 +341,11 @@ npx wrangler secret list
 
 ### Safe integration test
 
-The temporary `POST /api/sentry-test` route is disabled in production and requires a non-production `ENVIRONMENT` plus a secret `SENTRY_TEST_TOKEN` request header. Start a local Worker with a token kept in your shell (do not commit it):
+The temporary `POST /api/sentry-test` route is disabled unless `SENTRY_TEST_ENABLED=true` and requires a non-production `ENVIRONMENT` plus a secret `SENTRY_TEST_KEY` request header. Store `SENTRY_TEST_KEY` as a secret, never in source-controlled vars. Start a local Worker with the key kept in your shell (do not commit it):
 
 ```bash
-TEST_TOKEN="$(openssl rand -hex 16)"
-npx wrangler dev --var ENVIRONMENT:preview --var SENTRY_TEST_TOKEN:"$TEST_TOKEN"
+export TEST_KEY="$(openssl rand -hex 16)"
+npx wrangler dev --var ENVIRONMENT:preview --var SENTRY_TEST_ENABLED:true --var SENTRY_TEST_KEY:"$TEST_KEY"
 ```
 
 In another terminal, trigger the test using POST only:
@@ -353,7 +353,22 @@ In another terminal, trigger the test using POST only:
 ```bash
 curl -i -X POST http://localhost:8787/api/sentry-test \
   -H "Origin: http://localhost:1313" \
-  -H "X-Sentry-Test: $TEST_TOKEN"
+  -H "X-Sentry-Test-Key: $TEST_KEY"
 ```
 
-The response is a generic server error; verify the event named `F12 Sentry Worker integration test` in the Sentry project `f12-cloudflare-worker`. Remove the temporary route and `SENTRY_TEST_TOKEN` handling after verification, then redeploy. Never add a production test token or expose a GET test endpoint.
+The response is a safe JSON success response containing only `ok`, `sentryTest`, and a request ID; verify the event named `F12 Sentry Worker integration test` in the Sentry project `f12-cloudflare-worker`. Remove the temporary route and `SENTRY_TEST_KEY` handling after verification, then redeploy. Never add a production test key or expose a GET test endpoint. Disable the route afterward by removing the temporary test code or leaving `SENTRY_TEST_ENABLED=false`.
+
+Recommended Worker variables are `SENTRY_SUCCESS_EVENT_SAMPLE_RATE="0.10"`, `SENTRY_REJECTION_EVENT_SAMPLE_RATE="1.0"`, `SENTRY_SLOW_REQUEST_MS="3000"`, and `SENTRY_TEST_ENABLED="false"`. If testing, set the key as a secret with `npx wrangler secret put SENTRY_TEST_KEY`, then enable the test only in a preview/local environment.
+
+Operational events are sampled in production (`SENTRY_SUCCESS_EVENT_SAMPLE_RATE=0.10`) and rejection/failure events are retained at full rate. Request IDs, fixed route names, timing buckets, Turnstile booleans, and Telegram status classes are sanitized; visitor content and credentials are never sent. A future separate Sentry Browser project (for example `f12-hugo-frontend`) can monitor chat UI opens, client validation, failed fetches, JavaScript errors, responsiveness, and privacy-masked replay without adding a browser SDK here.
+
+
+Useful Sentry searches:
+
+```text
+message:"F12 Sentry Worker integration test"
+message:"F12 chat submission received"
+message:"F12 chat delivery succeeded"
+message:"F12 Turnstile validation failed"
+message:"F12 Telegram delivery failed"
+```
