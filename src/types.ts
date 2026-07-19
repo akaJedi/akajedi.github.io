@@ -17,6 +17,9 @@ export interface Env {
   TURNSTILE_REQUIRED?: string;
   TURNSTILE_EXPECTED_HOSTNAMES?: string;
   TURNSTILE_TEST_MODE?: string;
+  SENTRY_DSN?: string;
+  SENTRY_TEST_TOKEN?: string;
+  ENVIRONMENT?: string;
 }
 
 export interface Availability {
