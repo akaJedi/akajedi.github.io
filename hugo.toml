@@ -93,7 +93,7 @@ sections = [
 homepageExperienceCount = 6
 
 [params.chat]
-turnstileSiteKey = "0x4AAAAAAD4sOfPnGSHV_XyB9s2FV7l-AJ0"
+turnstileSiteKey = "0x4AAAAAAD4sOQrB_w1S3WdR"
 
 [params.analytics]
 ## Analytics parameters.
