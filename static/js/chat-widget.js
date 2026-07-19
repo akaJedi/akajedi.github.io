@@ -803,6 +803,7 @@
     syncDevbarLayout();
     refreshDevStatus();
     if (sessionToken) {
+      openPanel();
       showConversation();
       schedulePoll(0);
     } else {
