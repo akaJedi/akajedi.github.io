@@ -1,6 +1,7 @@
 baseURL = "https://www.f12.biz"
 relativeURLs = true
 canonifyURLs = true
+enableRobotsTXT = true
 title = "Denis Tolochko Personal website"
 languageCode = "en"
 

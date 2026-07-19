@@ -4,7 +4,7 @@
   {{ $featuredPosts := where .Pages ".Params.featured" true }}
   {{ $latest := first 1 $pages }}
 
-  <div id="main-content" class="blog-archive flex-grow-1">
+  <div class="blog-archive flex-grow-1">
     {{ if eq $paginator.PageNumber 1 }}
     <section class="blog-archive__hero" aria-labelledby="blog-archive-title">
       <div>
