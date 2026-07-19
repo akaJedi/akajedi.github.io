@@ -21,6 +21,54 @@ Hugo browser widget ── HTTPS polling ──> Cloudflare Worker ──> D1
 - D1 is authoritative. A D1 outbox and five-minute Cron Trigger retry Telegram notifications after transient failures.
 - Availability is calculated on the server in `America/Los_Angeles`; no fixed UTC offset is used.
 
+## Development, branches, pull requests, and deployment workflow
+
+### Structure
+
+1. Work on `feature/*`, never directly on protected `main`.
+2. Run checks locally.
+3. Push the feature branch.
+4. Open a pull request into `main`.
+5. Review checks and merge the pull request.
+6. GitHub Actions deploys the Hugo site after the merge.
+7. Deploy the Cloudflare Worker separately when Worker code, bindings, or secrets change.
+
+### Why the pull-request command exists
+
+This command creates a pull request from the current feature branch to `main`:
+
+```bash
+gh pr create \
+  --base main \
+  --head feature/website-telegram-chat \
+  --title "Keep active chat open across page navigation" \
+  --body "Reopens the active chat conversation when visitors navigate between pages."
+```
+
+Use it after committing and pushing a change that should enter production. `--base main` selects the protected destination branch; `--head feature/website-telegram-chat` selects the source branch containing your changes; `--title` and `--body` document the intent for reviewers and deployment history. It does not deploy anything by itself.
+
+### Normal change workflow
+
+```bash
+git switch feature/website-telegram-chat
+git status
+npm run check
+npm run build
+git add <intended-files>
+git commit -m "Describe the change"
+git push -u origin feature/website-telegram-chat
+
+gh pr create --base main --head feature/website-telegram-chat \
+  --title "Describe the change" \
+  --body "Explain what changed and how it was tested."
+```
+
+Review the PR, wait for required checks, then merge it into `main`. Because `main` is protected, direct pushes and self-approval are blocked unless an administrator deliberately uses a documented bypass. Do not force-push shared branches.
+
+After the merge, GitHub Actions builds and publishes the static Hugo site. Confirm the deployment run is successful before testing the public URL. A Worker change is separate: apply remote D1 migrations when needed, ensure production secrets are present, then run `npx wrangler deploy`. Register the production Telegram webhook only when its URL or webhook secret changes.
+
+For a small follow-up after an earlier PR has already merged, push the new commit to the feature branch and open a new PR; do not push directly to protected `main`.
+
 ## 1. Install dependencies
 
 Prerequisites: Node.js 22+, npm, Hugo Extended, a Cloudflare account, Wrangler authentication, a Telegram bot, and a private Telegram admin chat ID.

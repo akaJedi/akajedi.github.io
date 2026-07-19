@@ -47,7 +47,7 @@ export function corsHeaders(request: Request, env: Env): HeadersInit {
   if (!getAllowedOrigins(env).has(origin)) return { Vary: "Origin" };
   return {
     "Access-Control-Allow-Origin": origin,
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, OPTIONS",
     "Access-Control-Allow-Headers": "Authorization, Content-Type, X-Conversation-ID",
     "Access-Control-Max-Age": "86400",
     Vary: "Origin",
