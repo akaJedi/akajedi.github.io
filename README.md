@@ -324,3 +324,36 @@ For a frontend regression, revert the website release/commit through the existin
 - Automatic deletion is intentionally disabled. Retention eligibility must remain tested before any future cleanup command or scheduled deletion is introduced.
 - External meeting-link creation is a future extension point. Telegram bots cannot initiate native Telegram voice or video calls.
 
+
+
+## Sentry Worker error monitoring
+
+The Cloudflare Worker uses the official `@sentry/cloudflare` SDK for Error Monitoring only. Session Replay, logs, metrics, and tracing are disabled. Sentry receives sanitized exception context; request bodies, cookies, authorization headers, Turnstile responses, Telegram credentials, visitor messages, names, email addresses, and phone numbers are removed.
+
+Store the DSN only as a Worker secret (never in source, Hugo data, or browser JavaScript):
+
+```bash
+npx wrangler secret put SENTRY_DSN
+npx wrangler secret list
+```
+
+`secret list` prints names only, not values. Set the secret separately for each Worker environment that should report errors.
+
+### Safe integration test
+
+The temporary `POST /api/sentry-test` route is disabled in production and requires a non-production `ENVIRONMENT` plus a secret `SENTRY_TEST_TOKEN` request header. Start a local Worker with a token kept in your shell (do not commit it):
+
+```bash
+TEST_TOKEN="$(openssl rand -hex 16)"
+npx wrangler dev --var ENVIRONMENT:preview --var SENTRY_TEST_TOKEN:"$TEST_TOKEN"
+```
+
+In another terminal, trigger the test using POST only:
+
+```bash
+curl -i -X POST http://localhost:8787/api/sentry-test \
+  -H "Origin: http://localhost:1313" \
+  -H "X-Sentry-Test: $TEST_TOKEN"
+```
+
+The response is a generic server error; verify the event named `F12 Sentry Worker integration test` in the Sentry project `f12-cloudflare-worker`. Remove the temporary route and `SENTRY_TEST_TOKEN` handling after verification, then redeploy. Never add a production test token or expose a GET test endpoint.

@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/cloudflare";
 import {
   AVAILABLE_MESSAGE,
   PublicError,
@@ -581,6 +582,13 @@ async function route(request: Request, env: Env, ctx: ExecutionContext): Promise
       ? new Response(null, { status: 204, headers: corsHeaders(request, env) })
       : json({ error: "Origin not allowed." }, 403);
   }
+  if (url.pathname === "/api/sentry-test" && request.method === "POST") {
+    if ((env.ENVIRONMENT || "production") === "production" || !env.SENTRY_TEST_TOKEN
+      || request.headers.get("X-Sentry-Test") !== env.SENTRY_TEST_TOKEN) {
+      return json({ error: "Not found." }, 404);
+    }
+    throw new Error("F12 Sentry Worker integration test");
+  }
   if (url.pathname === "/api/health" && request.method === "GET") return handleHealth(env);
   if (url.pathname === "/api/telegram/webhook" && request.method === "POST") {
     return handleWebhook(request, env);
@@ -623,11 +631,12 @@ async function route(request: Request, env: Env, ctx: ExecutionContext): Promise
   return withCors(response, request, env);
 }
 
-export default {
+const workerHandler = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     try {
       return await route(request, env, ctx);
     } catch (error) {
+      if (!(error instanceof PublicError)) Sentry.captureException(error);
       const publicError = error instanceof PublicError ? error : null;
       safeLog(publicError?.code || "unhandled", { path: new URL(request.url).pathname });
       const response = json(
@@ -652,3 +661,40 @@ export default {
     })());
   },
 };
+
+export default Sentry.withSentry(
+  (sentryEnv) => {
+    const env = sentryEnv as unknown as Env;
+    return {
+      dsn: env.SENTRY_DSN,
+      environment: env.ENVIRONMENT || "production",
+      sendDefaultPii: false,
+      dataCollection: {
+        userInfo: false,
+        cookies: false,
+        httpBodies: [],
+      },
+      tracesSampleRate: 0,
+      beforeSend(event) {
+        if (event.request) {
+          delete event.request.data;
+          delete event.request.cookies;
+          if (event.request.headers) {
+            delete event.request.headers.authorization;
+            delete event.request.headers.cookie;
+          }
+          const url = event.request.url ? new URL(event.request.url) : null;
+          event.tags = {
+            ...event.tags,
+            component: "chat-worker",
+            route: url?.pathname || "unknown",
+            method: event.request.method || "unknown",
+            environment: env.ENVIRONMENT || "production",
+          };
+        }
+        return event;
+      },
+    };
+  },
+  workerHandler as any,
+) as typeof workerHandler;
