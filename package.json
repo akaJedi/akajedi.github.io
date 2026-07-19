@@ -5,6 +5,8 @@
   "scripts": {
     "build": "hugo --gc --minify --environment production",
     "check": "npm run typecheck && npm run test",
+    "dev:site": "HUGO_PARAMS_CHAT_APIBASE=http://localhost:8787 hugo server --disableFastRender --baseURL http://localhost:1313",
+    "dev:worker": "wrangler dev --var ALLOWED_ORIGIN:http://localhost:1313,http://127.0.0.1:1313 --var TURNSTILE_SECRET_KEY:1x0000000000000000000000000000000AA --var TURNSTILE_EXPECTED_HOSTNAMES:example.com --var TURNSTILE_TEST_MODE:true",
     "generate:chill-set": "node scripts/generate-chill-set.mjs",
     "generate:dj-kit": "node scripts/generate-dj-kit.mjs",
     "generate:loop-manifest": "node scripts/generate-loop-manifest.mjs",

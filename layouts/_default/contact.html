@@ -1,93 +1,17 @@
 {{ define "main" }}
 {{- $ru := eq .Lang "ru" -}}
-<section id="main" class="contact-page">
+<section id="main" class="contact-page" data-chat-contact-page>
   <header class="contact-page__hero">
-    <div class="contact-page__eyebrow">
-      <span>{{ if $ru }}Контакт{{ else }}Contact{{ end }}</span>
-      <span>{{ if $ru }}Открытый канал / 01{{ else }}Open channel / 01{{ end }}</span>
-    </div>
-    <div class="contact-page__hero-grid">
-      <h1>
-        {{ if $ru }}
-          Сделаем ваши системы<br><em>эффективнее.</em>
-        {{ else }}
-          Let’s make your systems<br>work <em>better.</em>
-        {{ end }}
-      </h1>
-      <div class="contact-page__intro">
-        <p>
-          {{ if $ru }}
-            Задача по инфраструктуре, облачный проект или технический вопрос? Выберите удобный канал и добавьте контекст.
-          {{ else }}
-            Infrastructure challenge, cloud project, or just a technical question? Choose the channel that fits and send the context.
-          {{ end }}
-        </p>
-        <p class="contact-page__status">
-          <span aria-hidden="true"></span>
-          {{ if $ru }}Открыт для предметного разговора{{ else }}Available for focused conversations{{ end }}
-        </p>
-      </div>
-    </div>
+    <p class="contact-page__kicker"><span aria-hidden="true"></span>{{ if $ru }}Контакт{{ else }}Contact{{ end }}</p>
+    <h1>{{ if $ru }}Давайте поговорим.{{ else }}Let’s talk.{{ end }}</h1>
+    <p class="contact-page__lead">
+      {{ if $ru }}Открываю приватный чат на сайте. Оставьте контекст и контактные данные — разговор сохранится, и вы сможете вернуться за ответом позже.{{ else }}Opening the private website chat. Leave the context and your contact details—the conversation is saved, so you can return for the reply later.{{ end }}
+    </p>
+    <button class="contact-page__chat-open" type="button" data-chat-contact-open aria-haspopup="dialog" aria-controls="site-chat-panel">
+      <span>{{ if $ru }}Открыть чат{{ else }}Open chat{{ end }}</span>
+      <span aria-hidden="true">→</span>
+    </button>
+    <noscript><p class="contact-page__noscript">{{ if $ru }}Для чата требуется JavaScript. Вы также можете выбрать время через <a href="https://f12.setmore.com">Setmore</a>.{{ else }}The website chat requires JavaScript. You can also <a href="https://f12.setmore.com">schedule time through Setmore</a>.{{ end }}</p></noscript>
   </header>
-
-  <div class="contact-page__grid">
-    <div class="contact-page__routes">
-      <article class="contact-route">
-        <div class="contact-route__meta">
-          <span>01</span>
-          <span>{{ if $ru }}Календарь{{ else }}Calendar{{ end }}</span>
-        </div>
-        <h2>{{ if $ru }}Запланировать встречу{{ else }}Schedule a meeting{{ end }}</h2>
-        <p>
-          {{ if $ru }}
-            Выберите удобное время. Календарь автоматически учтёт часовые пояса — без лишней переписки.
-          {{ else }}
-            Pick a convenient time. The calendar handles time zones automatically, with no back-and-forth.
-          {{ end }}
-        </p>
-        <a class="contact-route__action" href="https://f12.setmore.com">
-          <span>{{ if $ru }}Выбрать время{{ else }}Choose a time{{ end }}</span>
-          <span aria-hidden="true">↗</span>
-        </a>
-      </article>
-
-      <article class="contact-route contact-route--secure">
-        <div class="contact-route__meta">
-          <span>02</span>
-          <span>{{ if $ru }}Шифрование{{ else }}Encrypted{{ end }}</span>
-        </div>
-        <h2>{{ if $ru }}Безопасная связь{{ else }}Secure communication{{ end }}</h2>
-        <p>
-          {{ if $ru }}
-            Для конфиденциальной информации используйте проверенный публичный профиль или мой открытый ключ.
-          {{ else }}
-            For sensitive details, use a verified public identity or encrypt your message with my public key.
-          {{ end }}
-        </p>
-        <div class="contact-route__links">
-          <a href="https://keybase.io/akajedi">Keybase <span aria-hidden="true">↗</span></a>
-          <a href="/pgp-key">
-            {{ if $ru }}Открытый PGP-ключ{{ else }}PGP public key{{ end }}
-            <span aria-hidden="true">↗</span>
-          </a>
-        </div>
-      </article>
-    </div>
-
-    <div class="contact-page__message">
-      <div class="contact-page__message-meta">
-        <span>{{ if $ru }}03 / Прямое сообщение{{ else }}03 / Direct message{{ end }}</span>
-        <span>{{ if $ru }}Обычно отвечаю за 1–2 рабочих дня{{ else }}Typically replies within 1–2 business days{{ end }}</span>
-      </div>
-      {{ .Content }}
-      <p class="contact-page__privacy">
-        {{ if $ru }}
-          Ваши данные используются только для ответа на это сообщение.
-        {{ else }}
-          Your details are used only to respond to this message.
-        {{ end }}
-      </p>
-    </div>
-  </div>
 </section>
 {{ end }}

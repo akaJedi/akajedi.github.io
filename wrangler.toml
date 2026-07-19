@@ -13,11 +13,13 @@ QUIET_HOURS_START = "23"
 QUIET_HOURS_END = "6"
 CLOSED_RETENTION_DAYS = "180"
 SPAM_RETENTION_DAYS = "30"
+TURNSTILE_REQUIRED = "true"
+TURNSTILE_EXPECTED_HOSTNAMES = "www.f12.biz,f12.biz,cloudflare.f12.biz,f12-biz.pages.dev,netlify.f12.biz,f12-biz.netlify.app,github.f12.biz"
 
 [[d1_databases]]
 binding = "DB"
 database_name = "website-chat"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "e3c18977-ec3f-42a9-8f36-7e6fa63fbf46"
 migrations_dir = "migrations"
 
 [triggers]

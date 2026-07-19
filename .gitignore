@@ -22,5 +22,6 @@ hugo.linux
 # Original audio masters (production uses converted MP3 assets)
 /audio-sources/
 
-# Local Cloudflare Worker secrets
+# Local Cloudflare Worker secrets and development state
 .dev.vars*
+/.wrangler/
