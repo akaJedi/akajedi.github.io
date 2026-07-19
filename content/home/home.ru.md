@@ -126,6 +126,6 @@ translationKey = "homepage"
     {{< link icon="square-github" url="https://github.com/akajedi" >}}
     {{< link icon="linkedin" url="https://www.linkedin.com/in/denistolochko" >}}
     {{< link icon="square-twitter" url="https://twitter.com/denistolochko" >}}
-    {{< link icon="email" url="/ru/contact/" >}}
+    {{< link icon="email" label="Открыть чат на сайте" url="/ru/contact/" >}}
   {{< /platform-links >}}
 </section>

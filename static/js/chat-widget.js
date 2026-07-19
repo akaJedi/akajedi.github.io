@@ -55,7 +55,7 @@
     Array.from(globalThis.crypto.getRandomValues(new Uint8Array(16)), (byte) => byte.toString(16).padStart(2, "0")).join("");
 
   function init(widget) {
-    const language = widget.dataset.lang === "ru" ? "ru" : "en";
+    const language = widget.dataset.language === "ru" ? "ru" : "en";
     const text = copy[language];
     const apiBase = widget.dataset.apiBase.replace(/\/$/, "");
     const panel = widget.querySelector("[data-chat-panel]");
@@ -71,6 +71,7 @@
     const conversationNode = widget.querySelector("[data-chat-conversation]");
     const messageForm = widget.querySelector("[data-chat-message-form]");
     const messageTextarea = messageForm.elements.message;
+    const enterSend = widget.querySelector("[data-chat-enter-send]");
     const draftStatusNode = widget.querySelector("[data-chat-draft-status]");
     const conversationActions = widget.querySelector("[data-chat-actions]");
     const closedActions = widget.querySelector("[data-chat-closed-actions]");
@@ -107,6 +108,7 @@
     let polling = false;
     let followupShown = false;
     let conversationTerminated = false;
+    let callbackSubmitted = false;
     const rendered = new Set();
     let sessionToken = "";
     try { sessionToken = localStorage.getItem(STORAGE_KEY) || ""; } catch (_) {}
@@ -299,8 +301,8 @@
 
     function applyAvailability(value) {
       if (!value) return;
-      launcherStatus.textContent = value.available ? text.available : text.leave;
-      launcher.classList.toggle("is-available", value.available);
+      if (launcherStatus) launcherStatus.textContent = value.available ? text.available : text.leave;
+      launcher?.classList.toggle("is-available", value.available);
       presenceNode.textContent = value.available ? text.available : text.leave;
       presenceNode.parentElement.classList.toggle("is-available", value.available);
       availabilityNode.textContent = value.available ? text.availableLong : text.quietLong;
@@ -315,7 +317,7 @@
           setStatus("");
         }
       } catch (_) {
-        launcherStatus.textContent = text.leave;
+        if (launcherStatus) launcherStatus.textContent = text.leave;
         presenceNode.textContent = text.leave;
         presenceNode.parentElement.classList.remove("is-available");
         availabilityNode.textContent = text.network;
@@ -387,6 +389,16 @@
       item.className = `site-chat__message site-chat__message--${message.senderType}`;
       const body = document.createElement("p");
       body.textContent = message.messageText;
+      item.append(body);
+      messagesNode.append(item);
+      messagesNode.scrollTop = messagesNode.scrollHeight;
+    }
+
+    function showInfoBubble(message) {
+      const item = document.createElement("li");
+      item.className = "site-chat__message site-chat__message--system site-chat__message--info";
+      const body = document.createElement("p");
+      body.textContent = message;
       item.append(body);
       messagesNode.append(item);
       messagesNode.scrollTop = messagesNode.scrollHeight;
@@ -540,7 +552,7 @@
     });
 
     function setContactExpanded(expanded) {
-      launcher.setAttribute("aria-expanded", String(expanded));
+      launcher?.setAttribute("aria-expanded", String(expanded));
       contactTriggers.forEach((trigger) => trigger.setAttribute("aria-expanded", String(expanded)));
     }
 
@@ -553,7 +565,7 @@
     function openPanel() {
       panel.hidden = false;
       setContactExpanded(true);
-      launcher.hidden = true;
+      if (launcher) launcher.hidden = true;
       closeMobileNavigation();
       syncDevbarLayout();
       refreshAvailability();
@@ -572,14 +584,14 @@
 
     function minimizePanel() {
       panel.hidden = true;
-      launcher.hidden = false;
+      if (launcher) launcher.hidden = false;
       setContactExpanded(false);
-      launcher.focus();
+      launcher?.focus();
       syncDevbarLayout();
       schedulePoll(MINIMIZED_INTERVAL);
     }
 
-    launcher.addEventListener("click", openPanel);
+    launcher?.addEventListener("click", openPanel);
     contactTriggers.forEach((trigger) => trigger.addEventListener("click", openFromContact));
     minimize.addEventListener("click", minimizePanel);
     if (contactPaths.has(normalizeContactPath(location.pathname))) {
@@ -674,6 +686,14 @@
       }
     });
 
+    enterSend.checked = false;
+    messageTextarea.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && !event.shiftKey && enterSend.checked) {
+        event.preventDefault();
+        messageForm.requestSubmit();
+      }
+    });
+
     messageTextarea.addEventListener("input", scheduleDraftSave);
 
     messageForm.addEventListener("submit", async (event) => {
@@ -703,12 +723,27 @@
       }
     });
 
-    widget.querySelector("[data-chat-callback-open]").addEventListener("click", () => {
+    widget.querySelector(".site-chat__tool-disclosure")?.addEventListener("toggle", (event) => {
+      if (event.target.open) showInfoBubble(language === "ru" ? "Здесь объясняется, как защищаются чат и данные." : "This explains how the chat and data are protected.");
+    });
+    widget.querySelector(".site-chat__privacy")?.addEventListener("toggle", (event) => {
+      if (event.target.open) showInfoBubble(language === "ru" ? "Здесь указано, какие сообщения и данные сохраняются." : "This explains which messages and contact details are stored.");
+    });
+
+    const openCallbackForm = (event) => {
+      event?.preventDefault();
+      if (callbackSubmitted) {
+        setStatus(language === "ru" ? "Запрос на обратный звонок уже сохранён и ожидает связи." : "A callback request is already saved and awaiting follow-up.", "success");
+        return;
+      }
+      showInfoBubble(language === "ru" ? "Открыта форма заказа обратного звонка. Заполните её, чтобы сохранить запрос." : "The callback form is open. Complete it to save your request.");
       conversationNode.hidden = true;
       followupForm.hidden = true;
       callbackForm.hidden = false;
-      callbackForm.elements.name.focus();
-    });
+      callbackForm.elements.name?.focus();
+    };
+    const callbackTrigger = widget.querySelector("[data-chat-callback-open]");
+    callbackTrigger?.addEventListener("click", openCallbackForm);
     widget.querySelector("[data-chat-callback-cancel]").addEventListener("click", showConversation);
     widget.querySelector("[data-chat-followup-cancel]").addEventListener("click", showConversation);
 
@@ -729,6 +764,7 @@
             timezone, consent: data.get("consent") === "on",
           }),
         });
+        callbackSubmitted = true;
         showConversation();
         setStatus(text.callbackSaved, "success");
       } catch (error) {
@@ -754,10 +790,11 @@
 
     newConversationButton.addEventListener("click", resetConversation);
 
-    widget.querySelector("[data-chat-close]").addEventListener("click", async () => {
+    widget.querySelector("[data-chat-close]")?.addEventListener("click", async (event) => {
+      event.preventDefault();
+      showClosedConversation(true);
       try {
         await request("/api/chat/close", { method: "POST", auth: true, body: "{}" });
-        showClosedConversation(true);
       } catch (error) { setStatus(error.message || text.network, "error"); }
     });
 

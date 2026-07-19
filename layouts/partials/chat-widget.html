@@ -5,14 +5,6 @@
 {{- if hugo.IsServer }}{{ $devAssetVersion = printf "?dev=%d" now.Unix }}{{ $turnstileSiteKey = "1x00000000000000000000AA" }}{{ end -}}
 <link rel="stylesheet" href="{{ "css/chat-widget.css" | relURL }}{{ $devAssetVersion }}">
 <aside class="site-chat{{ if hugo.IsServer }} site-chat--dev{{ end }}" data-chat-widget data-api-base="{{ $apiBase }}" data-turnstile-site-key="{{ $turnstileSiteKey }}" data-lang="{{ .Lang }}">
-  <button class="site-chat__launcher" type="button" data-chat-open aria-label="{{ if $ru }}Открыть чат с Денисом{{ else }}Open chat with Denis{{ end }}" aria-haspopup="dialog" aria-controls="site-chat-panel" aria-expanded="false">
-    <span class="site-chat__launcher-mark" aria-hidden="true">↗</span>
-    <span>
-      <strong>{{ if $ru }}Чат с Денисом{{ else }}Chat with Denis{{ end }}</strong>
-      <small data-chat-launch-status>{{ if $ru }}Проверяю доступность…{{ else }}Checking availability…{{ end }}</small>
-    </span>
-  </button>
-
   <section class="site-chat__panel" id="site-chat-panel" data-chat-panel role="dialog" aria-modal="false" aria-labelledby="site-chat-title" hidden>
     <header class="site-chat__header">
       <div>
@@ -65,10 +57,19 @@
         <textarea id="site-chat-message" name="message" rows="2" maxlength="4000" required placeholder="{{ if $ru }}Напишите сообщение…{{ else }}Write a message…{{ end }}"></textarea>
         <button class="site-chat__send" type="submit">{{ if $ru }}Отправить{{ else }}Send{{ end }}</button>
       </form>
+      <label class="site-chat__enter-toggle"><input type="checkbox" data-chat-enter-send> <span>{{ if $ru }}Enter — отправить{{ else }}Enter to send{{ end }}</span></label>
       <p class="site-chat__draft-status" data-chat-draft-status role="status" aria-live="polite"></p>
-      <div class="site-chat__actions" data-chat-actions>
-        <button type="button" class="site-chat__secondary" data-chat-callback-open>{{ if $ru }}Заказать звонок{{ else }}Request a call{{ end }}</button>
-        <button type="button" class="site-chat__text-button" data-chat-close>{{ if $ru }}Закрыть разговор{{ else }}Close conversation{{ end }}</button>
+      <div class="site-chat__actions" data-chat-actions aria-label="{{ if $ru }}Другие каналы и действия{{ else }}Other channels and actions{{ end }}">
+        <span class="site-chat__actions-label">{{ if $ru }}Инфо{{ else }}Info{{ end }}</span>
+        <button type="button" class="site-chat__tool" data-chat-callback-open title="{{ if $ru }}Заказать звонок{{ else }}Request a call{{ end }}" aria-label="{{ if $ru }}Заказать звонок{{ else }}Request a call{{ end }}"><span aria-hidden="true">☎</span><span>{{ if $ru }}Заказать звонок{{ else }}Request a call{{ end }}</span></button>
+        <a class="site-chat__tool site-chat__doc-link" target="_blank" rel="noopener noreferrer" href="{{ if $ru }}{{ "/ru/accountability/" | relURL }}{{ else }}{{ "/accountability/" | relURL }}{{ end }}" title="{{ if $ru }}Ответственность{{ else }}Accountability{{ end }}"><span aria-hidden="true">A</span><span>{{ if $ru }}Ответственность{{ else }}Accountability{{ end }}</span></a>
+        <a class="site-chat__tool site-chat__doc-link" target="_blank" rel="noopener noreferrer" href="{{ if $ru }}{{ "/ru/privacy/" | relURL }}{{ else }}{{ "/privacy/" | relURL }}{{ end }}" title="{{ if $ru }}Конфиденциальность{{ else }}Privacy{{ end }}"><span aria-hidden="true">ⓘ</span><span>{{ if $ru }}Конфиденциальность{{ else }}Privacy{{ end }}</span></a>
+        <button type="button" class="site-chat__tool" data-chat-close title="{{ if $ru }}Закрыть разговор{{ else }}Close conversation{{ end }}" aria-label="{{ if $ru }}Закрыть разговор{{ else }}Close conversation{{ end }}"><span aria-hidden="true">⏹</span><span>{{ if $ru }}Закрыть{{ else }}Close{{ end }}</span></button>
+        <nav class="site-chat__channels" aria-label="{{ if $ru }}Информационные ссылки{{ else }}Information links{{ end }}">
+      <a target="_blank" rel="noopener noreferrer" href="https://f12.setmore.com" target="_blank" rel="noopener noreferrer" title="{{ if $ru }}Запланировать время{{ else }}Schedule a time{{ end }}" aria-label="{{ if $ru }}Запланировать время{{ else }}Schedule a time{{ end }}"><span class="site-chat__channel-icon" aria-hidden="true">◷</span><span>{{ if $ru }}Время{{ else }}Schedule{{ end }}</span></a>
+      <a target="_blank" rel="noopener noreferrer" href="https://keybase.io/akajedi" target="_blank" rel="noopener noreferrer" title="Keybase" aria-label="Keybase"><span class="site-chat__channel-icon" aria-hidden="true">K</span><span>Keybase</span></a>
+      <a target="_blank" rel="noopener noreferrer" href="{{ "/pgp-key" | relURL }}" title="PGP key" aria-label="PGP key"><span class="site-chat__channel-icon" aria-hidden="true">🔑</span><span>PGP</span></a>
+        </nav>
       </div>
       <div class="site-chat__closed-actions" data-chat-closed-actions hidden>
         <p>{{ if $ru }}Этот разговор сохранён и закрыт. Вы можете начать новый разговор.{{ else }}This conversation is saved and closed. You can start a new conversation.{{ end }}</p>
@@ -106,27 +107,11 @@
       <button class="site-chat__primary" type="submit">{{ if $ru }}Сохранить контакт{{ else }}Save contact details{{ end }}</button>
     </form>
 
-    <p class="site-chat__privacy">
-      {{ if $ru }}Ваше сообщение и контактные данные будут сохранены, чтобы я мог ответить на ваш запрос. Не отправляйте пароли, ключи доступа, номера социального страхования и другие конфиденциальные данные.{{ else }}Your message and contact information will be stored so I can respond to your request. Do not submit passwords, access keys, Social Security numbers, or other sensitive information.{{ end }}
-    </p>
-    <details class="site-chat__accountability">
-      <summary>
-        <span class="site-chat__accountability-mark" aria-hidden="true">A</span>
-        <span>{{ if $ru }}Ответственность{{ else }}Accountability{{ end }}</span>
-      </summary>
-      <p>{{ if $ru }}Этот чат защищён инфраструктурой Cloudflare. Для предотвращения злоупотреблений и расследования инцидентов безопасности могут сохраняться ограниченные технические данные — например, хешированный сетевой идентификатор и краткая информация о браузере. Эти данные используются только для работы и защиты сервиса, а также для ответа на ваш запрос.{{ else }}This chat is protected by Cloudflare. To prevent abuse and investigate security incidents, limited technical information—such as a hashed network identifier and browser summary—may be recorded. It is used only to operate and secure the service and to respond to your request.{{ end }}</p>
-    </details>
-    <nav class="site-chat__channels" aria-label="{{ if $ru }}Другие способы связи{{ else }}Other ways to connect{{ end }}">
-      <span>{{ if $ru }}Другие каналы{{ else }}Other channels{{ end }}</span>
-      <a href="https://f12.setmore.com" target="_blank" rel="noopener noreferrer">{{ if $ru }}Время{{ else }}Schedule{{ end }} <span aria-hidden="true">↗</span></a>
-      <a href="https://keybase.io/akajedi" target="_blank" rel="noopener noreferrer">Keybase <span aria-hidden="true">↗</span></a>
-      <a href="{{ "/pgp-key" | relURL }}">PGP <span aria-hidden="true">→</span></a>
-    </nav>
     <div class="site-chat__rail-tools" data-chat-rail-tools></div>
   </section>
 {{- if hugo.IsServer }}
 <section class="chat-devbar" data-chat-devbar aria-label="Local chat system status">
-  <strong class="chat-devbar__brand">Local diagnostics</strong>
+  <button class="chat-devbar__brand" type="button" data-dev-refresh title="Refresh status">Local diagnostics</button>
   <button class="chat-devbar__item" type="button" data-dev-indicator="site" data-state="ok" data-dev-help-title="Site / Hugo" data-dev-help="Confirms that the local Hugo page rendered. If the site will not open, run npm run dev:site in its own terminal." aria-controls="chat-devbar-help" aria-expanded="false" title="Hugo rendered this page">
     <span class="chat-devbar__light" aria-hidden="true"></span><span>Site</span>
   </button>
@@ -143,7 +128,6 @@
     <span class="chat-devbar__light" aria-hidden="true"></span><span>Poll</span>
   </button>
   <output class="chat-devbar__summary" data-dev-summary aria-live="polite">Starting checks…</output>
-  <button class="chat-devbar__refresh" type="button" data-dev-refresh aria-label="Refresh local chat status" title="Refresh status">↻</button>
   <section class="chat-devbar__help" id="chat-devbar-help" data-dev-help-panel aria-live="polite" hidden>
     <header><strong data-dev-help-title>Local status help</strong><button type="button" data-dev-help-close aria-label="Close status help">×</button></header>
     <p data-dev-help-text></p>

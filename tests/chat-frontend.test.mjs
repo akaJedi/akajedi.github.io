@@ -16,7 +16,7 @@ test("chat widget is mounted once by both shared Hugo templates", async () => {
   assert.equal(base.split('partial "chat-widget.html"').length - 1, 1);
   assert.equal(home.split('partial "chat-widget.html"').length - 1, 1);
   assert.match(partial, /data-chat-widget/);
-  assert.ok(partial.includes('aria-label="{{ if $ru }}Открыть чат с Денисом'));
+  assert.match(partial, /data-chat-panel/);
   assert.match(partial, /role="dialog"/);
   assert.match(partial, /aria-live="polite"/);
   assert.match(partial, /data-chat-start-form/);
@@ -42,10 +42,10 @@ test("chat widget is mounted once by both shared Hugo templates", async () => {
   assert.match(partial, /npm run dev:worker/);
   assert.match(partial, /I agree to be contacted regarding this request/);
   assert.match(partial, /Я согласен\(-на\)/);
-  assert.match(partial, /Do not submit passwords, access keys, Social Security numbers/);
-  assert.match(partial, /site-chat__accountability/);
-  assert.match(partial, /hashed network identifier and browser summary/);
-  assert.match(partial, /хешированный сетевой идентификатор/);
+  assert.match(await read("content/privacy.md"), /Do not submit passwords, access keys, Social Security numbers/);
+  assert.match(partial, /site-chat__doc-link/);
+  assert.match(await read("content/privacy.md"), /hashed network identifier/);
+  assert.match(await read("content/privacy.ru.md"), /хешированный сетевой идентификатор/);
   assert.doesNotMatch(partial, /verified by Cloudflare/i);
 });
 
