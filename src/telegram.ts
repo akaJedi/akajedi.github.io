@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/cloudflare";
 import {
   availability,
   escapeTelegram,
@@ -188,6 +189,7 @@ export async function flushOutbox(env: Env, limit = 10): Promise<void> {
           : await callbackNotification(env, row.source_id);
       if (!notification) continue;
       const auth = credentials(env)!;
+      Sentry.addBreadcrumb({ category: "telegram", message: "Telegram delivery started", level: "info" });
       const sent = await telegramCall(env, "sendMessage", {
         chat_id: auth.chatId,
         text: notification.text,
@@ -195,6 +197,7 @@ export async function flushOutbox(env: Env, limit = 10): Promise<void> {
         disable_web_page_preview: true,
         reply_markup: { inline_keyboard: notification.buttons },
       });
+      Sentry.addBreadcrumb({ category: "telegram", message: "Telegram delivery succeeded", level: "info" });
       const messageId = sent.result?.message_id;
       if (!messageId) throw new Error("telegram_message_id_missing");
       const now = new Date().toISOString();
@@ -218,6 +221,14 @@ export async function flushOutbox(env: Env, limit = 10): Promise<void> {
         );
       }
       await env.DB.batch(updates);
+      const successRate = Number(env.SENTRY_SUCCESS_EVENT_SAMPLE_RATE);
+      if (Math.random() < (Number.isFinite(successRate) ? Math.min(1, Math.max(0, successRate)) : (env.ENVIRONMENT === "production" ? 0.10 : 1))) {
+        Sentry.captureMessage("F12 chat delivery succeeded", {
+          level: "info",
+          tags: { component: "chat-worker", operation: "chat-submit", integration: "telegram", result: "delivered" },
+          contexts: { telegram: { attempted: true, success: true, statusClass: "2xx" } },
+        });
+      }
     } catch (error) {
       const attempts = row.attempts + 1;
       const delaySeconds = Math.min(3600, 2 ** Math.min(attempts, 10) * 15);
@@ -230,6 +241,14 @@ export async function flushOutbox(env: Env, limit = 10): Promise<void> {
       )
         .bind(next, code, row.id)
         .run();
+      const statusMatch = /telegram_(\d{3})/.exec(code);
+      const statusCode = statusMatch ? Number(statusMatch[1]) : null;
+      const statusClass = statusCode ? `${Math.floor(statusCode / 100)}xx` : "network-error";
+      Sentry.captureMessage("F12 Telegram delivery failed", {
+        level: "error",
+        tags: { component: "chat-worker", operation: "chat-submit", integration: "telegram", result: "delivery-failed", telegram_status_class: statusClass },
+        contexts: { telegram: { attempted: true, success: false, statusClass } },
+      });
       safeLog("telegram_delivery_failed", { outboxId: row.id, attempts });
     }
   }

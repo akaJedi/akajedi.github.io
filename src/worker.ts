@@ -27,6 +27,78 @@ import type { ConversationRow, Env, MessageRow } from "./types";
 
 const OPEN_STATUSES = new Set(["pending", "active", "callback_pending", "contacted"]);
 
+const SENTRY_SUCCESS_DEFAULT = 0.10;
+const SENTRY_REJECTION_DEFAULT = 1;
+
+function sentryRate(value: string | undefined, fallback: number): number {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? Math.min(1, Math.max(0, parsed)) : fallback;
+}
+
+function sampleRate(env: Env, success: boolean): number {
+  const fallback = success && (env.ENVIRONMENT || "production") === "production"
+    ? SENTRY_SUCCESS_DEFAULT
+    : success ? 1 : SENTRY_REJECTION_DEFAULT;
+  return sentryRate(
+    success ? env.SENTRY_SUCCESS_EVENT_SAMPLE_RATE : env.SENTRY_REJECTION_EVENT_SAMPLE_RATE,
+    fallback,
+  );
+}
+
+function shouldSample(rate: number): boolean {
+  return Math.random() < rate;
+}
+
+function durationBucket(durationMs: number): string {
+  if (durationMs < 250) return "under-250ms";
+  if (durationMs < 500) return "250-500ms";
+  if (durationMs < 1000) return "500ms-1s";
+  if (durationMs < 3000) return "1-3s";
+  return "over-3s";
+}
+
+function routeName(pathname: string): string {
+  if (pathname === "/") return "legacy-contact";
+  if (pathname === "/api/telegram/webhook") return "telegram-webhook";
+  if (pathname === "/api/sentry-test") return "sentry-test";
+  if (pathname.startsWith("/api/chat/")) return pathname.slice("/api/chat/".length).replace(/[^a-z-]/g, "").slice(0, 40) || "chat";
+  if (pathname === "/api/health") return "health";
+  return "unknown";
+}
+
+function sentryEvent(
+  env: Env,
+  message: string,
+  level: "info" | "warning" | "error",
+  context: Record<string, string | number | boolean>,
+  success = false,
+): void {
+  if (level === "info" && !shouldSample(sampleRate(env, success))) return;
+  Sentry.captureMessage(message, {
+    level,
+    tags: {
+      component: "chat-worker",
+      ...(typeof context.operation === "string" ? { operation: context.operation } : {}),
+      ...(typeof context.result === "string" ? { result: context.result } : {}),
+      ...(typeof context.reason === "string" ? { reason: context.reason } : {}),
+      ...(typeof context.integration === "string" ? { integration: context.integration } : {}),
+      ...(typeof context.statusClass === "string" ? { telegram_status_class: context.statusClass } : {}),
+      ...(typeof context.durationBucket === "string" ? { worker_duration_bucket: context.durationBucket } : {}),
+    },
+    contexts: { operational: context },
+  });
+}
+
+function breadcrumb(category: string, message: string): void {
+  Sentry.addBreadcrumb({ category, message, level: "info" });
+}
+
+function requestResponse(response: Response, requestId: string): Response {
+  const headers = new Headers(response.headers);
+  headers.set("X-Request-ID", requestId);
+  return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+}
+
 function secret(env: Env): string {
   if (!env.SESSION_HASH_SECRET) throw new PublicError(503, "Service temporarily unavailable.", "session_secret_missing");
   return env.SESSION_HASH_SECRET;
@@ -111,12 +183,15 @@ async function handleStart(request: Request, env: Env): Promise<Response> {
   const body = await readJson(request);
   if (body.website) return json({ success: true }, 200);
   await verifyChallenge(secret(env), body.submissionToken);
+  breadcrumb("security", "Payload structure validated");
+  breadcrumb("turnstile", "Turnstile verification started");
   await verifyTurnstile(
     env,
     body.turnstileToken,
     getIp(request),
     body.turnstileIdempotencyKey,
   );
+  breadcrumb("turnstile", "Turnstile verification succeeded");
   const name = requiredString(body.name, "name", 100);
   const email = validateEmail(optionalString(body.email, "email", 254));
   const phone = optionalString(body.phone, "phone", 50);
@@ -575,7 +650,7 @@ async function handleLegacyContact(request: Request, env: Env): Promise<Response
   return json({ success: true });
 }
 
-async function route(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+async function route(request: Request, env: Env, ctx: ExecutionContext, requestId?: string): Promise<Response> {
   const url = new URL(request.url);
   if (request.method === "OPTIONS") {
     return isAllowedOrigin(request, env)
@@ -583,11 +658,15 @@ async function route(request: Request, env: Env, ctx: ExecutionContext): Promise
       : json({ error: "Origin not allowed." }, 403);
   }
   if (url.pathname === "/api/sentry-test" && request.method === "POST") {
-    if ((env.ENVIRONMENT || "production") === "production" || !env.SENTRY_TEST_TOKEN
-      || request.headers.get("X-Sentry-Test") !== env.SENTRY_TEST_TOKEN) {
+    if (env.SENTRY_TEST_ENABLED !== "true" || !env.SENTRY_TEST_KEY
+      || request.headers.get("X-Sentry-Test-Key") !== env.SENTRY_TEST_KEY) {
       return json({ error: "Not found." }, 404);
     }
-    throw new Error("F12 Sentry Worker integration test");
+    sentryEvent(env, "F12 Sentry Worker integration test", "info", {
+      operation: "sentry-test",
+      result: "submitted",
+    }, true);
+    return json({ ok: true, sentryTest: "submitted", requestId: requestId || "unavailable" });
   }
   if (url.pathname === "/api/health" && request.method === "GET") return handleHealth(env);
   if (url.pathname === "/api/telegram/webhook" && request.method === "POST") {
@@ -600,7 +679,8 @@ async function route(request: Request, env: Env, ctx: ExecutionContext): Promise
     return withCors(response, request, env);
   }
   if (!url.pathname.startsWith("/api/chat/")) return json({ error: "Not found." }, 404);
-  if (!isAllowedOrigin(request, env)) throw new PublicError(403, "Request not allowed.", "origin");
+  if (!isAllowedOrigin(request, env)) throw new PublicError(403, "Request not allowed.", "invalid-origin");
+  breadcrumb("security", "Origin accepted");
 
   let response: Response;
   if (url.pathname === "/api/chat/dev-status" && request.method === "GET") {
@@ -633,19 +713,75 @@ async function route(request: Request, env: Env, ctx: ExecutionContext): Promise
 
 const workerHandler = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-    try {
-      return await route(request, env, ctx);
-    } catch (error) {
-      if (!(error instanceof PublicError)) Sentry.captureException(error);
-      const publicError = error instanceof PublicError ? error : null;
-      safeLog(publicError?.code || "unhandled", { path: new URL(request.url).pathname });
-      const response = json(
-        { error: publicError?.message || "Something went wrong. Please try again." },
-        publicError?.status || 500,
-      );
-      const path = new URL(request.url).pathname;
-      return path.startsWith("/api/chat/") || path === "/" ? withCors(response, request, env) : response;
-    }
+    const requestId = crypto.randomUUID();
+    const started = performance.now();
+    const url = new URL(request.url);
+    const operation = routeName(url.pathname);
+    const method = request.method;
+    const finish = (response: Response, result: string): Response => {
+      const durationMs = Math.max(0, performance.now() - started);
+      const bucket = durationBucket(durationMs);
+      breadcrumb("response", "Safe response returned");
+      if (durationMs >= Number(env.SENTRY_SLOW_REQUEST_MS || 3000)) {
+        sentryEvent(env, "F12 Worker request slow", "warning", {
+          operation, result, durationMs: Math.round(durationMs), durationBucket: bucket,
+        });
+      }
+      return requestResponse(response, requestId);
+    };
+
+    return Sentry.withScope(async (scope) => {
+      scope.setTag("component", "chat-worker");
+      scope.setTag("route", operation);
+      scope.setTag("method", method);
+      scope.setTag("environment", env.ENVIRONMENT || "production");
+      scope.setContext("request", { requestId, operation });
+      breadcrumb("worker", "Worker request received");
+      try {
+        if (method === "OPTIONS") breadcrumb("security", "Request method accepted");
+        const response = await route(request, env, ctx, requestId);
+        if (method !== "OPTIONS") breadcrumb("security", "Request method accepted");
+        const result = response.status >= 400 ? "rejected" : response.status >= 200 && response.status < 300 ? "accepted" : "failed";
+        if (response.status === 404 && (url.pathname.startsWith("/api/") || url.pathname === "/")) {
+          sentryEvent(env, "F12 Worker request rejected", "warning", {
+            operation, result: "validation-rejected", reason: "invalid-method",
+          });
+        }
+        if (operation === "start" && result === "accepted") {
+          sentryEvent(env, "F12 chat submission received", "info", { operation: "chat-submit", result, requestId }, true);
+        }
+        return finish(response, result);
+      } catch (error) {
+        const publicError = error instanceof PublicError ? error : null;
+        const reason = publicError?.code || "unexpected-error";
+        const result = publicError ? "validation-rejected" : "delivery-failed";
+        scope.setContext("failure", { requestId, operation, reason });
+        if (!(error instanceof PublicError)) Sentry.captureException(error);
+        if (publicError) {
+          const rejectionReasons = new Set([
+            "invalid-method", "origin", "invalid_json", "invalid-payload", "missing-turnstile", "turnstile-rejected",
+          ]);
+          if (rejectionReasons.has(reason)) {
+            sentryEvent(env, "F12 Worker request rejected", "warning", { operation, result, reason, requestId });
+          }
+          if (reason === "turnstile_token_missing" || reason === "turnstile_rejected") {
+            sentryEvent(env, "F12 Turnstile validation failed", "warning", {
+              operation, result: "turnstile-rejected", reason,
+              turnstile_present: reason !== "turnstile_token_missing", turnstile_valid: false,
+            });
+          }
+        }
+        safeLog(reason, { path: url.pathname });
+        const response = json(
+          { error: publicError?.message || "Something went wrong. Please try again." },
+          publicError?.status || 500,
+        );
+        return finish(
+          url.pathname.startsWith("/api/chat/") || url.pathname === "/" ? withCors(response, request, env) : response,
+          result,
+        );
+      }
+    });
   },
 
   async scheduled(_controller: ScheduledController, env: Env, ctx: ExecutionContext): Promise<void> {
