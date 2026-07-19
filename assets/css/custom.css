@@ -1044,8 +1044,10 @@ a {
 .summer-hero__actions a:first-child,
 .summer-proof__links a:first-child,
 .summer-read-more {
-  border-color: var(--summer-orange);
-  background: var(--summer-orange);
+  /* Darker than --summer-orange: white text on the base orange is 2.44:1,
+     failing WCAG AA (4.5:1) for small bold text. This shade clears 5:1. */
+  border-color: #c1440e;
+  background: #c1440e;
   color: #fff;
 }
 
@@ -1222,7 +1224,9 @@ a {
 }
 
 .summer-capabilities span {
-  color: var(--summer-cyan);
+  /* Darker than --summer-cyan: #6eb8c7 on white is 2.24:1, failing WCAG AA
+     (4.5:1). This shade clears 5:1 while staying in the same teal family. */
+  color: #157a8c;
   font-size: 0.85rem;
   font-weight: 900;
 }

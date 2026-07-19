@@ -15,7 +15,10 @@
 <body class="{{ if .IsHome }}home{{ end }}">
 	{{ partial "header.html" . }}
 
-    {{ $home := where (where .Site.Pages "Type" "home") "Lang" .Lang }}
+    {{/* "Kind" "page" excludes the auto-generated section index that Hugo creates for
+         content/home/ (no _index.md there), which otherwise also matches Type "home"
+         and rendered as a second, empty <main id="main-content">. */}}
+    {{ $home := where (where (where .Site.Pages "Type" "home") "Kind" "page") "Lang" .Lang }}
     {{ $homeCount := len $home }}
 
     {{ if lt $homeCount 1 }}
@@ -27,9 +30,9 @@
         {{ end }}
     {{ else }}
     {{ range (sort $home "Date" "desc") }}
-        <div class="container home-container">
+        <main id="main-content" class="container home-container" tabindex="-1">
         {{ .Content | safeHTML }}
-        </div>
+        </main>
     {{ end }}
     {{ end }}
 
