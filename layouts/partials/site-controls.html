@@ -1,0 +1,25 @@
+{{- /* Minimal, always-visible language + theme controls. Replaces the old
+     Bootstrap dropdown selectors (permanently display:none until a
+     triple-click "preferences-unlocked" easter egg revealed them on
+     desktop only) with two small, always-reachable, keyboard- and
+     screen-reader-accessible controls. */}}
+{{- $ru := eq .Lang "ru" -}}
+{{- $translation := false -}}
+{{- with .Translations }}{{ $translation = index . 0 }}{{ end -}}
+<div class="site-controls">
+  {{- if $translation }}
+  <a class="site-controls__lang" href="{{ $translation.RelPermalink }}" hreflang="{{ $translation.Lang }}"
+    aria-label="{{ if $ru }}Переключить на английский язык{{ else }}Switch to Russian{{ end }}"
+    title="{{ if $ru }}Switch to English{{ else }}Переключить на русский{{ end }}">{{ $translation.Lang | upper }}</a>
+  {{- end }}
+  <button type="button" class="site-controls__theme" data-theme-toggle aria-pressed="false"
+    aria-label="{{ if $ru }}Переключить тёмную тему{{ else }}Toggle dark theme{{ end }}">
+    <svg class="site-controls__theme-icon site-controls__theme-icon--sun" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.2" />
+      <path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" />
+    </svg>
+    <svg class="site-controls__theme-icon site-controls__theme-icon--moon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20.5 14.6A8.5 8.5 0 1 1 9.4 3.5a7 7 0 0 0 11.1 11.1z" />
+    </svg>
+  </button>
+</div>

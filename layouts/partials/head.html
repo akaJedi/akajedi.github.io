@@ -9,15 +9,25 @@
 </script>
 {{- end }}
 
+{{- if hugo.IsMultilingual }}
 <script>
+  // One-time redirect from the site root to the visitor's preferred
+  // language, based on browser language settings. Only ever runs once
+  // (per browser) and only from "/" — anyone who lands on a specific
+  // page, or who has already used the language switcher, is left alone.
   try {
-    if (localStorage.getItem("preferences-unlocked") === "true") {
-      document.documentElement.classList.add("preferences-unlocked");
+    if (!localStorage.getItem("f12.langRedirected") && location.pathname === "/") {
+      localStorage.setItem("f12.langRedirected", "1");
+      var prefersRu = (navigator.languages || [navigator.language || ""]).some(function (lang) {
+        return lang.toLowerCase().indexOf("ru") === 0;
+      });
+      if (prefersRu) location.replace("/ru/");
     }
   } catch (_) {
     // Storage can be unavailable in privacy-restricted browsing contexts.
   }
 </script>
+{{- end }}
 
 <meta charset="UTF-8" />
 {{- /* GitHub Pages serves this site with no server-side control over response
@@ -26,7 +36,7 @@
      X-Content-Type-Options, COOP) are NOT enforceable this way — see
      static/_headers for those on the Netlify/Cloudflare Pages mirror. */}}
 {{- $workerOrigin := .Site.Params.chat.apibase | default "https://green-rice-1ea7.denis-f21.workers.dev" }}
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https://www.googletagmanager.com; connect-src 'self' {{ $workerOrigin }} https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com https://www.googletagmanager.com;" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://challenges.cloudflare.com https://tracker.metricool.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https://www.googletagmanager.com; connect-src 'self' {{ $workerOrigin }} https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://challenges.cloudflare.com https://tracker.metricool.com; frame-src https://challenges.cloudflare.com https://www.googletagmanager.com;" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -128,11 +138,6 @@
       }
     })();
   </script>
-  {{- $colorModesScript := resources.Get "js/color-modes.js" }}
-  {{- if hugo.IsProduction }}
-    {{- $colorModesScript = $colorModesScript | resources.Minify | resources.Fingerprint }}
-  {{- end }}
-  <script defer src="{{ $colorModesScript.Permalink }}"></script>
 {{- else }}
   <!-- disabled color theme selector -->
 {{- end }}

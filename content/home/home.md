@@ -16,13 +16,6 @@ translationKey = "homepage"
   </div>
   <div class="summer-signal">
     <div class="summer-signal__ring summer-signal__ring--one" data-signal-wheel role="button" tabindex="0" aria-label="Swipe down to accelerate the wheel"></div>
-    <div class="summer-signal__ring summer-signal__ring--two" data-preference-ring role="group" aria-label="Quick theme and language controls">
-      <button type="button" class="summer-signal__quarter summer-signal__quarter--light" data-ring-action="light" aria-label="Use light theme"></button>
-      <button type="button" class="summer-signal__quarter summer-signal__quarter--dark" data-ring-action="dark" aria-label="Use dark theme"></button>
-      <button type="button" class="summer-signal__quarter summer-signal__quarter--ru" data-ring-action="ru" aria-label="Switch to Russian"></button>
-      <button type="button" class="summer-signal__quarter summer-signal__quarter--en" data-ring-action="en" aria-label="Switch to English"></button>
-      <button type="button" class="summer-signal__center" data-ring-center aria-label="Triple click to show or hide theme and language menus"></button>
-    </div>
     <div class="summer-signal__panel" data-signal-carousel data-interval="10000" data-pause-label="Pause slideshow" data-resume-label="Resume slideshow">
       <div class="summer-signal__slides" aria-live="off">
         <div class="summer-signal__slide is-active" data-signal-slide aria-hidden="false">

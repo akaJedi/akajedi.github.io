@@ -125,11 +125,6 @@ disableIDs = false
 disableTags = false
 enable = true
 
-[params.languages.selector.disable]
-footer = false
-header = false
-mobileHeader = true
-
 [languages]
 [languages.en]
 disabled = false
@@ -275,17 +270,8 @@ URL = "scss/adritian.scss"
 #  [params.colorTheme.forced]
 #    theme = "dark"
 
-## the following parameter will disable theme override in the footer
-#  [params.colorTheme.selector.disable]
-#  footer = true
 [params.colorTheme.forced]
     theme = "light"
-
-[params.colorTheme.selector.disable]
-footer = false
-header = false
-mobileHeader = true
-## by default we allow override AND automatic selection
 
 # Page transition settings
 [params.pageTransition]
