@@ -1,5 +1,7 @@
 # f12.biz Hugo site and private Telegram chat
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/dc8b49ee-d207-4237-9053-8c9f54bcec0f/deploy-status)](https://app.netlify.com/projects/f12-biz/deploys)
+
 This repository builds the static Hugo site and a Cloudflare Worker that supports the existing contact form plus a persistent website-to-Telegram chat. Website visitors never interact with Telegram directly. The Worker stores conversations and callback requests in Cloudflare D1, sends owner notifications through the Telegram Bot API, and accepts owner replies through a secret-protected Telegram webhook.
 
 ## Architecture
