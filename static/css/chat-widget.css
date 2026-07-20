@@ -970,17 +970,23 @@ body:not(.page-contact) .site-chat__launcher > span:last-child {
 .site-chat__form button { direction: ltr; }
 .site-chat__messages > * { align-self: stretch; }
 
-/* Unread-message badge on the header's Contact (envelope) nav item. */
-.site-chat__nav-link { position: relative; }
+/* Unread-message badge on the header's Contact (envelope) nav item. The
+   wrap is sized to the icon glyph itself (not the padded nav-link touch
+   target), so the dot sits tight against the envelope's corner. */
+.site-chat__nav-icon-wrap {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}
 .site-chat__nav-dot {
   display: none;
   position: absolute;
-  top: -2px;
-  right: -6px;
-  width: 10px;
-  height: 10px;
+  top: -3px;
+  right: -4px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: #d6280f;
   box-shadow: 0 0 0 2px var(--summer-surface-raised, #fff);
 }
-.site-chat__nav-link.has-unread .site-chat__nav-dot { display: block; }
+[data-chat-nav-indicator].has-unread .site-chat__nav-dot { display: block; }
