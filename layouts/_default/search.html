@@ -7,33 +7,41 @@
 {{ end }}
 
 {{ define "main" }}
+{{- $ru := eq .Lang "ru" }}
 <section class="search-section p-3 p-lg-5 d-flex flex-column align-items-center bg-light rounded shadow-sm"
-  data-search-index="{{ with .Site.Home.OutputFormats.Get "JSON" }}{{ .RelPermalink }}{{ else }}/index.json{{ end }}">
+  data-search-index="{{ with .Site.Home.OutputFormats.Get "JSON" }}{{ .RelPermalink }}{{ else }}/index.json{{ end }}"
+  data-search-lang="{{ .Lang }}">
   <div class="my-auto w-100" style="max-width: 760px;">
-    <h2 class="mb-4 text-center">Search the Site</h2>
-    
+    <h2 class="mb-4 text-center">{{ if $ru }}Поиск по сайту{{ else }}Search the Site{{ end }}</h2>
+
     <noscript>
       <div class="alert alert-warning" role="alert">
-        JavaScript is required to use the search functionality, because the search takes place client-side in the web browser. 
+        {{ if $ru }}
+        Для работы поиска требуется JavaScript, так как поиск выполняется на стороне браузера.
+        <br/>
+        Пожалуйста, включите JavaScript в браузере, чтобы воспользоваться этой функцией.
+        {{ else }}
+        JavaScript is required to use the search functionality, because the search takes place client-side in the web browser.
         <br/>
         Please enable JavaScript in your browser to use this functionality.
+        {{ end }}
       </div>
     </noscript>
-    
+
     <div class="mb-5">
       <form action="{{ "search" | absURL }}">
         <div class="input-group">
-          <input id="search-query" name="s" class="form-control form-control-lg" type="search" placeholder="Type to search..." autocomplete="off" aria-label="Search" />
+          <input id="search-query" name="s" class="form-control form-control-lg" type="search" placeholder="{{ if $ru }}Введите текст для поиска…{{ else }}Type to search...{{ end }}" autocomplete="off" aria-label="{{ if $ru }}Поиск{{ else }}Search{{ end }}" />
           <button type="submit" class="input-group-text">
             <i class="icon-circle-arrow-right"></i>
           </button>
         </div>
       </form>
     </div>
-    
+
     <div id="search-results" class="card border-0">
       <div class="card-body">
-        <h3 class="card-title">Matching pages</h3>
+        <h3 class="card-title">{{ if $ru }}Найденные страницы{{ else }}Matching pages{{ end }}</h3>
         <!-- Results will appear here -->
       </div>
     </div>
@@ -44,8 +52,8 @@
   <div id="summary-${key}" class="mb-4 p-3 border-bottom">
     <h4 class="mb-1"><a href="${link}" class="text-decoration-none">${title}</a></h4>
     <p class="mb-2 text-muted small">${snippet}</p>
-    ${ isset tags }<span class="badge bg-primary me-1">Tags: ${tags}</span>${ end }
-    ${ isset categories }<span class="badge bg-secondary">Categories: ${categories}</span>${ end }
+    ${ isset tags }<span class="badge bg-primary me-1">{{ if $ru }}Теги{{ else }}Tags{{ end }}: ${tags}</span>${ end }
+    ${ isset categories }<span class="badge bg-secondary">{{ if $ru }}Категории{{ else }}Categories{{ end }}: ${categories}</span>${ end }
   </div>
 </script>
 {{ end }}

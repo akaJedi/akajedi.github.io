@@ -19,7 +19,11 @@
           {{- $description = "Career history in IT operations, infrastructure engineering, support, and enterprise migrations." -}}
         {{- end -}}
       {{- else if eq .Section "skills" -}}
-        {{- $description = "Cloud, support, security, automation, and DevOps skills across enterprise environments." -}}
+        {{- if eq .Lang "ru" -}}
+          {{- $description = "Облако, поддержка, безопасность, автоматизация и DevOps-навыки в корпоративных средах." -}}
+        {{- else -}}
+          {{- $description = "Cloud, support, security, automation, and DevOps skills across enterprise environments." -}}
+        {{- end -}}
       {{- else if eq .Section "resume" -}}
         {{- $description = "Downloadable resumes for hardware deployment and DevOps/platform roles." -}}
       {{- else if eq .Section "blog" -}}
