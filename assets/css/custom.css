@@ -2000,7 +2000,7 @@ body.page-contact .footer > .section--contact .contact {
 .blog-article__terms a {
   display: inline-flex;
   align-items: center;
-  min-height: 40px;
+  min-height: 44px;
   padding: 0.65rem 0.9rem;
   border: 1px solid var(--summer-line);
   color: var(--summer-blue);
@@ -2127,7 +2127,7 @@ body.page-contact .footer > .section--contact .contact {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.45rem;
+  gap: 0.6rem;
   margin: 0;
   padding: 0;
   list-style: none;

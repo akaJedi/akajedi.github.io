@@ -72,10 +72,12 @@ test("Contact routes and links use the persistent chat sidebar", async () => {
   assert.match(script, /requestAnimationFrame\(openPanel\)/);
 });
 
-test("chat client keeps only the session token locally and renders untrusted text safely", async () => {
+test("chat client keeps only non-PII flags locally and renders untrusted text safely", async () => {
   const script = await read("static/js/chat-widget.js");
   assert.match(script, /f12\.websiteChat\.sessionToken/);
-  assert.equal((script.match(/localStorage\.setItem/g) || []).length, 1);
+  assert.match(script, /f12\.websiteChat\.dismissed/);
+  assert.match(script, /f12\.websiteChat\.unread/);
+  assert.equal((script.match(/localStorage\.setItem/g) || []).length, 3);
   assert.doesNotMatch(script, /localStorage\.setItem\([^,]*(name|email|phone|message)/i);
   assert.match(script, /body\.textContent = message\.messageText/);
   assert.match(script, /\/api\/chat\/draft/);
