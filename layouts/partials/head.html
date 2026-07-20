@@ -1,7 +1,22 @@
 {{- if and .Site.Params.analytics.cookiebot.enabled .Site.Params.analytics.cookiebot.cbid }}
 {{- /* Must stay the first script in <head> — data-blockingmode="auto"
-     only intercepts scripts that come after it in document order. */}}
-<script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="{{ .Site.Params.analytics.cookiebot.cbid }}" data-blockingmode="auto" type="text/javascript"></script>
+     only intercepts scripts that come after it in document order.
+
+     The Cookiebot Manager plan behind this domain group ID only
+     authorizes f12.biz/www.f12.biz, and doesn't allow adding the
+     Netlify/Cloudflare Pages mirror hostnames on top of it. Rather
+     than let the banner fail loudly on every mirror (404s on its own
+     config endpoint, "domain not authorized" errors), skip loading it
+     there entirely. document.write is the one technique that inserts
+     a script tag synchronously, in-place, during initial parsing —
+     preserving the exact ordering data-blockingmode="auto" needs —
+     without it, a dynamically-created script element would load and
+     execute out of order and defeat the auto-blocking entirely. */}}
+<script>
+  if (["f12.biz", "www.f12.biz"].indexOf(location.hostname.toLowerCase()) !== -1) {
+    document.write('<script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="{{ .Site.Params.analytics.cookiebot.cbid }}" data-blockingmode="auto" type="text/javascript"><\/script>');
+  }
+</script>
 {{- end }}
 
 {{- if and .Site.Params.analytics.googleAnalytics.enabled .Site.Params.analytics.googleAnalytics.code }}
