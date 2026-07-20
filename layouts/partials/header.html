@@ -61,26 +61,10 @@
               >
             </li>
             {{- end }}
-            
-            {{- if hugo.IsMultilingual }} 
-            {{- if not .Site.Params.languages.selector.disable.header }}
-            {{ .Scratch.Set "selectorPlacement" "header" }}
-            {{ .Scratch.Set "dropdownDirection" "down" }}         
-            <li class="dropdown language-selector nav-item">
-            {{ partial "selector-language.html" . }}
-            </li>
-            {{- end }}
-            {{- end }}
-            {{- if not .Site.Params.colorTheme.selector.disable.header }}
-            <li class="dropdown theme-selector nav-item">
-              {{ .Scratch.Set "selectorPlacement" "header" }}
-              {{ .Scratch.Set "dropdownDirection" "down" }}  
-              {{ partial "selector-theme.html" . }}
-            </li>
-            {{- end }}
           </ul>
         </div>
 
+        {{ partial "site-controls.html" . }}
       </div>
     </nav>
   </div>

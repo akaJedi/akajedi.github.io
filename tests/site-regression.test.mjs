@@ -193,20 +193,18 @@ test("skills percentages match their bars and experience stays visible", async (
   assert.ok(years.every((value) => /^\d+\+$/.test(value)), "experience must be numeric");
 });
 
-test("shared grid, responsive layout, theme menu, and transparent fields stay intact", async () => {
+test("shared grid, responsive layout, and transparent fields stay intact", async () => {
   const css = await readSource("assets/css/custom.css");
 
   assert.match(css, /body,\s*body\.home\s*\{[\s\S]*background-size:\s*52px 52px/);
   assert.match(css, /@media \(max-width:\s*575px\)[\s\S]*background-size:\s*44px 44px/);
-  assert.match(css, /\.dropdown-menu\.show\s*\{\s*display:\s*block !important/);
   assert.match(css, /contact__form input,[\s\S]*background:\s*transparent !important/);
   assert.match(css, /contact__form input,[\s\S]*color:\s*var\(--summer-ink\) !important/);
   assert.match(css, /@media \(max-width:\s*767px\)/);
-  assert.match(css, /\.header \.language-selector,[\s\S]*\.footer_right\s*\{\s*display:\s*none !important/);
   assert.match(css, /body\.home \.summer-hero \{[\s\S]*max-width: 1180px[\s\S]*width: calc\(100% - 3rem\)/);
   assert.match(css, /body\.home \.header > \.container \{[\s\S]*max-width: 1180px[\s\S]*width: calc\(100% - 3rem\)/);
-  assert.match(css, /@media \(min-width:\s*992px\)[\s\S]*html\.preferences-unlocked[\s\S]*display:\s*block !important/);
   assert.match(css, /@media \(max-width:\s*575px\)[\s\S]*\.summer-signal\s*\{[\s\S]*min-height:\s*100svh/);
+  assert.doesNotMatch(css, /preferences-unlocked|summer-signal__quarter|summer-signal__ring--two/);
 });
 
 test("homepage mini slideshow keeps its ten-second interval and controls", async () => {
@@ -221,13 +219,7 @@ test("homepage mini slideshow keeps its ten-second interval and controls", async
   assert.match(script, /querySelectorAll\("\[data-signal-pads\]"\)/);
   assert.match(script, /querySelectorAll\("\[data-signal-wheel\]"\)/);
   assert.match(script, /orbit\.playbackRate/);
-  assert.match(script, /querySelectorAll\("\[data-preference-ring\]"\)/);
-  assert.match(script, /data-bs-theme-value/);
-  assert.match(script, /querySelector\("\[data-ring-center\]"\)/);
-  assert.match(script, /window\.location\.assign/);
-  assert.match(script, /unlockClicks === 3/);
-  assert.match(script, /localStorage\.setItem\("preferences-unlocked", "true"\)/);
-  assert.match(script, /localStorage\.removeItem\("preferences-unlocked"\)/);
+  assert.doesNotMatch(script, /data-preference-ring|data-ring-action|data-ring-center|preferences-unlocked/);
   assert.doesNotMatch(script, /MediaRecorder|data-signal-recorder/);
   assert.match(html, /data-signal-carousel/);
   assert.match(html, /data-interval=10000/);
@@ -240,14 +232,9 @@ test("homepage mini slideshow keeps its ten-second interval and controls", async
   assert.match(html, /data-signal-pads/);
   assert.match(html, /data-signal-wheel/);
   assert.doesNotMatch(html, /data-signal-recorder|data-record-download/);
-  assert.match(html, /data-preference-ring/);
-  assert.equal(
-    occurrences(html, "data-ring-action="),
-    4,
-    "preference ring must retain four invisible quadrant actions",
-  );
+  assert.doesNotMatch(html, /data-preference-ring|data-ring-action|summer-signal__quarter/);
   assert.doesNotMatch(html, /summer-signal__shortcut-guide|RING SHORTCUTS/);
-  assert.match(html, /localStorage\.getItem\("preferences-unlocked"\)/);
+  assert.doesNotMatch(html, /localStorage\.getItem\("preferences-unlocked"\)/);
   assert.match(html, /signal-carousel\.js/);
 
   const padGrid = html.match(/data-signal-pads[^>]*>([\s\S]*?)<\/div>/);
@@ -278,7 +265,6 @@ test("only tile four plays the supplied coffee track and tiles stay hidden on mo
   assert.match(html, /data-signal-pads/);
   assert.doesNotMatch(html, /data-signal-sets|data-signal-set=/);
   assert.match(css, /Visual-only signal panel:[\s\S]*summer-signal__grid\[data-signal-pads\][\s\S]*display: none !important/);
-  assert.match(css, /Invisible four-way preference ring hit areas[\s\S]*background:\s*transparent;[\s\S]*box-shadow:\s*none/);
   assert.match(css, /span:nth-child\(4\):hover[\s\S]*linear-gradient\(145deg, #a87958, #5d3b29\)/);
 });
 
@@ -295,4 +281,32 @@ test("blog introduction appears only on page one and collapses on mobile", async
   assert.match(firstPage, /class=blog-archive__intro-toggle/);
   assert.match(russianPage, /Показать описание/);
   assert.match(css, /@media \(max-width:\s*575px\)[\s\S]*blog-archive__intro-toggle:not\(\[open\]\)[\s\S]*display:\s*none/);
+});
+
+test("language and theme controls are always visible, not gated behind a hidden trigger", async () => {
+  const [partial, script, css, english, russian] = await Promise.all([
+    readSource("layouts/partials/site-controls.html"),
+    readSource("static/js/site-controls.js"),
+    readSource("assets/css/custom.css"),
+    readBuilt("index.html"),
+    readBuilt("ru/index.html"),
+  ]);
+
+  assert.match(partial, /site-controls__lang/);
+  assert.match(partial, /data-theme-toggle/);
+  assert.doesNotMatch(partial, /dropdown-toggle|data-bs-toggle="dropdown"/);
+
+  assert.match(script, /data-bs-theme", next\)/);
+  assert.match(script, /localStorage\.setItem\(STORAGE_KEY, next\)/);
+  assert.match(script, /prefers-color-scheme: dark/);
+
+  assert.doesNotMatch(css, /\.site-controls[\s\S]{0,400}display:\s*none !important/);
+  assert.match(css, /\.site-controls__lang,\s*\n\.site-controls__theme\s*\{/);
+
+  assert.match(english, /class=site-controls/);
+  assert.match(english, /data-theme-toggle/);
+  assert.match(english, /class=site-controls__lang href=\.\/ru\/[^>]*>RU<\/a>/);
+  assert.match(russian, /class=site-controls__lang href=\.\.\/[^>]*>EN<\/a>/);
+
+  assert.doesNotMatch(english + russian, /data-preference-ring|preferences-unlocked|dropdown language-selector|dropdown theme-selector/);
 });

@@ -922,6 +922,74 @@ a {
   color: var(--summer-orange);
 }
 
+/* Always-visible language + theme controls, replacing the old dropdowns
+   that stayed display:none until an undiscoverable triple-click easter
+   egg revealed them (desktop only — mobile had no way to reach them). */
+.site-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 0.75rem;
+  flex: 0 0 auto;
+}
+
+.site-controls__lang,
+.site-controls__theme {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 0.6rem;
+  border: 1px solid var(--summer-line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--summer-ink);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+}
+
+.site-controls__theme { padding: 0; width: 44px; }
+
+.site-controls__lang:hover,
+.site-controls__lang:focus-visible,
+.site-controls__theme:hover,
+.site-controls__theme:focus-visible {
+  color: #fff;
+  background: var(--summer-orange);
+  border-color: var(--summer-orange);
+}
+
+.site-controls__theme-icon {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.site-controls__theme-icon--moon {
+  display: none;
+  fill: currentColor;
+  stroke: none;
+}
+
+[data-bs-theme="dark"] .site-controls__theme-icon--sun { display: none; }
+[data-bs-theme="dark"] .site-controls__theme-icon--moon { display: block; }
+
+@media (max-width: 991px) {
+  .site-controls {
+    margin-left: 0;
+    order: -1;
+  }
+}
+
 .section,
 .row--padded {
   border-color: var(--summer-line) !important;
@@ -1147,17 +1215,6 @@ a {
   height: 190px;
   top: 0;
   right: 12%;
-}
-
-.summer-signal__ring--two {
-  width: 96px;
-  height: 96px;
-  left: 3%;
-  bottom: 18%;
-  border-color: rgba(246, 138, 51, 0.76);
-  box-shadow:
-    inset 0 0 0 12px rgba(246, 138, 51, 0.1),
-    inset 0 0 0 24px rgba(16, 38, 59, 0.06);
 }
 
 .summer-band,
@@ -1766,11 +1823,6 @@ main:not(.home-container) > section,
 .footer__nav .nav-link:hover,
 .footer a:hover {
   color: var(--summer-orange) !important;
-}
-
-.footer .dropdown-menu {
-  border-radius: 0 !important;
-  border-color: var(--summer-line) !important;
 }
 
 @media (max-width: 991px) {
@@ -3216,12 +3268,6 @@ body.page-about .hero-links .btn:hover { transform: translateY(-3px); }
   min-width: 0;
 }
 
-.header .language-selector,
-.header .theme-selector,
-.footer_right {
-  display: none !important;
-}
-
 @media (min-width: 992px) {
   .header > .container {
     width: calc(100% - 3rem);
@@ -3241,15 +3287,6 @@ body.page-about .hero-links .btn:hover { transform: translateY(-3px); }
 
   .header .navbar-brand {
     margin-inline: 0 !important;
-  }
-
-  html.preferences-unlocked .header .language-selector,
-  html.preferences-unlocked .header .theme-selector {
-    display: block !important;
-  }
-
-  html.preferences-unlocked .footer_right {
-    display: block !important;
   }
 }
 
@@ -3356,11 +3393,6 @@ body.page-about .hero-links .btn:hover { transform: translateY(-3px); }
     right: 4%;
   }
 
-  .summer-signal__ring--two {
-    width: 76px;
-    height: 76px;
-  }
-
   .summer-signal__panel {
     right: 0;
     bottom: 2%;
@@ -3437,10 +3469,6 @@ body.page-about .hero-links .btn:hover { transform: translateY(-3px); }
 
   .summer-signal__panel strong {
     font-size: 2.05rem;
-  }
-
-  .summer-signal__ring--two {
-    display: none;
   }
 }
 
@@ -3652,11 +3680,6 @@ body.page-contact .contact {
   background: rgba(121, 200, 213, 0.28);
   box-shadow: 0 0 0 1px rgba(121, 200, 213, 0.2);
   transition: background-color 240ms ease, box-shadow 240ms ease;
-}
-
-.summer-signal__ring--two {
-  cursor: pointer;
-  user-select: none;
 }
 
 .summer-signal__grid[data-signal-pads] span {
@@ -3872,9 +3895,6 @@ body.page-contact .contact {
   letter-spacing: 0.02em;
 }
 
-
-/* Contact: simplified conversation entry */
-.dropdown-menu.show { display: block !important; }
 
 body.page-contact main.container > #main {
   max-width: none;
@@ -4192,65 +4212,6 @@ body.page-contact .footer > .section--contact { display: none !important; }
   .summer-signal__grid[data-signal-pads] {
     display: none !important;
   }
-}
-
-/* Invisible four-way preference ring hit areas */
-.summer-signal__ring--two[data-preference-ring] {
-  overflow: hidden;
-  isolation: isolate;
-  cursor: default;
-}
-
-.summer-signal__quarter,
-.summer-signal__center {
-  position: absolute;
-  min-width: 0;
-  min-height: 0;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-  cursor: pointer;
-  appearance: none;
-  touch-action: manipulation;
-  outline: 0;
-}
-
-.summer-signal__quarter {
-  z-index: 1;
-  width: 50%;
-  height: 50%;
-}
-
-.summer-signal__quarter--light {
-  top: 0;
-  left: 0;
-}
-
-.summer-signal__quarter--dark {
-  top: 0;
-  right: 0;
-}
-
-.summer-signal__quarter--ru {
-  bottom: 0;
-  left: 0;
-}
-
-.summer-signal__quarter--en {
-  right: 0;
-  bottom: 0;
-}
-
-.summer-signal__center {
-  top: 32%;
-  left: 32%;
-  z-index: 2;
-  width: 36%;
-  height: 36%;
-  border-radius: 50%;
 }
 
 .summer-signal__grid[data-signal-pads] span:nth-child(4) {

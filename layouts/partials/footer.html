@@ -9,7 +9,7 @@
             <span>{{ i18n "footer_notice" | safeHTML }}</span>
           </div>
         </div>
-        <div class="footer_links col-12 col-lg-6 mb-3 mb-lg-0 text-center text-lg-start">
+        <div class="footer_links col-12 col-lg-8 mb-3 mb-lg-0 text-center text-lg-start">
           <ul class="footer__nav w-100 align-items-center justify-content-center justify-content-lg-start d-flex flex-wrap gap-2">
             {{ range .Site.Menus.footer }}
             <li class="nav-item">
@@ -23,23 +23,6 @@
             </li>
             {{ end }}
           </ul>
-        </div>
-        <div class="footer_right col-12 col-lg-2 mb-3 mb-lg-0 text-center text-lg-end">
-          <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-2 d-grid col-12 ">
-            {{- if hugo.IsMultilingual }} 
-            {{- if not .Site.Params.languages.selector.disable.footer }}
-            {{ .Scratch.Set "selectorPlacement" "footer" }}
-            {{ .Scratch.Set "dropdownDirection" "up" }}
-            {{ partial "selector-language.html" . }}
-            {{- end }} 
-            {{- end }}
-            
-            {{- if not .Site.Params.colorTheme.selector.disable.footer }}
-            {{ .Scratch.Set "selectorPlacement" "footer" }}
-            {{ .Scratch.Set "dropdownDirection" "up" }}
-            {{ partial "selector-theme.html" . }}
-            {{- end }}
-          </div>
         </div>
       </div>
     </div>

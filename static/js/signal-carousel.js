@@ -68,73 +68,6 @@
     });
   });
 
-  const setTheme = (theme) => {
-    const themeButton = document.querySelector(`[data-bs-theme-value="${theme}"]`);
-    if (themeButton) {
-      themeButton.click();
-      return;
-    }
-
-    document.documentElement.setAttribute("data-bs-theme", theme);
-    document.documentElement.removeAttribute("data-theme-auto");
-    try {
-      localStorage.setItem("theme", theme);
-    } catch (_) {
-      // The selected theme still applies to this page when storage is unavailable.
-    }
-  };
-
-  const setLanguage = (language) => {
-    const currentLanguage = (document.documentElement.lang || "en")
-      .toLowerCase()
-      .split("-")[0];
-    if (currentLanguage === language) return;
-
-    const translatedPage = [...document.querySelectorAll("a.translation")].find((link) => {
-      const label = `${link.title} ${link.textContent}`.toLowerCase();
-      return language === "ru" ? /рус|russian/.test(label) : /англ|english/.test(label);
-    });
-    window.location.assign(translatedPage?.href || (language === "ru" ? "/ru/" : "/"));
-  };
-
-  document.querySelectorAll("[data-preference-ring]").forEach((ring) => {
-    const actionButtons = [...ring.querySelectorAll("[data-ring-action]")];
-
-    const syncRingState = () => {
-      const currentTheme = document.documentElement.getAttribute("data-bs-theme") || "light";
-      const currentLanguage = (document.documentElement.lang || "en")
-        .toLowerCase()
-        .split("-")[0];
-
-      actionButtons.forEach((button) => {
-        const action = button.dataset.ringAction;
-        const active = action === currentTheme || action === currentLanguage;
-        button.classList.toggle("is-active", active);
-        button.setAttribute("aria-pressed", String(active));
-      });
-    };
-
-    actionButtons.forEach((button) => {
-      button.addEventListener("click", (event) => {
-        event.stopPropagation();
-        const action = button.dataset.ringAction;
-        if (action === "light" || action === "dark") {
-          setTheme(action);
-          syncRingState();
-        } else if (action === "ru" || action === "en") {
-          setLanguage(action);
-        }
-      });
-    });
-
-    new MutationObserver(syncRingState).observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["data-bs-theme"],
-    });
-    syncRingState();
-  });
-
-
   document.querySelectorAll("[data-signal-wheel]").forEach((wheel) => {
     let startY = 0;
     let startTime = 0;
@@ -202,46 +135,9 @@
     const slides = [...carousel.querySelectorAll("[data-signal-slide]")];
     const lights = [...carousel.querySelectorAll(".summer-signal__lights i")];
     const toggle = carousel.querySelector("[data-signal-toggle]");
-    const preferenceTrigger = carousel
-      .closest(".summer-signal")
-      ?.querySelector("[data-ring-center]");
     const interval = Number(carousel.dataset.interval) || 10000;
     const pauseLabel = carousel.dataset.pauseLabel || "Pause slideshow";
     const resumeLabel = carousel.dataset.resumeLabel || "Resume slideshow";
-
-    if (preferenceTrigger) {
-      const desktop = window.matchMedia("(min-width: 992px)");
-      let unlockClicks = 0;
-      let unlockTimer;
-
-      preferenceTrigger.addEventListener("click", () => {
-        if (!desktop.matches) {
-          return;
-        }
-
-        unlockClicks += 1;
-        window.clearTimeout(unlockTimer);
-
-        if (unlockClicks === 3) {
-          const unlocked = document.documentElement.classList.toggle("preferences-unlocked");
-          unlockClicks = 0;
-          try {
-            if (unlocked) {
-              localStorage.setItem("preferences-unlocked", "true");
-            } else {
-              localStorage.removeItem("preferences-unlocked");
-            }
-          } catch (_) {
-            // The controls still toggle for this page when storage is unavailable.
-          }
-          return;
-        }
-
-        unlockTimer = window.setTimeout(() => {
-          unlockClicks = 0;
-        }, 1200);
-      });
-    }
 
     if (slides.length < 2 || !toggle) return;
 
