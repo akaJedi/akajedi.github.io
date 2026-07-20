@@ -21,7 +21,7 @@
         <a class="navbar-brand mx-auto" href="{{ .Site.BaseURL | relLangURL }}">
             {{ if .Site.Params.logo }}
             <img
-            src="{{ .Site.Params.logo | absURL }}"
+            src="{{ .Site.Params.logo | relURL }}"
             alt="{{ i18n "logo_alt" }}"
             class="logo"
             />

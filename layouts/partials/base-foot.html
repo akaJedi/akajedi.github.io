@@ -19,11 +19,11 @@
 </script>
 
 <!-- Non-critical scripts loaded with defer for better performance -->
-<script defer src='{{ "js/site-controls.js" | absURL }}'></script>
-<script defer src='{{ "js/rad-animations.js" | absURL }}'></script>
-<script defer src='{{ "js/library/smooth-scroll.polyfills.min.js" | absURL }}'></script>
-<script defer src='{{ "js/sticky-header.js" | absURL }}'></script>
-<script defer src='{{ "js/smooth-scroll-init.js" | absURL }}'></script>
+<script defer src='{{ "js/site-controls.js" | relURL }}'></script>
+<script defer src='{{ "js/rad-animations.js" | relURL }}'></script>
+<script defer src='{{ "js/library/smooth-scroll.polyfills.min.js" | relURL }}'></script>
+<script defer src='{{ "js/sticky-header.js" | relURL }}'></script>
+<script defer src='{{ "js/smooth-scroll-init.js" | relURL }}'></script>
 
 {{- $bootstrapJs := resources.Get "js/vendor/bootstrap.bundle.min.js" | fingerprint | resources.Copy "/assets/js/vendor/bootstrap.bundle.min.js" }}
 <script defer src="{{ $bootstrapJs.RelPermalink }}"></script>

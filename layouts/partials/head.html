@@ -115,7 +115,7 @@
   {{- if $style }}
     <link
       rel="stylesheet"
-      href="{{ $style.Permalink }}"
+      href="{{ $style.RelPermalink }}"
       integrity="{{ $style.Data.Integrity }}"
       crossorigin="anonymous" />
   {{- end }}
@@ -149,7 +149,7 @@
 {{- end }}
 
 <!-- Preload lozad for faster image loading -->
-<link rel="preload" href="{{ "js/library/lozad.min.js" | absURL }}" as="script">
-<script async src="{{ "js/library/lozad.min.js" | absURL }}"></script>
+<link rel="preload" href="{{ "js/library/lozad.min.js" | relURL }}" as="script">
+<script async src="{{ "js/library/lozad.min.js" | relURL }}"></script>
 
 {{ template "_internal/opengraph.html" . }}
