@@ -44,9 +44,13 @@
           <ul class="navbar-nav ml-lg-auto">
             {{- range .Site.Menus.header }}
             <li class="nav-item">
-              <a data-scroll class="nav-link" href="{{ .URL | relURL }}"
+              <a data-scroll class="nav-link{{ if eq .Pre "email" }} site-chat__nav-link{{ end }}" href="{{ .URL | relURL }}"{{ if eq .Pre "email" }} data-chat-nav-indicator{{ end }}
                 >{{ if .Pre }}
                   <i class="icon-{{ .Pre }}" aria-label="{{ or .Name .Pre }}"></i>
+                  {{ if eq .Pre "email" }}
+                  <span class="site-chat__nav-dot" aria-hidden="true"></span>
+                  <span class="visually-hidden" data-chat-nav-unread-text hidden>{{ if eq $.Lang "ru" }}Есть новые сообщения{{ else }}Unread messages{{ end }}</span>
+                  {{ end }}
                 {{ else }}
                   {{ .Name | upper }}
                 {{ end }}</a

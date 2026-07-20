@@ -969,3 +969,18 @@ body:not(.page-contact) .site-chat__launcher > span:last-child {
 .site-chat__form textarea,
 .site-chat__form button { direction: ltr; }
 .site-chat__messages > * { align-self: stretch; }
+
+/* Unread-message badge on the header's Contact (envelope) nav item. */
+.site-chat__nav-link { position: relative; }
+.site-chat__nav-dot {
+  display: none;
+  position: absolute;
+  top: -2px;
+  right: -6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #d6280f;
+  box-shadow: 0 0 0 2px var(--summer-surface-raised, #fff);
+}
+.site-chat__nav-link.has-unread .site-chat__nav-dot { display: block; }

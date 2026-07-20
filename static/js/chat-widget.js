@@ -2,6 +2,8 @@
   "use strict";
 
   const STORAGE_KEY = "f12.websiteChat.sessionToken";
+  const DISMISSED_KEY = "f12.websiteChat.dismissed";
+  const UNREAD_KEY = "f12.websiteChat.unread";
   const OPEN_INTERVAL = 3000;
   const MINIMIZED_INTERVAL = 15000;
   const MAX_BACKOFF = 60000;
@@ -113,6 +115,12 @@
     let sessionToken = "";
     try { sessionToken = localStorage.getItem(STORAGE_KEY) || ""; } catch (_) {}
     let conversationId = sessionToken.includes(".") ? sessionToken.split(".", 1)[0] : "";
+    let dismissed = false;
+    try { dismissed = localStorage.getItem(DISMISSED_KEY) === "1"; } catch (_) {}
+    let hasUnread = false;
+    try { hasUnread = localStorage.getItem(UNREAD_KEY) === "1"; } catch (_) {}
+    const navIndicator = document.querySelector("[data-chat-nav-indicator]");
+    const baseTitle = document.title;
 
     timezoneNode.textContent = timezone ? `${text.timezone} ${timezone}` : "";
 
@@ -381,6 +389,27 @@
       draftTimer = window.setTimeout(saveDraft, 700);
     }
 
+    function updateTitleNotice() {
+      if (hasUnread && document.hidden) {
+        if (document.title !== "(1) " + baseTitle) document.title = "(1) " + baseTitle;
+      } else if (document.title !== baseTitle) {
+        document.title = baseTitle;
+      }
+    }
+
+    function setUnread(state) {
+      hasUnread = state;
+      try { localStorage.setItem(UNREAD_KEY, state ? "1" : ""); } catch (_) {}
+      navIndicator?.classList.toggle("has-unread", state);
+      navIndicator?.querySelector("[data-chat-nav-unread-text]")?.toggleAttribute("hidden", !state);
+      updateTitleNotice();
+    }
+
+    function setDismissed(state) {
+      dismissed = state;
+      try { localStorage.setItem(DISMISSED_KEY, state ? "1" : ""); } catch (_) {}
+    }
+
     function renderMessage(message) {
       if (message.senderType === "system") return;
       if (rendered.has(message.id)) return;
@@ -392,6 +421,7 @@
       item.append(body);
       messagesNode.append(item);
       messagesNode.scrollTop = messagesNode.scrollHeight;
+      if (message.senderType !== "visitor" && panel.hidden) setUnread(true);
     }
 
     function showInfoBubble(message) {
@@ -450,6 +480,8 @@
       clearTimeout(pollTimer);
       clearTimeout(draftTimer);
       try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+      setDismissed(false);
+      setUnread(false);
       sessionToken = "";
       conversationId = "";
       submissionToken = "";
@@ -575,6 +607,8 @@
         if (!conversationTerminated) showConversation();
         schedulePoll(0);
       }
+      setDismissed(false);
+      setUnread(false);
     }
 
     function openFromContact(event) {
@@ -588,6 +622,7 @@
       setContactExpanded(false);
       launcher?.focus();
       syncDevbarLayout();
+      setDismissed(true);
       schedulePoll(MINIMIZED_INTERVAL);
     }
 
@@ -630,6 +665,7 @@
     document.addEventListener("visibilitychange", () => {
       clearTimeout(pollTimer);
       clearTimeout(devStatusTimer);
+      updateTitleNotice();
       if (document.hidden) {
         setPollState("warn", "Page hidden; polling paused");
       } else {
@@ -802,10 +838,16 @@
     setDevIndicator("site", "ok", "Hugo page rendered at " + location.host);
     syncDevbarLayout();
     refreshDevStatus();
+    navIndicator?.classList.toggle("has-unread", hasUnread);
+    navIndicator?.querySelector("[data-chat-nav-unread-text]")?.toggleAttribute("hidden", !hasUnread);
     if (sessionToken) {
-      openPanel();
-      showConversation();
-      schedulePoll(0);
+      if (dismissed) {
+        showConversation();
+        if (launcher) launcher.hidden = false;
+        schedulePoll(MINIMIZED_INTERVAL);
+      } else {
+        openPanel();
+      }
     } else {
       showStart();
       setPollState("idle", "No active conversation to poll");
