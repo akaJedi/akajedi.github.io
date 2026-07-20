@@ -1,4 +1,6 @@
 const snippetMaxLength = 160;
+const isRu = (document.documentElement.lang || "").toLowerCase().startsWith("ru");
+const t = (en, ru) => (isRu ? ru : en);
 
 const fuseOptions = {
   shouldSort: true,
@@ -46,6 +48,7 @@ const sectionSnippets = {
   "My Expirience": "Career history in IT operations, infrastructure engineering, support, and enterprise migrations.",
   "Мой опыт в сфере IT": "История карьеры в IT-операциях, инфраструктуре, поддержке и крупных миграциях.",
   "Technical Skills": "Cloud, support, security, automation, and DevOps skills across enterprise environments.",
+  "Технические навыки": "Облако, поддержка, безопасность, автоматизация и DevOps-навыки в корпоративных средах.",
   Resumes: "Downloadable resumes for hardware deployment and DevOps/platform roles.",
   Blog: "Technical notes, project writeups, and career reflections on infrastructure and automation.",
   "Добро пожаловть. Спасибо что зашли.": "Технические заметки, разборы проектов и размышления о карьере и автоматизации.",
@@ -59,8 +62,8 @@ function buildSnippet(item) {
   if (!source) {
     const section = normalizeText(item.section);
     return section
-      ? `Open this ${section} page for more details.`
-      : "Open this page for more details.";
+      ? t(`Open this ${section} page for more details.`, `Откройте страницу «${section}», чтобы узнать больше.`)
+      : t("Open this page for more details.", "Откройте страницу, чтобы узнать больше.");
   }
 
   if (source.length <= snippetMaxLength) {
@@ -200,7 +203,7 @@ function populateResults(result, searchQuery) {
       try {
         const output = render(templateDefinition, {
           key,
-          title: item.title || "Untitled",
+          title: item.title || t("Untitled", "Без названия"),
           link: item.link || item.permalink || "#",
           tags: normalizeList(item.tags),
           categories: normalizeList(item.categories),
@@ -225,7 +228,7 @@ function populateResults(result, searchQuery) {
     }
   } catch (error) {
     console.error("Error populating results:", error);
-    displayError("There was a problem displaying search results.");
+    displayError(t("There was a problem displaying search results.", "Не удалось отобразить результаты поиска."));
   }
 }
 
@@ -241,9 +244,9 @@ function executeSearch(searchQuery) {
     }
 
     searchResults.innerHTML =
-      '<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>';
+      `<div class="spinner-border text-primary" role="status"><span class="visually-hidden">${t("Loading...", "Загрузка…")}</span></div>`;
 
-    const searchSection = document.getElementById("main-content");
+    const searchSection = document.querySelector(".search-section");
     const searchIndexURL = searchSection?.dataset.searchIndex || "/index.json";
 
     fetch(searchIndexURL)
@@ -278,17 +281,17 @@ function executeSearch(searchQuery) {
         } else {
           searchResults.insertAdjacentHTML(
             "beforeend",
-            "<div class='alert'>No matches found</div>",
+            `<div class='alert'>${t("No matches found", "Совпадений не найдено")}</div>`,
           );
         }
       })
       .catch((error) => {
         console.error("Error executing search:", error);
-        displayError(`Failed to search: ${error.message}`);
+        displayError(`${t("Failed to search", "Не удалось выполнить поиск")}: ${error.message}`);
       });
   } catch (error) {
     console.error("Error in search execution:", error);
-    displayError("There was a problem with the search. Please try again later.");
+    displayError(t("There was a problem with the search. Please try again later.", "Возникла проблема с поиском. Попробуйте ещё раз позже."));
   }
 }
 
@@ -302,12 +305,12 @@ try {
     executeSearch(searchQuery);
   } else if (searchResults) {
     searchResults.innerHTML =
-      "<div class='alert'>Please enter at least 2 characters to search</div>";
+      `<div class='alert'>${t("Please enter at least 2 characters to search", "Введите минимум 2 символа для поиска")}</div>`;
   }
 } catch (error) {
   console.error("Error initializing search:", error);
   displayError(
-    "There was a problem initializing the search. Please try again later.",
+    t("There was a problem initializing the search. Please try again later.", "Возникла проблема при инициализации поиска. Попробуйте ещё раз позже."),
   );
 }
 
@@ -330,7 +333,7 @@ document.addEventListener("DOMContentLoaded", () => {
         executeSearch(query);
       } else if (query.length === 0 || query.length === 1) {
         searchResults.innerHTML =
-          "<div class='alert'>Please enter at least 2 characters to search</div>";
+          `<div class='alert'>${t("Please enter at least 2 characters to search", "Введите минимум 2 символа для поиска")}</div>`;
       }
     }, 300);
 
@@ -353,7 +356,10 @@ document.addEventListener("DOMContentLoaded", () => {
   } catch (error) {
     console.error("Error setting up search event listeners:", error);
     displayError(
-      "There was a problem setting up the search functionality. Please try reloading the page.",
+      t(
+        "There was a problem setting up the search functionality. Please try reloading the page.",
+        "Возникла проблема при настройке поиска. Попробуйте перезагрузить страницу.",
+      ),
     );
   }
 });
