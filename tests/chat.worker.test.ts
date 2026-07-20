@@ -43,7 +43,10 @@ function mockTurnstile(result: Record<string, unknown> = validTurnstileResult) {
   return externalFetch;
 }
 
-afterEach(() => vi.unstubAllGlobals());
+afterEach(() => {
+  vi.unstubAllGlobals();
+  vi.useRealTimers();
+});
 
 function migrationQueries(sql: string): string[] {
   return sql
@@ -303,6 +306,14 @@ it("rejects oversized JSON", async () => {
 });
 
 it("enforces availability rate limits by hashed IP", async () => {
+  // The rate limiter buckets requests into fixed wall-clock windows
+  // (Math.floor(now / windowSeconds) * windowSeconds), so 61 real-time
+  // sequential requests can straddle a window boundary under CI load and
+  // reset the counter mid-test. Pin only Date so the window can't roll
+  // over mid-loop, while leaving real async/timer scheduling untouched.
+  vi.useFakeTimers({ toFake: ["Date"] });
+  vi.setSystemTime(new Date("2024-01-01T00:00:00.000Z"));
+
   let response: Response | undefined;
   for (let index = 0; index < 61; index += 1) {
     response = await dispatch("https://worker.test/api/chat/availability", {
