@@ -115,6 +115,13 @@ enabled = true
 code = "GTM-5FDMPK6X"
 enabled = false
 
+# Cookiebot consent banner. cbid is the Cookiebot domain group ID, not a
+# secret. Loaded as the first script in <head> so its data-blockingmode
+# "auto" can actually intercept the analytics scripts that follow it.
+[params.analytics.cookiebot]
+cbid = "e8ac67ea-987a-4e64-8b8e-01d6f1643976"
+enabled = true
+
 [build]
 writeStats = true
 
