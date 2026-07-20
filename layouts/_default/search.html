@@ -1,8 +1,8 @@
 {{ define "footerfiles" }}
-<script src="{{ "js/fuse.min.js" | absURL }}"></script>
-<script src="{{ "js/mark.min.js" | absURL }}"></script>
-<script src="{{ "js/purify.min.js" | absURL }}"></script>
-<script src="{{ "js/search.js" | absURL }}"></script>
+<script src="{{ "js/fuse.min.js" | relURL }}"></script>
+<script src="{{ "js/mark.min.js" | relURL }}"></script>
+<script src="{{ "js/purify.min.js" | relURL }}"></script>
+<script src="{{ "js/search.js" | relURL }}"></script>
 
 {{ end }}
 
@@ -29,7 +29,7 @@
     </noscript>
 
     <div class="mb-5">
-      <form action="{{ "search" | absURL }}">
+      <form action="{{ "search" | relURL }}">
         <div class="input-group">
           <input id="search-query" name="s" class="form-control form-control-lg" type="search" placeholder="{{ if $ru }}Введите текст для поиска…{{ else }}Type to search...{{ end }}" autocomplete="off" aria-label="{{ if $ru }}Поиск{{ else }}Search{{ end }}" />
           <button type="submit" class="input-group-text">
