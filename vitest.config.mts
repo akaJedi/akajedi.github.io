@@ -7,6 +7,7 @@ export default defineConfig({
     pool: cloudflarePool({
       main: "./src/worker.ts",
       miniflare: {
+        compatibilityDate: "2026-06-01",
         d1Databases: ["DB"],
         bindings: {
           SESSION_HASH_SECRET: "test-session-hash-secret-with-sufficient-entropy",

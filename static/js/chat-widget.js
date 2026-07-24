@@ -4,6 +4,7 @@
   const STORAGE_KEY = "f12.websiteChat.sessionToken";
   const DISMISSED_KEY = "f12.websiteChat.dismissed";
   const UNREAD_KEY = "f12.websiteChat.unread";
+  const SOUND_MUTED_KEY = "f12.websiteChat.soundMuted";
   const OPEN_INTERVAL = 3000;
   const MINIMIZED_INTERVAL = 15000;
   const MAX_BACKOFF = 60000;
@@ -29,6 +30,8 @@
       draftSaved: "Draft saved. You can continue later on this browser.",
       draftRestored: "Draft restored.",
       draftError: "Draft could not be saved. Keep this page open or copy your text.",
+      muteSound: "Mute sound",
+      unmuteSound: "Unmute sound",
     },
     ru: {
       available: "Доступен",
@@ -49,6 +52,8 @@
       draftSaved: "Черновик сохранён. К нему можно вернуться позже в этом браузере.",
       draftRestored: "Черновик восстановлен.",
       draftError: "Не удалось сохранить черновик. Не закрывайте страницу или скопируйте текст.",
+      muteSound: "Выключить звук",
+      unmuteSound: "Включить звук",
     },
   };
 
@@ -64,6 +69,7 @@
     const launcher = widget.querySelector("[data-chat-open]");
     const launcherStatus = widget.querySelector("[data-chat-launch-status]");
     const minimize = widget.querySelector("[data-chat-minimize]");
+    const soundToggle = widget.querySelector("[data-chat-sound-toggle]");
     const availabilityNode = widget.querySelector("[data-chat-availability]");
     const presenceNode = widget.querySelector("[data-chat-presence]");
     const statusNode = widget.querySelector("[data-chat-status]");
@@ -119,6 +125,11 @@
     try { dismissed = localStorage.getItem(DISMISSED_KEY) === "1"; } catch (_) {}
     let hasUnread = false;
     try { hasUnread = localStorage.getItem(UNREAD_KEY) === "1"; } catch (_) {}
+    let soundMuted = false;
+    try { soundMuted = localStorage.getItem(SOUND_MUTED_KEY) === "1"; } catch (_) {}
+    let historyLoaded = false;
+    let outgoingSound = null;
+    let incomingSound = null;
     const navIndicator = document.querySelector("[data-chat-nav-indicator]");
     const baseTitle = document.title;
 
@@ -410,7 +421,41 @@
       try { localStorage.setItem(DISMISSED_KEY, state ? "1" : ""); } catch (_) {}
     }
 
-    function renderMessage(message) {
+    function applySoundToggleUI() {
+      if (!soundToggle) return;
+      soundToggle.textContent = soundMuted ? "🔇" : "🔊";
+      soundToggle.setAttribute("aria-pressed", String(soundMuted));
+      soundToggle.setAttribute("aria-label", soundMuted ? text.unmuteSound : text.muteSound);
+    }
+
+    function playChatSound(kind) {
+      if (soundMuted) return;
+      try {
+        if (kind === "outgoing") {
+          if (!outgoingSound) {
+            outgoingSound = new Audio("/audio/chat-outgoing.mp3");
+            outgoingSound.preload = "none";
+            outgoingSound.volume = 0.5;
+          }
+          outgoingSound.pause();
+          outgoingSound.currentTime = 0;
+          outgoingSound.play()?.catch(() => {});
+        } else {
+          if (!incomingSound) {
+            incomingSound = new Audio("/audio/chat-incoming.mp3");
+            incomingSound.preload = "none";
+            incomingSound.volume = 0.5;
+          }
+          incomingSound.pause();
+          incomingSound.currentTime = 0;
+          incomingSound.play()?.catch(() => {});
+        }
+      } catch (_) {
+        // Audio can be unavailable (autoplay policy, restricted context); silently skip.
+      }
+    }
+
+    function renderMessage(message, options = {}) {
       if (message.senderType === "system") return;
       if (rendered.has(message.id)) return;
       rendered.add(message.id);
@@ -422,6 +467,7 @@
       messagesNode.append(item);
       messagesNode.scrollTop = messagesNode.scrollHeight;
       if (message.senderType !== "visitor" && panel.hidden) setUnread(true);
+      if (!options.silent) playChatSound(message.senderType === "visitor" ? "outgoing" : "incoming");
     }
 
     function showInfoBubble(message) {
@@ -490,6 +536,7 @@
       backoff = OPEN_INTERVAL;
       followupShown = false;
       conversationTerminated = false;
+      historyLoaded = false;
       draftLoadedFor = "";
       draftRevision = 0;
       draftSaving = false;
@@ -532,7 +579,9 @@
       setPollState("checking", "Checking for new website messages");
       try {
         const result = await request(`/api/chat/messages?after=${cursor}`, { auth: true });
-        result.messages.forEach(renderMessage);
+        const silent = !historyLoaded;
+        result.messages.forEach((message) => renderMessage(message, { silent }));
+        historyLoaded = true;
         cursor = result.cursor;
         applyAvailability(result.availability);
         if (statusNode.dataset.state === "error" && statusNode.textContent === text.network) {
@@ -629,6 +678,12 @@
     launcher?.addEventListener("click", openPanel);
     contactTriggers.forEach((trigger) => trigger.addEventListener("click", openFromContact));
     minimize.addEventListener("click", minimizePanel);
+    soundToggle?.addEventListener("click", () => {
+      soundMuted = !soundMuted;
+      try { localStorage.setItem(SOUND_MUTED_KEY, soundMuted ? "1" : ""); } catch (_) {}
+      applySoundToggleUI();
+    });
+    applySoundToggleUI();
     if (contactPaths.has(normalizeContactPath(location.pathname))) {
       window.requestAnimationFrame(openPanel);
     }
@@ -699,6 +754,7 @@
         sessionToken = result.sessionToken;
         conversationId = result.conversationId;
         try { localStorage.setItem(STORAGE_KEY, sessionToken); } catch (_) {}
+        historyLoaded = true;
         result.messages.forEach(renderMessage);
         cursor = result.cursor;
         applyAvailability(result.availability);
