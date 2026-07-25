@@ -15,7 +15,10 @@
           <span data-chat-presence>{{ if $ru }}Проверяю статус…{{ else }}Checking status…{{ end }}</span>
         </p>
       </div>
-      <button class="site-chat__icon-button" type="button" data-chat-minimize aria-label="{{ if $ru }}Свернуть чат{{ else }}Minimize chat{{ end }}">×</button>
+      <div class="site-chat__header-actions">
+        <button class="site-chat__icon-button" type="button" data-chat-sound-toggle aria-pressed="false" aria-label="{{ if $ru }}Выключить звук{{ else }}Mute sound{{ end }}">🔊</button>
+        <button class="site-chat__icon-button" type="button" data-chat-minimize aria-label="{{ if $ru }}Свернуть чат{{ else }}Minimize chat{{ end }}">×</button>
+      </div>
     </header>
 
     <p class="site-chat__availability" data-chat-availability>

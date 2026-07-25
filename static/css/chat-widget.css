@@ -122,6 +122,12 @@ body:not(.page-contact) .site-chat__launcher > span:last-child {
   backdrop-filter: blur(12px);
 }
 
+.site-chat__header-actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 6px;
+}
+
 .site-chat__eyebrow {
   display: block;
   margin-bottom: 3px;

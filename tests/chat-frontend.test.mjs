@@ -77,7 +77,8 @@ test("chat client keeps only non-PII flags locally and renders untrusted text sa
   assert.match(script, /f12\.websiteChat\.sessionToken/);
   assert.match(script, /f12\.websiteChat\.dismissed/);
   assert.match(script, /f12\.websiteChat\.unread/);
-  assert.equal((script.match(/localStorage\.setItem/g) || []).length, 3);
+  assert.match(script, /f12\.websiteChat\.soundMuted/);
+  assert.equal((script.match(/localStorage\.setItem/g) || []).length, 4);
   assert.doesNotMatch(script, /localStorage\.setItem\([^,]*(name|email|phone|message)/i);
   assert.match(script, /body\.textContent = message\.messageText/);
   assert.match(script, /\/api\/chat\/draft/);
