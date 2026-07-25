@@ -1,0 +1,14 @@
+{{ define "main" }}
+{{- $apiBase := .Site.Params.chat.apibase | default "https://green-rice-1ea7.denis-f21.workers.dev" -}}
+<article class="tools-page" data-tools-page data-api-base="{{ $apiBase }}">
+  <p class="summer-kicker"><a href="{{ "tools" | relLangURL }}">{{ if eq .Lang "ru" }}Инструменты{{ else }}Tools{{ end }}</a></p>
+  <h1>{{ .Title }}</h1>
+  {{ with .Params.description }}<p class="tools-page__lead">{{ . }}</p>{{ end }}
+  <div class="tools-page__body">
+    {{ .Content }}
+  </div>
+</article>
+{{ with .Params.toolScript }}
+<script defer src="{{ . | relURL }}"></script>
+{{ end }}
+{{ end }}

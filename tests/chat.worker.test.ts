@@ -333,6 +333,52 @@ it("does not expose local diagnostics on a deployed hostname", async () => {
   expect(await response.json<any>()).toEqual({ error: "Not found." });
 });
 
+it("returns the requester's own IP as plain text, with format/family options", async () => {
+  const plain = await dispatch("https://worker.test/api/ip", {
+    headers: { "CF-Connecting-IP": "203.0.113.9" },
+  });
+  expect(plain.headers.get("Content-Type")).toContain("text/plain");
+  expect(await plain.text()).toBe("203.0.113.9\n");
+
+  const asJson = await dispatch("https://worker.test/api/ip?format=json", {
+    headers: { "CF-Connecting-IP": "203.0.113.9" },
+  });
+  expect(await asJson.json<any>()).toEqual({ ip: "203.0.113.9", family: "IPv4" });
+
+  const wrongFamily = await dispatch("https://worker.test/api/ip?family=v6", {
+    headers: { "CF-Connecting-IP": "203.0.113.9" },
+  });
+  expect(await wrongFamily.text()).toContain("IPv4, not IPv6");
+
+  const matchingFamily = await dispatch("https://worker.test/api/ip?family=v4", {
+    headers: { "CF-Connecting-IP": "203.0.113.9" },
+  });
+  expect(await matchingFamily.text()).toBe("203.0.113.9\n");
+});
+
+it("does not require an Origin header for /api/ip (curl sends none)", async () => {
+  const response = await dispatch("https://worker.test/api/ip", {
+    headers: { "CF-Connecting-IP": "203.0.113.9" },
+  });
+  expect(response.status).toBe(200);
+});
+
+it("rejects /api/whoami from a disallowed origin but serves allowed ones", async () => {
+  const blocked = await dispatch("https://worker.test/api/whoami", {
+    headers: { Origin: "https://attacker.example", "CF-Connecting-IP": "203.0.113.9" },
+  });
+  expect(blocked.status).toBe(403);
+
+  const allowed = await dispatch("https://worker.test/api/whoami", {
+    headers: { Origin: origin, "CF-Connecting-IP": "203.0.113.9" },
+  });
+  expect(allowed.status).toBe(200);
+  const body = await allowed.json<any>();
+  expect(body.ip).toBe("203.0.113.9");
+  expect(body).toHaveProperty("network");
+  expect(body).toHaveProperty("location");
+});
+
 it("returns a safe failure when D1 is unavailable", async () => {
   await testEnv.DB.prepare("DROP TABLE conversations").run();
   const response = await dispatch("https://worker.test/api/chat/messages", {

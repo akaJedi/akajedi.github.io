@@ -4432,3 +4432,128 @@ body.home .summer-hero {
 
   body.page-contact main.container > #main.contact-page { padding-top: 6rem; }
 }
+
+/* /tools/ section — utility pages (connection check, calculators, etc.) */
+.tools-page,
+.tools-hub {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 7rem 1.5rem 5rem;
+}
+
+.tools-page__lead {
+  color: var(--summer-muted);
+  font-size: 1.05rem;
+  max-width: 60ch;
+}
+
+.tools-note {
+  margin: 1.5rem 0 2rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--summer-line);
+  border-left: 3px solid var(--summer-cyan);
+  background: var(--summer-paper);
+  color: var(--summer-muted);
+  font-size: 0.88rem;
+}
+
+.tool-card {
+  margin: 0 0 1.75rem;
+  padding: 1.5rem;
+  border: 1px solid var(--summer-line);
+  background: #fff;
+}
+
+.tool-card h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+.tool-caveat {
+  color: var(--summer-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: none;
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.9rem 1.5rem;
+  margin: 1rem 0 0;
+}
+
+.tool-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.tool-grid dt {
+  color: var(--summer-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.tool-grid dd {
+  margin: 0;
+  color: var(--summer-ink);
+  font-size: 0.92rem;
+  word-break: break-word;
+}
+
+.tool-hint {
+  margin: 1.1rem 0 0;
+  padding-top: 0.9rem;
+  border-top: 1px dashed var(--summer-line);
+  color: var(--summer-muted);
+  font-size: 0.82rem;
+}
+
+.tool-list {
+  margin: 0.75rem 0 0;
+  padding-left: 1.25rem;
+  color: var(--summer-ink);
+}
+
+.tools-hub__intro {
+  color: var(--summer-muted);
+  max-width: 60ch;
+}
+
+.tools-hub__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.tools-hub__card {
+  display: block;
+  padding: 1.5rem;
+  border: 1px solid var(--summer-line);
+  background: #fff;
+  color: var(--summer-ink);
+  text-decoration: none;
+  transition: border-color 160ms ease, transform 160ms ease;
+}
+
+.tools-hub__card:hover,
+.tools-hub__card:focus-visible {
+  border-color: var(--summer-orange);
+  transform: translateY(-2px);
+}
+
+.tools-hub__card h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1.1rem;
+  color: var(--summer-blue);
+}
+
+.tools-hub__card p {
+  margin: 0;
+  color: var(--summer-muted);
+  font-size: 0.88rem;
+}
