@@ -3182,12 +3182,13 @@ body.page-about .hero-links .btn:hover { transform: translateY(-3px); }
   width: 44px;
   height: 44px;
   place-items: center;
-  border: 1px solid var(--summer-line);
+  border: 1px solid transparent;
   color: var(--summer-blue) !important;
   transition: transform 220ms var(--summer-ease), color 220ms ease, border-color 220ms ease;
 }
 
-.summer-social .platform-links a:hover {
+.summer-social .platform-links a:hover,
+.summer-social .platform-links a:focus-visible {
   transform: translateY(-3px);
   border-color: var(--summer-orange);
   color: var(--summer-orange) !important;
