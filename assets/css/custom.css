@@ -984,9 +984,15 @@ a {
 [data-bs-theme="dark"] .site-controls__theme-icon--moon { display: block; }
 
 @media (max-width: 991px) {
+  /* The navbar-toggler is position:absolute on mobile (see critical.css),
+     removed from flex flow and pinned to the header's top-left corner.
+     Forcing .site-controls to order:-1 here used to land it in that
+     same corner, overlapping the hamburger icon. Leaving it as the
+     last flex child instead pushes it to the opposite (right) edge,
+     alongside the centered brand and the independently-positioned
+     toggler — three distinct positions, no overlap. */
   .site-controls {
     margin-left: 0;
-    order: -1;
   }
 }
 

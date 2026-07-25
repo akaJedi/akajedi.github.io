@@ -116,9 +116,9 @@ translationKey = "homepage"
 
 <section class="summer-social" aria-label="Профили и контакты">
   {{< platform-links >}}
-    {{< link icon="square-github" url="https://github.com/akajedi" >}}
-    {{< link icon="linkedin" url="https://www.linkedin.com/in/denistolochko" >}}
-    {{< link icon="square-twitter" url="https://twitter.com/denistolochko" >}}
+    {{< link icon="square-github" label="GitHub" url="https://github.com/akajedi" >}}
+    {{< link icon="linkedin" label="LinkedIn" url="https://www.linkedin.com/in/denistolochko" >}}
+    {{< link icon="square-twitter" label="Twitter" url="https://twitter.com/denistolochko" >}}
     {{< link icon="email" label="Открыть чат на сайте" url="/ru/contact/" >}}
   {{< /platform-links >}}
 </section>

@@ -48,12 +48,14 @@
                 >{{ if .Pre }}
                   {{ if eq .Pre "email" }}
                   <span class="site-chat__nav-icon-wrap">
-                    <i class="icon-{{ .Pre }}" aria-label="{{ or .Name .Pre }}"></i>
+                    <i class="icon-{{ .Pre }}" aria-hidden="true"></i>
+                    <span class="visually-hidden">{{ .Name }}</span>
                     <span class="site-chat__nav-dot" aria-hidden="true"></span>
                     <span class="visually-hidden" data-chat-nav-unread-text hidden>{{ if eq $.Lang "ru" }}Есть новые сообщения{{ else }}Unread messages{{ end }}</span>
                   </span>
                   {{ else }}
-                  <i class="icon-{{ .Pre }}" aria-label="{{ or .Name .Pre }}"></i>
+                  <i class="icon-{{ .Pre }}" aria-hidden="true"></i>
+                  <span class="visually-hidden">{{ .Name }}</span>
                   {{ end }}
                 {{ else }}
                   {{ .Name | upper }}
