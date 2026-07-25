@@ -6,12 +6,57 @@ This repository builds the static Hugo site and a Cloudflare Worker that support
 
 ## Architecture
 
-```text
-Hugo browser widget ── HTTPS polling ──> Cloudflare Worker ──> D1
-                                             │                 │
-                                             └── Telegram Bot API
-                                                       │
-                                             private owner chat
+The same Hugo build is published to three independent hosts. `www.f12.biz` (GitHub Pages) is canonical; Netlify and Cloudflare Pages are mirrors built from the same repository. All three talk to one shared Cloudflare Worker.
+
+```mermaid
+flowchart LR
+    Visitor(["Visitor browser"])
+
+    subgraph Static["Static Hugo site — same build, three independent hosts"]
+        GHPages["GitHub Pages\nwww.f12.biz (canonical)"]
+        Netlify["Netlify\nnetlify.f12.biz"]
+        CFPages["Cloudflare Pages\ncloudflare.f12.biz"]
+    end
+
+    Worker["Cloudflare Worker\nchat + contact API"]
+    D1[("D1 database")]
+    Telegram["Telegram Bot API"]
+    Owner(["Private owner chat"])
+
+    Visitor -->|HTTPS| GHPages
+    Visitor -->|HTTPS| Netlify
+    Visitor -->|HTTPS| CFPages
+    GHPages -->|fetch / polling| Worker
+    Netlify -->|fetch / polling| Worker
+    CFPages -->|fetch / polling| Worker
+    Worker <--> D1
+    Worker <--> Telegram
+    Telegram <--> Owner
+```
+
+Message lifecycle — a visitor's message reaches the owner in Telegram, and a Telegram reply reaches the visitor through the next poll:
+
+```mermaid
+sequenceDiagram
+    participant V as Visitor
+    participant W as Cloudflare Worker
+    participant D as D1
+    participant T as Telegram Bot API
+    participant O as Owner (Telegram)
+
+    V->>W: Turnstile check + POST /api/chat/start
+    W->>D: Create conversation + message
+    W->>T: Send owner notification
+    T->>O: Deliver message
+    loop every 3s (open) / 15s (minimized)
+        V->>W: GET /api/chat/messages?after=N
+        W->>D: Read new messages
+        W-->>V: New messages, if any
+    end
+    O->>T: Reply to the bot notification
+    T->>W: POST /api/telegram/webhook
+    W->>D: Store owner reply
+    Note over V,W: The visitor's next poll picks up the reply
 ```
 
 - The legacy contact form continues to `POST /` and keeps its existing `{ "success": true }` contract.
@@ -22,6 +67,36 @@ Hugo browser widget ── HTTPS polling ──> Cloudflare Worker ──> D1
 - Owner replies must be Telegram replies to a mapped bot notification.
 - D1 is authoritative. A D1 outbox and five-minute Cron Trigger retry Telegram notifications after transient failures.
 - Availability is calculated on the server in `America/Los_Angeles`; no fixed UTC offset is used.
+
+### What works on which domain
+
+The three static hosts serve identical HTML from the same build, but a few integrations are deliberately restricted to the canonical domain — usually because a third-party dashboard (Cookiebot, Turnstile) only authorizes specific hostnames. This table exists because that mismatch caused several rounds of console-error debugging before the pattern was made explicit:
+
+| Feature | `www.f12.biz` (canonical) | Netlify / Cloudflare Pages mirrors |
+|---|---|---|
+| Static site, chat widget UI | ✅ | ✅ |
+| Chat API (start/poll/send) | ✅ | ✅ — same shared Worker |
+| Cookiebot consent banner | ✅ | ❌ intentionally gated by hostname (see `layouts/partials/head.html`) — the Cookiebot Manager plan only authorizes the canonical domain |
+| Cloudflare Turnstile | ✅ | ✅ — `wrangler.toml`'s `ALLOWED_ORIGIN` and the Turnstile widget's domain list both already include the mirrors |
+| Security response headers (`X-Frame-Options`, HSTS, etc.) | ⚠️ meta-tag subset only (GitHub Pages can't set real HTTP headers) | ✅ full set via `static/_headers` (Netlify/Cloudflare Pages honor it) |
+
+When adding a new third-party script or header, check this table first — and update it if the answer changes.
+
+### CI/CD
+
+```mermaid
+flowchart TD
+    PR["Pull request"] -->|tests + typecheck must pass| Merge["Merge to main"]
+    Merge --> GHA["GitHub Actions: build, test, deploy"]
+    GHA --> GHPagesOut["GitHub Pages — canonical, automatic"]
+    Merge -.->|independent build, same repo| NetlifyOut["Netlify — mirror, automatic"]
+    Merge -.->|independent build, same repo| CFPagesOut["Cloudflare Pages — mirror, automatic"]
+    WorkerCode["Worker code / bindings / secrets change"] -.->|manual: npx wrangler deploy| WorkerOut["Cloudflare Worker"]
+```
+
+Netlify and Cloudflare Pages watch the same GitHub repository directly and rebuild independently on every push to `main` — nothing in this repo's own CI triggers them. The Cloudflare Worker is never deployed automatically; it's a deliberate, separate manual step (see step 7 below) so that Worker changes — which touch live conversation data — are never shipped as a side effect of a documentation or frontend PR merge.
+
+See [`ROADMAP.md`](ROADMAP.md) for the current architecture/quality audit and improvement backlog.
 
 ## Development, branches, pull requests, and deployment workflow
 
