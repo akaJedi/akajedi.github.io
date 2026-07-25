@@ -512,6 +512,89 @@ async function handleWebhook(request: Request, env: Env): Promise<Response> {
   }
 }
 
+interface RequestCfProperties {
+  country?: string;
+  city?: string;
+  region?: string;
+  regionCode?: string;
+  continent?: string;
+  timezone?: string;
+  colo?: string;
+  asn?: number;
+  asOrganization?: string;
+  httpProtocol?: string;
+  tlsVersion?: string;
+  tlsCipher?: string;
+  latitude?: string;
+  longitude?: string;
+}
+
+// Every field here is something Cloudflare's edge already computes for any
+// request it proxies, for any site — this endpoint only echoes it back to
+// the same visitor it belongs to, for a client-side transparency page. It
+// is never logged, stored, or associated with anything else.
+async function handleWhoami(request: Request, env: Env): Promise<Response> {
+  await rateLimitIp(request, env, "whoami", 30, 60);
+  const cf = (request.cf || {}) as RequestCfProperties;
+  const ip = getIp(request);
+  return json({
+    ip: ip !== "unknown" ? ip : null,
+    network: {
+      asn: cf.asn ?? null,
+      organization: cf.asOrganization ?? null,
+      dataCenter: cf.colo ?? null,
+      httpProtocol: cf.httpProtocol ?? null,
+      tlsVersion: cf.tlsVersion ?? null,
+      tlsCipher: cf.tlsCipher ?? null,
+    },
+    location: {
+      country: cf.country ?? null,
+      city: cf.city ?? null,
+      region: cf.region ?? null,
+      regionCode: cf.regionCode ?? null,
+      continent: cf.continent ?? null,
+      timezone: cf.timezone ?? null,
+      approxLatitude: cf.latitude ?? null,
+      approxLongitude: cf.longitude ?? null,
+    },
+  });
+}
+
+function ipFamily(ip: string): "IPv4" | "IPv6" | null {
+  if (!ip) return null;
+  return ip.includes(":") ? "IPv6" : "IPv4";
+}
+
+// Deliberately public and unrestricted by Origin — this exists specifically
+// for `curl`, which sends no Origin header at all. It only ever echoes the
+// requester's own connecting IP back to them, same as ifconfig.me/icanhazip.
+async function handleIp(request: Request, env: Env): Promise<Response> {
+  await rateLimitIp(request, env, "ip", 60, 60);
+  const ip = getIp(request);
+  const family = ip !== "unknown" ? ipFamily(ip) : null;
+  const url = new URL(request.url);
+  const wantsJson = url.searchParams.get("format") === "json"
+    || (request.headers.get("Accept") || "").includes("application/json");
+  const requestedFamily = url.searchParams.get("family");
+  const headers = { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store" };
+
+  if (wantsJson) return json({ ip: ip !== "unknown" ? ip : null, family });
+  if (ip === "unknown") return new Response("Could not determine your IP address.\n", { headers });
+  if (requestedFamily === "v4" && family !== "IPv4") {
+    return new Response(
+      `Your current connection used ${family}, not IPv4. Visiting over an IPv4-only network/DNS record would show an IPv4 address here.\n`,
+      { headers },
+    );
+  }
+  if (requestedFamily === "v6" && family !== "IPv6") {
+    return new Response(
+      `Your current connection used ${family}, not IPv6. Visiting over an IPv6-only network/DNS record would show an IPv6 address here.\n`,
+      { headers },
+    );
+  }
+  return new Response(`${ip}\n`, { headers });
+}
+
 async function handleHealth(env: Env): Promise<Response> {
   try {
     await env.DB.prepare("SELECT 1 AS ok").first();
@@ -669,6 +752,12 @@ async function route(request: Request, env: Env, ctx: ExecutionContext, requestI
     return json({ ok: true, sentryTest: "submitted", requestId: requestId || "unavailable" });
   }
   if (url.pathname === "/api/health" && request.method === "GET") return handleHealth(env);
+  if (url.pathname === "/api/ip" && request.method === "GET") return handleIp(request, env);
+  if (url.pathname === "/api/whoami" && request.method === "GET") {
+    if (!isAllowedOrigin(request, env)) throw new PublicError(403, "Request not allowed.", "invalid-origin");
+    const response = await handleWhoami(request, env);
+    return withCors(response, request, env);
+  }
   if (url.pathname === "/api/telegram/webhook" && request.method === "POST") {
     return handleWebhook(request, env);
   }

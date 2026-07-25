@@ -192,6 +192,11 @@ name = "Contact"
 URL = "/contact"
 weight = 4
 
+[[languages.en.menus.footer]]
+name = "Tools"
+URL = "/tools"
+weight = 5
+
 [languages.ru]
 disabled = false
 languageCode = 'ru'
@@ -241,6 +246,11 @@ weight = 3
 name = "Связаться"
 URL = "/ru/contact"
 weight = 4
+
+[[languages.ru.menus.footer]]
+name = "Инструменты"
+URL = "/ru/tools"
+weight = 5
 
 
 # Plugins

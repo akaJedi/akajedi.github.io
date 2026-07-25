@@ -1,0 +1,15 @@
+{{ define "main" }}
+<section class="tools-hub">
+  <p class="summer-kicker">{{ if eq .Lang "ru" }}Полезное{{ else }}Utilities{{ end }}</p>
+  <h1>{{ .Title }}</h1>
+  <div class="tools-hub__intro">{{ .Content }}</div>
+  <div class="tools-hub__grid">
+    {{ range .Pages.ByTitle }}
+    <a class="tools-hub__card" href="{{ .RelPermalink }}">
+      <h2>{{ .Title }}</h2>
+      {{ with .Params.description }}<p>{{ . }}</p>{{ end }}
+    </a>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
