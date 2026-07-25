@@ -310,3 +310,21 @@ test("language and theme controls are always visible, not gated behind a hidden 
 
   assert.doesNotMatch(english + russian, /data-preference-ring|preferences-unlocked|dropdown language-selector|dropdown theme-selector/);
 });
+
+test("every Russian nav menu URL resolves to a real page in the build", async () => {
+  const toml = await readSource("hugo.toml");
+  const section = toml.split("[languages.ru.menus]")[1]?.split(/\n\[(?!\[languages\.ru\.menus)/)[0] || "";
+  const urls = [...section.matchAll(/URL\s*=\s*["']([^"']+)["']/g)]
+    .map((match) => match[1])
+    .filter((url) => url.startsWith("/ru/"));
+
+  assert.ok(urls.length >= 4, "expected several /ru/... URLs in [languages.ru.menus] to check");
+
+  for (const url of urls) {
+    const relPath = `${url.replace(/^\/|\/$/g, "")}/index.html`;
+    await assert.doesNotReject(
+      readBuilt(relPath),
+      `RU nav menu links to ${url}, which has no .ru.md translation (missing ${relPath} in the build)`,
+    );
+  }
+});
