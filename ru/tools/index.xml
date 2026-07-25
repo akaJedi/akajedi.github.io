@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Инструменты on</title><link>https://www.f12.biz/ru/tools/</link><description>Recent content in Инструменты on</description><generator>Hugo</generator><language>ru</language><atom:link href="https://www.f12.biz/ru/tools/index.xml" rel="self" type="application/rss+xml"/><item><title>Проверка соединения и браузера</title><link>https://www.f12.biz/ru/tools/connection-check/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/tools/connection-check/</guid><description>&lt;p class="tools-note"&gt;Всё на этой странице либо вычисляется прямо в вашем браузере, либо считывается из информации, которую сеть Cloudflare и так видит при каждом запросе. Ничего здесь не сохраняется, не логируется и никуда не отправляется, кроме этого единственного запроса — вы видите только свои собственные данные, показанные вам же.&lt;/p&gt;
+&lt;section class="tool-card" aria-labelledby="tool-network-title"&gt;
+ &lt;h2 id="tool-network-title"&gt;Ваша сеть&lt;/h2&gt;
+ &lt;dl class="tool-grid" data-tool-network&gt;
+ &lt;div&gt;&lt;dt&gt;IP-адрес&lt;/dt&gt;&lt;dd data-field="ip"&gt;Проверяю…&lt;/dd&gt;&lt;/div&gt;
+ &lt;div&gt;&lt;dt&gt;Версия протокола&lt;/dt&gt;&lt;dd data-field="protocolFamily"&gt;Проверяю…&lt;/dd&gt;&lt;/div&gt;
+ &lt;div&gt;&lt;dt&gt;Провайдер (ASN)&lt;/dt&gt;&lt;dd data-field="organization"&gt;Проверяю…&lt;/dd&gt;&lt;/div&gt;
+ &lt;div&gt;&lt;dt&gt;HTTP-протокол&lt;/dt&gt;&lt;dd data-field="httpProtocol"&gt;Проверяю…&lt;/dd&gt;&lt;/div&gt;
+ &lt;div&gt;&lt;dt&gt;Версия TLS&lt;/dt&gt;&lt;dd data-field="tlsVersion"&gt;Проверяю…&lt;/dd&gt;&lt;/div&gt;
+ &lt;div&gt;&lt;dt&gt;Дата-центр Cloudflare&lt;/dt&gt;&lt;dd data-field="dataCenter"&gt;Проверяю…&lt;/dd&gt;&lt;/div&gt;
+ &lt;/dl&gt;
+ &lt;p class="tool-hint"&gt;Предпочитаете терминал? &lt;code&gt;curl https://green-rice-1ea7.denis-f21.workers.dev/api/ip&lt;/code&gt; вернёт только ваш IP в виде обычного текста — добавьте &lt;code&gt;?family=v4&lt;/code&gt; или &lt;code&gt;?family=v6&lt;/code&gt;, чтобы проверить конкретную версию, либо &lt;code&gt;?format=json&lt;/code&gt;, чтобы получить оба поля вместе. Проверка второй версии протокола (той, что сейчас не используется) требует отдельного адреса, доступного только по этому протоколу — отмечено как возможное будущее дополнение, а не имитируется здесь.&lt;/p&gt;</description></item></channel></rss>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tools on</title><link>https://www.f12.biz/tools/</link><description>Recent content in Tools on</description><generator>Hugo</generator><language>en</language><atom:link href="https://www.f12.biz/tools/index.xml" rel="self" type="application/rss+xml"/><item><title>Connection &amp; Browser Check</title><link>https://www.f12.biz/tools/connection-check/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/tools/connection-check/</guid><description>&lt;p class="tools-note"&gt;Everything on this page is either computed directly in your own browser, or read from information Cloudflare's network already sees for every request it handles. Nothing here is stored, logged, or sent anywhere beyond this one request — you're only seeing your own data, echoed back to you.&lt;/p&gt;
+&lt;section class="tool-card" aria-labelledby="tool-network-title"&gt;
+ &lt;h2 id="tool-network-title"&gt;Your network&lt;/h2&gt;
+ &lt;dl class="tool-grid" data-tool-network&gt;
+ &lt;div&gt;&lt;dt&gt;IP address&lt;/dt&gt;&lt;dd data-field="ip"&gt;Checking…&lt;/dd&gt;&lt;/div&gt;
+ &lt;div&gt;&lt;dt&gt;Address family&lt;/dt&gt;&lt;dd data-field="protocolFamily"&gt;Checking…&lt;/dd&gt;&lt;/div&gt;
+ &lt;div&gt;&lt;dt&gt;Provider (ASN)&lt;/dt&gt;&lt;dd data-field="organization"&gt;Checking…&lt;/dd&gt;&lt;/div&gt;
+ &lt;div&gt;&lt;dt&gt;HTTP protocol&lt;/dt&gt;&lt;dd data-field="httpProtocol"&gt;Checking…&lt;/dd&gt;&lt;/div&gt;
+ &lt;div&gt;&lt;dt&gt;TLS version&lt;/dt&gt;&lt;dd data-field="tlsVersion"&gt;Checking…&lt;/dd&gt;&lt;/div&gt;
+ &lt;div&gt;&lt;dt&gt;Cloudflare data center&lt;/dt&gt;&lt;dd data-field="dataCenter"&gt;Checking…&lt;/dd&gt;&lt;/div&gt;
+ &lt;/dl&gt;
+ &lt;p class="tool-hint"&gt;Prefer a terminal? &lt;code&gt;curl https://green-rice-1ea7.denis-f21.workers.dev/api/ip&lt;/code&gt; returns just your IP as plain text — add &lt;code&gt;?family=v4&lt;/code&gt; or &lt;code&gt;?family=v6&lt;/code&gt; to check a specific version, or &lt;code&gt;?format=json&lt;/code&gt; for both fields together. Testing your *other* IP version (whichever one you're not currently connected over) needs a separate, protocol-only address — noted as a possible future addition rather than faked here.&lt;/p&gt;</description></item></channel></rss>
