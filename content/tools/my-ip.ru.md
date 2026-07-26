@@ -21,10 +21,10 @@ searchExclude: true
   <p>Windows 10 и новее поставляются с настоящим <code>curl.exe</code>, поэтому эта же команда без изменений работает и в cmd.exe:</p>
   <pre class="tool-code"><code>curl {{< worker-api-base >}}/api/ip</code></pre>
   <h3>Windows PowerShell</h3>
-  <p>В PowerShell <code>curl</code> — это псевдоним для <code>Invoke-WebRequest</code>, который возвращает объект ответа, а не обычный текст. Либо вызывайте <code>curl.exe</code> напрямую, либо используйте собственный командлет PowerShell:</p>
-  <pre class="tool-code"><code>curl.exe {{< worker-api-base >}}/api/ip
-# или, средствами PowerShell:
-(Invoke-RestMethod "{{< worker-api-base >}}/api/ip?format=json").ip</code></pre>
+  <p>В PowerShell <code>curl</code> — это псевдоним для <code>Invoke-WebRequest</code>, который возвращает объект ответа, а не обычный текст. Вызывайте <code>curl.exe</code> напрямую, чтобы получить точно такой же вывод, как выше:</p>
+  <pre class="tool-code"><code>curl.exe {{< worker-api-base >}}/api/ip</code></pre>
+  <p>Либо, средствами самого PowerShell вместо curl:</p>
+  <pre class="tool-code"><code>(Invoke-RestMethod "{{< worker-api-base >}}/api/ip?format=json").ip</code></pre>
   <h3>Несколько вариантов — синтаксис одинаков везде</h3>
   <pre class="tool-code"><code>curl "{{< worker-api-base >}}/api/ip?family=v4"   # только если вы реально подключены по IPv4
 curl "{{< worker-api-base >}}/api/ip?family=v6"   # только если вы реально подключены по IPv6
