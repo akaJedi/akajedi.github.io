@@ -11,4 +11,4 @@ Your message and contact information are stored so I can respond to your request
 
 The service may retain limited technical information, such as a hashed network identifier and a short browser summary, to prevent abuse, protect the service, and investigate security incidents.
 
-Open business conversations remain available until manually closed. Closed and spam records are retained according to the configured retention policy.
+Open business conversations remain available until manually closed. A retention policy for closed and spam records is defined and tested but not yet active — those records are not currently deleted on any automatic schedule.

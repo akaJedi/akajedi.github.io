@@ -15,6 +15,10 @@ QUIET_HOURS_START = "23"
 QUIET_HOURS_END = "6"
 CLOSED_RETENTION_DAYS = "180"
 SPAM_RETENTION_DAYS = "30"
+# Deliberately off. When "false" (or unset), the scheduled retention cleanup
+# only logs what it would delete (see src/retention.ts and ROADMAP.md item 1).
+# Flip to "true" only after reviewing a stretch of those dry-run logs.
+RETENTION_CLEANUP_ENABLED = "false"
 ENVIRONMENT = "production"
 SENTRY_SUCCESS_EVENT_SAMPLE_RATE = "0.10"
 SENTRY_REJECTION_EVENT_SAMPLE_RATE = "1.0"

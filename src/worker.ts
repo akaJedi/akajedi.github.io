@@ -22,6 +22,7 @@ import {
   verifyChallenge,
   verifyTurnstile,
 } from "./lib";
+import { findAndCleanupEligibleConversations } from "./retention";
 import { flushOutbox, processTelegramUpdate, queueNotification } from "./telegram";
 import type { ConversationRow, Env, MessageRow } from "./types";
 
@@ -904,6 +905,22 @@ const workerHandler = {
         env.DB.prepare("DELETE FROM telegram_updates WHERE completed_at IS NOT NULL AND completed_at < ?").bind(thirtyDaysAgo),
         env.DB.prepare("DELETE FROM telegram_outbox WHERE delivered_at IS NOT NULL AND delivered_at < ?").bind(thirtyDaysAgo),
       ]);
+
+      const retention = await findAndCleanupEligibleConversations(env);
+      if (retention.eligibleConversationIds.length > 0) {
+        sentryEvent(
+          env,
+          retention.deleted
+            ? "F12 retention cleanup: eligible conversations deleted"
+            : "F12 retention cleanup: eligible conversations found (dry run, RETENTION_CLEANUP_ENABLED is not \"true\")",
+          "warning",
+          {
+            operation: "retention-cleanup",
+            result: retention.deleted ? "deleted" : "dry-run",
+            eligibleCount: retention.eligibleConversationIds.length,
+          },
+        );
+      }
     })());
   },
 };
