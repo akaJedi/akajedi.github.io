@@ -42,3 +42,25 @@ searchExclude: true
     <li>Nothing is sent anywhere. The password is generated and stays entirely in this browser tab — close or reload the page and it's gone for good.</li>
   </ul>
 </section>
+
+<section class="tool-card" aria-labelledby="tool-pwgen-terminal-title">
+  <h2 id="tool-pwgen-terminal-title">From a terminal</h2>
+  <p>These generate a password the same way this page does — locally, using your machine's own cryptographically secure random number generator — with nothing sent to any server. There's deliberately no <code>curl</code>-based option here, unlike the IP tool: a password generator that has to ask a server for the password isn't one where "nothing is sent anywhere" is actually true anymore.</p>
+  <h3>macOS / Linux (bash, zsh)</h3>
+  <p>Reads raw bytes from <code>/dev/urandom</code> and keeps only the ones matching the allowed character set — no modulo, so no bias:</p>
+  <pre class="tool-code"><code>LC_ALL=C tr -dc 'A-Za-z0-9!@#$%^&*()-_=+' &lt; /dev/urandom | head -c 20; echo</code></pre>
+  <p>Change <code>20</code> to any length, and edit the character ranges in the <code>tr</code> set to change what's allowed.</p>
+  <h3>Windows PowerShell</h3>
+  <p>Uses <code>RandomNumberGenerator</code>, not <code>Get-Random</code> — <code>Get-Random</code> is not cryptographically secure and shouldn't be used for anything security-sensitive. This does its own rejection sampling for the same reason the browser version does:</p>
+  <pre class="tool-code"><code>$chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+'
+$rng = [System.Security.Cryptography.RandomNumberGenerator]::Create()
+$bytes = New-Object byte[] 1
+$limit = 256 - (256 % $chars.Length)
+-join (1..20 | ForEach-Object {
+  do { $rng.GetBytes($bytes) } while ($bytes[0] -ge $limit)
+  $chars[$bytes[0] % $chars.Length]
+})</code></pre>
+  <p>Works in both Windows PowerShell 5.1 (built into every Windows install) and PowerShell 7+. Paste the whole block at once.</p>
+  <h3>Windows cmd.exe</h3>
+  <p>cmd.exe has no built-in cryptographic random source at all, and there isn't a clean, reliable way to fake one in a single command. The straightforward path: type <code>powershell</code> to start a PowerShell session from within cmd — it's on every Windows machine — then run the PowerShell block above.</p>
+</section>
