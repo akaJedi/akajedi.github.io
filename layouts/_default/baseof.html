@@ -10,11 +10,12 @@
     {{ partial "head_custom.html" . }}
 </head>
 
-<body class="{{- if .IsHome }}home{{- end }}{{- with .File }} page-{{- .ContentBaseName }}{{- end }}">
+<body class="{{- if .IsHome }}home{{- end }}{{- with .File }} page-{{- .ContentBaseName }}{{- if eq .ContentBaseName "author" }} page-about{{- end }}{{- end }}">
     {{ partial "header.html" . }}
 
     <main id="main-content" class="container" tabindex="-1">
         {{ block "main" . }}{{ end }}
+        {{ partial "author-journey.html" . }}
     </main>
 
     <div class="d-print-none">

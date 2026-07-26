@@ -328,3 +328,53 @@ test("every Russian nav menu URL resolves to a real page in the build", async ()
     );
   }
 });
+test("author story reveals one deeper layer at a time", async () => {
+  const [author, skills, experience, evidence, resume, personal] =
+    await Promise.all([
+      readBuilt("author/index.html"),
+      readBuilt("skills/index.html"),
+      readBuilt("experience/index.html"),
+      readBuilt("author/evidence/index.html"),
+      readBuilt("resume/index.html"),
+      readBuilt("denistolochko/index.html"),
+    ]);
+
+  // The /about -> /author rename must not silently drop the .page-about
+  // CSS scoping that the bio layout still relies on.
+  assert.match(author, /page-author page-about/);
+  assert.match(author, /See the technical depth/);
+  assert.match(skills, /Follow the career/);
+  assert.match(experience, /Read the evidence/);
+  assert.match(evidence, /Education and colleague feedback/);
+  assert.match(evidence, /Colleague feedback/);
+  assert.match(evidence, /Open the résumé hub/);
+  assert.match(resume, /Go beyond the résumé/);
+  assert.match(personal, /Enter the Yurga archive/);
+});
+
+test("Russian author story follows the same progressive path", async () => {
+  const [author, skills, experience, evidence, personal] =
+    await Promise.all([
+      readBuilt("ru/author/index.html"),
+      readBuilt("ru/skills/index.html"),
+      readBuilt("ru/experience/index.html"),
+      readBuilt("ru/author/evidence/index.html"),
+      readBuilt("ru/denistolochko/index.html"),
+    ]);
+
+  assert.match(author, /Увидеть техническую глубину/);
+  assert.match(skills, /Пройти по карьере/);
+  assert.match(experience, /Прочитать подтверждения/);
+  assert.match(evidence, /Отзывы коллег/);
+  assert.match(evidence, /Выйти за пределы резюме/);
+  assert.match(personal, /Войти в архив Юрги/);
+});
+
+test("logo, breadcrumbs, and primary content share one responsive boundary", async () => {
+  const css = await readSource("assets/css/custom.css");
+
+  assert.ok(css.includes(".header > .container, body.home .header > .container, .breadcrumb-bar {"));
+  assert.ok(css.includes("max-width: 1180px; width: calc(100% - 3rem)"));
+  assert.ok(css.includes("margin-inline: auto; padding-inline: 0"));
+  assert.ok(css.includes(".breadcrumb-bar { width: calc(100% - 1.25rem); }"));
+});
