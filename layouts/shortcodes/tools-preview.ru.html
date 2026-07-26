@@ -1,0 +1,13 @@
+{{ $toolsSection := .Site.GetPage "/tools" }}
+{{ if $toolsSection }}
+<section class="summer-capabilities" aria-label="Обзор инструментов">
+  {{ range $index, $tool := (first 3 $toolsSection.Pages.ByTitle) }}
+  <article>
+    <span>{{ printf "%02d" (add $index 1) }}</span>
+    <h3>{{ $tool.Title }}</h3>
+    <p>{{ $tool.Params.description }}</p>
+    <a class="summer-read-more" href="{{ $tool.RelPermalink }}">Открыть →</a>
+  </article>
+  {{ end }}
+</section>
+{{ end }}

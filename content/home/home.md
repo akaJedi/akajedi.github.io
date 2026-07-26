@@ -7,12 +7,12 @@ translationKey = "homepage"
 
 <section class="summer-hero" aria-labelledby="summer-hero-title">
   <div class="summer-hero__copy">
-    <p class="summer-kicker">Infrastructure / Operations / Automation</p>
-    <h1 id="summer-hero-title">Denis Tolochko</h1>
-    <p class="summer-hero__role">IT Systems Operations Engineer</p>
-    <p class="summer-hero__lead">I build reliable infrastructure, cloud operations, and automation systems for teams that need technology to stay calm under pressure.</p>
-    <p class="summer-hero__context">My work sits where operations, security, and delivery meet: improving existing environments, removing repetitive work, and leaving teams with systems they can understand, maintain, and trust.</p>
-    <p class="summer-hero__note">I’m open to new opportunities, practical collaborations, and candid feedback. I do my best to stay attentive to these channels, so if you see a useful connection or have an idea worth exploring, <a href="/contact/">please get in touch</a>.</p>
+    <p class="summer-kicker">Free tools for engineers</p>
+    <h1 id="summer-hero-title">F12</h1>
+    <p class="summer-hero__role">A small toolbox, always growing</p>
+    <p class="summer-hero__lead">Small, honest tools for the everyday friction of infrastructure and ops work — checking an IP, working out a subnet, generating a password safely. No accounts, no upsells, no dark patterns.</p>
+    <p class="summer-hero__context">Everything here runs client-side wherever that's possible, and says plainly what it does and doesn't send anywhere. If it saves one engineer five minutes at 2am, it's done its job.</p>
+    <p class="summer-hero__note">Built and maintained by <a href="/author/">Denis Tolochko</a>, an IT Systems Operations Engineer — <a href="/contact/">say hello</a> or <a href="/tools/">browse the tools</a>.</p>
   </div>
   <div class="summer-signal">
     <div class="summer-signal__ring summer-signal__ring--one" data-signal-wheel role="button" tabindex="0" aria-label="Swipe down to accelerate the wheel"></div>
@@ -65,40 +65,24 @@ translationKey = "homepage"
 </section>
 
 <section class="summer-band summer-band--intro">
-  <div class="summer-band__eyebrow">Current role</div>
+  <div class="summer-band__eyebrow">Why F12 exists</div>
   <div class="summer-band__content">
-    <h2>Turning cloud chaos into predictable systems.</h2>
-    <p>IT Systems Operations Engineer focused on infrastructure as code, AWS and Azure operations, DevOps workflows, security-minded administration, and practical automation. The goal is simple: make deployments boring and systems trustworthy.</p>
+    <h2>Small tools, built to actually get used.</h2>
+    <p>Most engineering friction is small and repetitive: checking connectivity, working out a subnet, generating a password that's actually random. F12 is a growing set of tools for exactly that — fast, free, and built the way I'd want them built if I were the one reaching for them.</p>
   </div>
 </section>
 
-<section class="summer-capabilities" aria-label="Core capabilities">
-  <article>
-    <span>01</span>
-    <h3>Infrastructure</h3>
-    <p>Cloud, hybrid systems, identity, endpoints, virtualization, networking, and the operational discipline needed to keep them useful.</p>
-  </article>
-  <article>
-    <span>02</span>
-    <h3>Automation</h3>
-    <p>Scripts, repeatable workflows, infrastructure-as-code patterns, monitoring, and small tools that remove recurring manual work.</p>
-  </article>
-  <article>
-    <span>03</span>
-    <h3>Risk Signals</h3>
-    <p>Security, reliability, backup readiness, incident patterns, dependency health, and the weak signals that become outages if ignored.</p>
-  </article>
-</section>
+{{< tools-preview >}}
 
 <section class="summer-proof">
   <div>
-    <p class="summer-kicker">Selected paths</p>
-    <h2>Experience across support, systems, and transitions.</h2>
+    <p class="summer-kicker">Who's behind this</p>
+    <h2><a href="/author/">Denis Tolochko</a>, IT Systems Operations Engineer.</h2>
   </div>
   <div class="summer-proof__links">
+    <a href="/author/">Author</a>
     <a href="/experience/">Experience</a>
     <a href="/resume/">Resume</a>
-    <a href="/now/">Now</a>
   </div>
 </section>
 
