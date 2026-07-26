@@ -26,11 +26,3 @@ aliases = ["/about/"]
   {{< link icon="square-github" label="GitHub" url="https://github.com/akajedi" >}}
   {{< link icon="user" label="Website" url="https://www.f12.biz" >}}
 {{< /platform-links >}}
-
-<p style="text-align:center"><a href="/experience/">Want the full career history? →</a></p>
-<p style="text-align:center"><a href="/education/">Curious about my education? →</a></p>
-<p style="text-align:center"><a href="/resume/">Prefer a resume? →</a></p>
-<p style="text-align:center"><a href="/denistolochko/">Curious what I'm like outside of IT? →</a></p>
-
-{{< testimonial-section
-    title="Colleague Feedback" >}}

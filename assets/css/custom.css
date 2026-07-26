@@ -1530,7 +1530,9 @@ main:not(.home-container) > section,
 .resume-page,
 .site-skills-section,
 .section-experience,
-.section--contact {
+.section--contact,
+.tools-page,
+.tools-hub {
   max-width: 1180px;
   width: calc(100% - 3rem);
   margin-left: auto;
@@ -1840,7 +1842,9 @@ main:not(.home-container) > section,
   .resume-page,
   .site-skills-section,
   .section-experience,
-  .section--contact {
+  .section--contact,
+  .tools-page,
+  .tools-hub {
     width: calc(100% - 2rem);
     padding-top: 7rem;
     padding-bottom: 4rem;
@@ -1867,7 +1871,9 @@ main:not(.home-container) > section,
   .resume-page,
   .site-skills-section,
   .section-experience,
-  .section--contact {
+  .section--contact,
+  .tools-page,
+  .tools-hub {
     width: calc(100% - 1.25rem);
     padding-top: 6rem;
   }
@@ -4433,14 +4439,10 @@ body.home .summer-hero {
   body.page-contact main.container > #main.contact-page { padding-top: 6rem; }
 }
 
-/* /tools/ section — utility pages (connection check, calculators, etc.) */
-.tools-page,
-.tools-hub {
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 7rem 1.5rem 5rem;
-}
-
+/* /tools/ section — utility pages (connection check, calculators, etc.).
+   Width/margin/padding come from the shared "main:not(.home-container) >
+   section" rule above, matching blog/skills/experience/resume so the
+   breadcrumb bar and page content always share the same left edge. */
 .tools-page__lead {
   color: var(--summer-muted);
   font-size: 1.05rem;
@@ -4842,4 +4844,42 @@ body.home .summer-hero {
   margin: 0;
   color: var(--summer-muted);
   font-size: 0.88rem;
+}
+/* Author journey: progressive disclosure and shared navigation boundary */
+
+.author-journey {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 1.5rem; align-items: center;
+  max-width: 1180px; width: calc(100% - 3rem); margin: 1rem auto 6rem; padding: 1.5rem;
+  background: var(--summer-deep); border-top: 4px solid var(--summer-orange); color: #fff;
+  box-shadow: 0 22px 60px rgba(16, 38, 59, 0.16);
+}
+.author-journey__count { display: grid; min-width: 4.5rem; padding-right: 1.5rem; border-right: 1px solid rgba(255, 255, 255, 0.2); }
+.author-journey__count span { color: var(--summer-orange); font: 900 2.2rem/1 "Space Grotesk", sans-serif; }
+.author-journey__count small, .author-journey__copy p { color: rgba(255, 255, 255, 0.68); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+.author-journey__copy p, .author-journey__copy h2, .author-journey__copy span { margin: 0; }
+.author-journey__copy h2 { margin-block: 0.25rem; color: #fff; font-size: clamp(1.35rem, 2.4vw, 2rem); line-height: 1.05; }
+.author-journey__copy span { color: rgba(255, 255, 255, 0.74); line-height: 1.55; }
+.author-journey__next {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0.8rem 1rem;
+  background: var(--summer-orange); color: #fff !important; font-size: 0.75rem; font-weight: 900;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.author-journey__next:hover, .author-journey__next:focus-visible { background: var(--summer-cyan); color: var(--summer-deep) !important; }
+.author-journey__next b { margin-left: 0.65rem; font-size: 1.2rem; }
+
+/* Header logo and breadcrumbs share the same edges as primary content. */
+.header > .container, body.home .header > .container, .breadcrumb-bar {
+  box-sizing: border-box; max-width: 1180px; width: calc(100% - 3rem); margin-inline: auto; padding-inline: 0;
+}
+.breadcrumb-bar .breadcrumbs { margin-inline: 0; }
+
+@media (max-width: 767px) {
+  .author-journey { grid-template-columns: auto minmax(0, 1fr); width: calc(100% - 2rem); }
+  .author-journey__next { grid-column: 1 / -1; }
+  .header > .container, body.home .header > .container, .breadcrumb-bar { width: calc(100% - 2rem); }
+}
+@media (max-width: 575px) {
+  .author-journey { width: calc(100% - 1.25rem); padding: 1rem; }
+  .author-journey__count { min-width: 3.5rem; padding-right: 1rem; }
+  .header > .container, body.home .header > .container, .breadcrumb-bar { width: calc(100% - 1.25rem); }
 }

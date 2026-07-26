@@ -27,10 +27,3 @@ aliases = ["/about/"]
   {{< link icon="user" label="Сайт" url="https://www.f12.biz" >}}
 {{< /platform-links >}}
 
-<p style="text-align:center"><a href="/ru/experience/">Хотите увидеть весь профессиональный путь? →</a></p>
-<p style="text-align:center"><a href="/ru/education/">Интересно моё образование? →</a></p>
-<p style="text-align:center"><a href="/resume/">Хотите резюме? →</a></p>
-<p style="text-align:center"><a href="/ru/denistolochko/">Интересно, какой я вне IT? →</a></p>
-
-{{< testimonial-section
-    title="Colleague Feedback" >}}

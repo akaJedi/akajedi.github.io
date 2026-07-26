@@ -1,0 +1,32 @@
+{{- $current := "" -}}{{- with .File }}{{ $current = .Path }}{{ end -}}
+{{- $step := 0 -}}{{- $total := 6 -}}{{- $nextURL := "" -}}{{- $nextTitle := "" -}}{{- $nextDescription := "" -}}
+{{- if eq $current "author/_index.md" -}}
+  {{- $step = 1 -}}{{- $nextURL = "/skills/" -}}{{- $nextTitle = "See the technical depth" -}}{{- $nextDescription = "Cloud, identity, security, automation, systems, and the years behind each practice." -}}
+{{- else if eq $current "skills/_index.md" -}}
+  {{- $step = 2 -}}{{- $nextURL = "/experience/" -}}{{- $nextTitle = "Follow the career" -}}{{- $nextDescription = "The roles and operating environments where those skills were applied." -}}
+{{- else if eq $current "experience/_index.md" -}}
+  {{- $step = 3 -}}{{- $nextURL = "/author/evidence/" -}}{{- $nextTitle = "Read the evidence" -}}{{- $nextDescription = "Education and direct feedback from people who worked alongside me." -}}
+{{- else if eq $current "author-evidence.md" -}}
+  {{- $step = 4 -}}{{- $nextURL = "/resume/" -}}{{- $nextTitle = "Open the résumé hub" -}}{{- $nextDescription = "Role-focused documents, dates, formats, and integrity hashes." -}}
+{{- else if eq $current "resume/_index.md" -}}
+  {{- $step = 5 -}}{{- $nextURL = "/denistolochko/" -}}{{- $nextTitle = "Go beyond the résumé" -}}{{- $nextDescription = "Personal projects, history writing, and interests that do not fit on a CV." -}}
+{{- else if eq $current "denistolochko/_index.md" -}}
+  {{- $step = 6 -}}{{- $nextURL = "/tags/series-yurga/" -}}{{- $nextTitle = "Enter the Yurga archive" -}}{{- $nextDescription = "The deepest layer: a history of the Siberian town where I grew up." -}}
+{{- else if eq $current "author/_index.ru.md" -}}
+  {{- $step = 1 -}}{{- $total = 5 -}}{{- $nextURL = "/ru/skills/" -}}{{- $nextTitle = "Увидеть техническую глубину" -}}{{- $nextDescription = "Облака, identity, безопасность, автоматизация и годы практики." -}}
+{{- else if eq $current "skills/_index.ru.md" -}}
+  {{- $step = 2 -}}{{- $total = 5 -}}{{- $nextURL = "/ru/experience/" -}}{{- $nextTitle = "Пройти по карьере" -}}{{- $nextDescription = "Роли и рабочие среды, где эти навыки применялись." -}}
+{{- else if eq $current "experience/_index.ru.md" -}}
+  {{- $step = 3 -}}{{- $total = 5 -}}{{- $nextURL = "/ru/author/evidence/" -}}{{- $nextTitle = "Прочитать подтверждения" -}}{{- $nextDescription = "Образование и отзывы людей, работавших рядом со мной." -}}
+{{- else if eq $current "author-evidence.ru.md" -}}
+  {{- $step = 4 -}}{{- $total = 5 -}}{{- $nextURL = "/ru/denistolochko/" -}}{{- $nextTitle = "Выйти за пределы резюме" -}}{{- $nextDescription = "Личные проекты, история и интересы, которым нет места в CV." -}}
+{{- else if eq $current "denistolochko/_index.ru.md" -}}
+  {{- $step = 5 -}}{{- $total = 5 -}}{{- $nextURL = "/ru/tags/series-yurga/" -}}{{- $nextTitle = "Войти в архив Юрги" -}}{{- $nextDescription = "Самый глубокий слой: история сибирского города, где я вырос." -}}
+{{- end -}}
+{{- if gt $step 0 }}
+<aside class="author-journey" aria-label="{{ if eq .Lang "ru" }}Следующий слой истории автора{{ else }}Next layer of the author story{{ end }}">
+  <div class="author-journey__count"><span>{{ printf "%02d" $step }}</span><small>{{ if eq .Lang "ru" }}из{{ else }}of{{ end }} {{ printf "%02d" $total }}</small></div>
+  <div class="author-journey__copy"><p>{{ if eq .Lang "ru" }}Чем дальше, тем больше{{ else }}The further you go, the more you get{{ end }}</p><h2>{{ $nextTitle }}</h2><span>{{ $nextDescription }}</span></div>
+  <a class="author-journey__next" href="{{ $nextURL | relURL }}">{{ if eq .Lang "ru" }}Открыть следующий слой{{ else }}Open the next layer{{ end }} <b aria-hidden="true">→</b></a>
+</aside>
+{{- end }}
