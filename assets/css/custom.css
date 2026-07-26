@@ -4740,6 +4740,70 @@ body.home .summer-hero {
   white-space: pre;
 }
 
+.tool-copyable {
+  position: relative;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.tool-copyable:hover {
+  background: color-mix(in srgb, var(--summer-orange) 12%, transparent);
+}
+
+.tool-copyable:focus-visible {
+  outline: 2px solid var(--summer-orange);
+  outline-offset: 2px;
+}
+
+.tool-copyable.tool-copied::after {
+  content: attr(data-copied-label);
+  position: absolute;
+  bottom: calc(100% + 0.35rem);
+  left: 0;
+  padding: 0.2rem 0.55rem;
+  border-radius: 3px;
+  background: var(--summer-deep);
+  color: #fff;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.tool-code-wrap {
+  position: relative;
+  margin: 0.75rem 0;
+}
+
+.tool-code-wrap .tool-code {
+  margin: 0;
+  padding-right: 5rem;
+}
+
+.tool-code-copy {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  min-height: 30px;
+  padding: 0.25rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e7edf5;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tool-code-copy:hover,
+.tool-code-copy:focus-visible {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
 .tools-hub__intro {
   color: var(--summer-muted);
   max-width: 60ch;
