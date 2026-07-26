@@ -4716,6 +4716,30 @@ body.home .summer-hero {
   font-size: 0.9rem;
 }
 
+.tool-ip-display {
+  margin: 0.5rem 0 0;
+  color: var(--summer-blue);
+  font-family: SFMono-Regular, Consolas, monospace;
+  font-size: clamp(1.5rem, 5vw, 2.2rem);
+  font-weight: 700;
+  word-break: break-word;
+}
+
+.tool-code {
+  margin: 0.75rem 0;
+  padding: 0.9rem 1.1rem;
+  overflow-x: auto;
+  border: 1px solid var(--summer-line);
+  background: var(--summer-deep);
+  color: #e7edf5;
+}
+
+.tool-code code {
+  font-family: SFMono-Regular, Consolas, monospace;
+  font-size: 0.84rem;
+  white-space: pre;
+}
+
 .tools-hub__intro {
   color: var(--summer-muted);
   max-width: 60ch;
