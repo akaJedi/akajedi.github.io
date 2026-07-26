@@ -109,4 +109,36 @@
  &lt;pre class="tool-code"&gt;&lt;code&gt;curl "https://green-rice-1ea7.denis-f21.workers.dev/api/ip?family=v4" # only if you're actually connected over IPv4
 curl "https://green-rice-1ea7.denis-f21.workers.dev/api/ip?family=v6" # only if you're actually connected over IPv6
 curl "https://green-rice-1ea7.denis-f21.workers.dev/api/ip?format=json" # {"ip":"...","family":"IPv4"}&lt;/code&gt;&lt;/pre&gt;
- &lt;p class="tool-hint"&gt;This endpoint is intentionally public and doesn't require a browser Origin header — that's specifically so plain &lt;code&gt;curl&lt;/code&gt; works. It only ever echoes back the IP address of whoever's asking; nothing is logged or stored.&lt;/p&gt;</description></item></channel></rss>
+ &lt;p class="tool-hint"&gt;This endpoint is intentionally public and doesn't require a browser Origin header — that's specifically so plain &lt;code&gt;curl&lt;/code&gt; works. It only ever echoes back the IP address of whoever's asking; nothing is logged or stored.&lt;/p&gt;</description></item><item><title>Password Generator</title><link>https://www.f12.biz/tools/password-generator/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/tools/password-generator/</guid><description>&lt;section class="tool-card" aria-labelledby="tool-pwgen-title"&gt;
+ &lt;h2 id="tool-pwgen-title"&gt;Generate a password&lt;/h2&gt;
+ &lt;p class="tool-pw-display" data-pwgen-output aria-live="polite"&gt;&lt;/p&gt;
+ &lt;p class="tool-error" data-pwgen-error hidden&gt;&lt;/p&gt;
+ &lt;div class="tool-pw-actions"&gt;
+ &lt;button type="button" class="tool-btn tool-btn--primary" data-pwgen-copy&gt;Copy&lt;/button&gt;
+ &lt;button type="button" class="tool-btn" data-pwgen-regenerate&gt;Generate new&lt;/button&gt;
+ &lt;/div&gt;
+ &lt;p class="tool-hint" data-pwgen-entropy&gt;&lt;/p&gt;
+ &lt;form class="tool-pwgen-form" data-pwgen-form&gt;
+ &lt;div class="tool-pwgen-length"&gt;
+ &lt;label for="pwgen-length"&gt;Length: &lt;output for="pwgen-length" data-pwgen-length-value&gt;20&lt;/output&gt;&lt;/label&gt;
+ &lt;input id="pwgen-length" type="range" min="8" max="128" value="20" data-pwgen-length&gt;
+ &lt;/div&gt;
+ &lt;fieldset class="tool-pwgen-fieldset"&gt;
+ &lt;legend&gt;Character types&lt;/legend&gt;
+ &lt;label&gt;&lt;input type="checkbox" data-pwgen-option="lower" checked&gt; Lowercase (a–z)&lt;/label&gt;
+ &lt;label&gt;&lt;input type="checkbox" data-pwgen-option="upper" checked&gt; Uppercase (A–Z)&lt;/label&gt;
+ &lt;label&gt;&lt;input type="checkbox" data-pwgen-option="digits" checked&gt; Digits (0–9)&lt;/label&gt;
+ &lt;label&gt;&lt;input type="checkbox" data-pwgen-option="symbols" checked&gt; Symbols (!@#$…)&lt;/label&gt;
+ &lt;/fieldset&gt;
+ &lt;label class="tool-pwgen-ambiguous"&gt;&lt;input type="checkbox" data-pwgen-exclude-ambiguous&gt; Exclude ambiguous characters (0, O, 1, l, I, |)&lt;/label&gt;
+ &lt;/form&gt;
+&lt;/section&gt;
+&lt;section class="tool-card" aria-labelledby="tool-pwgen-how-title"&gt;
+ &lt;h2 id="tool-pwgen-how-title"&gt;How this actually works&lt;/h2&gt;
+ &lt;ul class="tool-list"&gt;
+ &lt;li&gt;Uses the Web Crypto API's &lt;code&gt;crypto.getRandomValues()&lt;/code&gt; — a cryptographically secure random number generator, not &lt;code&gt;Math.random()&lt;/code&gt;, which was never designed to be unpredictable.&lt;/li&gt;
+ &lt;li&gt;Character selection uses rejection sampling to avoid modulo bias, a subtle mistake in many password generators that quietly makes some characters more likely to appear than others.&lt;/li&gt;
+ &lt;li&gt;If you select more than one character type, one of each is guaranteed to appear — then the whole password, including where those guaranteed characters end up, is shuffled using the same secure randomness.&lt;/li&gt;
+ &lt;li&gt;Nothing is sent anywhere. The password is generated and stays entirely in this browser tab — close or reload the page and it's gone for good.&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/section&gt;</description></item></channel></rss>
