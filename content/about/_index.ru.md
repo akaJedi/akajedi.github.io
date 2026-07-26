@@ -23,12 +23,10 @@ draft = false
   {{< link icon="square-twitter" label="Twitter" url="https://twitter.com/denistolochko" >}}
   {{< link icon="linkedin" label="LinkedIn" url="https://www.linkedin.com/in/denistolochko" >}}
   {{< link icon="square-github" label="GitHub" url="https://github.com/akajedi" >}}
-  {{< link icon="keybase" label="Keybase" url="https://keybase.io/akajedi" >}}
-  {{< link icon="instagram" label="Instagram" url="https://www.instagram.com/@denishavefun" >}}
-  {{< link icon="tiktok" label="TikTok" url="https://www.tiktok.com/@denistolochko" >}}
-  {{< link icon="threads" label="Threads" url="https://www.threads.net/@denishavefun" >}}
   {{< link icon="user" label="Сайт" url="https://www.f12.biz" >}}
 {{< /platform-links >}}
+
+<p style="text-align:center"><a href="/ru/denistolochko/">Интересно, какой я вне IT? →</a></p>
 
 {{< education-list
     title="Образование"
