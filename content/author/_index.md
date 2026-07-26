@@ -1,7 +1,8 @@
 +++
-title =  "About"
-searchDescription = "IT Systems Operations Engineer focused on infrastructure, automation, and cloud operations."
+title =  "Author"
+searchDescription = "IT Systems Operations Engineer focused on infrastructure, automation, and cloud operations — the person behind F12."
 draft = false
+aliases = ["/about/"]
 +++
 
 

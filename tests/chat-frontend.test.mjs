@@ -155,10 +155,10 @@ test("homepage hero explains both operational value and openness to opportunitie
     read("assets/css/custom.css"),
   ]);
   assert.match(english, /summer-hero__context/);
-  assert.match(english, /operations, security, and delivery/);
-  assert.match(english, /open to new opportunities/);
-  assert.match(russian, /эксплуатации, безопасности и доставки изменений/);
-  assert.match(russian, /открыт новым возможностям/);
+  assert.match(english, /client-side/);
+  assert.match(english, /say hello/);
+  assert.match(russian, /стороне клиента/);
+  assert.match(russian, /напишите мне/);
   assert.match(css, /body\.home \.summer-hero \{[\s\S]*max-width: 1180px[\s\S]*width: calc\(100% - 3rem\)/);
   assert.match(css, /body\.home \.header > \.container \{[\s\S]*max-width: 1180px[\s\S]*width: calc\(100% - 3rem\)/);
 });
