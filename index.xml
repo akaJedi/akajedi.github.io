@@ -367,12 +367,12 @@ The content you see here comes from the contents of the &lt;code&gt;content/proj
 &lt;/section&gt;
 &lt;p class="tools-note"&gt;Uses DNS-over-HTTPS (Cloudflare's public resolver) for records and &lt;a href="https://rdap.org"&gt;RDAP&lt;/a&gt; — the modern, standardized replacement for WHOIS — for registration data. Both are independent public registries; looking up a domain here never makes this site contact that domain's own servers at all. Nothing about your lookup is stored.&lt;/p&gt;</description></item><item><title>Home</title><link>https://www.f12.biz/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/home/home/</guid><description>&lt;section class="summer-hero" aria-labelledby="summer-hero-title"&gt;
  &lt;div class="summer-hero__copy"&gt;
- &lt;p class="summer-kicker"&gt;Infrastructure / Operations / Automation&lt;/p&gt;
- &lt;h1 id="summer-hero-title"&gt;Denis Tolochko&lt;/h1&gt;
- &lt;p class="summer-hero__role"&gt;IT Systems Operations Engineer&lt;/p&gt;
- &lt;p class="summer-hero__lead"&gt;I build reliable infrastructure, cloud operations, and automation systems for teams that need technology to stay calm under pressure.&lt;/p&gt;
- &lt;p class="summer-hero__context"&gt;My work sits where operations, security, and delivery meet: improving existing environments, removing repetitive work, and leaving teams with systems they can understand, maintain, and trust.&lt;/p&gt;
- &lt;p class="summer-hero__note"&gt;I’m open to new opportunities, practical collaborations, and candid feedback. I do my best to stay attentive to these channels, so if you see a useful connection or have an idea worth exploring, &lt;a href="./contact/"&gt;please get in touch&lt;/a&gt;.&lt;/p&gt;</description></item><item><title>My IP</title><link>https://www.f12.biz/tools/my-ip/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/tools/my-ip/</guid><description>&lt;section class="tool-card" aria-labelledby="tool-myip-title"&gt;
+ &lt;p class="summer-kicker"&gt;Free tools for engineers&lt;/p&gt;
+ &lt;h1 id="summer-hero-title"&gt;F12&lt;/h1&gt;
+ &lt;p class="summer-hero__role"&gt;A small toolbox, always growing&lt;/p&gt;
+ &lt;p class="summer-hero__lead"&gt;Small, honest tools for the everyday friction of infrastructure and ops work — checking an IP, working out a subnet, generating a password safely. No accounts, no upsells, no dark patterns.&lt;/p&gt;
+ &lt;p class="summer-hero__context"&gt;Everything here runs client-side wherever that's possible, and says plainly what it does and doesn't send anywhere. If it saves one engineer five minutes at 2am, it's done its job.&lt;/p&gt;
+ &lt;p class="summer-hero__note"&gt;Built and maintained by &lt;a href="./author/"&gt;Denis Tolochko&lt;/a&gt;, an IT Systems Operations Engineer — &lt;a href="./contact/"&gt;say hello&lt;/a&gt; or &lt;a href="./tools/"&gt;browse the tools&lt;/a&gt;.&lt;/p&gt;</description></item><item><title>My IP</title><link>https://www.f12.biz/tools/my-ip/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/tools/my-ip/</guid><description>&lt;section class="tool-card" aria-labelledby="tool-myip-title"&gt;
  &lt;h2 id="tool-myip-title"&gt;Your IP address&lt;/h2&gt;
  &lt;p class="tool-ip-display" data-myip-value&gt;Checking…&lt;/p&gt;
  &lt;p class="tool-hint" data-myip-family&gt;&lt;/p&gt;

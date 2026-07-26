@@ -199,12 +199,12 @@
  &lt;h2 id="tool-pwgen-terminal-title"&gt;Из терминала&lt;/h2&gt;
  &lt;p&gt;Эти команды генерируют пароль так же, как эта страница — локально, с помощью криптостойкого генератора случайных чисел вашей же машины — ничего не отправляется ни на какой сервер. Здесь намеренно нет варианта через &lt;code&gt;curl&lt;/code&gt;, в отличие от инструмента проверки IP: генератор паролей, которому нужно спросить пароль у сервера, — это уже не тот генератор, где «ничего никуда не отправляется» действительно так.&lt;/p&gt;</description></item><item><title>Главная</title><link>https://www.f12.biz/ru/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/home/home/</guid><description>&lt;section class="summer-hero" aria-labelledby="summer-hero-title"&gt;
  &lt;div class="summer-hero__copy"&gt;
- &lt;p class="summer-kicker"&gt;Инфраструктура / Эксплуатация / Автоматизация&lt;/p&gt;
- &lt;h1 id="summer-hero-title"&gt;Денис Толочко&lt;/h1&gt;
- &lt;p class="summer-hero__role"&gt;Инженер по эксплуатации ИТ-систем&lt;/p&gt;
- &lt;p class="summer-hero__lead"&gt;Создаю надёжную инфраструктуру, облачные процессы и автоматизацию для команд, которым нужны спокойные и предсказуемые технологии.&lt;/p&gt;
- &lt;p class="summer-hero__context"&gt;Моя работа находится на пересечении эксплуатации, безопасности и доставки изменений: улучшаю существующие среды, устраняю повторяющиеся задачи и оставляю командам понятные, управляемые и надёжные системы.&lt;/p&gt;
- &lt;p class="summer-hero__note"&gt;Я открыт новым возможностям, практическому сотрудничеству и честной обратной связи. Стараюсь внимательно следить за сообщениями, поэтому, если вы видите точки соприкосновения или хотите обсудить идею, &lt;a href="../ru/contact/"&gt;напишите мне&lt;/a&gt;.&lt;/p&gt;</description></item><item><title>Калькулятор CIDR</title><link>https://www.f12.biz/ru/tools/cidr-calculator/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/tools/cidr-calculator/</guid><description>&lt;section class="tool-card" aria-labelledby="tool-calc-title"&gt;
+ &lt;p class="summer-kicker"&gt;Бесплатные инструменты для инженеров&lt;/p&gt;
+ &lt;h1 id="summer-hero-title"&gt;F12&lt;/h1&gt;
+ &lt;p class="summer-hero__role"&gt;Небольшой набор инструментов, который постоянно растёт&lt;/p&gt;
+ &lt;p class="summer-hero__lead"&gt;Простые, честные инструменты для повседневных мелочей инфраструктурной и IT-работы — проверить IP, посчитать подсеть, безопасно сгенерировать пароль. Без аккаунтов, без навязчивых предложений, без тёмных паттернов.&lt;/p&gt;
+ &lt;p class="summer-hero__context"&gt;Всё здесь работает на стороне клиента, где это возможно, и честно говорит, что отправляется куда-либо, а что нет. Если это экономит инженеру пять минут в два часа ночи — цель достигнута.&lt;/p&gt;
+ &lt;p class="summer-hero__note"&gt;Создаётся и поддерживается &lt;a href="../ru/author/"&gt;Денисом Толочко&lt;/a&gt;, IT Systems Operations Engineer — &lt;a href="../ru/contact/"&gt;напишите мне&lt;/a&gt; или &lt;a href="../ru/tools/"&gt;посмотрите инструменты&lt;/a&gt;.&lt;/p&gt;</description></item><item><title>Калькулятор CIDR</title><link>https://www.f12.biz/ru/tools/cidr-calculator/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/tools/cidr-calculator/</guid><description>&lt;section class="tool-card" aria-labelledby="tool-calc-title"&gt;
  &lt;h2 id="tool-calc-title"&gt;Калькулятор&lt;/h2&gt;
  &lt;form class="tool-form" data-cidr-form&gt;
  &lt;label for="cidr-input"&gt;IP-адрес / префикс&lt;/label&gt;
