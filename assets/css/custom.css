@@ -4518,6 +4518,97 @@ body.home .summer-hero {
   color: var(--summer-ink);
 }
 
+.tool-form label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--summer-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.tool-form__row {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.tool-form__row input {
+  flex: 1 1 240px;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0 0.75rem;
+  border: 1px solid var(--summer-line);
+  background: #fff;
+  color: var(--summer-ink);
+  font-size: 0.95rem;
+  font-family: SFMono-Regular, Consolas, monospace;
+}
+
+.tool-form__row input:focus-visible {
+  outline: 2px solid var(--summer-orange);
+  outline-offset: 1px;
+}
+
+.tool-form__row button {
+  flex: 0 0 auto;
+  min-height: 44px;
+  padding: 0 1.25rem;
+  border: 1px solid var(--summer-orange);
+  background: var(--summer-orange);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tool-form__row button:hover,
+.tool-form__row button:focus-visible {
+  background: #c1440e;
+  border-color: #c1440e;
+}
+
+.tool-error {
+  margin: 1rem 0 0;
+  padding: 0.75rem 1rem;
+  border-left: 3px solid #d6280f;
+  background: color-mix(in srgb, #d6280f 8%, transparent);
+  color: var(--summer-ink);
+  font-size: 0.88rem;
+}
+
+.tool-table-wrap {
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+
+.tool-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+  white-space: nowrap;
+}
+
+.tool-table th,
+.tool-table td {
+  padding: 0.5rem 0.9rem;
+  border-bottom: 1px solid var(--summer-line);
+  text-align: left;
+}
+
+.tool-table th {
+  color: var(--summer-muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.tool-table td:first-child {
+  font-family: SFMono-Regular, Consolas, monospace;
+  color: var(--summer-blue);
+}
+
 .tools-hub__intro {
   color: var(--summer-muted);
   max-width: 60ch;
