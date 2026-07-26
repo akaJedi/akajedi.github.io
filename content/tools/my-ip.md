@@ -21,10 +21,10 @@ searchExclude: true
   <p>Windows 10 and later ship a real <code>curl.exe</code>, so this exact command works unchanged in cmd.exe too:</p>
   <pre class="tool-code"><code>curl {{< worker-api-base >}}/api/ip</code></pre>
   <h3>Windows PowerShell</h3>
-  <p>PowerShell aliases <code>curl</code> to <code>Invoke-WebRequest</code>, which returns a response object rather than plain text. Either call <code>curl.exe</code> directly, or use PowerShell's own idiomatic cmdlet:</p>
-  <pre class="tool-code"><code>curl.exe {{< worker-api-base >}}/api/ip
-# or, PowerShell-native:
-(Invoke-RestMethod "{{< worker-api-base >}}/api/ip?format=json").ip</code></pre>
+  <p>PowerShell aliases <code>curl</code> to <code>Invoke-WebRequest</code>, which returns a response object rather than plain text. Call <code>curl.exe</code> directly for the exact same plain-text output as above:</p>
+  <pre class="tool-code"><code>curl.exe {{< worker-api-base >}}/api/ip</code></pre>
+  <p>Or, using PowerShell's own idiomatic cmdlet instead of curl:</p>
+  <pre class="tool-code"><code>(Invoke-RestMethod "{{< worker-api-base >}}/api/ip?format=json").ip</code></pre>
   <h3>A couple of options, same syntax on every platform</h3>
   <pre class="tool-code"><code>curl "{{< worker-api-base >}}/api/ip?family=v4"   # only if you're actually connected over IPv4
 curl "{{< worker-api-base >}}/api/ip?family=v6"   # only if you're actually connected over IPv6
