@@ -66,6 +66,7 @@ function routeName(pathname: string): string {
   if (pathname === "/api/health") return "health";
   if (pathname === "/api/ip") return "ip";
   if (pathname === "/api/whoami") return "whoami";
+  if (pathname === "/api/domain-lookup") return "domain-lookup";
   return "unknown";
 }
 
@@ -619,6 +620,97 @@ async function handleIp(request: Request, env: Env): Promise<Response> {
   return new Response(`${ip}\n`, { headers });
 }
 
+const DOH_ENDPOINT = "https://cloudflare-dns.com/dns-query";
+const RDAP_ENDPOINT = "https://rdap.org/domain/";
+// Matches a plain hostname: labels of letters/digits/hyphens, at least one
+// dot, TLD letters-only. Deliberately rejects IP literals and anything with
+// a scheme, port, path, or whitespace — the input is used only as a query
+// value against DOH_ENDPOINT/RDAP_ENDPOINT below, never as a fetch() target
+// host itself, so there is no SSRF surface here regardless, but rejecting
+// non-hostnames early keeps the error message honest about what this
+// endpoint accepts.
+const DOMAIN_PATTERN = /^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/;
+
+function normalizeDomainInput(raw: string): string | null {
+  const value = raw.trim().toLowerCase().replace(/\.$/, "");
+  return DOMAIN_PATTERN.test(value) ? value : null;
+}
+
+async function dohLookup(domain: string, type: string, signal: AbortSignal): Promise<string[]> {
+  const url = `${DOH_ENDPOINT}?name=${encodeURIComponent(domain)}&type=${type}`;
+  const response = await fetch(url, { headers: { Accept: "application/dns-json" }, signal });
+  if (!response.ok) return [];
+  const data = await response.json<{ Answer?: { data: string }[] }>();
+  return (data.Answer || []).map((entry) => entry.data.replace(/^"|"$/g, ""));
+}
+
+interface RdapEntity {
+  roles?: string[];
+  vcardArray?: [string, [string, unknown, string, string][]];
+}
+
+async function rdapLookup(domain: string, signal: AbortSignal): Promise<Record<string, unknown> | null> {
+  try {
+    const response = await fetch(`${RDAP_ENDPOINT}${encodeURIComponent(domain)}`, { signal });
+    if (!response.ok) return null;
+    const data = await response.json<{
+      events?: { eventAction: string; eventDate: string }[];
+      entities?: RdapEntity[];
+      status?: string[];
+      nameservers?: { ldhName: string }[];
+    }>();
+    const findEvent = (action: string) =>
+      data.events?.find((event) => event.eventAction === action)?.eventDate || null;
+    const registrar = data.entities
+      ?.find((entity) => entity.roles?.includes("registrar"))
+      ?.vcardArray?.[1]?.find((field) => field[0] === "fn")?.[3] || null;
+    return {
+      registrar,
+      registered: findEvent("registration"),
+      expires: findEvent("expiration"),
+      lastChanged: findEvent("last changed"),
+      status: data.status || [],
+      nameservers: (data.nameservers || []).map((entry) => entry.ldhName),
+    };
+  } catch {
+    return null;
+  }
+}
+
+// No live fetch() to the looked-up domain itself — every outbound call here
+// targets a fixed, trusted host (Cloudflare's DNS-over-HTTPS resolver, or
+// the RDAP bootstrap redirector), with the domain passed only as a query
+// value. That keeps this endpoint's SSRF surface at zero: it can never be
+// used to make this Worker issue a request to an arbitrary attacker-chosen
+// origin, unlike a "check this site's HTTP headers" feature would.
+async function handleDomainLookup(request: Request, env: Env): Promise<Response> {
+  await rateLimitIp(request, env, "domain-lookup", 15, 300);
+  const url = new URL(request.url);
+  const domain = normalizeDomainInput(url.searchParams.get("domain") || "");
+  if (!domain) return json({ error: "Provide a valid domain name, e.g. example.com." }, 400);
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
+  try {
+    const [a, aaaa, mx, ns, txt, caa, registration] = await Promise.all([
+      dohLookup(domain, "A", controller.signal),
+      dohLookup(domain, "AAAA", controller.signal),
+      dohLookup(domain, "MX", controller.signal),
+      dohLookup(domain, "NS", controller.signal),
+      dohLookup(domain, "TXT", controller.signal),
+      dohLookup(domain, "CAA", controller.signal),
+      rdapLookup(domain, controller.signal),
+    ]);
+    return json({
+      domain,
+      dns: { A: a, AAAA: aaaa, MX: mx, NS: ns, TXT: txt, CAA: caa },
+      registration,
+    });
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
 async function handleHealth(env: Env): Promise<Response> {
   try {
     await env.DB.prepare("SELECT 1 AS ok").first();
@@ -787,6 +879,11 @@ async function route(request: Request, env: Env, ctx: ExecutionContext, requestI
   if (url.pathname === "/api/whoami" && request.method === "GET") {
     if (!isAllowedOrigin(request, env)) throw new PublicError(403, "Request not allowed.", "invalid-origin");
     const response = await handleWhoami(request, env);
+    return withCors(response, request, env);
+  }
+  if (url.pathname === "/api/domain-lookup" && request.method === "GET") {
+    if (!isAllowedOrigin(request, env)) throw new PublicError(403, "Request not allowed.", "invalid-origin");
+    const response = await handleDomainLookup(request, env);
     return withCors(response, request, env);
   }
   if (url.pathname === "/api/telegram/webhook" && request.method === "POST") {
