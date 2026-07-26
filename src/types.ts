@@ -14,6 +14,7 @@ export interface Env {
   QUIET_HOURS_END?: string;
   CLOSED_RETENTION_DAYS?: string;
   SPAM_RETENTION_DAYS?: string;
+  RETENTION_CLEANUP_ENABLED?: string;
   TURNSTILE_REQUIRED?: string;
   TURNSTILE_EXPECTED_HOSTNAMES?: string;
   TURNSTILE_TEST_MODE?: string;
