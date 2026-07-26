@@ -374,6 +374,28 @@ it("sends Access-Control-Allow-Origin on /api/ip when a browser calls it with an
   expect(response.headers.get("Access-Control-Allow-Origin")).toBe(origin);
 });
 
+it("serves /ip on the api.f12.biz custom domain without the /api prefix", async () => {
+  const response = await dispatch("https://api.f12.biz/ip", {
+    headers: { "CF-Connecting-IP": "203.0.113.9" },
+  });
+  expect(response.status).toBe(200);
+  expect(await response.text()).toBe("203.0.113.9\n");
+});
+
+it("still serves /api/ip on api.f12.biz for anyone using the old path", async () => {
+  const response = await dispatch("https://api.f12.biz/api/ip", {
+    headers: { "CF-Connecting-IP": "203.0.113.9" },
+  });
+  expect(response.status).toBe(200);
+});
+
+it("leaves the /api prefix alone on domains other than api.f12.biz", async () => {
+  const response = await dispatch("https://worker.test/ip", {
+    headers: { "CF-Connecting-IP": "203.0.113.9" },
+  });
+  expect(response.status).toBe(404);
+});
+
 it("rejects /api/whoami from a disallowed origin but serves allowed ones", async () => {
   const blocked = await dispatch("https://worker.test/api/whoami", {
     headers: { Origin: "https://attacker.example", "CF-Connecting-IP": "203.0.113.9" },
