@@ -651,7 +651,13 @@ interface RdapEntity {
 
 async function rdapLookup(domain: string, signal: AbortSignal): Promise<Record<string, unknown> | null> {
   try {
-    const response = await fetch(`${RDAP_ENDPOINT}${encodeURIComponent(domain)}`, { signal });
+    const response = await fetch(`${RDAP_ENDPOINT}${encodeURIComponent(domain)}`, {
+      signal,
+      headers: {
+        Accept: "application/rdap+json",
+        "User-Agent": "Mozilla/5.0 (compatible; f12-domain-lookup/1.0; +https://f12.biz/tools/domain-lookup/)",
+      },
+    });
     if (!response.ok) return null;
     const data = await response.json<{
       events?: { eventAction: string; eventDate: string }[];
