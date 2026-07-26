@@ -1,5 +1,5 @@
 {{- $ru := eq .Lang "ru" -}}
-{{- $apiBase := .Site.Params.chat.apibase | default "https://green-rice-1ea7.denis-f21.workers.dev" -}}
+{{- $apiBase := .Site.Params.chat.apibase | default "https://api.f12.biz" -}}
 {{- $turnstileSiteKey := .Site.Params.chat.turnstileSiteKey | default "" -}}
 {{- $devAssetVersion := "" -}}
 {{- if hugo.IsServer }}{{ $devAssetVersion = printf "?dev=%d" now.Unix }}{{ $turnstileSiteKey = "1x00000000000000000000AA" }}{{ end -}}
