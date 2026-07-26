@@ -95,6 +95,12 @@ homepageExperienceCount = 6
 
 [params.chat]
 turnstileSiteKey = "0x4AAAAAAD4sOQrB_w1S3WdR"
+# api.f12.biz is a Cloudflare Workers custom domain pointed at the same
+# green-rice-1ea7 Worker as https://green-rice-1ea7.denis-f21.workers.dev —
+# identical backend, just a friendlier hostname. Every template below falls
+# back to this same value if this line is ever removed, so it stays the
+# single source of truth in the normal case.
+apibase = "https://api.f12.biz"
 
 [params.analytics]
 ## Analytics parameters.

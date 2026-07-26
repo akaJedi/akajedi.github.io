@@ -1,5 +1,5 @@
 {{ define "main" }}
-{{- $apiBase := .Site.Params.chat.apibase | default "https://green-rice-1ea7.denis-f21.workers.dev" -}}
+{{- $apiBase := .Site.Params.chat.apibase | default "https://api.f12.biz" -}}
 <article class="tools-page" data-tools-page data-api-base="{{ $apiBase }}">
   <p class="summer-kicker"><a href="{{ "tools" | relLangURL }}">{{ if eq .Lang "ru" }}Инструменты{{ else }}Tools{{ end }}</a></p>
   <h1>{{ .Title }}</h1>
