@@ -78,6 +78,24 @@ test("Hugo generates the site's core routes", async () => {
   }
 });
 
+test("blog articles expose a stable Disqus conversation", async () => {
+  const html = await readBuilt(
+    "blog/identity-operations-ux-automation-teamwork/index.html",
+  );
+
+  assert.match(html, /id=blog-comments-title>Comments<\/h2>/);
+  assert.match(html, /id=disqus_thread/);
+  assert.match(html, /f12-comments\.disqus\.com\/embed\.js/);
+  assert.match(
+    html,
+    /page\.url="https:\/\/www\.f12\.biz\/blog\/identity-operations-ux-automation-teamwork\/"/,
+  );
+  assert.match(
+    html,
+    /page\.identifier="\/blog\/identity-operations-ux-automation-teamwork\/"/,
+  );
+});
+
 test("production builds exclude the localhost status taskbar", async () => {
   const html = await readBuilt("index.html");
   assert.doesNotMatch(html, /data-chat-devbar/);

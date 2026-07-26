@@ -13,7 +13,7 @@ pagerSize = 10
 
 [services]
   [services.disqus]
-    shortname = 'your-disqus-shortname'
+    shortname = 'f12-comments'
 	
 [outputs]
   page = ["HTML", "JSON"]

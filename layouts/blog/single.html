@@ -37,8 +37,19 @@
     </div>
   </nav>
 
-  <div id="disqus_thread" class="blog-article__comments">
+  <section class="blog-article__comments" aria-labelledby="blog-comments-title">
+    <header class="blog-article__comments-header">
+      <p class="summer-kicker">Join the conversation</p>
+      <h2 id="blog-comments-title">Comments</h2>
+      <p>Questions, experiences, and thoughtful disagreements are welcome. Comments are powered by Disqus.</p>
+    </header>
+    <div id="disqus_thread" aria-live="polite"></div>
     <script>
+      var disqus_config = function () {
+        this.page.url = {{ .Permalink | jsonify | safeJS }};
+        this.page.identifier = {{ .RelPermalink | jsonify | safeJS }};
+        this.page.title = {{ .Title | jsonify | safeJS }};
+      };
       (function() {
         var d = document, s = d.createElement('script');
         s.src = 'https://f12-comments.disqus.com/embed.js';
@@ -47,6 +58,6 @@
       })();
     </script>
     <noscript>Please enable JavaScript to view comments powered by Disqus.</noscript>
-  </div>
+  </section>
 </div>
 {{ end }}

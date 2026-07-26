@@ -2308,6 +2308,32 @@ body.page-contact .footer > .section--contact .contact {
 
 .blog-article__comments {
   margin-top: 2rem;
+  padding: 2rem;
+  background: color-mix(in srgb, var(--summer-surface) 96%, transparent);
+  border: 1px solid var(--summer-line);
+  border-top: 4px solid var(--summer-blue);
+  box-shadow: 0 18px 45px rgba(16, 38, 59, 0.07);
+}
+
+.blog-article__comments-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--summer-line);
+}
+
+.blog-article__comments-header h2 {
+  margin: 0.25rem 0 0.6rem;
+  color: var(--summer-ink);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 900;
+  line-height: 1.05;
+}
+
+.blog-article__comments-header p:last-child {
+  max-width: 680px;
+  margin: 0;
+  color: var(--summer-muted);
+  line-height: 1.7;
 }
 
 @media (max-width: 991px) {
@@ -2369,7 +2395,8 @@ body.page-contact .footer > .section--contact .contact {
   .blog-card__main,
   .blog-card__meta,
   .blog-article__header,
-  .blog-article__content {
+  .blog-article__content,
+  .blog-article__comments {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
   }
