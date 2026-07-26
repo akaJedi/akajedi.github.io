@@ -4609,6 +4609,113 @@ body.home .summer-hero {
   color: var(--summer-blue);
 }
 
+.tool-pw-display {
+  margin: 0.5rem 0 0;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--summer-line);
+  background: var(--summer-paper);
+  color: var(--summer-deep);
+  font-family: SFMono-Regular, Consolas, monospace;
+  font-size: clamp(1.1rem, 4vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.4;
+  word-break: break-all;
+  user-select: all;
+}
+
+.tool-pw-actions {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.tool-btn {
+  min-height: 44px;
+  padding: 0 1.1rem;
+  border: 1px solid var(--summer-line);
+  background: #fff;
+  color: var(--summer-ink);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tool-btn:hover,
+.tool-btn:focus-visible {
+  border-color: var(--summer-orange);
+  color: var(--summer-orange);
+}
+
+.tool-btn--primary {
+  border-color: var(--summer-orange);
+  background: var(--summer-orange);
+  color: #fff;
+}
+
+.tool-btn--primary:hover,
+.tool-btn--primary:focus-visible {
+  background: #c1440e;
+  border-color: #c1440e;
+  color: #fff;
+}
+
+.tool-pwgen-form {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed var(--summer-line);
+}
+
+.tool-pwgen-length {
+  margin-bottom: 1.1rem;
+}
+
+.tool-pwgen-length label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--summer-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.tool-pwgen-length output {
+  color: var(--summer-blue);
+  font-family: SFMono-Regular, Consolas, monospace;
+}
+
+.tool-pwgen-length input[type="range"] {
+  width: 100%;
+}
+
+.tool-pwgen-fieldset {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.5rem 1rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  border: 0;
+}
+
+.tool-pwgen-fieldset legend {
+  margin-bottom: 0.5rem;
+  padding: 0;
+  color: var(--summer-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.tool-pwgen-fieldset label,
+.tool-pwgen-ambiguous {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--summer-ink);
+  font-size: 0.9rem;
+}
+
 .tool-ip-display {
   margin: 0.5rem 0 0;
   color: var(--summer-blue);
