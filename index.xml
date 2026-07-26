@@ -366,7 +366,27 @@ The content you see here comes from the contents of the &lt;code&gt;content/proj
  &lt;div&gt;&lt;dt&gt;CAA&lt;/dt&gt;&lt;dd data-field="CAA"&gt;&lt;/dd&gt;&lt;/div&gt;
  &lt;/dl&gt;
 &lt;/section&gt;
-&lt;p class="tools-note"&gt;Uses DNS-over-HTTPS (Cloudflare's public resolver) for records and &lt;a href="https://rdap.org"&gt;RDAP&lt;/a&gt; — the modern, standardized replacement for WHOIS — for registration data. Both are independent public registries; looking up a domain here never makes this site contact that domain's own servers at all. Nothing about your lookup is stored.&lt;/p&gt;</description></item><item><title>Home</title><link>https://www.f12.biz/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/home/home/</guid><description>&lt;section class="summer-hero" aria-labelledby="summer-hero-title"&gt;
+&lt;p class="tools-note"&gt;Uses DNS-over-HTTPS (Cloudflare's public resolver) for records and &lt;a href="https://rdap.org"&gt;RDAP&lt;/a&gt; — the modern, standardized replacement for WHOIS — for registration data. Both are independent public registries; looking up a domain here never makes this site contact that domain's own servers at all. Nothing about your lookup is stored.&lt;/p&gt;</description></item><item><title>Education and colleague feedback</title><link>https://www.f12.biz/author/evidence/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/author/evidence/</guid><description>&lt;p&gt;The technology matters, but it is only part of the record. This layer combines formal learning with observations from people who saw the work up close.&lt;/p&gt;
+
+
+
+
+
+
+&lt;section
+ id="education"
+ class="section section--border-bottom rad-animation-group"
+&gt;
+ &lt;div class="container-education"&gt;
+ &lt;div class="row rad-fade-down"&gt;
+ &lt;div class="col-12"&gt;
+ &lt;h2&gt;Education&lt;/h2&gt;
+ &lt;div class="education-note mt-4"&gt;
+ &lt;p&gt;
+ Along side my formal studies in programming and law, I invested heavily in modern IT disciplines. 
+ I completed an intensive &lt;strong&gt;QA program in Silicon Valley, California&lt;/strong&gt;, focused on manual and automation testing with extensive labs, projects, and real-world practice. 
+ I also earned certifications in &lt;strong&gt;DevOps Foundations: Continuous Delivery/Continuous Integration&lt;/strong&gt; (LinkedIn, 2025), and regularly study advanced technical courses on &lt;strong&gt;Pluralsight, Udemy, and LinkedIn Learning&lt;/strong&gt;.
+ &lt;/p&gt;</description></item><item><title>Home</title><link>https://www.f12.biz/home/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/home/home/</guid><description>&lt;section class="summer-hero" aria-labelledby="summer-hero-title"&gt;
  &lt;div class="summer-hero__copy"&gt;
  &lt;p class="summer-kicker"&gt;Free tools for engineers&lt;/p&gt;
  &lt;h1 id="summer-hero-title"&gt;F12&lt;/h1&gt;

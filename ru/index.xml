@@ -302,7 +302,27 @@
  &lt;p&gt;Браузер не нужен. В ответе всегда только сам IP-адрес — больше ничего, поэтому можно сразу передавать в скрипт.&lt;/p&gt;
  &lt;p class="tool-hint"&gt;Команды ниже обращаются к &lt;code&gt;https://api.f12.biz&lt;/code&gt;, а не к f12.biz — это не опечатка. Это API — отдельный сервис на Cloudflare Worker со своим доменом, а не часть самого сайта f12.biz; f12.biz обслуживается напрямую GitHub Pages, который вообще не умеет выполнять серверный код вроде этого.&lt;/p&gt;
  &lt;h3&gt;macOS / Linux (bash, zsh) и Windows cmd.exe&lt;/h3&gt;
- &lt;p&gt;Windows 10 и новее поставляются с настоящим &lt;code&gt;curl.exe&lt;/code&gt;, поэтому эта же команда без изменений работает и в cmd.exe:&lt;/p&gt;</description></item><item><title>Ответственность</title><link>https://www.f12.biz/ru/accountability/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/accountability/</guid><description>Как защищается этот чат и ответственно используются данные.</description></item><item><title>Поиск</title><link>https://www.f12.biz/ru/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/search/</guid><description>search</description></item><item><title>Проверка домена</title><link>https://www.f12.biz/ru/tools/domain-lookup/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/tools/domain-lookup/</guid><description>&lt;section class="tool-card" aria-labelledby="tool-lookup-title"&gt;
+ &lt;p&gt;Windows 10 и новее поставляются с настоящим &lt;code&gt;curl.exe&lt;/code&gt;, поэтому эта же команда без изменений работает и в cmd.exe:&lt;/p&gt;</description></item><item><title>Образование и отзывы коллег</title><link>https://www.f12.biz/ru/author/evidence/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/author/evidence/</guid><description>&lt;p&gt;Технологии важны, но это только часть профессиональной истории. В этом слое собраны формальное образование и наблюдения людей, которые видели мою работу вблизи.&lt;/p&gt;
+
+
+
+
+
+
+&lt;section
+ id="education"
+ class="section section--border-bottom rad-animation-group"
+&gt;
+ &lt;div class="container-education"&gt;
+ &lt;div class="row rad-fade-down"&gt;
+ &lt;div class="col-12"&gt;
+ &lt;h2&gt;Образование&lt;/h2&gt;
+ &lt;div class="education-note mt-4"&gt;
+ &lt;p&gt;
+ Along side my formal studies in programming and law, I invested heavily in modern IT disciplines. 
+ I completed an intensive &lt;strong&gt;QA program in Silicon Valley, California&lt;/strong&gt;, focused on manual and automation testing with extensive labs, projects, and real-world practice. 
+ I also earned certifications in &lt;strong&gt;DevOps Foundations: Continuous Delivery/Continuous Integration&lt;/strong&gt; (LinkedIn, 2025), and regularly study advanced technical courses on &lt;strong&gt;Pluralsight, Udemy, and LinkedIn Learning&lt;/strong&gt;.
+ &lt;/p&gt;</description></item><item><title>Ответственность</title><link>https://www.f12.biz/ru/accountability/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/accountability/</guid><description>Как защищается этот чат и ответственно используются данные.</description></item><item><title>Поиск</title><link>https://www.f12.biz/ru/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/search/</guid><description>search</description></item><item><title>Проверка домена</title><link>https://www.f12.biz/ru/tools/domain-lookup/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/tools/domain-lookup/</guid><description>&lt;section class="tool-card" aria-labelledby="tool-lookup-title"&gt;
  &lt;h2 id="tool-lookup-title"&gt;Проверить домен&lt;/h2&gt;
  &lt;form class="tool-form" data-domain-form&gt;
  &lt;label for="domain-input"&gt;Доменное имя&lt;/label&gt;
