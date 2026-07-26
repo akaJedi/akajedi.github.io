@@ -370,11 +370,20 @@ test("Russian author story follows the same progressive path", async () => {
   assert.match(personal, /Войти в архив Юрги/);
 });
 
-test("logo, breadcrumbs, and primary content share one responsive boundary", async () => {
+test("breadcrumb bar and content sections don't fight over horizontal sizing", async () => {
+  // .breadcrumb-bar and main#main-content both carry Bootstrap's plain
+  // .container class, which already aligns them at the same left edge.
+  // A previous bug gave .breadcrumb-bar (and separately, .tools-page/
+  // .tools-hub and friends) their own competing max-width/width/margin
+  // overrides, computed relative to different, mismatched containing
+  // blocks, which pushed them out of alignment with each other. Neither
+  // should reintroduce an independent width override.
   const css = await readSource("assets/css/custom.css");
 
-  assert.ok(css.includes(".header > .container, body.home .header > .container, .breadcrumb-bar {"));
-  assert.ok(css.includes("max-width: 1180px; width: calc(100% - 3rem)"));
-  assert.ok(css.includes("margin-inline: auto; padding-inline: 0"));
-  assert.ok(css.includes(".breadcrumb-bar { width: calc(100% - 1.25rem); }"));
+  assert.doesNotMatch(css, /\.breadcrumb-bar\s*\{[^}]*max-width/);
+  assert.doesNotMatch(css, /\.breadcrumb-bar\s*\{[^}]*width:\s*calc/);
+  assert.doesNotMatch(
+    css,
+    /main:not\(\.home-container\) > section,[\s\S]*?\.tools-hub\s*\{[^}]*max-width/,
+  );
 });
