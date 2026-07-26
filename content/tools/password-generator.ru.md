@@ -42,3 +42,25 @@ searchExclude: true
     <li>Ничего никуда не отправляется. Пароль генерируется и остаётся исключительно в этой вкладке браузера — закройте или обновите страницу, и он исчезнет безвозвратно.</li>
   </ul>
 </section>
+
+<section class="tool-card" aria-labelledby="tool-pwgen-terminal-title">
+  <h2 id="tool-pwgen-terminal-title">Из терминала</h2>
+  <p>Эти команды генерируют пароль так же, как эта страница — локально, с помощью криптостойкого генератора случайных чисел вашей же машины — ничего не отправляется ни на какой сервер. Здесь намеренно нет варианта через <code>curl</code>, в отличие от инструмента проверки IP: генератор паролей, которому нужно спросить пароль у сервера, — это уже не тот генератор, где «ничего никуда не отправляется» действительно так.</p>
+  <h3>macOS / Linux (bash, zsh)</h3>
+  <p>Читает случайные байты из <code>/dev/urandom</code> и оставляет только те, что входят в разрешённый набор символов — без деления по модулю, а значит без смещения:</p>
+  <pre class="tool-code"><code>LC_ALL=C tr -dc 'A-Za-z0-9!@#$%^&*()-_=+' &lt; /dev/urandom | head -c 20; echo</code></pre>
+  <p>Замените <code>20</code> на нужную длину и отредактируйте диапазоны символов в наборе <code>tr</code>, чтобы изменить допустимые символы.</p>
+  <h3>Windows PowerShell</h3>
+  <p>Используется <code>RandomNumberGenerator</code>, а не <code>Get-Random</code> — <code>Get-Random</code> не является криптостойким и не должен использоваться для чего-либо, связанного с безопасностью. Здесь применяется та же отбраковка (rejection sampling), что и в браузерной версии:</p>
+  <pre class="tool-code"><code>$chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+'
+$rng = [System.Security.Cryptography.RandomNumberGenerator]::Create()
+$bytes = New-Object byte[] 1
+$limit = 256 - (256 % $chars.Length)
+-join (1..20 | ForEach-Object {
+  do { $rng.GetBytes($bytes) } while ($bytes[0] -ge $limit)
+  $chars[$bytes[0] % $chars.Length]
+})</code></pre>
+  <p>Работает и в Windows PowerShell 5.1 (встроен в любую установку Windows), и в PowerShell 7+. Вставляйте весь блок целиком.</p>
+  <h3>Windows cmd.exe</h3>
+  <p>У cmd.exe вообще нет встроенного криптографического источника случайности, и надёжно эмулировать его одной командой не получится. Самый простой путь: наберите <code>powershell</code>, чтобы запустить сеанс PowerShell прямо из cmd — он есть на любой машине с Windows — а затем выполните блок PowerShell выше.</p>
+</section>

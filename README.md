@@ -6,14 +6,14 @@ A personal system I built and run for myself: a static Hugo site paired with a s
 
 ## Architecture
 
-The same Hugo build is published to three independent hosts. `www.f12.biz` (GitHub Pages) is canonical; Netlify and Cloudflare Pages are mirrors built from the same repository. All three talk to one shared Cloudflare Worker.
+The same Hugo build is published to three independent hosts. `f12.biz` (GitHub Pages) is canonical; Netlify and Cloudflare Pages are mirrors built from the same repository. All three talk to one shared Cloudflare Worker, which lives on its own separate `workers.dev` subdomain — not `f12.biz` itself.
 
 ```mermaid
 flowchart LR
     Visitor(["Visitor browser"])
 
     subgraph Static["Static Hugo site — same build, three independent hosts"]
-        GHPages["GitHub Pages\nwww.f12.biz (canonical)"]
+        GHPages["GitHub Pages\nf12.biz (canonical)"]
         Netlify["Netlify\nnetlify.f12.biz"]
         CFPages["Cloudflare Pages\ncloudflare.f12.biz"]
     end
@@ -72,7 +72,7 @@ sequenceDiagram
 
 The three static hosts serve identical HTML from the same build, but a few integrations are deliberately restricted to the canonical domain — usually because a third-party dashboard (Cookiebot, Turnstile) only authorizes specific hostnames. This table exists because that mismatch caused several rounds of console-error debugging before the pattern was made explicit:
 
-| Feature | `www.f12.biz` (canonical) | Netlify / Cloudflare Pages mirrors |
+| Feature | `f12.biz` (canonical) | Netlify / Cloudflare Pages mirrors |
 |---|---|---|
 | Static site, chat widget UI | ✅ | ✅ |
 | Chat API (start/poll/send) | ✅ | ✅ — same shared Worker |

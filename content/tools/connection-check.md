@@ -19,7 +19,7 @@ searchExclude: true
     <div><dt>TLS version</dt><dd data-field="tlsVersion">Checking…</dd></div>
     <div><dt>Cloudflare data center</dt><dd data-field="dataCenter">Checking…</dd></div>
   </dl>
-  <p class="tool-hint">Prefer a terminal? <code>curl {{< worker-api-base >}}/api/ip</code> returns just your IP as plain text — add <code>?family=v4</code> or <code>?family=v6</code> to check a specific version, or <code>?format=json</code> for both fields together. Testing your *other* IP version (whichever one you're not currently connected over) needs a separate, protocol-only address — noted as a possible future addition rather than faked here.</p>
+  <p class="tool-hint">Prefer a terminal? <code>curl {{< worker-api-base >}}/api/ip</code> returns just your IP as plain text — add <code>?family=v4</code> or <code>?family=v6</code> to check a specific version, or <code>?format=json</code> for both fields together. That's a different domain from f12.biz on purpose: it's the separate Cloudflare Worker API behind this page, not the f12.biz website itself, which is static and can't run this kind of check server-side. See the <a href="{{< relref "tools/my-ip" >}}">My IP</a> tool for more terminal examples (PowerShell, cmd.exe). Testing your *other* IP version (whichever one you're not currently connected over) needs a separate, protocol-only address — noted as a possible future addition rather than faked here.</p>
 </section>
 
 <section class="tool-card" aria-labelledby="tool-location-title">
