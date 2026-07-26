@@ -96,20 +96,15 @@
  &lt;div&gt;&lt;dt&gt;TLS version&lt;/dt&gt;&lt;dd data-field="tlsVersion"&gt;Checking…&lt;/dd&gt;&lt;/div&gt;
  &lt;div&gt;&lt;dt&gt;Cloudflare data center&lt;/dt&gt;&lt;dd data-field="dataCenter"&gt;Checking…&lt;/dd&gt;&lt;/div&gt;
  &lt;/dl&gt;
- &lt;p class="tool-hint"&gt;Prefer a terminal? &lt;code&gt;curl https://green-rice-1ea7.denis-f21.workers.dev/api/ip&lt;/code&gt; returns just your IP as plain text — add &lt;code&gt;?family=v4&lt;/code&gt; or &lt;code&gt;?family=v6&lt;/code&gt; to check a specific version, or &lt;code&gt;?format=json&lt;/code&gt; for both fields together. Testing your *other* IP version (whichever one you're not currently connected over) needs a separate, protocol-only address — noted as a possible future addition rather than faked here.&lt;/p&gt;</description></item><item><title>My IP</title><link>https://www.f12.biz/tools/my-ip/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/tools/my-ip/</guid><description>&lt;section class="tool-card" aria-labelledby="tool-myip-title"&gt;
+ &lt;p class="tool-hint"&gt;Prefer a terminal? &lt;code&gt;curl https://green-rice-1ea7.denis-f21.workers.dev/api/ip&lt;/code&gt; returns just your IP as plain text — add &lt;code&gt;?family=v4&lt;/code&gt; or &lt;code&gt;?family=v6&lt;/code&gt; to check a specific version, or &lt;code&gt;?format=json&lt;/code&gt; for both fields together. That's a different domain from f12.biz on purpose: it's the separate Cloudflare Worker API behind this page, not the f12.biz website itself, which is static and can't run this kind of check server-side. See the &lt;a href="../tools/my-ip/"&gt;My IP&lt;/a&gt; tool for more terminal examples (PowerShell, cmd.exe). Testing your *other* IP version (whichever one you're not currently connected over) needs a separate, protocol-only address — noted as a possible future addition rather than faked here.&lt;/p&gt;</description></item><item><title>My IP</title><link>https://www.f12.biz/tools/my-ip/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/tools/my-ip/</guid><description>&lt;section class="tool-card" aria-labelledby="tool-myip-title"&gt;
  &lt;h2 id="tool-myip-title"&gt;Your IP address&lt;/h2&gt;
  &lt;p class="tool-ip-display" data-myip-value&gt;Checking…&lt;/p&gt;
  &lt;p class="tool-hint" data-myip-family&gt;&lt;/p&gt;
 &lt;/section&gt;
 &lt;section class="tool-card" aria-labelledby="tool-myip-curl-title"&gt;
  &lt;h2 id="tool-myip-curl-title"&gt;From a terminal&lt;/h2&gt;
- &lt;p&gt;No browser needed — this works the same from any machine with &lt;code&gt;curl&lt;/code&gt;:&lt;/p&gt;
- &lt;pre class="tool-code"&gt;&lt;code&gt;curl https://green-rice-1ea7.denis-f21.workers.dev/api/ip&lt;/code&gt;&lt;/pre&gt;
- &lt;p&gt;Just the address, as plain text — nothing else in the response, so it's safe to pipe straight into a script. A couple of options:&lt;/p&gt;
- &lt;pre class="tool-code"&gt;&lt;code&gt;curl "https://green-rice-1ea7.denis-f21.workers.dev/api/ip?family=v4" # only if you're actually connected over IPv4
-curl "https://green-rice-1ea7.denis-f21.workers.dev/api/ip?family=v6" # only if you're actually connected over IPv6
-curl "https://green-rice-1ea7.denis-f21.workers.dev/api/ip?format=json" # {"ip":"...","family":"IPv4"}&lt;/code&gt;&lt;/pre&gt;
- &lt;p class="tool-hint"&gt;This endpoint is intentionally public and doesn't require a browser Origin header — that's specifically so plain &lt;code&gt;curl&lt;/code&gt; works. It only ever echoes back the IP address of whoever's asking; nothing is logged or stored.&lt;/p&gt;</description></item><item><title>Password Generator</title><link>https://www.f12.biz/tools/password-generator/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/tools/password-generator/</guid><description>&lt;section class="tool-card" aria-labelledby="tool-pwgen-title"&gt;
+ &lt;p&gt;No browser needed. The response is always just the plain IP address — nothing else — so it's safe to pipe straight into a script.&lt;/p&gt;
+ &lt;p class="tool-hint"&gt;The commands below point at &lt;code&gt;https://green-rice-1ea7.denis-f21.workers.dev&lt;/code&gt;, not f12.biz — that's not a typo. This API is a separate Cloudflare Worker service behind its own domain, not part of the f12.biz website itself; f12.biz is served directly by GitHub Pages, which can't run backend code like this at all.&lt;/p&gt;</description></item><item><title>Password Generator</title><link>https://www.f12.biz/tools/password-generator/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/tools/password-generator/</guid><description>&lt;section class="tool-card" aria-labelledby="tool-pwgen-title"&gt;
  &lt;h2 id="tool-pwgen-title"&gt;Generate a password&lt;/h2&gt;
  &lt;p class="tool-pw-display" data-pwgen-output aria-live="polite"&gt;&lt;/p&gt;
  &lt;p class="tool-error" data-pwgen-error hidden&gt;&lt;/p&gt;
@@ -141,4 +136,7 @@ curl "https://green-rice-1ea7.denis-f21.workers.dev/api/ip?format=json" # {"ip":
  &lt;li&gt;If you select more than one character type, one of each is guaranteed to appear — then the whole password, including where those guaranteed characters end up, is shuffled using the same secure randomness.&lt;/li&gt;
  &lt;li&gt;Nothing is sent anywhere. The password is generated and stays entirely in this browser tab — close or reload the page and it's gone for good.&lt;/li&gt;
  &lt;/ul&gt;
-&lt;/section&gt;</description></item></channel></rss>
+&lt;/section&gt;
+&lt;section class="tool-card" aria-labelledby="tool-pwgen-terminal-title"&gt;
+ &lt;h2 id="tool-pwgen-terminal-title"&gt;From a terminal&lt;/h2&gt;
+ &lt;p&gt;These generate a password the same way this page does — locally, using your machine's own cryptographically secure random number generator — with nothing sent to any server. There's deliberately no &lt;code&gt;curl&lt;/code&gt;-based option here, unlike the IP tool: a password generator that has to ask a server for the password isn't one where "nothing is sent anywhere" is actually true anymore.&lt;/p&gt;</description></item></channel></rss>

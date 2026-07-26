@@ -30,7 +30,10 @@
  &lt;li&gt;Если выбрано больше одного типа символов, гарантированно появится хотя бы по одному из каждого — а затем весь пароль, включая позиции этих гарантированных символов, перемешивается той же криптостойкой случайностью.&lt;/li&gt;
  &lt;li&gt;Ничего никуда не отправляется. Пароль генерируется и остаётся исключительно в этой вкладке браузера — закройте или обновите страницу, и он исчезнет безвозвратно.&lt;/li&gt;
  &lt;/ul&gt;
-&lt;/section&gt;</description></item><item><title>Калькулятор CIDR</title><link>https://www.f12.biz/ru/tools/cidr-calculator/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/tools/cidr-calculator/</guid><description>&lt;section class="tool-card" aria-labelledby="tool-calc-title"&gt;
+&lt;/section&gt;
+&lt;section class="tool-card" aria-labelledby="tool-pwgen-terminal-title"&gt;
+ &lt;h2 id="tool-pwgen-terminal-title"&gt;Из терминала&lt;/h2&gt;
+ &lt;p&gt;Эти команды генерируют пароль так же, как эта страница — локально, с помощью криптостойкого генератора случайных чисел вашей же машины — ничего не отправляется ни на какой сервер. Здесь намеренно нет варианта через &lt;code&gt;curl&lt;/code&gt;, в отличие от инструмента проверки IP: генератор паролей, которому нужно спросить пароль у сервера, — это уже не тот генератор, где «ничего никуда не отправляется» действительно так.&lt;/p&gt;</description></item><item><title>Калькулятор CIDR</title><link>https://www.f12.biz/ru/tools/cidr-calculator/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/tools/cidr-calculator/</guid><description>&lt;section class="tool-card" aria-labelledby="tool-calc-title"&gt;
  &lt;h2 id="tool-calc-title"&gt;Калькулятор&lt;/h2&gt;
  &lt;form class="tool-form" data-cidr-form&gt;
  &lt;label for="cidr-input"&gt;IP-адрес / префикс&lt;/label&gt;
@@ -124,13 +127,10 @@
 &lt;/section&gt;
 &lt;section class="tool-card" aria-labelledby="tool-myip-curl-title"&gt;
  &lt;h2 id="tool-myip-curl-title"&gt;Из терминала&lt;/h2&gt;
- &lt;p&gt;Браузер не нужен — работает так же с любой машины, где есть &lt;code&gt;curl&lt;/code&gt;:&lt;/p&gt;
- &lt;pre class="tool-code"&gt;&lt;code&gt;curl https://green-rice-1ea7.denis-f21.workers.dev/api/ip&lt;/code&gt;&lt;/pre&gt;
- &lt;p&gt;Только адрес, обычным текстом — больше ничего в ответе, поэтому можно сразу передавать в скрипт. Несколько вариантов:&lt;/p&gt;
- &lt;pre class="tool-code"&gt;&lt;code&gt;curl "https://green-rice-1ea7.denis-f21.workers.dev/api/ip?family=v4" # только если вы реально подключены по IPv4
-curl "https://green-rice-1ea7.denis-f21.workers.dev/api/ip?family=v6" # только если вы реально подключены по IPv6
-curl "https://green-rice-1ea7.denis-f21.workers.dev/api/ip?format=json" # {"ip":"...","family":"IPv4"}&lt;/code&gt;&lt;/pre&gt;
- &lt;p class="tool-hint"&gt;Этот эндпоинт намеренно публичный и не требует заголовка Origin от браузера — специально для того, чтобы работал обычный &lt;code&gt;curl&lt;/code&gt;. Он лишь возвращает IP-адрес того, кто спрашивает; ничего не логируется и не сохраняется.&lt;/p&gt;</description></item><item><title>Проверка соединения и браузера</title><link>https://www.f12.biz/ru/tools/connection-check/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/tools/connection-check/</guid><description>&lt;p class="tools-note"&gt;Всё на этой странице либо вычисляется прямо в вашем браузере, либо считывается из информации, которую сеть Cloudflare и так видит при каждом запросе. Ничего здесь не сохраняется, не логируется и никуда не отправляется, кроме этого единственного запроса — вы видите только свои собственные данные, показанные вам же.&lt;/p&gt;
+ &lt;p&gt;Браузер не нужен. В ответе всегда только сам IP-адрес — больше ничего, поэтому можно сразу передавать в скрипт.&lt;/p&gt;
+ &lt;p class="tool-hint"&gt;Команды ниже обращаются к &lt;code&gt;https://green-rice-1ea7.denis-f21.workers.dev&lt;/code&gt;, а не к f12.biz — это не опечатка. Это API — отдельный сервис на Cloudflare Worker со своим доменом, а не часть самого сайта f12.biz; f12.biz обслуживается напрямую GitHub Pages, который вообще не умеет выполнять серверный код вроде этого.&lt;/p&gt;
+ &lt;h3&gt;macOS / Linux (bash, zsh) и Windows cmd.exe&lt;/h3&gt;
+ &lt;p&gt;Windows 10 и новее поставляются с настоящим &lt;code&gt;curl.exe&lt;/code&gt;, поэтому эта же команда без изменений работает и в cmd.exe:&lt;/p&gt;</description></item><item><title>Проверка соединения и браузера</title><link>https://www.f12.biz/ru/tools/connection-check/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/tools/connection-check/</guid><description>&lt;p class="tools-note"&gt;Всё на этой странице либо вычисляется прямо в вашем браузере, либо считывается из информации, которую сеть Cloudflare и так видит при каждом запросе. Ничего здесь не сохраняется, не логируется и никуда не отправляется, кроме этого единственного запроса — вы видите только свои собственные данные, показанные вам же.&lt;/p&gt;
 &lt;section class="tool-card" aria-labelledby="tool-network-title"&gt;
  &lt;h2 id="tool-network-title"&gt;Ваша сеть&lt;/h2&gt;
  &lt;dl class="tool-grid" data-tool-network&gt;
@@ -141,4 +141,4 @@ curl "https://green-rice-1ea7.denis-f21.workers.dev/api/ip?format=json" # {"ip":
  &lt;div&gt;&lt;dt&gt;Версия TLS&lt;/dt&gt;&lt;dd data-field="tlsVersion"&gt;Проверяю…&lt;/dd&gt;&lt;/div&gt;
  &lt;div&gt;&lt;dt&gt;Дата-центр Cloudflare&lt;/dt&gt;&lt;dd data-field="dataCenter"&gt;Проверяю…&lt;/dd&gt;&lt;/div&gt;
  &lt;/dl&gt;
- &lt;p class="tool-hint"&gt;Предпочитаете терминал? &lt;code&gt;curl https://green-rice-1ea7.denis-f21.workers.dev/api/ip&lt;/code&gt; вернёт только ваш IP в виде обычного текста — добавьте &lt;code&gt;?family=v4&lt;/code&gt; или &lt;code&gt;?family=v6&lt;/code&gt;, чтобы проверить конкретную версию, либо &lt;code&gt;?format=json&lt;/code&gt;, чтобы получить оба поля вместе. Проверка второй версии протокола (той, что сейчас не используется) требует отдельного адреса, доступного только по этому протоколу — отмечено как возможное будущее дополнение, а не имитируется здесь.&lt;/p&gt;</description></item></channel></rss>
+ &lt;p class="tool-hint"&gt;Предпочитаете терминал? &lt;code&gt;curl https://green-rice-1ea7.denis-f21.workers.dev/api/ip&lt;/code&gt; вернёт только ваш IP в виде обычного текста — добавьте &lt;code&gt;?family=v4&lt;/code&gt; или &lt;code&gt;?family=v6&lt;/code&gt;, чтобы проверить конкретную версию, либо &lt;code&gt;?format=json&lt;/code&gt;, чтобы получить оба поля вместе. Это намеренно другой домен, не f12.biz: это отдельный API на Cloudflare Worker, стоящий за этой страницей, а не сам сайт f12.biz, который статический и не может выполнять такую проверку на сервере. Больше примеров для терминала (PowerShell, cmd.exe) — на странице &lt;a href="../../ru/tools/my-ip/"&gt;Мой IP&lt;/a&gt;. Проверка второй версии протокола (той, что сейчас не используется) требует отдельного адреса, доступного только по этому протоколу — отмечено как возможное будущее дополнение, а не имитируется здесь.&lt;/p&gt;</description></item></channel></rss>
