@@ -363,6 +363,17 @@ it("does not require an Origin header for /api/ip (curl sends none)", async () =
   expect(response.status).toBe(200);
 });
 
+it("sends Access-Control-Allow-Origin on /api/ip when a browser calls it with an allowed Origin", async () => {
+  // curl ignores CORS headers entirely, so the endpoint "worked" for curl
+  // even when this header was missing — but a real browser fetch() from
+  // the My IP tool page silently fails to read the response without it.
+  const response = await dispatch("https://worker.test/api/ip", {
+    headers: { Origin: origin, "CF-Connecting-IP": "203.0.113.9" },
+  });
+  expect(response.status).toBe(200);
+  expect(response.headers.get("Access-Control-Allow-Origin")).toBe(origin);
+});
+
 it("rejects /api/whoami from a disallowed origin but serves allowed ones", async () => {
   const blocked = await dispatch("https://worker.test/api/whoami", {
     headers: { Origin: "https://attacker.example", "CF-Connecting-IP": "203.0.113.9" },
