@@ -427,6 +427,72 @@ it("rejects /api/whoami from a disallowed origin but serves allowed ones", async
   expect(body).toHaveProperty("location");
 });
 
+function mockDomainLookupApis() {
+  return vi.fn(async (input: RequestInfo | URL) => {
+    const requestUrl = String(input);
+    if (requestUrl.includes("cloudflare-dns.com/dns-query")) {
+      const type = new URL(requestUrl).searchParams.get("type");
+      const answers: Record<string, { data: string }[]> = {
+        A: [{ data: "93.184.216.34" }],
+        AAAA: [{ data: "2606:2800:220:1:248:1893:25c8:1946" }],
+        MX: [{ data: "10 mail.example.com." }],
+        NS: [{ data: "a.iana-servers.net." }, { data: "b.iana-servers.net." }],
+        TXT: [{ data: '"v=spf1 -all"' }],
+        CAA: [],
+      };
+      return new Response(JSON.stringify({ Answer: answers[type || ""] || [] }), {
+        status: 200,
+        headers: { "Content-Type": "application/dns-json" },
+      });
+    }
+    if (requestUrl.includes("rdap.org/domain/")) {
+      return new Response(JSON.stringify({
+        events: [
+          { eventAction: "registration", eventDate: "1995-08-14T04:00:00Z" },
+          { eventAction: "expiration", eventDate: "2026-08-13T04:00:00Z" },
+        ],
+        entities: [{
+          roles: ["registrar"],
+          vcardArray: ["vcard", [["version", {}, "text", "4.0"], ["fn", {}, "text", "Test Registrar Inc."]]],
+        }],
+        status: ["active"],
+        nameservers: [{ ldhName: "A.IANA-SERVERS.NET" }],
+      }), { status: 200, headers: { "Content-Type": "application/rdap+json" } });
+    }
+    return new Response("not found", { status: 404 });
+  });
+}
+
+it("rejects an invalid domain-lookup query", async () => {
+  const response = await dispatch("https://worker.test/api/domain-lookup?domain=not%20a%20domain", {
+    headers: { Origin: origin, "CF-Connecting-IP": "203.0.113.10" },
+  });
+  expect(response.status).toBe(400);
+});
+
+it("rejects /api/domain-lookup from a disallowed origin", async () => {
+  const response = await dispatch("https://worker.test/api/domain-lookup?domain=example.com", {
+    headers: { Origin: "https://attacker.example", "CF-Connecting-IP": "203.0.113.10" },
+  });
+  expect(response.status).toBe(403);
+});
+
+it("returns combined DNS and registration data for a valid domain", async () => {
+  vi.stubGlobal("fetch", mockDomainLookupApis());
+  const response = await dispatch("https://worker.test/api/domain-lookup?domain=EXAMPLE.com.", {
+    headers: { Origin: origin, "CF-Connecting-IP": "203.0.113.11" },
+  });
+  expect(response.status).toBe(200);
+  const body = await response.json<any>();
+  expect(body.domain).toBe("example.com");
+  expect(body.dns.A).toEqual(["93.184.216.34"]);
+  expect(body.dns.NS).toEqual(["a.iana-servers.net.", "b.iana-servers.net."]);
+  expect(body.dns.TXT).toEqual(["v=spf1 -all"]);
+  expect(body.registration.registrar).toBe("Test Registrar Inc.");
+  expect(body.registration.registered).toBe("1995-08-14T04:00:00Z");
+  expect(body.registration.expires).toBe("2026-08-13T04:00:00Z");
+});
+
 it("returns a safe failure when D1 is unavailable", async () => {
   await testEnv.DB.prepare("DROP TABLE conversations").run();
   const response = await dispatch("https://worker.test/api/chat/messages", {
