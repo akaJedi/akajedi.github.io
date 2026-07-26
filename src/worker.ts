@@ -110,6 +110,19 @@ function withCors(response: Response, request: Request, env: Env): Response {
   return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
 }
 
+// On api.f12.biz the "/api" prefix is redundant with the subdomain itself
+// (https://api.f12.biz/ip, not /api/ip). Routes below are all still defined
+// under /api/*, unchanged for the workers.dev domain and any other caller,
+// so this just rewrites the incoming request before it reaches routing.
+function normalizeApiDomainPath(request: Request): Request {
+  const url = new URL(request.url);
+  if (url.hostname !== "api.f12.biz" || url.pathname === "/" || url.pathname.startsWith("/api/")) {
+    return request;
+  }
+  url.pathname = "/api" + url.pathname;
+  return new Request(url.toString(), request);
+}
+
 function getIp(request: Request): string {
   return request.headers.get("CF-Connecting-IP") || "unknown";
 }
@@ -811,6 +824,7 @@ const workerHandler = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const requestId = crypto.randomUUID();
     const started = performance.now();
+    request = normalizeApiDomainPath(request);
     const url = new URL(request.url);
     const operation = routeName(url.pathname);
     const method = request.method;
