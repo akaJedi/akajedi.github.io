@@ -752,7 +752,14 @@ async function route(request: Request, env: Env, ctx: ExecutionContext, requestI
     return json({ ok: true, sentryTest: "submitted", requestId: requestId || "unavailable" });
   }
   if (url.pathname === "/api/health" && request.method === "GET") return handleHealth(env);
-  if (url.pathname === "/api/ip" && request.method === "GET") return handleIp(request, env);
+  if (url.pathname === "/api/ip" && request.method === "GET") {
+    // No isAllowedOrigin gate — curl sends no Origin header at all, and this
+    // must keep working for that. But withCors() still adds the header a
+    // real browser fetch() needs when an allowed Origin IS present (e.g.
+    // the My IP tool page calling this from the browser); curl ignores CORS
+    // headers entirely, so this doesn't affect terminal usage either way.
+    return withCors(await handleIp(request, env), request, env);
+  }
   if (url.pathname === "/api/whoami" && request.method === "GET") {
     if (!isAllowedOrigin(request, env)) throw new PublicError(403, "Request not allowed.", "invalid-origin");
     const response = await handleWhoami(request, env);
