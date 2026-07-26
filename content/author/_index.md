@@ -27,18 +27,10 @@ aliases = ["/about/"]
   {{< link icon="user" label="Website" url="https://www.f12.biz" >}}
 {{< /platform-links >}}
 
+<p style="text-align:center"><a href="/experience/">Want the full career history? →</a></p>
+<p style="text-align:center"><a href="/education/">Curious about my education? →</a></p>
+<p style="text-align:center"><a href="/resume/">Prefer a resume? →</a></p>
 <p style="text-align:center"><a href="/denistolochko/">Curious what I'm like outside of IT? →</a></p>
-
-{{< education-list
-    title="Education"
->}}
-
-{{< experience-section
-    title="Experience"
-    intro_title="IT Systems Operations Engineer"
-    intro_description="<p>Over the course of my career, I have built a deep and well-rounded foundation in IT operations, system administration, infrastructure engineering, and cloud integration, combining technical expertise with practical problem-solving. My professional path has taken me through organizations of all sizes — from agile startups and high-growth technology firms to large-scale, globally distributed enterprises — where I have planned, implemented, and maintained mission-critical systems that directly support core business functions.</p> <p>I have successfully led high-impact infrastructure transitions, including cloud migrations, data center consolidations, enterprise network upgrades, and hybrid environment integrations, ensuring minimal downtime and smooth adoption across teams. My work spans Windows, macOS, and Linux platforms, with hands-on experience in AWS, Microsoft Azure, VMware, Docker, Kubernetes, and infrastructure-as-code solutions such as Terraform and Ansible. I have collaborated closely with development, security, and business stakeholders, bridging the gap between technical requirements and organizational objectives while ensuring compliance with security frameworks and best practices.</p> <p>In every role, I bring a solutions-focused approach centered on reliability, performance optimization, and security hardening. This includes implementing proactive monitoring with tools like Prometheus, Grafana, and CloudWatch; refining CI/CD pipelines with GitHub Actions and Jenkins; enforcing identity and access controls through SSO, IAM, and Active Directory; and establishing governance policies that support long-term operational efficiency. I have a proven ability to troubleshoot complex technical issues, design resilient architectures, and optimize cloud resources for cost-effectiveness while maintaining a secure, well-maintained environment.</p><p> Beyond day-to-day operations, I actively contribute to modernization efforts — introducing automation to reduce manual workloads, codifying infrastructure for repeatable deployments, and improving disaster recovery and business continuity plans. Whether supporting end users, advising on technical strategy, or leading infrastructure upgrades, my consistent priority is enabling teams to work faster, smarter, and more securely while aligning technology with organizational goals.</p>"
->}}
-
 
 {{< testimonial-section
     title="Colleague Feedback" >}}
