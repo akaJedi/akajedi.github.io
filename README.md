@@ -398,10 +398,23 @@ For a frontend regression, revert the website release/commit through the existin
 - Request bodies are limited to 16 KiB. Conversation creation requires server-validated Cloudflare Turnstile with exact action and hostname checks, a signed minimum-time challenge, an empty honeypot, and hashed-IP rate limits.
 - Logs contain safe diagnostic codes and conversation/outbox numbers only—not raw tokens, IP addresses, full emails, full phone numbers, or Telegram credentials.
 - Closed conversations are eligible for retention cleanup after 180 days; spam after 30 days; open business conversations remain until manually closed.
-- Automatic deletion is intentionally disabled. Retention eligibility must remain tested before any future cleanup command or scheduled deletion is introduced.
+- Retention eligibility is implemented and tested (`src/retention.ts`, run every 5 minutes from `scheduled()`), but actual deletion stays behind `RETENTION_CLEANUP_ENABLED` (default `"false"` in `wrangler.toml`). Left off, it only logs how many conversations would be deleted; flipping it to `"true"` is a deliberate, separate decision made after reviewing those logs against real data.
 - External meeting-link creation is a future extension point. Telegram bots cannot initiate native Telegram voice or video calls.
 
 
+
+## Route usage counters
+
+Every Worker request (except `OPTIONS` preflights) increments a `(date, route)` counter in D1's `route_daily_counts` table — a cheap, always-on record of how much each endpoint is actually used, day by day. Cloudflare's own dashboard (Workers & Pages → `green-rice-1ea7` → Metrics) already gives total request/error counts for free with no code involved; this table adds the per-route breakdown on top of that (`ip`, `whoami`, `chat-start`, `health`, etc. — see `routeName()` in `src/worker.ts`).
+
+Check it with:
+
+```bash
+npx wrangler d1 execute website-chat --remote \
+  --command "SELECT * FROM route_daily_counts WHERE date = date('now') ORDER BY count DESC"
+```
+
+This only sees requests that reach the Worker. The CIDR calculator and Password Generator tools run entirely client-side and never call this API at all — by design, matching their own "nothing is sent anywhere" claims — so there's no way to count their usage without breaking that promise, and this table doesn't try to.
 
 ## Sentry Worker error monitoring
 

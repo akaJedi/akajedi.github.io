@@ -6,6 +6,7 @@ import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import migrationSql from "../migrations/0001_chat.sql?raw";
 import draftMigrationSql from "../migrations/0002_conversation_drafts.sql?raw";
 import sourceMigrationSql from "../migrations/0003_conversation_sources.sql?raw";
+import routeCountsMigrationSql from "../migrations/0004_route_daily_counts.sql?raw";
 import { availability, createChallenge, escapeTelegram } from "../src/lib";
 
 const origin = "https://www.f12.biz";
@@ -60,6 +61,7 @@ beforeAll(async () => {
     ...migrationQueries(migrationSql),
     ...migrationQueries(draftMigrationSql),
     ...migrationQueries(sourceMigrationSql),
+    ...migrationQueries(routeCountsMigrationSql),
   ];
   await testEnv.DB.batch(migrations.map((query) => testEnv.DB.prepare(query)));
 });
@@ -394,6 +396,19 @@ it("leaves the /api prefix alone on domains other than api.f12.biz", async () =>
     headers: { "CF-Connecting-IP": "203.0.113.9" },
   });
   expect(response.status).toBe(404);
+});
+
+it("counts /api/ip requests per day in route_daily_counts", async () => {
+  const today = new Date().toISOString().slice(0, 10);
+  await dispatch("https://worker.test/api/ip", { headers: { "CF-Connecting-IP": "203.0.113.9" } });
+  let row: { count: number } | null = null;
+  for (let attempt = 0; attempt < 20 && !row; attempt++) {
+    row = await testEnv.DB.prepare("SELECT count FROM route_daily_counts WHERE date = ? AND route = 'ip'")
+      .bind(today).first<{ count: number }>();
+    if (!row) await new Promise((resolve) => setTimeout(resolve, 5));
+  }
+  expect(row).not.toBeNull();
+  expect(row!.count).toBeGreaterThanOrEqual(1);
 });
 
 it("rejects /api/whoami from a disallowed origin but serves allowed ones", async () => {

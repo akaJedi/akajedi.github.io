@@ -3,6 +3,7 @@ import { afterEach, beforeAll, expect, it, vi } from "vitest";
 import migrationSql from "../migrations/0001_chat.sql?raw";
 import draftMigrationSql from "../migrations/0002_conversation_drafts.sql?raw";
 import sourceMigrationSql from "../migrations/0003_conversation_sources.sql?raw";
+import routeCountsMigrationSql from "../migrations/0004_route_daily_counts.sql?raw";
 import worker from "../src/worker";
 import type { Env } from "../src/types";
 
@@ -19,7 +20,7 @@ function migrationQueries(sql: string): string[] {
 }
 
 beforeAll(async () => {
-  const migrations = [migrationSql, draftMigrationSql, sourceMigrationSql]
+  const migrations = [migrationSql, draftMigrationSql, sourceMigrationSql, routeCountsMigrationSql]
     .flatMap(migrationQueries);
   await testEnv.DB.batch(migrations.map((query) => testEnv.DB.prepare(query)));
 });

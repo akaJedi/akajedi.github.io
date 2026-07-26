@@ -64,7 +64,17 @@ function routeName(pathname: string): string {
   if (pathname === "/api/sentry-test") return "sentry-test";
   if (pathname.startsWith("/api/chat/")) return pathname.slice("/api/chat/".length).replace(/[^a-z-]/g, "").slice(0, 40) || "chat";
   if (pathname === "/api/health") return "health";
+  if (pathname === "/api/ip") return "ip";
+  if (pathname === "/api/whoami") return "whoami";
   return "unknown";
+}
+
+async function incrementRouteCount(env: Env, route: string): Promise<void> {
+  const date = new Date().toISOString().slice(0, 10);
+  await env.DB.prepare(
+    `INSERT INTO route_daily_counts (date, route, count) VALUES (?, ?, 1)
+     ON CONFLICT(date, route) DO UPDATE SET count = count + 1`,
+  ).bind(date, route).run();
 }
 
 function sentryEvent(
@@ -829,6 +839,9 @@ const workerHandler = {
     const url = new URL(request.url);
     const operation = routeName(url.pathname);
     const method = request.method;
+    if (method !== "OPTIONS") {
+      ctx.waitUntil(incrementRouteCount(env, operation).catch(() => undefined));
+    }
     const finish = (response: Response, result: string): Response => {
       const durationMs = Math.max(0, performance.now() - started);
       const bucket = durationBucket(durationMs);
