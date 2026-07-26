@@ -85,7 +85,20 @@
  &lt;/tbody&gt;
  &lt;/table&gt;
  &lt;/div&gt;
-&lt;/section&gt;</description></item><item><title>Проверка соединения и браузера</title><link>https://www.f12.biz/ru/tools/connection-check/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/tools/connection-check/</guid><description>&lt;p class="tools-note"&gt;Всё на этой странице либо вычисляется прямо в вашем браузере, либо считывается из информации, которую сеть Cloudflare и так видит при каждом запросе. Ничего здесь не сохраняется, не логируется и никуда не отправляется, кроме этого единственного запроса — вы видите только свои собственные данные, показанные вам же.&lt;/p&gt;
+&lt;/section&gt;</description></item><item><title>Мой IP</title><link>https://www.f12.biz/ru/tools/my-ip/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/tools/my-ip/</guid><description>&lt;section class="tool-card" aria-labelledby="tool-myip-title"&gt;
+ &lt;h2 id="tool-myip-title"&gt;Ваш IP-адрес&lt;/h2&gt;
+ &lt;p class="tool-ip-display" data-myip-value&gt;Проверяю…&lt;/p&gt;
+ &lt;p class="tool-hint" data-myip-family&gt;&lt;/p&gt;
+&lt;/section&gt;
+&lt;section class="tool-card" aria-labelledby="tool-myip-curl-title"&gt;
+ &lt;h2 id="tool-myip-curl-title"&gt;Из терминала&lt;/h2&gt;
+ &lt;p&gt;Браузер не нужен — работает так же с любой машины, где есть &lt;code&gt;curl&lt;/code&gt;:&lt;/p&gt;
+ &lt;pre class="tool-code"&gt;&lt;code&gt;curl https://green-rice-1ea7.denis-f21.workers.dev/api/ip&lt;/code&gt;&lt;/pre&gt;
+ &lt;p&gt;Только адрес, обычным текстом — больше ничего в ответе, поэтому можно сразу передавать в скрипт. Несколько вариантов:&lt;/p&gt;
+ &lt;pre class="tool-code"&gt;&lt;code&gt;curl "https://green-rice-1ea7.denis-f21.workers.dev/api/ip?family=v4" # только если вы реально подключены по IPv4
+curl "https://green-rice-1ea7.denis-f21.workers.dev/api/ip?family=v6" # только если вы реально подключены по IPv6
+curl "https://green-rice-1ea7.denis-f21.workers.dev/api/ip?format=json" # {"ip":"...","family":"IPv4"}&lt;/code&gt;&lt;/pre&gt;
+ &lt;p class="tool-hint"&gt;Этот эндпоинт намеренно публичный и не требует заголовка Origin от браузера — специально для того, чтобы работал обычный &lt;code&gt;curl&lt;/code&gt;. Он лишь возвращает IP-адрес того, кто спрашивает; ничего не логируется и не сохраняется.&lt;/p&gt;</description></item><item><title>Проверка соединения и браузера</title><link>https://www.f12.biz/ru/tools/connection-check/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/tools/connection-check/</guid><description>&lt;p class="tools-note"&gt;Всё на этой странице либо вычисляется прямо в вашем браузере, либо считывается из информации, которую сеть Cloudflare и так видит при каждом запросе. Ничего здесь не сохраняется, не логируется и никуда не отправляется, кроме этого единственного запроса — вы видите только свои собственные данные, показанные вам же.&lt;/p&gt;
 &lt;section class="tool-card" aria-labelledby="tool-network-title"&gt;
  &lt;h2 id="tool-network-title"&gt;Ваша сеть&lt;/h2&gt;
  &lt;dl class="tool-grid" data-tool-network&gt;

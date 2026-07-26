@@ -96,4 +96,17 @@
  &lt;div&gt;&lt;dt&gt;TLS version&lt;/dt&gt;&lt;dd data-field="tlsVersion"&gt;Checking…&lt;/dd&gt;&lt;/div&gt;
  &lt;div&gt;&lt;dt&gt;Cloudflare data center&lt;/dt&gt;&lt;dd data-field="dataCenter"&gt;Checking…&lt;/dd&gt;&lt;/div&gt;
  &lt;/dl&gt;
- &lt;p class="tool-hint"&gt;Prefer a terminal? &lt;code&gt;curl https://green-rice-1ea7.denis-f21.workers.dev/api/ip&lt;/code&gt; returns just your IP as plain text — add &lt;code&gt;?family=v4&lt;/code&gt; or &lt;code&gt;?family=v6&lt;/code&gt; to check a specific version, or &lt;code&gt;?format=json&lt;/code&gt; for both fields together. Testing your *other* IP version (whichever one you're not currently connected over) needs a separate, protocol-only address — noted as a possible future addition rather than faked here.&lt;/p&gt;</description></item></channel></rss>
+ &lt;p class="tool-hint"&gt;Prefer a terminal? &lt;code&gt;curl https://green-rice-1ea7.denis-f21.workers.dev/api/ip&lt;/code&gt; returns just your IP as plain text — add &lt;code&gt;?family=v4&lt;/code&gt; or &lt;code&gt;?family=v6&lt;/code&gt; to check a specific version, or &lt;code&gt;?format=json&lt;/code&gt; for both fields together. Testing your *other* IP version (whichever one you're not currently connected over) needs a separate, protocol-only address — noted as a possible future addition rather than faked here.&lt;/p&gt;</description></item><item><title>My IP</title><link>https://www.f12.biz/tools/my-ip/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/tools/my-ip/</guid><description>&lt;section class="tool-card" aria-labelledby="tool-myip-title"&gt;
+ &lt;h2 id="tool-myip-title"&gt;Your IP address&lt;/h2&gt;
+ &lt;p class="tool-ip-display" data-myip-value&gt;Checking…&lt;/p&gt;
+ &lt;p class="tool-hint" data-myip-family&gt;&lt;/p&gt;
+&lt;/section&gt;
+&lt;section class="tool-card" aria-labelledby="tool-myip-curl-title"&gt;
+ &lt;h2 id="tool-myip-curl-title"&gt;From a terminal&lt;/h2&gt;
+ &lt;p&gt;No browser needed — this works the same from any machine with &lt;code&gt;curl&lt;/code&gt;:&lt;/p&gt;
+ &lt;pre class="tool-code"&gt;&lt;code&gt;curl https://green-rice-1ea7.denis-f21.workers.dev/api/ip&lt;/code&gt;&lt;/pre&gt;
+ &lt;p&gt;Just the address, as plain text — nothing else in the response, so it's safe to pipe straight into a script. A couple of options:&lt;/p&gt;
+ &lt;pre class="tool-code"&gt;&lt;code&gt;curl "https://green-rice-1ea7.denis-f21.workers.dev/api/ip?family=v4" # only if you're actually connected over IPv4
+curl "https://green-rice-1ea7.denis-f21.workers.dev/api/ip?family=v6" # only if you're actually connected over IPv6
+curl "https://green-rice-1ea7.denis-f21.workers.dev/api/ip?format=json" # {"ip":"...","family":"IPv4"}&lt;/code&gt;&lt;/pre&gt;
+ &lt;p class="tool-hint"&gt;This endpoint is intentionally public and doesn't require a browser Origin header — that's specifically so plain &lt;code&gt;curl&lt;/code&gt; works. It only ever echoes back the IP address of whoever's asking; nothing is logged or stored.&lt;/p&gt;</description></item></channel></rss>
