@@ -119,7 +119,7 @@ code = "G-LPLDLSPHQL"
 enabled = true
 [params.analytics.googleTagManager]
 code = "GTM-5FDMPK6X"
-enabled = false
+enabled = true
 
 # Cookiebot consent banner. cbid is the Cookiebot domain group ID, not a
 # secret. Loaded as the first script in <head> so its data-blockingmode
