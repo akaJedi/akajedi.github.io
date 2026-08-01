@@ -18,6 +18,8 @@
   const registrationCard = page.querySelector("[data-domain-registration]");
   const registrationUnavailable = page.querySelector("[data-domain-registration-unavailable]");
   const dnsCard = page.querySelector("[data-domain-dns]");
+  const consensusSection = page.querySelector("[data-resolver-consensus]");
+  const consensusBody = page.querySelector("[data-consensus-body]");
   const lang = document.documentElement.lang === "ru" ? "ru" : "en";
 
   const standardUrls = {
@@ -46,6 +48,19 @@
         temporary_error: "RDAP service temporarily unavailable",
         invalid_response: "RDAP service returned an unusable response",
       },
+      consensusVerdict: {
+        consistent: "Both public resolvers returned the same record sets and validation state.",
+        inconsistent: "Resolver disagreement detected. This can indicate propagation, stale caches, split answers, or DNSSEC trouble.",
+        partial: "One resolver could not complete every query. Compare again before treating an empty result as authoritative.",
+      },
+      consensusState: {
+        match: "Match",
+        different: "Different",
+        dnssec_disagreement: "DNSSEC differs",
+        unavailable: "Unavailable",
+      },
+      resolverError: { http: "HTTP error", network: "Network error", timeout: "Timed out" },
+      emptyAnswer: "No answers",
       verdict: {
         critical: "Action required — at least one standards-level failure can affect availability, mail delivery, or trust.",
         warning: "Operational review recommended — no critical failure was found, but one or more controls are weak or ambiguous.",
@@ -96,6 +111,19 @@
         temporary_error: "Сервис RDAP временно недоступен",
         invalid_response: "Сервис RDAP вернул непригодный ответ",
       },
+      consensusVerdict: {
+        consistent: "Оба публичных резолвера вернули одинаковые записи и состояние проверки.",
+        inconsistent: "Обнаружено расхождение. Возможные причины: распространение изменений, устаревший кэш, разные ответы или DNSSEC.",
+        partial: "Один резолвер не завершил все запросы. Повторите сравнение, прежде чем считать пустой ответ достоверным.",
+      },
+      consensusState: {
+        match: "Совпало",
+        different: "Различается",
+        dnssec_disagreement: "Различается DNSSEC",
+        unavailable: "Недоступно",
+      },
+      resolverError: { http: "Ошибка HTTP", network: "Ошибка сети", timeout: "Тайм-аут" },
+      emptyAnswer: "Нет ответов",
       verdict: {
         critical: "Требуется действие — обнаружена ошибка стандарта, способная повлиять на доступность, доставку почты или доверие.",
         warning: "Рекомендуется проверка — критических ошибок нет, но некоторые настройки ослаблены или неоднозначны.",
@@ -161,6 +189,8 @@
     errorNode.hidden = true;
     healthSection.hidden = true;
     findingsSection.hidden = true;
+    consensusSection.hidden = true;
+    consensusBody.replaceChildren();
     rawDetails.hidden = true;
     registrationCard.hidden = true;
     dnsCard.hidden = true;
@@ -237,6 +267,62 @@
     healthSection.focus();
   }
 
+  const rcodeNames = { 0: "NOERROR", 1: "FORMERR", 2: "SERVFAIL", 3: "NXDOMAIN", 4: "NOTIMP", 5: "REFUSED" };
+
+  function renderResolverObservation(cell, observation) {
+    const result = observation || {};
+    let value;
+    if (result.error) value = copy.resolverError[result.error] || result.error;
+    else if (result.status !== 0) value = rcodeNames[result.status] || `RCODE ${result.status}`;
+    else value = result.answers && result.answers.length ? result.answers.join(" · ") : copy.emptyAnswer;
+    appendText(cell, "code", "resolver-consensus__answer", value);
+
+    const meta = document.createElement("span");
+    meta.className = "resolver-consensus__meta";
+    const ttl = Number.isFinite(result.ttl) ? `TTL ${result.ttl}s` : "TTL —";
+    const dnssec = result.authenticated ? "AD ✓" : "AD —";
+    const timing = Number.isFinite(result.durationMs) ? `${result.durationMs} ms` : "— ms";
+    meta.textContent = `${ttl} · ${dnssec} · ${timing}`;
+    cell.appendChild(meta);
+  }
+
+  function renderConsensus(consensus) {
+    if (!consensus || !Array.isArray(consensus.records)) {
+      consensusSection.hidden = true;
+      return;
+    }
+    consensusSection.dataset.state = consensus.verdict || "partial";
+    const verdictNode = consensusSection.querySelector("[data-consensus-verdict]");
+    verdictNode.textContent = copy.consensusVerdict[consensus.verdict] || copy.consensusVerdict.partial;
+    Object.entries(consensus.summary || {}).forEach(([name, value]) => {
+      const node = consensusSection.querySelector(`[data-consensus-count="${name}"]`);
+      if (node) node.textContent = String(value);
+    });
+
+    consensus.records.forEach((record) => {
+      const row = document.createElement("tr");
+      row.className = `resolver-consensus__row resolver-consensus__row--${record.state}`;
+      const recordCell = document.createElement("th");
+      recordCell.scope = "row";
+      appendText(recordCell, "span", "resolver-consensus__record", record.key);
+      appendText(recordCell, "small", "resolver-consensus__query", `${record.name} · ${record.type}`);
+      row.appendChild(recordCell);
+
+      const cloudflareCell = document.createElement("td");
+      renderResolverObservation(cloudflareCell, record.cloudflare);
+      row.appendChild(cloudflareCell);
+      const googleCell = document.createElement("td");
+      renderResolverObservation(googleCell, record.google);
+      row.appendChild(googleCell);
+
+      const stateCell = document.createElement("td");
+      appendText(stateCell, "span", "resolver-consensus__state", copy.consensusState[record.state] || record.state);
+      row.appendChild(stateCell);
+      consensusBody.appendChild(row);
+    });
+    consensusSection.hidden = false;
+  }
+
   function renderRaw(data) {
     const dns = data.dns || {};
     dnsCard.hidden = false;
@@ -287,6 +373,7 @@
         return;
       }
       renderChecks(data.domain, data.checks);
+      renderConsensus(data.consensus);
       renderRaw(data);
       const current = new URL(window.location.href);
       current.searchParams.set("domain", data.domain);
@@ -302,10 +389,16 @@
   }
 
   function normalizeDomain(value) {
-    const domain = value.trim().toLowerCase().replace(/\.$/, "");
-    return /^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/.test(domain)
-      ? domain
-      : null;
+    const candidate = value.trim().toLowerCase().replace(/[.\u3002\uFF0E\uFF61]$/, "");
+    if (!candidate || /[\s\/:?#@%\\]/.test(candidate)) return null;
+    try {
+      const domain = new URL(`http://${candidate}`).hostname;
+      return /^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+(?:[a-z]{2,63}|xn--[a-z0-9](?:[a-z0-9-]{0,57}[a-z0-9])?)$/.test(domain)
+        ? domain
+        : null;
+    } catch {
+      return null;
+    }
   }
 
   form.addEventListener("submit", (event) => {
