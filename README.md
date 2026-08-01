@@ -222,9 +222,13 @@ All current migrations are additive: `0001_chat.sql` creates the chat data model
 - `SPAM_RETENTION_DAYS=30`
 - `TURNSTILE_REQUIRED=true` fails closed when a conversation is started without server-side verification
 - `TURNSTILE_EXPECTED_HOSTNAMES`: comma-separated exact hostnames accepted from Siteverify
-- Cron: every five minutes for Telegram outbox retries
+- `DNS_WATCH_TELEGRAM_DOMAINS`: comma-separated managed domain suffixes eligible for private DNS watch alerts
+- Cron `*/5 * * * *`: DNS watch sampling and retention work
+- Cron `2-59/5 * * * *`: Telegram chat retries and DNS alert delivery, offset to preserve the Worker subrequest budget
 
 The chat API origin is the Worker URL configured by the Hugo partial. If a custom Worker route replaces the workers.dev URL, update `params.chat.apiBase` in Hugo configuration and add that Worker origin to the site CSP `connect-src` header.
+
+DNS propagation watches send private Telegram alerts only for the configured managed suffixes (the exact domain and its subdomains). Public watches for all other domains remain visible in their shareable timeline but cannot send messages to the owner. Alerts are queued durably and retried with capped exponential backoff. Event keys and database constraints make delivery idempotent: changed, diverged, converged, and completed events are each queued once. TTL-only changes do not create alerts.
 
 Turnstile uses the public site key in `params.chat.turnstileSiteKey`; this value is safe to render in HTML. In the Cloudflare Turnstile dashboard, configure the widget to allow every production hostname listed in `TURNSTILE_EXPECTED_HOSTNAMES`. The Worker independently checks the Siteverify `hostname` and `action` response.
 
@@ -397,6 +401,7 @@ For a frontend regression, revert the website release/commit through the existin
 - Inputs are length-limited and validated on the server. D1 statements are parameterized, and Telegram HTML is escaped.
 - Request bodies are limited to 16 KiB. Conversation creation requires server-validated Cloudflare Turnstile with exact action and hostname checks, a signed minimum-time challenge, an empty honeypot, and hashed-IP rate limits.
 - Logs contain safe diagnostic codes and conversation/outbox numbers only—not raw tokens, IP addresses, full emails, full phone numbers, or Telegram credentials.
+- DNS alerts contain only public DNS answers, the watched name/type, event time, and the unguessable share URL. Alert rows are deleted with their parent watch after the existing retention window.
 - Closed conversations are eligible for retention cleanup after 180 days; spam after 30 days; open business conversations remain until manually closed.
 - Retention eligibility is implemented and tested (`src/retention.ts`, run every 5 minutes from `scheduled()`), but actual deletion stays behind `RETENTION_CLEANUP_ENABLED` (default `"false"` in `wrangler.toml`). Left off, it only logs how many conversations would be deleted; flipping it to `"true"` is a deliberate, separate decision made after reviewing those logs against real data.
 - External meeting-link creation is a future extension point. Telegram bots cannot initiate native Telegram voice or video calls.
