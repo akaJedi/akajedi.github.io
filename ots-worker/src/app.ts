@@ -1,3 +1,6 @@
+import { createScript, homeScript, ownerScript } from "./asset-scripts";
+import { createPage, detailPage, homePage, linksPage, policyPage as newPolicyPage, styles } from "./ui";
+
 interface Env {
   DB: D1Database;
   ENVIRONMENT: string;
@@ -21,49 +24,6 @@ const securityHeaders: Record<string, string> = {
 function response(body: BodyInit | null, status = 200, type = "text/plain; charset=utf-8") { return new Response(body, { status, headers: { ...securityHeaders, "Content-Type": type } }); }
 function json(body: unknown, status = 200) { return response(JSON.stringify(body), status, "application/json; charset=utf-8"); }
 
-const page = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><meta name="robots" content="noindex,nofollow,noarchive"><title>One Time Secret — F12</title><link rel="stylesheet" href="/assets/ots.css"><script src="/assets/ots.js" defer></script></head><body><a class="skip" href="#main">Skip to main content</a><header class="mast"><a class="brand" href="/">F12</a><span>OTS / 001</span><span class="signal">● SERVER-BLIND</span></header><main id="main">
-<section data-view="landing"><p class="eyebrow">Controlled secret exchange</p><h1>One Time<br><i>Secret</i></h1><p class="lede">Browser-encrypted. Server-blind. Reveal once.</p><a class="button quiet" href="/create">Create owner secret</a></section><aside data-view="landing"><h2>Trust boundary</h2><dl><div><dt>Encryption</dt><dd>Your browser</dd></div><div><dt>Stored</dt><dd>Ciphertext only</dd></div><div><dt>Reveal</dt><dd>Exactly once</dd></div><div><dt>Telemetry</dt><dd>None</dd></div></dl><p>The key stays after the # in the link. It is never sent to this server.</p></aside>
-<section class="workspace" data-view="create" hidden><div><p class="eyebrow">Owner workspace</p><h1>Seal a<br><i>Secret</i></h1><p class="lede">Plaintext and key never leave this browser.</p></div><div><form id="create-form"><label for="secret">Secret text</label><textarea id="secret" maxlength="12000" required autocomplete="off" spellcheck="false"></textarea><label for="expiry">Delete if unopened after</label><select id="expiry"><option value="900">15 minutes</option><option value="3600">1 hour</option><option value="21600" selected>6 hours</option><option value="86400">24 hours</option><option value="604800">7 days</option></select><button class="button" type="submit">Encrypt & create link</button></form><div id="create-result" class="result" hidden><label for="share-url">One-time link</label><div class="copy"><input id="share-url" readonly><button id="copy-link" class="button" type="button">Copy</button></div><p>Anyone with this link can reveal the secret once.</p></div><p id="create-status" class="message" role="status" aria-live="polite"></p></div></section>
-<section class="workspace" data-view="reveal" hidden><div><p class="eyebrow">Incoming sealed message</p><h1>Reveal<br><i>Once</i></h1></div><div><div id="reveal-ready"><p class="lede">Opening permanently deletes the encrypted payload from F12 storage.</p><button id="reveal-button" class="button" type="button">Reveal secret</button></div><div id="revealed" class="result" hidden><label for="revealed-secret">Secret</label><textarea id="revealed-secret" readonly></textarea><button id="copy-secret" class="button quiet" type="button">Copy secret</button></div><p id="reveal-status" class="message" role="status" aria-live="polite"></p></div></section>
-</main><footer><span>Zero plaintext by design</span><span>No analytics · No third-party code</span></footer></body></html>`;
-
-const css = `:root{color-scheme:dark;--ink:#dbe6e3;--muted:#7b8c89;--void:#080b0b;--line:#25302e;--amber:#ffb000;--teal:#38d6b1;--danger:#ff6b57}*{box-sizing:border-box}html{background:var(--void);font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--ink)}body{min-height:100vh;margin:0;background-image:linear-gradient(rgba(56,214,177,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(56,214,177,.035) 1px,transparent 1px);background-size:32px 32px}.skip{position:fixed;top:-5rem}.skip:focus{top:1rem}.mast{height:64px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 4vw;font-size:.7rem;letter-spacing:.14em}.brand{font:900 1.4rem Arial Black;color:var(--amber);text-decoration:none}.signal{justify-self:end;color:var(--teal)}main{width:min(1180px,calc(100% - 2rem));min-height:calc(100vh - 128px);margin:auto;display:grid;grid-template-columns:1.45fr .55fr;gap:1px;background:var(--line);border-inline:1px solid var(--line)}section,aside{background:rgba(8,11,11,.96);padding:clamp(2rem,6vw,6rem);display:flex;flex-direction:column;justify-content:center}.eyebrow,h2,dt,label{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase}.eyebrow{color:var(--teal);margin:0 0 2rem}h1{margin:0;font:900 clamp(4.2rem,11vw,9.5rem)/.77 Arial Black;letter-spacing:-.07em;text-transform:uppercase}h1 i{font-style:normal;color:transparent;-webkit-text-stroke:2px var(--ink)}.lede{margin:2.5rem 0;color:var(--muted);line-height:1.7}.button{width:max-content;border:1px solid var(--amber);background:var(--amber);color:#080b0b;font:800 .73rem ui-monospace;padding:1rem 1.2rem;text-transform:uppercase;text-decoration:none;cursor:pointer}.button:disabled{opacity:.55}.quiet{background:transparent;color:var(--amber)}dl{border-top:1px solid var(--line)}dl div{display:flex;justify-content:space-between;padding:1rem 0;border-bottom:1px solid var(--line)}dd{color:var(--teal);margin:0}.workspace{grid-column:1/-1;display:grid;grid-template-columns:.7fr 1fr;gap:8vw;align-items:center}.workspace form{display:grid;gap:1rem}label{display:block;color:var(--muted);margin-bottom:.5rem}textarea,input,select{width:100%;border:1px solid var(--line);background:#070909;color:var(--ink);font:inherit;padding:1rem}textarea{min-height:15rem;resize:vertical}.result{margin-top:1.5rem;border:1px solid var(--teal);padding:1.25rem}.copy{display:flex}.message{min-height:1.5rem;color:var(--muted)}.message[data-error=true]{color:var(--danger)}footer{min-height:64px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;padding:1rem 4vw;color:var(--muted);font-size:.65rem}[hidden]{display:none!important}@media(max-width:760px){.mast{grid-template-columns:1fr 1fr}.signal{display:none}main{grid-template-columns:1fr}.workspace{display:block}.workspace>div+div{margin-top:2rem}.copy{flex-direction:column}footer{flex-direction:column;align-items:flex-start;gap:.5rem}}`;
-
-const script = `const q=s=>document.querySelector(s),all=s=>document.querySelectorAll(s),enc=new TextEncoder(),dec=new TextDecoder();function b64(a){let s='';for(const b of a)s+=String.fromCharCode(b);return btoa(s).replaceAll('+','-').replaceAll('/','_').replace(/=+$/,'')}function unb64(s){s=s.replaceAll('-','+').replaceAll('_','/');const r=atob(s+'='.repeat((4-s.length%4)%4));return Uint8Array.from(r,c=>c.charCodeAt(0))}function msg(n,s,e=false){n.textContent=s;n.dataset.error=String(e)}async function copy(v,b){await navigator.clipboard.writeText(v);b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1500)}function show(v){all('[data-view]').forEach(n=>n.hidden=n.dataset.view!==v)}async function create(e){e.preventDefault();const b=e.submitter,s=q('#create-status');b.disabled=true;msg(s,'Encrypting locally…');try{const p=q('#secret').value;if(!p)throw Error('Enter a secret first.');const k=await crypto.subtle.generateKey({name:'AES-GCM',length:256},true,['encrypt','decrypt']),raw=new Uint8Array(await crypto.subtle.exportKey('raw',k)),iv=crypto.getRandomValues(new Uint8Array(12)),ct=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv},k,enc.encode(p))),r=await fetch('/api/owner/secrets',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ciphertext:b64(ct),iv:b64(iv),expiresIn:Number(q('#expiry').value)})}),body=await r.json();if(!r.ok)throw Error(body.error||'Creation failed.');q('#share-url').value=location.origin+'/#v1.'+body.id+'.'+body.claimToken+'.'+b64(raw);q('#create-result').hidden=false;q('#secret').value='';msg(s,'Link created. Plaintext cleared.')}catch(e){msg(s,e.message||'Creation failed.',true)}finally{b.disabled=false}}function parts(){const m=location.hash.match(/^#v1\.([\w-]{20,64})\.([\w-]{40,64})\.([\w-]{40,64})$/);return m&&{id:m[1],token:m[2],key:m[3]}}async function reveal(){const p=parts(),b=q('#reveal-button'),s=q('#reveal-status');if(!p)return msg(s,'Invalid link.',true);b.disabled=true;msg(s,'Deleting encrypted server copy…');try{const r=await fetch('/api/secrets/'+p.id+'/consume',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({claimToken:p.token})}),body=await r.json();if(!r.ok)throw Error(body.error||'Secret unavailable.');const k=await crypto.subtle.importKey('raw',unb64(p.key),{name:'AES-GCM'},false,['decrypt']),plain=dec.decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:unb64(body.iv)},k,unb64(body.ciphertext)));history.replaceState(null,'',location.pathname);q('#revealed-secret').value=plain;q('#reveal-ready').hidden=true;q('#revealed').hidden=false;msg(s,'Revealed. Encrypted server copy deleted.')}catch(e){msg(s,e.message||'Reveal failed.',true);b.disabled=false}}if(location.pathname.startsWith('/create')){show('create');q('#create-form').addEventListener('submit',create);q('#copy-link').onclick=()=>copy(q('#share-url').value,q('#copy-link'))}else if(location.hash){show('reveal');q('#reveal-button').onclick=reveal;q('#copy-secret').onclick=()=>copy(q('#revealed-secret').value,q('#copy-secret'))}else show('landing');`;
-// Avoid backslash escapes here: this pattern is emitted from an outer template string.
-const browserScript = script.replace("/^#v1.([w-]{20,64}).([w-]{40,64}).([w-]{40,64})$/", "/^#v1[.]([A-Za-z0-9_-]{20,64})[.]([A-Za-z0-9_-]{40,64})[.]([A-Za-z0-9_-]{40,64})$/");
-
-const footerLinks = `<nav class="legal-links" aria-label="Service information"><a href="/safety">Safety</a><a href="/privacy">Privacy</a><a href="/terms">Beta terms</a></nav>`;
-const educatedPage = page
-  .replace("<div><dt>Telemetry</dt><dd>None</dd></div>", "<div><dt>App analytics</dt><dd>None</dd></div>")
-  .replace("<p>The key stays after the # in the link. It is never sent to this server.</p>", "<p>The key stays after the # in the link and is not sent in the HTTP request. The complete link is a bearer secret: anyone who has it can decrypt and consume the message.</p><a class=\"text-link\" href=\"/safety\">Read the safe handling protocol →</a>")
-  .replace("<button class=\"button\" type=\"submit\">Encrypt & create link</button>", "<label class=\"acknowledgment\"><input id=\"bearer-ack\" type=\"checkbox\" required><span>I understand that the complete link acts like a password. Anyone who obtains it can decrypt and consume the secret.</span></label><p class=\"fine-print\">By creating a link, I agree to the <a href=\"/terms\">beta terms</a> and will follow the <a href=\"/safety\">safe handling protocol</a>.</p><button class=\"button\" type=\"submit\">Encrypt & create link</button>")
-  .replace("<p>Anyone with this link can reveal the secret once.</p>", "<p><strong>Treat this link like a password.</strong> Do not paste it into chats with bots or AI, tickets, logs, public repositories, screenshots, or other untrusted systems. If it is exposed, consider it compromised.</p>")
-  .replace("<p class=\"lede\">Opening permanently deletes the encrypted payload from F12 storage.</p>", "<p class=\"lede\"><strong>Treat this complete link like a password.</strong> Verify the sender and this domain before continuing. Opening permanently deletes the encrypted payload from F12 storage.</p>")
-  .replace("<span>No analytics · No third-party code</span>", `${footerLinks}<span>No app analytics · No third-party code</span>`);
-
-const policyCss = `${css}.legal-links{display:flex;gap:1rem}.legal-links a,.text-link,.policy a,.fine-print a{color:var(--teal)}.acknowledgment{display:grid!important;grid-template-columns:auto 1fr;gap:.75rem;align-items:start;margin-top:.5rem;color:var(--ink);font-size:.72rem;line-height:1.55;letter-spacing:0;text-transform:none}.acknowledgment input{width:1rem;height:1rem;margin:.15rem 0 0;accent-color:var(--amber)}.fine-print{margin:0;color:var(--muted);font-size:.72rem;line-height:1.55}.result strong,.lede strong{color:var(--amber)}.policy{grid-column:1/-1;display:block;padding:clamp(2rem,7vw,6rem) max(1.5rem,calc((100% - 880px)/2))}.policy h1{font-size:clamp(3rem,8vw,6rem);line-height:.85;margin-bottom:2rem}.policy h2{margin:2.5rem 0 1rem;color:var(--teal)}.policy p,.policy li{color:var(--muted);line-height:1.75}.policy strong{color:var(--ink)}.policy ul,.policy ol{padding-left:1.25rem}.notice{border:1px solid var(--amber);padding:1rem 1.25rem;color:var(--ink)!important}.policy-meta{color:var(--teal)!important;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase}@media(max-width:760px){.legal-links{flex-wrap:wrap}}`;
-type Policy = { title: string; eyebrow: string; body: string };
-const policies: Record<string, Policy> = {
-  "/safety": {
-    title: "Safe handling protocol",
-    eyebrow: "Before you send or reveal",
-    body: `<p class="notice"><strong>The complete OTS link is a bearer secret, like a password.</strong> Anyone who obtains it can decrypt and consume the message. Encryption cannot protect a link after it is copied to an unsafe place.</p><h2>For senders</h2><ol><li>Use a trusted, updated device and verify the address is <strong>ots.f12.biz</strong>.</li><li>Choose the shortest practical expiry. Do not put unnecessary personal, regulated, or irreplaceable information in a secret.</li><li>Send the complete link directly to the intended recipient through a trusted channel. Confirm the recipient's identity independently for high-impact secrets.</li><li>Do not paste the link into bots or AI chats, support tickets, public issues, logs, analytics, screenshots, shared documents, or source code.</li><li>If the link is exposed or sent to the wrong person, treat it as compromised. Do not rely on it; create and distribute a replacement through a safer channel.</li></ol><h2>For recipients</h2><ol><li>Verify the sender, the expected context, and the <strong>ots.f12.biz</strong> domain before revealing.</li><li>Use a private device without screen sharing or untrusted browser extensions. The link works once and the encrypted server copy is deleted before decryption.</li><li>Move the revealed value promptly into an approved password manager or secret vault when it must be retained. Clear unsafe copies from clipboard history, notes, or downloads.</li></ol><h2>Know the limits</h2><p>OTS reduces server-side plaintext exposure; it does not make an unsafe endpoint, compromised browser, intercepted clipboard, malicious recipient, or mistaken destination safe. There is no recovery or backup after a secret is consumed, expires, or is deleted.</p>`,
-  },
-  "/privacy": {
-    title: "Privacy & security notice",
-    eyebrow: "What the service processes",
-    body: `<p class="notice">This is a concise beta notice, not a claim of legal or regulatory compliance. Use only for data you are authorized to handle.</p><h2>Secret content</h2><p>Encryption and decryption occur in the browser using AES-256-GCM. The application sends and stores only ciphertext and its initialization vector. The decryption key is placed after the <strong>#</strong> in the link; browsers do not include that fragment in the HTTP request. The complete link can still be exposed through your device, clipboard, browser history, extensions, screenshots, messaging software, or recipient.</p><h2>Operational data</h2><p>The service stores the encrypted payload, initialization vector, a keyed hash of the claim token, hashed creator identity and IP-derived abuse-control values, creation and expiry times, payload size, and service mode. It does not store the plaintext or decryption key.</p><p>Cloudflare infrastructure necessarily processes network and request metadata. Cloudflare Access processes the owner's email address and authentication session on protected creation paths. The application has no advertising, application analytics, or third-party JavaScript. Cloudflare Access may use authentication cookies; the public reveal application does not set its own tracking cookies.</p><h2>Retention and deletion</h2><p>A successful reveal atomically deletes the encrypted payload from application storage before browser decryption. Unopened payloads are deleted after their selected expiry by scheduled cleanup. Abuse-control counters remain only until their rate-limit window expires. Infrastructure and security logs may have separate retention under the configured Cloudflare account settings.</p><h2>Your choices</h2><p>Do not create a secret if these processing terms are unsuitable. Minimize the content, choose the shortest expiry, and use an approved system when organizational policy or law requires one.</p>`,
-  },
-  "/terms": {
-    title: "Beta terms of use",
-    eyebrow: "Effective 2026-08-01",
-    body: `<p class="notice"><strong>Practical beta rules.</strong> These terms are an operational draft and should receive jurisdiction-specific legal review before any public trial.</p><h2>Permitted use</h2><p>You may use F12 One-Time Secret only for lawful, authorized secret exchange. You are responsible for the content, the recipients you choose, compliance with applicable policy and law, and secure handling of every complete link.</p><h2>Prohibited use</h2><p>Do not use the service to distribute malware, stolen credentials, unlawful material, threats, harassment, unsolicited messages, instructions intended to cause harm, or information you do not have authority to possess or share. Do not probe, disrupt, evade limits, automate abuse, impersonate others, or attempt to access another person's secret.</p><h2>Bearer-link responsibility</h2><p>The complete link functions like a password. Possession can permit decryption and one-time consumption. You accept the risk of the delivery channel and must treat an exposed or misdirected link as compromised.</p><h2>Availability and enforcement</h2><p>The service is an owner-only beta, provided without a promise of continuous availability, recovery, backup, or fitness for a particular purpose. Secrets may become unavailable through reveal, expiry, deletion, operational failure, or abuse controls. Access may be limited or blocked to protect the service, its users, or others.</p><h2>No substitute for an approved system</h2><p>Do not use this beta where your organization, contract, or applicable law requires a designated vault, audit trail, retention control, data residency, regulated processor, or other safeguard the service does not provide. To the extent permitted by applicable law, you use the beta at your own risk.</p>`,
-  },
-};
-function policyPage(policy: Policy) { return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><meta name="robots" content="noindex,nofollow,noarchive"><title>${policy.title} — F12 OTS</title><link rel="stylesheet" href="/assets/ots.css"></head><body><a class="skip" href="#main">Skip to main content</a><header class="mast"><a class="brand" href="/">F12</a><span>OTS / 001</span><span class="signal">● SERVICE GUIDE</span></header><main id="main"><article class="policy"><p class="eyebrow">${policy.eyebrow}</p><h1>${policy.title}</h1>${policy.body}<p><a href="/">← Return to One-Time Secret</a></p></article></main><footer><span>Zero plaintext by design</span>${footerLinks}<span>No app analytics · No third-party code</span></footer></body></html>`; }
-
-
 function configured(env: Env) { return env.OWNER_CREATION_ENABLED === "true" && Boolean(env.OTS_TOKEN_HMAC_SECRET && env.OTS_IP_HASH_SECRET && env.OTS_SESSION_SECRET); }
 function b64(bytes: Uint8Array) { let s = ""; for (const b of bytes) s += String.fromCharCode(b); return btoa(s).replaceAll("+", "-").replaceAll("/", "_").replace(/=+$/, ""); }
 function random(size: number) { return b64(crypto.getRandomValues(new Uint8Array(size))); }
@@ -72,21 +32,75 @@ async function hmac(keyValue: string, value: string) { const key = await crypto.
 function decodedSize(value: string) { return /^[\w-]+$/.test(value) ? Math.floor(value.length * 3 / 4) : -1; }
 async function readBody(request: Request) { if (!request.headers.get("Content-Type")?.startsWith("application/json")) throw new Response("JSON required", { status: 415 }); try { return await request.json() as Record<string, unknown>; } catch { throw new Response("Invalid JSON", { status: 400 }); } }
 async function rateLimit(env: Env, subject: string, action: string, seconds: number, max: number, now: number) { const start = Math.floor(now / (seconds * 1000)) * seconds * 1000; const row = await env.DB.prepare("INSERT INTO ots_rate_limit_windows(subject_hash,action,window_start,request_count,expires_at) VALUES(?,?,?,?,?) ON CONFLICT(subject_hash,action,window_start) DO UPDATE SET request_count=request_count+1 RETURNING request_count").bind(subject, action, start, 1, start + seconds * 1000).first<{ request_count: number }>(); if (!row || row.request_count > max) throw new Response("Rate limit exceeded", { status: 429 }); }
+async function ownerIdentity(request: Request, env: Env) {
+  const assertion = request.headers.get("Cf-Access-Jwt-Assertion");
+  if (!assertion) return null;
+  const identity = request.headers.get("Cf-Access-Authenticated-User-Email") || assertion;
+  return hmac(required(env.OTS_SESSION_SECRET), `identity:${identity}`);
+}
+function fingerprint(id: string) { return `OTS-${id.slice(0, 6).toUpperCase()}…${id.slice(-4).toUpperCase()}`; }
 
 async function health(env: Env) { try { await env.DB.prepare("SELECT 1").first(); return json({ ok: true, service: "f12-ots", environment: env.ENVIRONMENT, storage: "ready", acceptingSecrets: configured(env), publicTrial: false }); } catch { return json({ ok: false, storage: "unavailable", acceptingSecrets: false }, 503); } }
 async function createOwner(request: Request, env: Env) {
   if (!configured(env)) return json({ error: "Owner creation is disabled." }, 503);
-  const assertion = request.headers.get("Cf-Access-Jwt-Assertion");
-  if (!assertion) return json({ error: "Cloudflare Access authentication required." }, 401);
+  const identityHash = await ownerIdentity(request, env);
+  if (!identityHash) return json({ error: "Cloudflare Access authentication required." }, 401);
   if (request.headers.get("Origin") !== new URL(request.url).origin) return json({ error: "Invalid request origin." }, 403);
-  const input = await readBody(request), ciphertext = typeof input.ciphertext === "string" ? input.ciphertext : "", iv = typeof input.iv === "string" ? input.iv : "", expiresIn = typeof input.expiresIn === "number" ? input.expiresIn : 0, size = decodedSize(ciphertext);
-  if (size < 1 || size > 16_384 || decodedSize(iv) !== 12 || !EXPIRIES.has(expiresIn)) return json({ error: "Invalid encrypted payload or expiry." }, 400);
-  const now = Date.now(), identity = request.headers.get("Cf-Access-Authenticated-User-Email") || assertion, identityHash = await hmac(required(env.OTS_SESSION_SECRET), `identity:${identity}`);
+  const input = await readBody(request), ciphertext = typeof input.ciphertext === "string" ? input.ciphertext : "", iv = typeof input.iv === "string" ? input.iv : "", expiresIn = typeof input.expiresIn === "number" ? input.expiresIn : 0, passwordProtected = input.passwordProtected === true, size = decodedSize(ciphertext);
+  if (size < 1 || size > 16_384 || decodedSize(iv) !== 12 || !EXPIRIES.has(expiresIn) || (input.passwordProtected !== undefined && typeof input.passwordProtected !== "boolean")) return json({ error: "Invalid encrypted payload or expiry." }, 400);
+  const now = Date.now();
   await rateLimit(env, identityHash, "owner-create", 86_400, 80, now);
   const id = random(18), claimToken = random(32), claimHash = await hmac(required(env.OTS_TOKEN_HMAC_SECRET), `claim:${claimToken}`), ipHash = await hmac(required(env.OTS_IP_HASH_SECRET), `ip:${request.headers.get("CF-Connecting-IP") || "unknown"}`);
-  await env.DB.prepare("INSERT INTO ots_secrets(id,ciphertext,iv,claim_token_hash,mode,size_bytes,creator_ip_hash,creator_identity_hash,created_at,expires_at) VALUES(?,?,?,?,?,?,?,?,?,?)").bind(id, ciphertext, iv, claimHash, "owner", size, ipHash, identityHash, now, now + expiresIn * 1000).run();
+  await env.DB.prepare("INSERT INTO ots_secrets(id,ciphertext,iv,claim_token_hash,mode,size_bytes,creator_ip_hash,creator_identity_hash,created_at,expires_at,password_protected) VALUES(?,?,?,?,?,?,?,?,?,?,?)").bind(id, ciphertext, iv, claimHash, "owner", size, ipHash, identityHash, now, now + expiresIn * 1000, passwordProtected ? 1 : 0).run();
   return json({ id, claimToken, expiresAt: now + expiresIn * 1000 }, 201);
 }
+
+type ActiveRow = { id: string; created_at: number; expires_at: number; size_bytes: number; password_protected: number };
+type ReceiptRow = ActiveRow & { finalized_at: number; final_status: string; purge_after: number };
+function activeItem(row: ActiveRow) {
+  return { id: row.id, fingerprint: fingerprint(row.id), status: "active", createdAt: row.created_at, expiresAt: row.expires_at, sizeBytes: row.size_bytes, passwordProtected: Boolean(row.password_protected) };
+}
+function receiptItem(row: ReceiptRow) {
+  return { id: row.id, fingerprint: fingerprint(row.id), status: row.final_status, createdAt: row.created_at, expiresAt: row.expires_at, finalizedAt: row.finalized_at, removeAt: row.purge_after, sizeBytes: row.size_bytes, passwordProtected: Boolean(row.password_protected) };
+}
+async function finalizeOwnerExpiry(env: Env, identityHash: string, now: number) {
+  await env.DB.batch([
+    env.DB.prepare("UPDATE ots_secrets SET deletion_reason='expired' WHERE creator_identity_hash=? AND status='ready' AND expires_at<=?").bind(identityHash, now),
+    env.DB.prepare("DELETE FROM ots_secrets WHERE creator_identity_hash=? AND status='ready' AND expires_at<=?").bind(identityHash, now),
+    env.DB.prepare("DELETE FROM ots_secret_receipts WHERE purge_after<=?").bind(now),
+  ]);
+}
+async function listOwner(request: Request, env: Env) {
+  const identityHash = await ownerIdentity(request, env), now = Date.now();
+  if (!identityHash) return json({ error: "Cloudflare Access authentication required." }, 401);
+  await finalizeOwnerExpiry(env, identityHash, now);
+  const [active, receipts] = await Promise.all([
+    env.DB.prepare("SELECT id,created_at,expires_at,size_bytes,password_protected FROM ots_secrets WHERE creator_identity_hash=? AND status='ready' AND expires_at>? ORDER BY created_at DESC LIMIT 200").bind(identityHash, now).all<ActiveRow>(),
+    env.DB.prepare("SELECT id,created_at,expires_at,finalized_at,final_status,purge_after,size_bytes,password_protected FROM ots_secret_receipts WHERE creator_identity_hash=? AND purge_after>? ORDER BY created_at DESC LIMIT 200").bind(identityHash, now).all<ReceiptRow>(),
+  ]);
+  const items = [...active.results.map(activeItem), ...receipts.results.map(receiptItem)].sort((a, b) => b.createdAt - a.createdAt);
+  return json({ now, items });
+}
+async function ownerDetail(request: Request, env: Env, id: string) {
+  const identityHash = await ownerIdentity(request, env), now = Date.now();
+  if (!identityHash) return json({ error: "Cloudflare Access authentication required." }, 401);
+  await finalizeOwnerExpiry(env, identityHash, now);
+  const active = await env.DB.prepare("SELECT id,created_at,expires_at,size_bytes,password_protected FROM ots_secrets WHERE id=? AND creator_identity_hash=? AND status='ready' AND expires_at>?").bind(id, identityHash, now).first<ActiveRow>();
+  if (active) return json({ now, item: activeItem(active) });
+  const receipt = await env.DB.prepare("SELECT id,created_at,expires_at,finalized_at,final_status,purge_after,size_bytes,password_protected FROM ots_secret_receipts WHERE id=? AND creator_identity_hash=? AND purge_after>?").bind(id, identityHash, now).first<ReceiptRow>();
+  return receipt ? json({ now, item: receiptItem(receipt) }) : json({ error: "Link metadata is no longer available." }, 404);
+}
+async function deleteOwner(request: Request, env: Env, id: string) {
+  if (request.headers.get("Origin") !== new URL(request.url).origin) return json({ error: "Invalid request origin." }, 403);
+  const identityHash = await ownerIdentity(request, env), now = Date.now();
+  if (!identityHash) return json({ error: "Cloudflare Access authentication required." }, 401);
+  const results = await env.DB.batch([
+    env.DB.prepare("UPDATE ots_secrets SET deletion_reason='revoked' WHERE id=? AND creator_identity_hash=? AND status='ready' AND expires_at>?").bind(id, identityHash, now),
+    env.DB.prepare("DELETE FROM ots_secrets WHERE id=? AND creator_identity_hash=? AND status='ready' AND expires_at>?").bind(id, identityHash, now),
+  ]);
+  return Number(results[1].meta.changes || 0) > 0 ? json({ ok: true, status: "revoked" }) : json({ error: "Active link not found." }, 404);
+}
+
 async function consume(request: Request, env: Env, id: string) {
   if (!configured(env)) return json({ error: "Secret service unavailable." }, 503);
   const input = await readBody(request), claimToken = typeof input.claimToken === "string" ? input.claimToken : "";
@@ -101,18 +115,29 @@ async function fetchHandler(request: Request, env: Env) {
   const url = new URL(request.url);
   try {
     if (url.pathname === "/api/health" && ["GET", "HEAD"].includes(request.method)) return health(env);
+    if (url.pathname === "/api/owner/secrets" && request.method === "GET") return listOwner(request, env);
     if (url.pathname === "/api/owner/secrets" && request.method === "POST") return createOwner(request, env);
+    const ownerMatch = url.pathname.match(/^\/api\/owner\/secrets\/([\w-]{20,64})$/);
+    if (ownerMatch && request.method === "GET") return ownerDetail(request, env, ownerMatch[1]);
+    if (ownerMatch && request.method === "DELETE") return deleteOwner(request, env, ownerMatch[1]);
     const match = url.pathname.match(/^\/api\/secrets\/([\w-]+)\/consume$/);
     if (match && request.method === "POST") return consume(request, env, match[1]);
     if (url.pathname.startsWith("/api/")) return json({ error: "Not found" }, 404);
     if (!["GET", "HEAD"].includes(request.method)) return response("Method not allowed", 405);
-    if (url.pathname === "/assets/ots.css") return response(policyCss, 200, "text/css; charset=utf-8");
-    if (url.pathname === "/assets/ots.js") return response(browserScript, 200, "text/javascript; charset=utf-8");
+    if (["/ots.css", "/assets/ots.css"].includes(url.pathname)) return response(styles, 200, "text/css; charset=utf-8");
+    if (["/create.js", "/assets/create.js"].includes(url.pathname)) return response(createScript, 200, "text/javascript; charset=utf-8");
+    if (["/home.js", "/assets/home.js"].includes(url.pathname)) return response(homeScript, 200, "text/javascript; charset=utf-8");
+    if (["/owner.js", "/assets/owner.js"].includes(url.pathname)) return response(ownerScript, 200, "text/javascript; charset=utf-8");
     if (url.pathname === "/robots.txt") return response("User-agent: *\nDisallow: /\n");
-    if (policies[url.pathname]) return response(policyPage(policies[url.pathname]), 200, "text/html; charset=utf-8");
-    return ["/", "/create", "/create/"].includes(url.pathname) ? response(educatedPage, 200, "text/html; charset=utf-8") : response("Not found", 404);
+    const policy = newPolicyPage(url.pathname);
+    if (policy) return response(policy, 200, "text/html; charset=utf-8");
+    if (url.pathname === "/") return response(homePage, 200, "text/html; charset=utf-8");
+    if (["/create", "/create/"].includes(url.pathname)) return response(createPage, 200, "text/html; charset=utf-8");
+    if (["/create/links", "/create/links/"].includes(url.pathname)) return response(linksPage, 200, "text/html; charset=utf-8");
+    const detailMatch = url.pathname.match(/^\/create\/links\/([\w-]{20,64})$/);
+    return detailMatch ? response(detailPage(detailMatch[1]), 200, "text/html; charset=utf-8") : response("Not found", 404);
   } catch (error) { if (error instanceof Response) return response(await error.text(), error.status); console.error("OTS request failed", error instanceof Error ? error.message : "unknown"); return json({ error: "Service temporarily unavailable." }, 503); }
 }
-async function cleanup(env: Env, now = Date.now()) { await env.DB.batch([env.DB.prepare("DELETE FROM ots_secrets WHERE expires_at<=?").bind(now), env.DB.prepare("DELETE FROM ots_rate_limit_windows WHERE expires_at<=?").bind(now)]); }
+async function cleanup(env: Env, now = Date.now()) { await env.DB.batch([env.DB.prepare("UPDATE ots_secrets SET deletion_reason='expired' WHERE status='ready' AND expires_at<=?").bind(now), env.DB.prepare("DELETE FROM ots_secrets WHERE status='ready' AND expires_at<=?").bind(now), env.DB.prepare("DELETE FROM ots_secret_receipts WHERE purge_after<=?").bind(now), env.DB.prepare("DELETE FROM ots_rate_limit_windows WHERE expires_at<=?").bind(now)]); }
 export { cleanup };
 export default { fetch: fetchHandler, async scheduled(controller: ScheduledController, env: Env, ctx: ExecutionContext) { ctx.waitUntil(cleanup(env, controller.scheduledTime)); } } satisfies ExportedHandler<Env>;
