@@ -19,6 +19,7 @@ describe("locked OTS deployment", () => {
     const body = await result.text();
     expect(result.status).toBe(200);
     expect(result.headers.get("Cache-Control")).toContain("no-store");
+    expect(result.headers.get("Cache-Control")).toContain("no-transform");
     expect(result.headers.get("Content-Security-Policy")).toContain("default-src 'none'");
     expect(result.headers.get("X-Frame-Options")).toBe("DENY");
     expect(body).toContain("No secrets accepted yet.");

@@ -11,7 +11,7 @@ interface Env {
 }
 
 const securityHeaders: Record<string, string> = {
-  "Cache-Control": "no-store, max-age=0",
+  "Cache-Control": "no-store, max-age=0, no-transform",
   "Content-Security-Policy": "default-src 'none'; style-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; object-src 'none'",
   "Cross-Origin-Opener-Policy": "same-origin",
   "Cross-Origin-Resource-Policy": "same-origin",
