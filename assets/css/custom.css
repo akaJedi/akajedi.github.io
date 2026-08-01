@@ -5047,6 +5047,153 @@ body.home .summer-hero {
 .domain-raw[open] > summary { border-bottom: 1px solid var(--summer-line); }
 .domain-raw .tool-card { margin: 1rem; box-shadow: none; }
 
+/* Resolver Consensus — compact evidence matrix for propagation incidents. */
+.resolver-consensus {
+  position: relative;
+  margin-bottom: 1.75rem;
+  overflow: hidden;
+  border: 1px solid var(--summer-line);
+  border-top: 4px solid #137333;
+  background: #fff;
+  box-shadow: 0 18px 45px rgba(16, 38, 59, 0.08);
+}
+.resolver-consensus[data-state="inconsistent"] { border-top-color: #b42318; }
+.resolver-consensus[data-state="partial"] { border-top-color: #9a6700; }
+.resolver-consensus__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.25rem 1.4rem 1rem;
+  background: linear-gradient(115deg, #fff 0 74%, var(--summer-paper) 74%);
+}
+.resolver-consensus__header h2 {
+  margin: 0;
+  color: var(--summer-deep);
+  font-family: SFMono-Regular, Consolas, monospace;
+  font-size: clamp(1.1rem, 3vw, 1.45rem);
+}
+.resolver-consensus__header [data-consensus-verdict] {
+  max-width: 72ch;
+  margin: 0.5rem 0 0;
+  color: var(--summer-muted);
+  font-size: 0.84rem;
+}
+.resolver-consensus__privacy {
+  flex: 0 0 auto;
+  padding: 0.38rem 0.55rem;
+  border: 1px solid var(--summer-line);
+  background: #fff;
+  color: #137333;
+  font-family: SFMono-Regular, Consolas, monospace;
+  font-size: 0.64rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.resolver-consensus__counts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0;
+  border-block: 1px solid var(--summer-line);
+  background: var(--summer-deep);
+}
+.resolver-consensus__counts > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.16);
+}
+.resolver-consensus__counts > div:last-child { border-right: 0; }
+.resolver-consensus__counts dt {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.61rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.resolver-consensus__counts dd {
+  margin: 0;
+  color: #fff;
+  font-family: SFMono-Regular, Consolas, monospace;
+  font-size: 1.2rem;
+  font-weight: 850;
+}
+.resolver-consensus__viewport { overflow-x: auto; }
+.resolver-consensus__viewport:focus { outline: none; }
+.resolver-consensus__viewport:focus-visible { outline: 3px solid var(--summer-orange); outline-offset: -3px; }
+.resolver-consensus__table {
+  width: 100%;
+  min-width: 860px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.resolver-consensus__table th,
+.resolver-consensus__table td {
+  padding: 0.85rem 0.9rem;
+  border-bottom: 1px solid var(--summer-line);
+  vertical-align: top;
+  text-align: left;
+}
+.resolver-consensus__table thead th {
+  background: var(--summer-paper);
+  color: var(--summer-muted);
+  font-size: 0.61rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.resolver-consensus__table thead th:first-child { width: 19%; }
+.resolver-consensus__table thead th:last-child { width: 17%; }
+.resolver-consensus__row th[scope="row"] { border-left: 4px solid #137333; }
+.resolver-consensus__row--different th[scope="row"] { border-left-color: #b42318; }
+.resolver-consensus__row--dnssec_disagreement th[scope="row"],
+.resolver-consensus__row--unavailable th[scope="row"] { border-left-color: #9a6700; }
+.resolver-consensus__row:last-child th,
+.resolver-consensus__row:last-child td { border-bottom: 0; }
+.resolver-consensus__record,
+.resolver-consensus__query,
+.resolver-consensus__answer,
+.resolver-consensus__meta { display: block; }
+.resolver-consensus__record {
+  color: var(--summer-deep);
+  font-family: SFMono-Regular, Consolas, monospace;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+}
+.resolver-consensus__query {
+  margin-top: 0.3rem;
+  overflow-wrap: anywhere;
+  color: var(--summer-muted);
+  font: 500 0.64rem/1.35 SFMono-Regular, Consolas, monospace;
+}
+.resolver-consensus__answer {
+  overflow-wrap: anywhere;
+  color: var(--summer-ink);
+  font: 650 0.7rem/1.45 SFMono-Regular, Consolas, monospace;
+  white-space: normal;
+}
+.resolver-consensus__meta {
+  margin-top: 0.45rem;
+  color: var(--summer-muted);
+  font: 600 0.61rem/1.35 SFMono-Regular, Consolas, monospace;
+}
+.resolver-consensus__state {
+  display: inline-flex;
+  padding: 0.28rem 0.48rem;
+  border: 1px solid currentColor;
+  color: #137333;
+  font-size: 0.61rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.resolver-consensus__row--different .resolver-consensus__state { color: #b42318; }
+.resolver-consensus__row--dnssec_disagreement .resolver-consensus__state,
+.resolver-consensus__row--unavailable .resolver-consensus__state { color: #805500; }
+
 @keyframes domain-finding-in {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
@@ -5055,13 +5202,19 @@ body.home .summer-hero {
 @media (max-width: 700px) {
   .domain-inspector__heading,
   .domain-health__header,
-  .domain-findings__heading { display: block; }
+  .domain-findings__heading,
+  .resolver-consensus__header { display: block; }
   .domain-inspector__mode { display: inline-flex; margin-top: 0.8rem; white-space: normal; }
   .domain-health__signal { width: 100%; margin-top: 1rem; }
-  .domain-health__counts { grid-template-columns: repeat(2, 1fr); }
-  .domain-health__counts > div:nth-child(2) { border-right: 0; }
-  .domain-health__counts > div:nth-child(-n + 2) { border-bottom: 1px solid rgba(255, 255, 255, 0.14); }
+  .domain-health__counts,
+  .resolver-consensus__counts { grid-template-columns: repeat(2, 1fr); }
+  .domain-health__counts > div:nth-child(2),
+  .resolver-consensus__counts > div:nth-child(2) { border-right: 0; }
+  .domain-health__counts > div:nth-child(-n + 2),
+  .resolver-consensus__counts > div:nth-child(-n + 2) { border-bottom: 1px solid rgba(255, 255, 255, 0.14); }
   .domain-findings__heading p { margin-top: 0.5rem; }
+  .resolver-consensus__header { background: #fff; }
+  .resolver-consensus__privacy { display: inline-flex; margin-top: 0.85rem; white-space: normal; }
 }
 
 @media (prefers-reduced-motion: reduce) {

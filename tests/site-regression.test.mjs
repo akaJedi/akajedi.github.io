@@ -405,3 +405,27 @@ test("domain inspector exposes explicit RDAP reliability states in both language
   assert.match(russian, /data-field="rdapLookup"/);
   assert.match(russian, /data-field="rdapSource"/);
 });
+
+
+test("domain inspector exposes an accessible resolver consensus matrix in both languages", async () => {
+  const [client, css, english, russian] = await Promise.all([
+    readSource("static/js/tools/domain-lookup.js"),
+    readSource("assets/css/custom.css"),
+    readSource("content/tools/domain-lookup.md"),
+    readSource("content/tools/domain-lookup.ru.md"),
+  ]);
+
+  for (const page of [english, russian]) {
+    assert.match(page, /data-resolver-consensus/);
+    assert.match(page, /data-consensus-body/);
+    for (const counter of ["match", "different", "dnssecDisagreement", "unavailable"]) {
+      assert.match(page, new RegExp(`data-consensus-count=\"${counter}\"`));
+    }
+  }
+  assert.match(client, /renderConsensus\(data[.]consensus\)/);
+  assert.match(client, /replaceChildren\(\)/);
+  assert.doesNotMatch(client, /[.]innerHTML\s*=/);
+  assert.match(css, /[.]resolver-consensus__viewport\s*\{\s*overflow-x:\s*auto/);
+  assert.match(css, /[.]resolver-consensus__viewport:focus-visible/);
+  assert.match(css, /@media \(max-width:\s*700px\)[\s\S]*[.]resolver-consensus__counts\s*\{\s*grid-template-columns:\s*repeat\(2, 1fr\)/);
+});

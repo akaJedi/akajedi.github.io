@@ -1,7 +1,7 @@
 ---
 title: "Domain Health Inspector"
-description: "Audit a domain's delegation, DNSSEC, mail authentication, certificate authorization, and registration lifecycle against operational RFC guidance."
-searchDescription: "Standards-backed DNS health check for NS redundancy, DNSSEC, MX, SPF, DMARC, CAA, MTA-STS, and domain expiration."
+description: "Audit DNS and registration controls, then compare Cloudflare and Google resolver answers for propagation and DNSSEC differences."
+searchDescription: "Standards-backed DNS health and resolver comparison for NS, DNSSEC, MX, SPF, DMARC, CAA, MTA-STS, and domain expiration."
 layout: "domain-lookup"
 toolScript: "js/tools/domain-lookup.js"
 searchExclude: true
@@ -41,6 +41,29 @@ searchExclude: true
     <div data-count-status="pass"><dt>Passed</dt><dd data-count="pass">0</dd></div>
     <div data-count-status="info"><dt>Advisory</dt><dd data-count="info">0</dd></div>
   </dl>
+</section>
+
+<section class="resolver-consensus" data-resolver-consensus hidden aria-labelledby="resolver-consensus-title">
+  <header class="resolver-consensus__header">
+    <div>
+      <p class="domain-inspector__eyebrow">Resolver cross-check</p>
+      <h2 id="resolver-consensus-title">Cloudflare ↔ Google</h2>
+      <p data-consensus-verdict></p>
+    </div>
+    <span class="resolver-consensus__privacy">ECS 0.0.0.0/0 · privacy mode</span>
+  </header>
+  <dl class="resolver-consensus__counts">
+    <div><dt>Matched</dt><dd data-consensus-count="match">0</dd></div>
+    <div><dt>Different</dt><dd data-consensus-count="different">0</dd></div>
+    <div><dt>DNSSEC</dt><dd data-consensus-count="dnssecDisagreement">0</dd></div>
+    <div><dt>Unavailable</dt><dd data-consensus-count="unavailable">0</dd></div>
+  </dl>
+  <div class="resolver-consensus__viewport" tabindex="0" role="region" aria-label="Resolver comparison table">
+    <table class="resolver-consensus__table">
+      <thead><tr><th scope="col">Record</th><th scope="col">Cloudflare</th><th scope="col">Google</th><th scope="col">State</th></tr></thead>
+      <tbody data-consensus-body></tbody>
+    </table>
+  </div>
 </section>
 
 <section class="domain-findings" data-domain-findings hidden aria-labelledby="domain-findings-title">
@@ -85,4 +108,4 @@ searchExclude: true
   </section>
 </details>
 
-<p class="tools-note">The inspector queries Cloudflare's validating DNS-over-HTTPS resolver and RDAP. It never connects to the inspected domain, scans ports, or stores lookup results. “Advisory” means optional hardening, not a broken configuration. Findings reference <a href="https://www.rfc-editor.org/rfc/rfc2182.html">RFC 2182</a>, <a href="https://www.rfc-editor.org/rfc/rfc4035.html">RFC 4035</a>, <a href="https://www.rfc-editor.org/rfc/rfc7208.html">RFC 7208</a>, <a href="https://www.rfc-editor.org/rfc/rfc9989.html">RFC 9989</a>, and related standards.</p>
+<p class="tools-note">The inspector compares Cloudflare and Google DNS-over-HTTPS answers, requests Google results without client-subnet localization, and discovers registration data through RDAP. It never connects to the inspected domain, scans ports, or stores lookup results. “Advisory” means optional hardening, not a broken configuration. Findings reference <a href="https://www.rfc-editor.org/rfc/rfc2182.html">RFC 2182</a>, <a href="https://www.rfc-editor.org/rfc/rfc4035.html">RFC 4035</a>, <a href="https://www.rfc-editor.org/rfc/rfc7208.html">RFC 7208</a>, <a href="https://www.rfc-editor.org/rfc/rfc9989.html">RFC 9989</a>, and related standards.</p>
