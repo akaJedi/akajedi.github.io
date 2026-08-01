@@ -39,6 +39,13 @@
       incomplete: "The inspection service returned an incomplete result. Please try again after the Worker update is deployed.",
       none: "None found",
       noRegistration: "Registration data is unavailable for this TLD, or the RDAP lookup failed.",
+      registrationLookup: {
+        ok: "Authoritative RDAP response received",
+        unsupported: "No RDAP service is published for this TLD",
+        not_found: "Domain not found by the authoritative RDAP service",
+        temporary_error: "RDAP service temporarily unavailable",
+        invalid_response: "RDAP service returned an unusable response",
+      },
       verdict: {
         critical: "Action required — at least one standards-level failure can affect availability, mail delivery, or trust.",
         warning: "Operational review recommended — no critical failure was found, but one or more controls are weak or ambiguous.",
@@ -82,6 +89,13 @@
       incomplete: "Сервис вернул неполный результат. Повторите проверку после обновления Worker.",
       none: "Не найдено",
       noRegistration: "Данные регистрации недоступны для этого домена или запрос RDAP завершился ошибкой.",
+      registrationLookup: {
+        ok: "Получен ответ авторитетного сервиса RDAP",
+        unsupported: "Для этой доменной зоны сервис RDAP не опубликован",
+        not_found: "Авторитетный сервис RDAP не нашёл домен",
+        temporary_error: "Сервис RDAP временно недоступен",
+        invalid_response: "Сервис RDAP вернул непригодный ответ",
+      },
       verdict: {
         critical: "Требуется действие — обнаружена ошибка стандарта, способная повлиять на доступность, доставку почты или доверие.",
         warning: "Рекомендуется проверка — критических ошибок нет, но некоторые настройки ослаблены или неоднозначны.",
@@ -230,6 +244,10 @@
       setField(dnsCard, name, joinList(dns[name])));
 
     registrationCard.hidden = false;
+    const registrationLookup = data.registrationLookup || {};
+    const registrationLookupText = copy.registrationLookup[registrationLookup.status] || copy.noRegistration;
+    setField(registrationCard, "rdapLookup", registrationLookupText);
+    setField(registrationCard, "rdapSource", registrationLookup.source || copy.none);
     if (data.registration) {
       registrationUnavailable.hidden = true;
       setField(registrationCard, "registrar", data.registration.registrar || copy.none);
@@ -239,7 +257,7 @@
       setField(registrationCard, "status", joinList(data.registration.status));
       setField(registrationCard, "nameservers", joinList(data.registration.nameservers));
     } else {
-      registrationUnavailable.textContent = copy.noRegistration;
+      registrationUnavailable.textContent = registrationLookupText;
       registrationUnavailable.hidden = false;
       ["registrar", "registered", "expires", "lastChanged", "status", "nameservers"].forEach((name) =>
         setField(registrationCard, name, copy.none));

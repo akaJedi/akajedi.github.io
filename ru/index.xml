@@ -251,6 +251,8 @@
  &lt;section class="tool-card" data-domain-registration hidden aria-labelledby="tool-registration-title"&gt;
  &lt;h2 id="tool-registration-title"&gt;Регистрация&lt;/h2&gt;
  &lt;dl class="tool-grid"&gt;
+ &lt;div&gt;&lt;dt&gt;Проверка RDAP&lt;/dt&gt;&lt;dd data-field="rdapLookup"&gt;&lt;/dd&gt;&lt;/div&gt;
+ &lt;div&gt;&lt;dt&gt;Способ обнаружения&lt;/dt&gt;&lt;dd data-field="rdapSource"&gt;&lt;/dd&gt;&lt;/div&gt;
  &lt;div&gt;&lt;dt&gt;Регистратор&lt;/dt&gt;&lt;dd data-field="registrar"&gt;&lt;/dd&gt;&lt;/div&gt;
  &lt;div&gt;&lt;dt&gt;Зарегистрирован&lt;/dt&gt;&lt;dd data-field="registered"&gt;&lt;/dd&gt;&lt;/div&gt;
  &lt;div&gt;&lt;dt&gt;Истекает&lt;/dt&gt;&lt;dd data-field="expires"&gt;&lt;/dd&gt;&lt;/div&gt;
