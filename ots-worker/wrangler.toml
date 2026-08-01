@@ -1,0 +1,26 @@
+name = "f12-ots"
+main = "src/index.ts"
+compatibility_date = "2026-06-01"
+workers_dev = false
+preview_urls = false
+
+[observability]
+enabled = true
+
+[vars]
+ENVIRONMENT = "production"
+OWNER_CREATION_ENABLED = "false"
+PUBLIC_TRIAL_ENABLED = "false"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "ots-secrets-prod"
+database_id = "bb5372fb-788c-4f2e-b8be-cf8ea45794ee"
+migrations_dir = "migrations"
+
+[triggers]
+crons = ["17 * * * *"]
+
+[[routes]]
+pattern = "ots.f12.biz"
+custom_domain = true

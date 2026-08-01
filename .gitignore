@@ -25,3 +25,4 @@ hugo.linux
 # Local Cloudflare Worker secrets and development state
 .dev.vars*
 /.wrangler/
+/ots-worker/.wrangler/
