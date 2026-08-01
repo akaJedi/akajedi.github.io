@@ -152,10 +152,10 @@
  &lt;/table&gt;
  &lt;/div&gt;
 &lt;/section&gt;
-&lt;section class="domain-findings" data-domain-findings hidden aria-labelledby="domain-findings-title"&gt;
- &lt;div class="domain-findings__heading"&gt;
- &lt;h2 id="domain-findings-title"&gt;Control findings&lt;/h2&gt;
- &lt;p&gt;Failures first. Each result includes the observed evidence, the operational consequence, and its governing specification.&lt;/p&gt;</description></item><item><title>My IP</title><link>https://www.f12.biz/tools/my-ip/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/tools/my-ip/</guid><description>&lt;section class="tool-card" aria-labelledby="tool-myip-title"&gt;
+&lt;section class="domain-watch" data-domain-watch hidden aria-labelledby="domain-watch-title"&gt;
+ &lt;header class="domain-watch__header"&gt;
+ &lt;div&gt;
+ &lt;p class="domain-inspector__eyebrow"&gt;Propagation watch&lt;/p&gt;</description></item><item><title>My IP</title><link>https://www.f12.biz/tools/my-ip/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/tools/my-ip/</guid><description>&lt;section class="tool-card" aria-labelledby="tool-myip-title"&gt;
  &lt;h2 id="tool-myip-title"&gt;Your IP address&lt;/h2&gt;
  &lt;p class="tool-ip-display" data-myip-value&gt;Checking…&lt;/p&gt;
  &lt;p class="tool-hint" data-myip-family&gt;&lt;/p&gt;

@@ -20,6 +20,15 @@
   const dnsCard = page.querySelector("[data-domain-dns]");
   const consensusSection = page.querySelector("[data-resolver-consensus]");
   const consensusBody = page.querySelector("[data-consensus-body]");
+  const watchSection = page.querySelector("[data-domain-watch]");
+  const watchForm = page.querySelector("[data-watch-form]");
+  const watchReport = page.querySelector("[data-watch-report]");
+  const watchMessage = page.querySelector("[data-watch-message]");
+  const watchSamples = page.querySelector("[data-watch-samples]");
+  const watchShare = page.querySelector("[data-watch-share]");
+  const watchIdPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  let watchDomain = "";
+  let watchPollTimer = null;
   const lang = document.documentElement.lang === "ru" ? "ru" : "en";
 
   const standardUrls = {
@@ -61,6 +70,14 @@
       },
       resolverError: { http: "HTTP error", network: "Network error", timeout: "Timed out" },
       emptyAnswer: "No answers",
+      watchStarting: "Creating the baseline sample…",
+      watchStarted: "Watch started. A new sample will arrive every five minutes.",
+      watchReused: "An active watch already existed, so its timeline was reopened.",
+      watchError: "Could not update the propagation watch. Please try again.",
+      watchCopied: "Share link copied.",
+      watchCopyFallback: "Copy this URL:",
+      watchStatus: { active: "Monitoring", completed: "Complete" },
+      watchEvent: { baseline: "Baseline", changed: "Changed", steady: "No change", converged: "Converged", diverged: "Diverged" },
       verdict: {
         critical: "Action required — at least one standards-level failure can affect availability, mail delivery, or trust.",
         warning: "Operational review recommended — no critical failure was found, but one or more controls are weak or ambiguous.",
@@ -124,6 +141,14 @@
       },
       resolverError: { http: "Ошибка HTTP", network: "Ошибка сети", timeout: "Тайм-аут" },
       emptyAnswer: "Нет ответов",
+      watchStarting: "Создаю исходный замер…",
+      watchStarted: "Наблюдение началось. Новый замер будет добавляться каждые пять минут.",
+      watchReused: "Активное наблюдение уже существовало; открыта его временная шкала.",
+      watchError: "Не удалось обновить наблюдение. Попробуйте ещё раз.",
+      watchCopied: "Ссылка скопирована.",
+      watchCopyFallback: "Скопируйте этот адрес:",
+      watchStatus: { active: "Наблюдение", completed: "Завершено" },
+      watchEvent: { baseline: "Исходный замер", changed: "Изменилось", steady: "Без изменений", converged: "Согласовано", diverged: "Разошлось" },
       verdict: {
         critical: "Требуется действие — обнаружена ошибка стандарта, способная повлиять на доступность, доставку почты или доверие.",
         warning: "Рекомендуется проверка — критических ошибок нет, но некоторые настройки ослаблены или неоднозначны.",
@@ -191,6 +216,13 @@
     findingsSection.hidden = true;
     consensusSection.hidden = true;
     consensusBody.replaceChildren();
+    watchSection.hidden = true;
+    watchReport.hidden = true;
+    watchSamples.replaceChildren();
+    watchMessage.textContent = "";
+    watchDomain = "";
+    if (watchPollTimer) clearInterval(watchPollTimer);
+    watchPollTimer = null;
     rawDetails.hidden = true;
     registrationCard.hidden = true;
     dnsCard.hidden = true;
@@ -323,6 +355,147 @@
     consensusSection.hidden = false;
   }
 
+  function formatWatchTime(iso, includeSeconds = false) {
+    if (!iso) return "—";
+    const options = {
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    };
+    if (includeSeconds) options.second = "2-digit";
+    try {
+      return new Intl.DateTimeFormat(lang === "ru" ? "ru-RU" : "en-US", options).format(new Date(iso));
+    } catch {
+      return iso;
+    }
+  }
+
+  function setWatchField(name, value) {
+    const node = watchReport.querySelector(`[data-watch-field="${name}"]`);
+    if (node) node.textContent = String(value);
+  }
+
+  function renderWatch(watch) {
+    if (!watch || !Array.isArray(watch.samples) || (watchDomain && watch.domain !== watchDomain)) {
+      watchMessage.textContent = copy.watchError;
+      return;
+    }
+    watchSection.hidden = false;
+    watchReport.hidden = false;
+    watchForm.elements.recordKey.value = watch.recordKey;
+    watchReport.dataset.state = watch.currentState || "unavailable";
+    watchReport.querySelector("[data-watch-name]").textContent =
+      `${watch.recordKey} · ${watch.queryName}`;
+    const statusNode = watchReport.querySelector("[data-watch-status]");
+    statusNode.className = `domain-watch__status domain-watch__status--${watch.status}`;
+    statusNode.textContent = copy.watchStatus[watch.status] || watch.status;
+    setWatchField("sampleCount", watch.sampleCount);
+    setWatchField("changeCount", watch.changeCount);
+    setWatchField("nextSampleAt", watch.status === "active" ? formatWatchTime(watch.nextSampleAt) : "—");
+    setWatchField("expiresAt", formatWatchTime(watch.expiresAt));
+    watchSamples.replaceChildren();
+
+    watch.samples.forEach((sample, index) => {
+      const item = document.createElement("li");
+      item.className = `domain-watch__sample domain-watch__sample--${sample.state}`;
+      if (sample.changed) item.classList.add("domain-watch__sample--changed");
+
+      const header = document.createElement("header");
+      appendText(header, "time", "domain-watch__time", formatWatchTime(sample.sampledAt, true))
+        .dateTime = sample.sampledAt;
+      const previous = index > 0 ? watch.samples[index - 1] : null;
+      const eventLabel = index === 0
+        ? copy.watchEvent.baseline
+        : !sample.changed
+          ? copy.watchEvent.steady
+          : sample.state === "match" && previous && previous.state !== "match"
+            ? copy.watchEvent.converged
+            : sample.state !== "match" && previous && previous.state === "match"
+              ? copy.watchEvent.diverged
+              : copy.watchEvent.changed;
+      appendText(header, "span", "domain-watch__event", eventLabel);
+      appendText(header, "span", "domain-watch__sample-state", copy.consensusState[sample.state] || sample.state);
+      item.appendChild(header);
+
+      const observations = document.createElement("div");
+      observations.className = "domain-watch__observations";
+      for (const [resolver, result] of [["Cloudflare", sample.cloudflare], ["Google", sample.google]]) {
+        const observation = document.createElement("section");
+        appendText(observation, "h4", "", resolver);
+        renderResolverObservation(observation, result);
+        observations.appendChild(observation);
+      }
+      item.appendChild(observations);
+      watchSamples.appendChild(item);
+    });
+
+    watchShare.dataset.watchId = watch.id;
+    if (watchPollTimer) clearInterval(watchPollTimer);
+    watchPollTimer = null;
+    if (watch.status === "active") {
+      watchPollTimer = window.setInterval(() => {
+        if (!document.hidden) loadWatch(watch.id, true);
+      }, 60000);
+    }
+  }
+
+  async function loadWatch(id, quiet = false) {
+    if (!watchIdPattern.test(id)) return;
+    try {
+      const response = await fetch(`${apiBase}/api/domain-watch/${encodeURIComponent(id)}`, {
+        headers: { Accept: "application/json" },
+      });
+      const data = await response.json().catch(() => null);
+      if (!response.ok || !data || !data.watch) throw new Error("watch_lookup_failed");
+      renderWatch(data.watch);
+    } catch {
+      if (!quiet) watchMessage.textContent = copy.watchError;
+    }
+  }
+
+  watchForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!watchDomain) return;
+    const button = watchForm.querySelector('button[type="submit"]');
+    button.disabled = true;
+    watchForm.setAttribute("aria-busy", "true");
+    watchMessage.textContent = copy.watchStarting;
+    try {
+      const response = await fetch(`${apiBase}/api/domain-watch`, {
+        method: "POST",
+        headers: { Accept: "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify({ domain: watchDomain, recordKey: watchForm.elements.recordKey.value }),
+      });
+      const data = await response.json().catch(() => null);
+      if (!response.ok || !data || !data.watch) throw new Error("watch_create_failed");
+      const current = new URL(window.location.href);
+      current.searchParams.set("domain", data.watch.domain);
+      current.searchParams.set("watch", data.watch.id);
+      history.replaceState(null, "", current);
+      watchMessage.textContent = data.reused ? copy.watchReused : copy.watchStarted;
+      renderWatch(data.watch);
+    } catch {
+      watchMessage.textContent = copy.watchError;
+    } finally {
+      button.disabled = false;
+      watchForm.removeAttribute("aria-busy");
+    }
+  });
+
+  watchShare.addEventListener("click", async () => {
+    const id = watchShare.dataset.watchId;
+    if (!id) return;
+    const current = new URL(window.location.href);
+    current.searchParams.set("watch", id);
+    try {
+      await navigator.clipboard.writeText(current.toString());
+      watchMessage.textContent = copy.watchCopied;
+    } catch {
+      watchMessage.textContent = `${copy.watchCopyFallback} ${current}`;
+    }
+  });
+
   function renderRaw(data) {
     const dns = data.dns || {};
     dnsCard.hidden = false;
@@ -375,9 +548,13 @@
       renderChecks(data.domain, data.checks);
       renderConsensus(data.consensus);
       renderRaw(data);
+      watchDomain = data.domain;
+      watchSection.hidden = false;
       const current = new URL(window.location.href);
       current.searchParams.set("domain", data.domain);
       history.replaceState(null, "", current);
+      const requestedWatch = current.searchParams.get("watch") || "";
+      if (watchIdPattern.test(requestedWatch)) loadWatch(requestedWatch);
     } catch {
       errorNode.textContent = copy.networkError;
       errorNode.hidden = false;

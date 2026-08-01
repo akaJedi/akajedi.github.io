@@ -261,10 +261,10 @@
  &lt;/table&gt;
  &lt;/div&gt;
 &lt;/section&gt;
-&lt;section class="domain-findings" data-domain-findings hidden aria-labelledby="domain-findings-title"&gt;
- &lt;div class="domain-findings__heading"&gt;
- &lt;h2 id="domain-findings-title"&gt;Результаты контроля&lt;/h2&gt;
- &lt;p&gt;Сначала ошибки. Для каждого результата показаны наблюдаемые данные, операционные последствия и применимый стандарт.&lt;/p&gt;</description></item><item><title>Калькулятор CIDR</title><link>https://www.f12.biz/ru/tools/cidr-calculator/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/tools/cidr-calculator/</guid><description>&lt;section class="tool-card" aria-labelledby="tool-calc-title"&gt;
+&lt;section class="domain-watch" data-domain-watch hidden aria-labelledby="domain-watch-title"&gt;
+ &lt;header class="domain-watch__header"&gt;
+ &lt;div&gt;
+ &lt;p class="domain-inspector__eyebrow"&gt;Наблюдение за распространением&lt;/p&gt;</description></item><item><title>Калькулятор CIDR</title><link>https://www.f12.biz/ru/tools/cidr-calculator/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/ru/tools/cidr-calculator/</guid><description>&lt;section class="tool-card" aria-labelledby="tool-calc-title"&gt;
  &lt;h2 id="tool-calc-title"&gt;Калькулятор&lt;/h2&gt;
  &lt;form class="tool-form" data-cidr-form&gt;
  &lt;label for="cidr-input"&gt;IP-адрес / префикс&lt;/label&gt;

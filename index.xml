@@ -387,10 +387,10 @@ The content you see here comes from the contents of the &lt;code&gt;content/proj
  &lt;/table&gt;
  &lt;/div&gt;
 &lt;/section&gt;
-&lt;section class="domain-findings" data-domain-findings hidden aria-labelledby="domain-findings-title"&gt;
- &lt;div class="domain-findings__heading"&gt;
- &lt;h2 id="domain-findings-title"&gt;Control findings&lt;/h2&gt;
- &lt;p&gt;Failures first. Each result includes the observed evidence, the operational consequence, and its governing specification.&lt;/p&gt;</description></item><item><title>Education and colleague feedback</title><link>https://www.f12.biz/author/evidence/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/author/evidence/</guid><description>&lt;p&gt;The technology matters, but it is only part of the record. This layer combines formal learning with observations from people who saw the work up close.&lt;/p&gt;
+&lt;section class="domain-watch" data-domain-watch hidden aria-labelledby="domain-watch-title"&gt;
+ &lt;header class="domain-watch__header"&gt;
+ &lt;div&gt;
+ &lt;p class="domain-inspector__eyebrow"&gt;Propagation watch&lt;/p&gt;</description></item><item><title>Education and colleague feedback</title><link>https://www.f12.biz/author/evidence/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.f12.biz/author/evidence/</guid><description>&lt;p&gt;The technology matters, but it is only part of the record. This layer combines formal learning with observations from people who saw the work up close.&lt;/p&gt;
 
 
 
