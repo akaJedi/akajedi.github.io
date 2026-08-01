@@ -431,16 +431,25 @@ function mockDomainLookupApis() {
   return vi.fn(async (input: RequestInfo | URL) => {
     const requestUrl = String(input);
     if (requestUrl.includes("cloudflare-dns.com/dns-query")) {
-      const type = new URL(requestUrl).searchParams.get("type");
-      const answers: Record<string, { data: string }[]> = {
-        A: [{ data: "93.184.216.34" }],
-        AAAA: [{ data: "2606:2800:220:1:248:1893:25c8:1946" }],
-        MX: [{ data: "10 mail.example.com." }],
-        NS: [{ data: "a.iana-servers.net." }, { data: "b.iana-servers.net." }],
-        TXT: [{ data: '"v=spf1 -all"' }],
-        CAA: [],
+      const query = new URL(requestUrl);
+      const type = query.searchParams.get("type");
+      const name = query.searchParams.get("name");
+      const answers: Record<string, { type: number; data: string }[]> = {
+        A: [{ type: 5, data: "alias.example.net." }, { type: 1, data: "93.184.216.34" }],
+        AAAA: [{ type: 28, data: "2606:2800:220:1:248:1893:25c8:1946" }],
+        CNAME: [],
+        MX: [{ type: 15, data: "10 mail.example.com." }],
+        NS: [{ type: 2, data: "a.iana-servers.net." }, { type: 2, data: "b.iana-servers.net." }],
+        TXT: [{ type: 16, data: '"v=spf1 " "-all"' }],
+        CAA: [{ type: 257, data: '0 issue "letsencrypt.org"' }],
+        DS: [{ type: 43, data: "12345 13 2 AABBCCDD" }],
       };
-      return new Response(JSON.stringify({ Answer: answers[type || ""] || [] }), {
+      const answer = name === "_dmarc.example.com"
+        ? [{ type: 16, data: '"v=DMARC1; p=reject"' }]
+        : name === "_mta-sts.example.com"
+          ? [{ type: 16, data: '"v=STSv1; id=20260731"' }]
+          : answers[type || ""] || [];
+      return new Response(JSON.stringify({ Status: 0, AD: true, Answer: answer }), {
         status: 200,
         headers: { "Content-Type": "application/dns-json" },
       });
@@ -488,9 +497,64 @@ it("returns combined DNS and registration data for a valid domain", async () => 
   expect(body.dns.A).toEqual(["93.184.216.34"]);
   expect(body.dns.NS).toEqual(["a.iana-servers.net.", "b.iana-servers.net."]);
   expect(body.dns.TXT).toEqual(["v=spf1 -all"]);
+  expect(body.dns.DMARC).toEqual(["v=DMARC1; p=reject"]);
+  expect(body.checks).toEqual(expect.arrayContaining([
+    expect.objectContaining({ id: "nameserver-redundancy", status: "pass" }),
+    expect.objectContaining({ id: "dnssec-valid", status: "pass" }),
+    expect.objectContaining({ id: "spf-present", status: "pass" }),
+    expect.objectContaining({ id: "dmarc-enforcing", status: "pass" }),
+    expect.objectContaining({ id: "caa-present", status: "pass" }),
+  ]));
   expect(body.registration.registrar).toBe("Test Registrar Inc.");
   expect(body.registration.registered).toBe("1995-08-14T04:00:00Z");
   expect(body.registration.expires).toBe("2026-08-13T04:00:00Z");
+});
+
+it("classifies contradictory mail policy and broken DNSSEC as critical", async () => {
+  vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL) => {
+    const requestUrl = String(input);
+    if (requestUrl.includes("cloudflare-dns.com/dns-query")) {
+      const query = new URL(requestUrl);
+      const type = query.searchParams.get("type");
+      const name = query.searchParams.get("name");
+      const byType: Record<string, { type: number; data: string }[]> = {
+        A: [{ type: 1, data: "192.0.2.10" }],
+        NS: [{ type: 2, data: "only-ns.example.net." }],
+        MX: [{ type: 15, data: "0 ." }, { type: 15, data: "10 mail.example.net." }],
+        TXT: [{ type: 16, data: '"v=spf1 +all"' }, { type: 16, data: '"v=spf1 -all"' }],
+        DS: [{ type: 43, data: "12345 13 2 DEADBEEF" }],
+      };
+      const answer = name === "_dmarc.example.com"
+        ? [{ type: 16, data: '"v=DMARC1; p=none"' }, { type: 16, data: '"v=DMARC1; p=reject"' }]
+        : byType[type || ""] || [];
+      return new Response(JSON.stringify({ Status: 0, AD: false, Answer: answer }), {
+        status: 200,
+        headers: { "Content-Type": "application/dns-json" },
+      });
+    }
+    if (requestUrl.includes("rdap.org/domain/")) {
+      return new Response(JSON.stringify({
+        events: [{ eventAction: "expiration", eventDate: "2030-01-01T00:00:00Z" }],
+      }), { status: 200, headers: { "Content-Type": "application/rdap+json" } });
+    }
+    return new Response("not found", { status: 404 });
+  }));
+
+  const response = await dispatch("https://worker.test/api/domain-lookup?domain=example.com", {
+    headers: { Origin: origin, "CF-Connecting-IP": "203.0.113.12" },
+  });
+  expect(response.status).toBe(200);
+  const body = await response.json<any>();
+  const criticalIds = body.checks
+    .filter((check: { status: string }) => check.status === "critical")
+    .map((check: { id: string }) => check.id);
+  expect(criticalIds).toEqual(expect.arrayContaining([
+    "nameserver-redundancy",
+    "dnssec-unvalidated",
+    "mx-null-mixed",
+    "spf-multiple",
+    "dmarc-multiple",
+  ]));
 });
 
 it("returns a safe failure when D1 is unavailable", async () => {

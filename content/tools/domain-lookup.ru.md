@@ -1,48 +1,86 @@
 ---
-title: "Проверка домена"
-description: "Проверьте DNS-записи и данные о регистрации домена в одном месте — записи A/AAAA/MX/NS/TXT/CAA, а также регистратор, даты создания и истечения."
-searchDescription: "Проверка DNS и регистрации домена: записи A, AAAA, MX, NS, TXT, CAA и данные RDAP о регистрации для любого домена."
+title: "Инспектор состояния домена"
+description: "Аудит делегирования, DNSSEC, почтовой аутентификации, разрешений центров сертификации и срока регистрации по рекомендациям RFC."
+searchDescription: "Проверка состояния DNS по стандартам: NS, DNSSEC, MX, SPF, DMARC, CAA, MTA-STS и срок регистрации домена."
 layout: "domain-lookup"
 toolScript: "js/tools/domain-lookup.js"
 searchExclude: true
 ---
 
-<section class="tool-card" aria-labelledby="tool-lookup-title">
-  <h2 id="tool-lookup-title">Проверить домен</h2>
+<section class="tool-card domain-inspector" aria-labelledby="tool-lookup-title">
+  <div class="domain-inspector__heading">
+    <div>
+      <p class="domain-inspector__eyebrow">DNS / ПОЧТА / ДЕЛЕГИРОВАНИЕ</p>
+      <h2 id="tool-lookup-title">Проверить домен</h2>
+    </div>
+    <span class="domain-inspector__mode">Только чтение · открытые данные</span>
+  </div>
   <form class="tool-form" data-domain-form>
     <label for="domain-input">Доменное имя</label>
     <div class="tool-form__row">
-      <input id="domain-input" name="domain" type="text" autocomplete="off" spellcheck="false" placeholder="example.com">
-      <button type="submit">Проверить</button>
+      <input id="domain-input" name="domain" type="text" inputmode="url" autocomplete="off" spellcheck="false" placeholder="example.com" required>
+      <button type="submit">Запустить проверку</button>
     </div>
   </form>
-  <p class="tool-error" data-domain-error hidden></p>
-  <p class="tool-hint" data-domain-loading hidden>Ищу…</p>
+  <p class="tool-error" data-domain-error role="alert" hidden></p>
+  <p class="tool-hint" data-domain-loading role="status" hidden>Проверяю DNS и данные RDAP…</p>
 </section>
 
-<section class="tool-card" data-domain-registration hidden aria-labelledby="tool-registration-title">
-  <h2 id="tool-registration-title">Регистрация</h2>
-  <dl class="tool-grid">
-    <div><dt>Регистратор</dt><dd data-field="registrar"></dd></div>
-    <div><dt>Зарегистрирован</dt><dd data-field="registered"></dd></div>
-    <div><dt>Истекает</dt><dd data-field="expires"></dd></div>
-    <div><dt>Последнее изменение</dt><dd data-field="lastChanged"></dd></div>
-    <div><dt>Статус</dt><dd data-field="status"></dd></div>
-    <div><dt>Серверы имён</dt><dd data-field="nameservers"></dd></div>
-  </dl>
-  <p class="tool-hint" data-domain-registration-unavailable hidden>Данные о регистрации недоступны для этого домена, либо запрос не удался. Не у каждого реестра есть публичный сервер RDAP.</p>
-</section>
-
-<section class="tool-card" data-domain-dns hidden aria-labelledby="tool-dns-title">
-  <h2 id="tool-dns-title">DNS-записи</h2>
-  <dl class="tool-grid">
-    <div><dt>A (IPv4)</dt><dd data-field="A"></dd></div>
-    <div><dt>AAAA (IPv6)</dt><dd data-field="AAAA"></dd></div>
-    <div><dt>MX (почта)</dt><dd data-field="MX"></dd></div>
-    <div><dt>NS (серверы имён)</dt><dd data-field="NS"></dd></div>
-    <div><dt>TXT</dt><dd data-field="TXT"></dd></div>
-    <div><dt>CAA</dt><dd data-field="CAA"></dd></div>
+<section class="domain-health" data-domain-health hidden tabindex="-1" aria-labelledby="domain-health-title" aria-live="polite">
+  <header class="domain-health__header">
+    <div>
+      <p class="domain-inspector__eyebrow">Результат проверки</p>
+      <h2 id="domain-health-title"><span data-domain-result-name></span></h2>
+      <p data-domain-verdict></p>
+    </div>
+    <div class="domain-health__signal" data-domain-signal aria-hidden="true"><span></span></div>
+  </header>
+  <dl class="domain-health__counts">
+    <div data-count-status="critical"><dt>Критические</dt><dd data-count="critical">0</dd></div>
+    <div data-count-status="warning"><dt>Предупреждения</dt><dd data-count="warning">0</dd></div>
+    <div data-count-status="pass"><dt>Пройдено</dt><dd data-count="pass">0</dd></div>
+    <div data-count-status="info"><dt>Рекомендации</dt><dd data-count="info">0</dd></div>
   </dl>
 </section>
 
-<p class="tools-note">Используется DNS-over-HTTPS (публичный резолвер Cloudflare) для записей и <a href="https://rdap.org">RDAP</a> — современная стандартизированная замена WHOIS — для данных о регистрации. Оба сервиса независимы; проверка домена здесь никогда не приводит к обращению этого сайта к серверам самого проверяемого домена. Данные о вашем запросе нигде не сохраняются.</p>
+<section class="domain-findings" data-domain-findings hidden aria-labelledby="domain-findings-title">
+  <div class="domain-findings__heading">
+    <h2 id="domain-findings-title">Результаты контроля</h2>
+    <p>Сначала ошибки. Для каждого результата показаны наблюдаемые данные, операционные последствия и применимый стандарт.</p>
+  </div>
+  <div class="domain-findings__list" data-domain-findings-list></div>
+</section>
+
+<details class="domain-raw" data-domain-raw hidden>
+  <summary>Исходные данные DNS и регистрации</summary>
+  <section class="tool-card" data-domain-registration hidden aria-labelledby="tool-registration-title">
+    <h2 id="tool-registration-title">Регистрация</h2>
+    <dl class="tool-grid">
+      <div><dt>Регистратор</dt><dd data-field="registrar"></dd></div>
+      <div><dt>Зарегистрирован</dt><dd data-field="registered"></dd></div>
+      <div><dt>Истекает</dt><dd data-field="expires"></dd></div>
+      <div><dt>Последнее изменение</dt><dd data-field="lastChanged"></dd></div>
+      <div><dt>Статус</dt><dd data-field="status"></dd></div>
+      <div><dt>Серверы имён</dt><dd data-field="nameservers"></dd></div>
+    </dl>
+    <p class="tool-hint" data-domain-registration-unavailable hidden>Данные регистрации недоступны для этого домена или запрос RDAP завершился ошибкой.</p>
+  </section>
+
+  <section class="tool-card" data-domain-dns hidden aria-labelledby="tool-dns-title">
+    <h2 id="tool-dns-title">Записи DNS</h2>
+    <dl class="tool-grid">
+      <div><dt>A (IPv4)</dt><dd data-field="A"></dd></div>
+      <div><dt>AAAA (IPv6)</dt><dd data-field="AAAA"></dd></div>
+      <div><dt>CNAME</dt><dd data-field="CNAME"></dd></div>
+      <div><dt>MX (почта)</dt><dd data-field="MX"></dd></div>
+      <div><dt>NS (серверы имён)</dt><dd data-field="NS"></dd></div>
+      <div><dt>DS (DNSSEC)</dt><dd data-field="DS"></dd></div>
+      <div><dt>SPF / другие TXT</dt><dd data-field="TXT"></dd></div>
+      <div><dt>DMARC</dt><dd data-field="DMARC"></dd></div>
+      <div><dt>MTA-STS</dt><dd data-field="MTA_STS"></dd></div>
+      <div><dt>CAA</dt><dd data-field="CAA"></dd></div>
+    </dl>
+  </section>
+</details>
+
+<p class="tools-note">Инспектор использует проверяющий DNS-over-HTTPS резолвер Cloudflare и RDAP. Он не подключается к проверяемому домену, не сканирует порты и не сохраняет результаты. Статус «Рекомендация» означает необязательное усиление защиты, а не ошибку. Проверки основаны на <a href="https://www.rfc-editor.org/rfc/rfc2182.html">RFC 2182</a>, <a href="https://www.rfc-editor.org/rfc/rfc4035.html">RFC 4035</a>, <a href="https://www.rfc-editor.org/rfc/rfc7208.html">RFC 7208</a>, <a href="https://www.rfc-editor.org/rfc/rfc9989.html">RFC 9989</a> и связанных стандартах.</p>
