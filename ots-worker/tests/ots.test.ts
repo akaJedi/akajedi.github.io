@@ -38,6 +38,27 @@ describe("browser-encrypted OTS", () => {
     expect(browserScript).toContain("/^#v1[.]([A-Za-z0-9_-]{20,64})[.]([A-Za-z0-9_-]{40,64})[.]([A-Za-z0-9_-]{40,64})$/");
     expect(browserScript).not.toContain("([w-]");
   });
+  it("teaches users that the complete link is a bearer secret", async () => {
+    const body = await dispatch("/create").then((result) => result.text());
+    expect(body).toContain("the complete link acts like a password");
+    expect(body).toContain('id="bearer-ack" type="checkbox" required');
+    expect(body).toContain('href="/safety"');
+    expect(body).toContain('href="/privacy"');
+    expect(body).toContain('href="/terms"');
+  });
+  it.each([
+    ["/safety", "Safe handling protocol"],
+    ["/privacy", "Privacy & security notice"],
+    ["/terms", "Beta terms of use"],
+  ])("serves the public education page %s", async (path, heading) => {
+    const result = await dispatch(path);
+    const body = await result.text();
+    expect(result.status).toBe(200);
+    expect(body).toContain(heading);
+    expect(body).toContain("complete link");
+    expect(body).not.toMatch(/https?:\/\//);
+    expect(body).not.toContain("<script");
+  });
   it("reports healthy storage and owner-only acceptance", async () => {
     const result = await dispatch("/api/health");
     expect(result.status).toBe(200);

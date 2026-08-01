@@ -9,6 +9,8 @@ An isolated Cloudflare Worker for browser-encrypted, single-reveal links at `ots
 3. Send the complete link to the recipient through a trusted channel.
 4. The recipient selects **Reveal secret**. The encrypted D1 row is atomically deleted before browser-side decryption.
 
+The complete link is a bearer secret, similar to a password: anyone who obtains it can decrypt and consume the message. The creation form requires an explicit acknowledgment of this boundary. User education is available at `/safety`, `/privacy`, and `/terms`; keep those pages aligned with the implementation whenever storage, authentication, logging, retention, or public access changes.
+
 The browser generates a 256-bit AES-GCM key. Only ciphertext and its IV reach the Worker. The identifier, claim token, and key are encoded into the URL fragment; browsers do not send the fragment to the server. The Worker receives the claim token only when the recipient explicitly reveals the secret, compares its HMAC, and deletes the matching unexpired row with `DELETE ... RETURNING`.
 
 Owner creation is limited to 80 links per UTC-aligned 24-hour rate window. Public creation remains disabled. Reveal attempts are rate-limited by an HMAC of the connecting IP; raw IPs and plaintext are not stored.
@@ -52,3 +54,5 @@ The first three are internal random values and may be generated locally with `op
 - `/api/owner` (including child paths)
 
 `PUBLIC_TRIAL_ENABLED` remains `false`. A public trial requires a separate abuse-control and budget review; do not reuse the owner policy as a public policy.
+
+The current terms are marked as a practical beta draft. Obtain jurisdiction-specific legal review before enabling a public trial or presenting them as binding production terms.
