@@ -636,12 +636,165 @@ function normalizeDomainInput(raw: string): string | null {
   return DOMAIN_PATTERN.test(value) ? value : null;
 }
 
-async function dohLookup(domain: string, type: string, signal: AbortSignal): Promise<string[]> {
-  const url = `${DOH_ENDPOINT}?name=${encodeURIComponent(domain)}&type=${type}`;
+const DNS_TYPE_CODES: Record<string, number> = {
+  A: 1,
+  NS: 2,
+  CNAME: 5,
+  MX: 15,
+  TXT: 16,
+  AAAA: 28,
+  DS: 43,
+  CAA: 257,
+};
+
+interface DohResult {
+  answers: string[];
+  status: number;
+  authenticated: boolean;
+}
+
+function normalizeDnsAnswer(data: string, type: string): string {
+  if (type !== "TXT") return data;
+  const chunks = Array.from(data.matchAll(/"((?:\\.|[^"\\])*)"/g), (match) =>
+    match[1].replace(/\\"/g, '"').replace(/\\\\/g, "\\")
+  );
+  return chunks.length ? chunks.join("") : data.replace(/^"|"$/g, "");
+}
+
+async function dohLookup(domain: string, type: string, signal: AbortSignal): Promise<DohResult> {
+  const url = `${DOH_ENDPOINT}?name=${encodeURIComponent(domain)}&type=${type}&do=1`;
   const response = await fetch(url, { headers: { Accept: "application/dns-json" }, signal });
-  if (!response.ok) return [];
-  const data = await response.json<{ Answer?: { data: string }[] }>();
-  return (data.Answer || []).map((entry) => entry.data.replace(/^"|"$/g, ""));
+  if (!response.ok) return { answers: [], status: response.status, authenticated: false };
+  const data = await response.json<{
+    Status?: number;
+    AD?: boolean;
+    Answer?: { type?: number; data: string }[];
+  }>();
+  const expectedType = DNS_TYPE_CODES[type];
+  const answers = (data.Answer || [])
+    .filter((entry) => entry.type === undefined || entry.type === expectedType)
+    .map((entry) => normalizeDnsAnswer(entry.data, type));
+  return {
+    answers,
+    status: typeof data.Status === "number" ? data.Status : 0,
+    authenticated: data.AD === true,
+  };
+}
+
+type DomainCheckStatus = "pass" | "warning" | "critical" | "info";
+
+interface DomainCheck {
+  id: string;
+  status: DomainCheckStatus;
+  evidence: string[];
+  standard: string;
+}
+
+function findPolicy(records: string[], prefix: string): string[] {
+  const normalizedPrefix = prefix.toLowerCase();
+  return records.filter((record) => record.trim().toLowerCase().startsWith(normalizedPrefix));
+}
+
+function buildDomainChecks(
+  dns: Record<string, string[]>,
+  dnsMeta: Record<string, { status: number; authenticated: boolean }>,
+  registration: Record<string, unknown> | null,
+): DomainCheck[] {
+  const checks: DomainCheck[] = [];
+  const uniqueNs = Array.from(new Set(dns.NS.map((record) => record.toLowerCase())));
+  checks.push({
+    id: "nameserver-redundancy",
+    status: uniqueNs.length < 2 ? "critical" : "pass",
+    evidence: uniqueNs.length ? uniqueNs : ["No NS records returned"],
+    standard: "RFC 2182",
+  });
+
+  const hasDs = dns.DS.length > 0;
+  const dnssecAuthenticated = dnsMeta.DS.authenticated || dnsMeta.A.authenticated || dnsMeta.NS.authenticated;
+  checks.push({
+    id: hasDs && dnssecAuthenticated ? "dnssec-valid" : hasDs ? "dnssec-unvalidated" : "dnssec-unsigned",
+    status: hasDs ? (dnssecAuthenticated ? "pass" : "critical") : "info",
+    evidence: hasDs ? dns.DS : ["No DS record found at the delegation"],
+    standard: "RFC 4035",
+  });
+
+  const nullMx = dns.MX.filter((record) => /^0\s+\.$/.test(record.trim()));
+  if (nullMx.length && dns.MX.length > 1) {
+    checks.push({ id: "mx-null-mixed", status: "critical", evidence: dns.MX, standard: "RFC 7505" });
+  } else if (nullMx.length === 1) {
+    checks.push({ id: "mx-null", status: "pass", evidence: nullMx, standard: "RFC 7505" });
+  } else if (dns.MX.length) {
+    checks.push({ id: "mx-present", status: "pass", evidence: dns.MX, standard: "RFC 5321" });
+  } else {
+    checks.push({
+      id: "mx-implicit",
+      status: "warning",
+      evidence: dns.A.length || dns.AAAA.length
+        ? ["No MX record; SMTP may fall back to the domain address"]
+        : ["No MX or null MX declaration found"],
+      standard: "RFC 7505",
+    });
+  }
+
+  const spf = findPolicy(dns.TXT, "v=spf1");
+  if (spf.length > 1) {
+    checks.push({ id: "spf-multiple", status: "critical", evidence: spf, standard: "RFC 7208" });
+  } else if (spf.length === 1 && /(?:^|\s)\+all(?:\s|$)/i.test(spf[0])) {
+    checks.push({ id: "spf-permissive", status: "critical", evidence: spf, standard: "RFC 7208" });
+  } else if (spf.length === 1) {
+    checks.push({ id: "spf-present", status: "pass", evidence: spf, standard: "RFC 7208" });
+  } else {
+    checks.push({ id: "spf-missing", status: dns.MX.length ? "warning" : "info", evidence: ["No v=spf1 TXT record found"], standard: "RFC 7208" });
+  }
+
+  const dmarc = findPolicy(dns.DMARC, "v=dmarc1");
+  if (dmarc.length > 1) {
+    checks.push({ id: "dmarc-multiple", status: "critical", evidence: dmarc, standard: "RFC 9989" });
+  } else if (!dmarc.length) {
+    checks.push({ id: "dmarc-missing", status: "warning", evidence: ["No v=DMARC1 TXT record found"], standard: "RFC 9989" });
+  } else {
+    const policy = /(?:^|;)\s*p\s*=\s*([^;\s]+)/i.exec(dmarc[0])?.[1]?.toLowerCase();
+    if (!policy || !["none", "quarantine", "reject"].includes(policy)) {
+      checks.push({ id: "dmarc-invalid", status: "critical", evidence: dmarc, standard: "RFC 9989" });
+    } else {
+      checks.push({
+        id: policy === "none" ? "dmarc-monitoring" : "dmarc-enforcing",
+        status: policy === "none" ? "warning" : "pass",
+        evidence: dmarc,
+        standard: "RFC 9989",
+      });
+    }
+  }
+
+  checks.push({
+    id: dns.CAA.length ? "caa-present" : "caa-missing",
+    status: dns.CAA.length ? "pass" : "info",
+    evidence: dns.CAA.length ? dns.CAA : ["No CAA restriction published"],
+    standard: "RFC 8659",
+  });
+
+  const expires = typeof registration?.expires === "string" ? Date.parse(registration.expires) : NaN;
+  if (!Number.isFinite(expires)) {
+    checks.push({ id: "registration-expiry-unknown", status: "info", evidence: ["RDAP did not return an expiration date"], standard: "RFC 9083" });
+  } else {
+    const days = Math.ceil((expires - Date.now()) / 86_400_000);
+    checks.push({
+      id: days < 0 ? "registration-expired" : days <= 30 ? "registration-expiring-critical" : days <= 90 ? "registration-expiring" : "registration-current",
+      status: days < 0 || days <= 30 ? "critical" : days <= 90 ? "warning" : "pass",
+      evidence: [registration!.expires as string, `${days} days remaining`],
+      standard: "RFC 9083",
+    });
+  }
+
+  const mtaSts = findPolicy(dns.MTA_STS, "v=stsv1");
+  checks.push({
+    id: mtaSts.length ? "mta-sts-present" : "mta-sts-missing",
+    status: mtaSts.length ? "pass" : "info",
+    evidence: mtaSts.length ? mtaSts : ["No _mta-sts TXT record found"],
+    standard: "RFC 8461",
+  });
+
+  return checks;
 }
 
 interface RdapEntity {
@@ -698,18 +851,40 @@ async function handleDomainLookup(request: Request, env: Env): Promise<Response>
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
   try {
-    const [a, aaaa, mx, ns, txt, caa, registration] = await Promise.all([
+    const [a, aaaa, cname, mx, ns, txt, caa, ds, dmarc, mtaSts, registration] = await Promise.all([
       dohLookup(domain, "A", controller.signal),
       dohLookup(domain, "AAAA", controller.signal),
+      dohLookup(domain, "CNAME", controller.signal),
       dohLookup(domain, "MX", controller.signal),
       dohLookup(domain, "NS", controller.signal),
       dohLookup(domain, "TXT", controller.signal),
       dohLookup(domain, "CAA", controller.signal),
+      dohLookup(domain, "DS", controller.signal),
+      dohLookup(`_dmarc.${domain}`, "TXT", controller.signal),
+      dohLookup(`_mta-sts.${domain}`, "TXT", controller.signal),
       rdapLookup(domain, controller.signal),
     ]);
+    const dns = {
+      A: a.answers,
+      AAAA: aaaa.answers,
+      CNAME: cname.answers,
+      MX: mx.answers,
+      NS: ns.answers,
+      TXT: txt.answers,
+      CAA: caa.answers,
+      DS: ds.answers,
+      DMARC: dmarc.answers,
+      MTA_STS: mtaSts.answers,
+    };
+    const dnsMeta = {
+      A: { status: a.status, authenticated: a.authenticated },
+      NS: { status: ns.status, authenticated: ns.authenticated },
+      DS: { status: ds.status, authenticated: ds.authenticated },
+    };
     return json({
       domain,
-      dns: { A: a, AAAA: aaaa, MX: mx, NS: ns, TXT: txt, CAA: caa },
+      dns,
+      checks: buildDomainChecks(dns, dnsMeta, registration),
       registration,
     });
   } finally {
