@@ -114,14 +114,14 @@ async function consume(request: Request, env: Env, id: string) {
 async function fetchHandler(request: Request, env: Env) {
   const url = new URL(request.url);
   try {
-    if (url.pathname === "/api/health" && ["GET", "HEAD"].includes(request.method)) return health(env);
-    if (url.pathname === "/api/owner/secrets" && request.method === "GET") return listOwner(request, env);
-    if (url.pathname === "/api/owner/secrets" && request.method === "POST") return createOwner(request, env);
+    if (url.pathname === "/api/health" && ["GET", "HEAD"].includes(request.method)) return await health(env);
+    if (url.pathname === "/api/owner/secrets" && request.method === "GET") return await listOwner(request, env);
+    if (url.pathname === "/api/owner/secrets" && request.method === "POST") return await createOwner(request, env);
     const ownerMatch = url.pathname.match(/^\/api\/owner\/secrets\/([\w-]{20,64})$/);
-    if (ownerMatch && request.method === "GET") return ownerDetail(request, env, ownerMatch[1]);
-    if (ownerMatch && request.method === "DELETE") return deleteOwner(request, env, ownerMatch[1]);
+    if (ownerMatch && request.method === "GET") return await ownerDetail(request, env, ownerMatch[1]);
+    if (ownerMatch && request.method === "DELETE") return await deleteOwner(request, env, ownerMatch[1]);
     const match = url.pathname.match(/^\/api\/secrets\/([\w-]+)\/consume$/);
-    if (match && request.method === "POST") return consume(request, env, match[1]);
+    if (match && request.method === "POST") return await consume(request, env, match[1]);
     if (url.pathname.startsWith("/api/")) return json({ error: "Not found" }, 404);
     if (!["GET", "HEAD"].includes(request.method)) return response("Method not allowed", 405);
     if (["/ots.css", "/assets/ots.css"].includes(url.pathname)) return response(styles, 200, "text/css; charset=utf-8");
@@ -136,7 +136,14 @@ async function fetchHandler(request: Request, env: Env) {
     if (["/create/links", "/create/links/"].includes(url.pathname)) return response(linksPage, 200, "text/html; charset=utf-8");
     const detailMatch = url.pathname.match(/^\/create\/links\/([\w-]{20,64})$/);
     return detailMatch ? response(detailPage(detailMatch[1]), 200, "text/html; charset=utf-8") : response("Not found", 404);
-  } catch (error) { if (error instanceof Response) return response(await error.text(), error.status); console.error("OTS request failed", error instanceof Error ? error.message : "unknown"); return json({ error: "Service temporarily unavailable." }, 503); }
+  } catch (error) {
+    if (error instanceof Response) {
+      if (error.status >= 500) console.error("OTS request failed", { status: error.status });
+      return response("Request could not be processed.", error.status || 500);
+    }
+    console.error("OTS request failed", error instanceof Error ? error.message : "unknown");
+    return json({ error: "Service temporarily unavailable." }, 503);
+  }
 }
 async function cleanup(env: Env, now = Date.now()) { await env.DB.batch([env.DB.prepare("UPDATE ots_secrets SET deletion_reason='expired' WHERE status='ready' AND expires_at<=?").bind(now), env.DB.prepare("DELETE FROM ots_secrets WHERE status='ready' AND expires_at<=?").bind(now), env.DB.prepare("DELETE FROM ots_secret_receipts WHERE purge_after<=?").bind(now), env.DB.prepare("DELETE FROM ots_rate_limit_windows WHERE expires_at<=?").bind(now)]); }
 export { cleanup };

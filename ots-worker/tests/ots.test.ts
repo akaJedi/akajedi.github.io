@@ -112,6 +112,17 @@ describe("browser-encrypted OTS", () => {
       headers: { ...request.headers, Origin: "https://evil.test", "Cf-Access-Jwt-Assertion": "test-jwt" },
     })).status).toBe(403);
   });
+  it("does not expose caught request-error details to clients", async () => {
+    const result = await dispatch("/api/owner/secrets", {
+      method: "POST",
+      headers: ownerHeaders(),
+      body: "{invalid-json",
+    });
+    const body = await result.text();
+    expect(result.status).toBe(400);
+    expect(body).toBe("Request could not be processed.");
+    expect(body).not.toContain("Invalid JSON");
+  });
   it("keeps owner metadata private and never returns recoverable material", async () => {
     const link = await createOwnerSecret(true);
     const ownerResult = await dispatch("/api/owner/secrets", { headers: ownerHeaders() });
