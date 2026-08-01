@@ -33,6 +33,11 @@ describe("browser-encrypted OTS", () => {
     expect(body).not.toMatch(/https?:\/\//);
     expect(body).toContain('src="/assets/ots.js"');
   });
+  it("emits a fragment parser that accepts generated base64url parts", async () => {
+    const browserScript = await dispatch("/assets/ots.js").then((result) => result.text());
+    expect(browserScript).toContain("/^#v1[.]([A-Za-z0-9_-]{20,64})[.]([A-Za-z0-9_-]{40,64})[.]([A-Za-z0-9_-]{40,64})$/");
+    expect(browserScript).not.toContain("([w-]");
+  });
   it("reports healthy storage and owner-only acceptance", async () => {
     const result = await dispatch("/api/health");
     expect(result.status).toBe(200);
