@@ -430,7 +430,7 @@ it("rejects /api/whoami from a disallowed origin but serves allowed ones", async
 function mockDomainLookupApis() {
   return vi.fn(async (input: RequestInfo | URL) => {
     const requestUrl = String(input);
-    if (requestUrl.includes("cloudflare-dns.com/dns-query")) {
+    if (requestUrl.includes("cloudflare-dns.com/dns-query") || requestUrl.includes("dns.google/resolve")) {
       const query = new URL(requestUrl);
       const type = query.searchParams.get("type");
       const name = query.searchParams.get("name");
@@ -486,7 +486,7 @@ function mockRdapScenario(
   let rdapCalls = 0;
   const externalFetch = vi.fn(async (input: RequestInfo | URL) => {
     const requestUrl = String(input);
-    if (requestUrl.includes("cloudflare-dns.com/dns-query")) {
+    if (requestUrl.includes("cloudflare-dns.com/dns-query") || requestUrl.includes("dns.google/resolve")) {
       return new Response(JSON.stringify({ Status: 0, AD: false, Answer: [] }), {
         status: 200,
         headers: { "Content-Type": "application/dns-json" },
@@ -551,6 +551,20 @@ it("returns combined DNS and registration data for a valid domain", async () => 
     source: "iana-bootstrap",
     attempts: 1,
   });
+  expect(body.consensus).toMatchObject({
+    verdict: "consistent",
+    privacy: { ednsClientSubnet: "0.0.0.0/0" },
+    summary: { match: 10, different: 0, dnssecDisagreement: 0, unavailable: 0 },
+  });
+  expect(body.consensus.records).toEqual(expect.arrayContaining([
+    expect.objectContaining({ key: "A", state: "match" }),
+    expect.objectContaining({ key: "DMARC", state: "match" }),
+  ]));
+  expect(externalFetch.mock.calls.some(([input]) => {
+    const requestUrl = new URL(String(input));
+    return requestUrl.hostname === "dns.google" &&
+      requestUrl.searchParams.get("edns_client_subnet") === "0.0.0.0/0";
+  })).toBe(true);
   expect(externalFetch.mock.calls.some(([input]) =>
     String(input) === "https://data.iana.org/rdap/dns.json"
   )).toBe(true);
@@ -570,7 +584,7 @@ it("returns combined DNS and registration data for a valid domain", async () => 
 it("classifies contradictory mail policy and broken DNSSEC as critical", async () => {
   vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL) => {
     const requestUrl = String(input);
-    if (requestUrl.includes("cloudflare-dns.com/dns-query")) {
+    if (requestUrl.includes("cloudflare-dns.com/dns-query") || requestUrl.includes("dns.google/resolve")) {
       const query = new URL(requestUrl);
       const type = query.searchParams.get("type");
       const name = query.searchParams.get("name");
@@ -620,6 +634,50 @@ it("classifies contradictory mail policy and broken DNSSEC as critical", async (
     "spf-multiple",
     "dmarc-multiple",
   ]));
+});
+
+it("identifies resolver answer divergence with TTL evidence", async () => {
+  vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL) => {
+    const requestUrl = String(input);
+    if (requestUrl.includes("cloudflare-dns.com/dns-query") || requestUrl.includes("dns.google/resolve")) {
+      const query = new URL(requestUrl);
+      const isGoogle = query.hostname === "dns.google";
+      const type = query.searchParams.get("type");
+      const answer = type === "A"
+        ? [{ type: 1, TTL: isGoogle ? 60 : 120, data: isGoogle ? "198.51.100.20" : "192.0.2.10" }]
+        : [];
+      return new Response(JSON.stringify({ Status: 0, AD: false, Answer: answer }), {
+        status: 200,
+        headers: { "Content-Type": "application/dns-json" },
+      });
+    }
+    if (requestUrl === "https://data.iana.org/rdap/dns.json") {
+      return new Response(JSON.stringify({
+        services: [[["net"], ["https://rdap.registry.test/"]]],
+      }), { status: 200, headers: { "Content-Type": "application/json" } });
+    }
+    if (requestUrl.includes("rdap.registry.test/domain/")) {
+      return new Response(JSON.stringify({ status: ["active"] }), {
+        status: 200,
+        headers: { "Content-Type": "application/rdap+json" },
+      });
+    }
+    return new Response("not found", { status: 404 });
+  }));
+
+  const response = await dispatch("https://worker.test/api/domain-lookup?domain=consensus.example.net", {
+    headers: { Origin: origin, "CF-Connecting-IP": "203.0.113.17" },
+  });
+  const body = await response.json<any>();
+  const aRecord = body.consensus.records.find((record: { key: string }) => record.key === "A");
+  expect(response.status).toBe(200);
+  expect(body.consensus.verdict).toBe("inconsistent");
+  expect(body.consensus.summary.different).toBe(1);
+  expect(aRecord).toMatchObject({
+    state: "different",
+    cloudflare: { answers: ["192.0.2.10"], ttl: 120 },
+    google: { answers: ["198.51.100.20"], ttl: 60 },
+  });
 });
 
 it("retries a transient authoritative RDAP failure once", async () => {

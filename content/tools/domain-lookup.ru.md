@@ -1,7 +1,7 @@
 ---
 title: "Инспектор состояния домена"
-description: "Аудит делегирования, DNSSEC, почтовой аутентификации, разрешений центров сертификации и срока регистрации по рекомендациям RFC."
-searchDescription: "Проверка состояния DNS по стандартам: NS, DNSSEC, MX, SPF, DMARC, CAA, MTA-STS и срок регистрации домена."
+description: "Аудит DNS и регистрации со сравнением ответов Cloudflare и Google для выявления расхождений распространения и DNSSEC."
+searchDescription: "Проверка состояния DNS и сравнение резолверов: NS, DNSSEC, MX, SPF, DMARC, CAA, MTA-STS и срок регистрации."
 layout: "domain-lookup"
 toolScript: "js/tools/domain-lookup.js"
 searchExclude: true
@@ -41,6 +41,29 @@ searchExclude: true
     <div data-count-status="pass"><dt>Пройдено</dt><dd data-count="pass">0</dd></div>
     <div data-count-status="info"><dt>Рекомендации</dt><dd data-count="info">0</dd></div>
   </dl>
+</section>
+
+<section class="resolver-consensus" data-resolver-consensus hidden aria-labelledby="resolver-consensus-title">
+  <header class="resolver-consensus__header">
+    <div>
+      <p class="domain-inspector__eyebrow">Сверка резолверов</p>
+      <h2 id="resolver-consensus-title">Cloudflare ↔ Google</h2>
+      <p data-consensus-verdict></p>
+    </div>
+    <span class="resolver-consensus__privacy">ECS 0.0.0.0/0 · режим приватности</span>
+  </header>
+  <dl class="resolver-consensus__counts">
+    <div><dt>Совпало</dt><dd data-consensus-count="match">0</dd></div>
+    <div><dt>Различается</dt><dd data-consensus-count="different">0</dd></div>
+    <div><dt>DNSSEC</dt><dd data-consensus-count="dnssecDisagreement">0</dd></div>
+    <div><dt>Недоступно</dt><dd data-consensus-count="unavailable">0</dd></div>
+  </dl>
+  <div class="resolver-consensus__viewport" tabindex="0" role="region" aria-label="Таблица сравнения DNS-резолверов">
+    <table class="resolver-consensus__table">
+      <thead><tr><th scope="col">Запись</th><th scope="col">Cloudflare</th><th scope="col">Google</th><th scope="col">Состояние</th></tr></thead>
+      <tbody data-consensus-body></tbody>
+    </table>
+  </div>
 </section>
 
 <section class="domain-findings" data-domain-findings hidden aria-labelledby="domain-findings-title">
@@ -85,4 +108,4 @@ searchExclude: true
   </section>
 </details>
 
-<p class="tools-note">Инспектор использует проверяющий DNS-over-HTTPS резолвер Cloudflare и RDAP. Он не подключается к проверяемому домену, не сканирует порты и не сохраняет результаты. Статус «Рекомендация» означает необязательное усиление защиты, а не ошибку. Проверки основаны на <a href="https://www.rfc-editor.org/rfc/rfc2182.html">RFC 2182</a>, <a href="https://www.rfc-editor.org/rfc/rfc4035.html">RFC 4035</a>, <a href="https://www.rfc-editor.org/rfc/rfc7208.html">RFC 7208</a>, <a href="https://www.rfc-editor.org/rfc/rfc9989.html">RFC 9989</a> и связанных стандартах.</p>
+<p class="tools-note">Инспектор сравнивает ответы Cloudflare и Google DNS-over-HTTPS, запрашивает Google без локализации по подсети клиента и получает регистрационные данные через RDAP. Он не подключается к проверяемому домену, не сканирует порты и не сохраняет результаты. Статус «Рекомендация» означает необязательное усиление защиты, а не ошибку. Проверки основаны на <a href="https://www.rfc-editor.org/rfc/rfc2182.html">RFC 2182</a>, <a href="https://www.rfc-editor.org/rfc/rfc4035.html">RFC 4035</a>, <a href="https://www.rfc-editor.org/rfc/rfc7208.html">RFC 7208</a>, <a href="https://www.rfc-editor.org/rfc/rfc9989.html">RFC 9989</a> и связанных стандартах.</p>

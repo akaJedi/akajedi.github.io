@@ -621,13 +621,14 @@ async function handleIp(request: Request, env: Env): Promise<Response> {
 }
 
 const DOH_ENDPOINT = "https://cloudflare-dns.com/dns-query";
+const GOOGLE_DOH_ENDPOINT = "https://dns.google/resolve";
 const RDAP_BOOTSTRAP_ENDPOINT = "https://data.iana.org/rdap/dns.json";
 const RDAP_FALLBACK_ENDPOINT = "https://rdap.org/";
 const RDAP_BOOTSTRAP_TTL_MS = 24 * 60 * 60 * 1000;
 // Matches a plain hostname: labels of letters/digits/hyphens, at least one
-// dot, TLD letters-only. Deliberately rejects IP literals and anything with
+// dot, with an ASCII or IDNA TLD. Deliberately rejects IP literals and anything with
 // a scheme, port, path, or whitespace — the input is used only as a query
-// value against DOH_ENDPOINT/RDAP_ENDPOINT below, never as a fetch() target
+// value against fixed DNS-over-HTTPS and discovered RDAP endpoints, never as a fetch() target
 // host itself, so there is no SSRF surface here regardless, but rejecting
 // non-hostnames early keeps the error message honest about what this
 // endpoint accepts.
@@ -655,37 +656,172 @@ const DNS_TYPE_CODES: Record<string, number> = {
   CAA: 257,
 };
 
+type DohResolverId = "cloudflare" | "google";
+
 interface DohResult {
   answers: string[];
   status: number;
   authenticated: boolean;
+  ttl: number | null;
+  durationMs: number;
+  httpStatus: number;
+  error: "http" | "network" | "timeout" | null;
 }
+
+interface ConsensusQuery {
+  key: string;
+  type: string;
+  name: (domain: string) => string;
+}
+
+const CONSENSUS_QUERIES: ConsensusQuery[] = [
+  { key: "A", type: "A", name: (domain) => domain },
+  { key: "AAAA", type: "AAAA", name: (domain) => domain },
+  { key: "CNAME", type: "CNAME", name: (domain) => domain },
+  { key: "MX", type: "MX", name: (domain) => domain },
+  { key: "NS", type: "NS", name: (domain) => domain },
+  { key: "TXT", type: "TXT", name: (domain) => domain },
+  { key: "CAA", type: "CAA", name: (domain) => domain },
+  { key: "DS", type: "DS", name: (domain) => domain },
+  { key: "DMARC", type: "TXT", name: (domain) => `_dmarc.${domain}` },
+  { key: "MTA_STS", type: "TXT", name: (domain) => `_mta-sts.${domain}` },
+];
 
 function normalizeDnsAnswer(data: string, type: string): string {
   if (type !== "TXT") return data;
   const chunks = Array.from(data.matchAll(/"((?:\\.|[^"\\])*)"/g), (match) =>
-    match[1].replace(/\\"/g, '"').replace(/\\\\/g, "\\")
+    match[1].replace(/\\"/g, "\"").replace(/\\\\/g, "\\")
   );
   return chunks.length ? chunks.join("") : data.replace(/^"|"$/g, "");
 }
 
-async function dohLookup(domain: string, type: string, signal: AbortSignal): Promise<DohResult> {
-  const url = `${DOH_ENDPOINT}?name=${encodeURIComponent(domain)}&type=${type}&do=1`;
-  const response = await fetch(url, { headers: { Accept: "application/dns-json" }, signal });
-  if (!response.ok) return { answers: [], status: response.status, authenticated: false };
+async function dohLookup(
+  domain: string,
+  type: string,
+  signal: AbortSignal,
+  resolver: DohResolverId = "cloudflare",
+): Promise<DohResult> {
+  const startedAt = Date.now();
+  const url = new URL(resolver === "google" ? GOOGLE_DOH_ENDPOINT : DOH_ENDPOINT);
+  url.searchParams.set("name", domain);
+  url.searchParams.set("type", type);
+  url.searchParams.set("do", "1");
+  if (resolver === "google") {
+    url.searchParams.set("cd", "0");
+    url.searchParams.set("edns_client_subnet", "0.0.0.0/0");
+  }
+  const response = await fetch(url.toString(), {
+    headers: { Accept: "application/dns-json" },
+    signal,
+  });
+  const durationMs = Date.now() - startedAt;
+  if (!response.ok) {
+    return {
+      answers: [],
+      status: -1,
+      authenticated: false,
+      ttl: null,
+      durationMs,
+      httpStatus: response.status,
+      error: "http",
+    };
+  }
   const data = await response.json<{
     Status?: number;
     AD?: boolean;
-    Answer?: { type?: number; data: string }[];
+    Answer?: { type?: number; TTL?: number; data: string }[];
   }>();
   const expectedType = DNS_TYPE_CODES[type];
-  const answers = (data.Answer || [])
-    .filter((entry) => entry.type === undefined || entry.type === expectedType)
-    .map((entry) => normalizeDnsAnswer(entry.data, type));
+  const matchingAnswers = (data.Answer || [])
+    .filter((entry) => entry.type === undefined || entry.type === expectedType);
+  const answers = matchingAnswers.map((entry) => normalizeDnsAnswer(entry.data, type));
+  const ttls = matchingAnswers
+    .map((entry) => entry.TTL)
+    .filter((ttl): ttl is number => typeof ttl === "number" && Number.isFinite(ttl));
   return {
     answers,
     status: typeof data.Status === "number" ? data.Status : 0,
     authenticated: data.AD === true,
+    ttl: ttls.length ? Math.min(...ttls) : null,
+    durationMs,
+    httpStatus: response.status,
+    error: null,
+  };
+}
+
+async function safeDohLookup(
+  domain: string,
+  type: string,
+  signal: AbortSignal,
+  resolver: DohResolverId,
+): Promise<DohResult> {
+  const startedAt = Date.now();
+  try {
+    return await dohLookup(domain, type, signal, resolver);
+  } catch {
+    return {
+      answers: [],
+      status: -1,
+      authenticated: false,
+      ttl: null,
+      durationMs: Date.now() - startedAt,
+      httpStatus: 0,
+      error: signal.aborted ? "timeout" : "network",
+    };
+  }
+}
+
+interface ResolverConsensusRecord {
+  key: string;
+  name: string;
+  type: string;
+  state: "match" | "different" | "dnssec_disagreement" | "unavailable";
+  cloudflare: DohResult;
+  google: DohResult;
+}
+
+function normalizedAnswerSet(answers: string[]): string[] {
+  return Array.from(new Set(answers.map((answer) => answer.trim().toLowerCase()))).sort();
+}
+
+function buildResolverConsensus(
+  domain: string,
+  cloudflare: Record<string, DohResult>,
+  google: Record<string, DohResult>,
+) {
+  const records: ResolverConsensusRecord[] = CONSENSUS_QUERIES.map((query) => {
+    const cloudflareResult = cloudflare[query.key];
+    const googleResult = google[query.key];
+    const answersMatch = JSON.stringify(normalizedAnswerSet(cloudflareResult.answers)) ===
+      JSON.stringify(normalizedAnswerSet(googleResult.answers));
+    let state: ResolverConsensusRecord["state"] = "match";
+    if (cloudflareResult.error || googleResult.error) state = "unavailable";
+    else if (cloudflareResult.status !== googleResult.status || !answersMatch) state = "different";
+    else if (cloudflareResult.authenticated !== googleResult.authenticated) state = "dnssec_disagreement";
+    return {
+      key: query.key,
+      name: query.name(domain),
+      type: query.type,
+      state,
+      cloudflare: cloudflareResult,
+      google: googleResult,
+    };
+  });
+  const summary = { match: 0, different: 0, dnssecDisagreement: 0, unavailable: 0 };
+  for (const record of records) {
+    if (record.state === "dnssec_disagreement") summary.dnssecDisagreement += 1;
+    else summary[record.state] += 1;
+  }
+  const verdict = summary.different || summary.dnssecDisagreement
+    ? "inconsistent"
+    : summary.unavailable
+      ? "partial"
+      : "consistent";
+  return {
+    verdict,
+    privacy: { ednsClientSubnet: "0.0.0.0/0" },
+    summary,
+    records,
   };
 }
 
@@ -1066,7 +1202,10 @@ async function handleDomainLookup(request: Request, env: Env): Promise<Response>
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
   try {
-    const [a, aaaa, cname, mx, ns, txt, caa, ds, dmarc, mtaSts, registrationResult] = await Promise.all([
+    const googleConsensusPromise = Promise.all(CONSENSUS_QUERIES.map((query) =>
+      safeDohLookup(query.name(domain), query.type, controller.signal, "google")
+    ));
+    const [a, aaaa, cname, mx, ns, txt, caa, ds, dmarc, mtaSts, registrationResult, googleResults] = await Promise.all([
       dohLookup(domain, "A", controller.signal),
       dohLookup(domain, "AAAA", controller.signal),
       dohLookup(domain, "CNAME", controller.signal),
@@ -1078,6 +1217,7 @@ async function handleDomainLookup(request: Request, env: Env): Promise<Response>
       dohLookup(`_dmarc.${domain}`, "TXT", controller.signal),
       dohLookup(`_mta-sts.${domain}`, "TXT", controller.signal),
       rdapLookup(domain),
+      googleConsensusPromise,
     ]);
     const dns = {
       A: a.answers,
@@ -1096,6 +1236,21 @@ async function handleDomainLookup(request: Request, env: Env): Promise<Response>
       NS: { status: ns.status, authenticated: ns.authenticated },
       DS: { status: ds.status, authenticated: ds.authenticated },
     };
+    const cloudflareConsensus: Record<string, DohResult> = {
+      A: a,
+      AAAA: aaaa,
+      CNAME: cname,
+      MX: mx,
+      NS: ns,
+      TXT: txt,
+      CAA: caa,
+      DS: ds,
+      DMARC: dmarc,
+      MTA_STS: mtaSts,
+    };
+    const googleConsensus = Object.fromEntries(CONSENSUS_QUERIES.map((query, index) =>
+      [query.key, googleResults[index]]
+    )) as Record<string, DohResult>;
     return json({
       domain,
       dns,
@@ -1107,6 +1262,7 @@ async function handleDomainLookup(request: Request, env: Env): Promise<Response>
       ),
       registration: registrationResult.registration,
       registrationLookup: registrationResult.lookup,
+      consensus: buildResolverConsensus(domain, cloudflareConsensus, googleConsensus),
     });
   } finally {
     clearTimeout(timeout);
