@@ -429,3 +429,34 @@ test("domain inspector exposes an accessible resolver consensus matrix in both l
   assert.match(css, /[.]resolver-consensus__viewport:focus-visible/);
   assert.match(css, /@media \(max-width:\s*700px\)[\s\S]*[.]resolver-consensus__counts\s*\{\s*grid-template-columns:\s*repeat\(2, 1fr\)/);
 });
+
+
+test("domain inspector exposes a durable, accessible propagation-watch timeline", async () => {
+  const [client, css, migration, english, russian] = await Promise.all([
+    readSource("static/js/tools/domain-lookup.js"),
+    readSource("assets/css/custom.css"),
+    readSource("migrations/0005_domain_watches.sql"),
+    readSource("content/tools/domain-lookup.md"),
+    readSource("content/tools/domain-lookup.ru.md"),
+  ]);
+
+  for (const page of [english, russian]) {
+    assert.match(page, /data-domain-watch/);
+    assert.match(page, /data-watch-form/);
+    assert.match(page, /data-watch-report/);
+    assert.match(page, /data-watch-samples tabindex="0" role="region"/);
+    assert.match(page, /seven days|семь дней/);
+  }
+  assert.match(client, /api\/domain-watch/);
+  assert.match(client, /setInterval[\s\S]*document[.]hidden/);
+  assert.match(client, /navigator[.]clipboard[.]writeText/);
+  assert.match(client, /watchSamples[.]replaceChildren/);
+  assert.doesNotMatch(client, /[.]innerHTML\s*=/);
+  assert.match(css, /[.]domain-watch__timeline[\s\S]*overflow-y:\s*auto/);
+  assert.match(css, /[.]domain-watch__timeline:focus-visible/);
+  assert.match(css, /@media \(prefers-reduced-motion:\s*reduce\)[\s\S]*domain-watch__status/);
+  assert.match(migration, /CREATE TABLE domain_watches/);
+  assert.match(migration, /CREATE TABLE domain_watch_samples/);
+  assert.match(migration, /CHECK \(status IN \('active', 'completed'\)\)/);
+  assert.match(migration, /FOREIGN KEY \(watch_id\) REFERENCES domain_watches/);
+});

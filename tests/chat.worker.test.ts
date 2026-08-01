@@ -7,6 +7,7 @@ import migrationSql from "../migrations/0001_chat.sql?raw";
 import draftMigrationSql from "../migrations/0002_conversation_drafts.sql?raw";
 import sourceMigrationSql from "../migrations/0003_conversation_sources.sql?raw";
 import routeCountsMigrationSql from "../migrations/0004_route_daily_counts.sql?raw";
+import domainWatchesMigrationSql from "../migrations/0005_domain_watches.sql?raw";
 import { availability, createChallenge, escapeTelegram } from "../src/lib";
 
 const origin = "https://www.f12.biz";
@@ -62,6 +63,7 @@ beforeAll(async () => {
     ...migrationQueries(draftMigrationSql),
     ...migrationQueries(sourceMigrationSql),
     ...migrationQueries(routeCountsMigrationSql),
+    ...migrationQueries(domainWatchesMigrationSql),
   ];
   await testEnv.DB.batch(migrations.map((query) => testEnv.DB.prepare(query)));
 });
@@ -579,6 +581,94 @@ it("returns combined DNS and registration data for a valid domain", async () => 
   expect(externalFetch.mock.calls.filter(([input]) =>
     String(input).includes("rdap.registry.test/domain/example.com")
   )).toHaveLength(1);
+});
+
+it("creates, reuses, and samples a 24-hour DNS propagation watch", async () => {
+  let changed = false;
+  vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL) => {
+    const requestUrl = new URL(String(input));
+    if (requestUrl.hostname !== "cloudflare-dns.com" && requestUrl.hostname !== "dns.google") {
+      return new Response("not found", { status: 404 });
+    }
+    const isGoogle = requestUrl.hostname === "dns.google";
+    const data = changed && isGoogle ? "198.51.100.20" : "192.0.2.10";
+    return new Response(JSON.stringify({
+      Status: 0,
+      AD: false,
+      Answer: [{ type: 1, TTL: changed ? 60 : 300, data }],
+    }), { status: 200, headers: { "Content-Type": "application/dns-json" } });
+  }));
+
+  const create = await dispatch("https://worker.test/api/domain-watch", {
+    method: "POST",
+    headers: { ...jsonHeaders, "CF-Connecting-IP": "203.0.113.31" },
+    body: JSON.stringify({ domain: "watch.example.com", recordKey: "A" }),
+  });
+  expect(create.status).toBe(201);
+  const created = await create.json<any>();
+  expect(created.reused).toBe(false);
+  expect(created.watch).toMatchObject({
+    domain: "watch.example.com",
+    recordKey: "A",
+    status: "active",
+    sampleCount: 1,
+    changeCount: 0,
+    currentState: "match",
+  });
+  expect(created.watch.samples).toHaveLength(1);
+  expect(Date.parse(created.watch.expiresAt) - Date.parse(created.watch.createdAt))
+    .toBe(24 * 60 * 60 * 1000);
+
+  const reused = await dispatch("https://worker.test/api/domain-watch", {
+    method: "POST",
+    headers: { ...jsonHeaders, "CF-Connecting-IP": "203.0.113.31" },
+    body: JSON.stringify({ domain: "watch.example.com", recordKey: "A" }),
+  });
+  expect(reused.status).toBe(200);
+  expect((await reused.json<any>()).reused).toBe(true);
+
+  changed = true;
+  await testEnv.DB.prepare("UPDATE domain_watches SET next_sample_at = ? WHERE id = ?")
+    .bind("2020-01-01T00:00:00Z", created.watch.id).run();
+  const scheduledPromises: Promise<unknown>[] = [];
+  await (worker as any).scheduled(
+    { cron: "*/5 * * * *", scheduledTime: Date.now(), noRetry() {} },
+    testEnv,
+    {
+      waitUntil(promise: Promise<unknown>) { scheduledPromises.push(promise); },
+      passThroughOnException() {},
+      props: {},
+    },
+  );
+  await Promise.all(scheduledPromises);
+
+  const timeline = await dispatch(`https://worker.test/api/domain-watch/${created.watch.id}`, {
+    headers: { Origin: origin, "CF-Connecting-IP": "203.0.113.32" },
+  });
+  expect(timeline.status).toBe(200);
+  expect(timeline.headers.get("Access-Control-Allow-Origin")).toBe(origin);
+  const body = await timeline.json<any>();
+  expect(body.watch).toMatchObject({
+    sampleCount: 2,
+    changeCount: 1,
+    currentState: "different",
+  });
+  expect(body.watch.samples[1]).toMatchObject({
+    state: "different",
+    changed: true,
+    cloudflare: { answers: ["192.0.2.10"] },
+    google: { answers: ["198.51.100.20"] },
+  });
+});
+
+it("rejects unsupported propagation-watch record types with browser-safe CORS", async () => {
+  const response = await dispatch("https://worker.test/api/domain-watch", {
+    method: "POST",
+    headers: { ...jsonHeaders, "CF-Connecting-IP": "203.0.113.33" },
+    body: JSON.stringify({ domain: "example.com", recordKey: "SSHFP" }),
+  });
+  expect(response.status).toBe(400);
+  expect(response.headers.get("Access-Control-Allow-Origin")).toBe(origin);
 });
 
 it("classifies contradictory mail policy and broken DNSSEC as critical", async () => {

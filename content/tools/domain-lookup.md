@@ -66,6 +66,47 @@ searchExclude: true
   </div>
 </section>
 
+<section class="domain-watch" data-domain-watch hidden aria-labelledby="domain-watch-title">
+  <header class="domain-watch__header">
+    <div>
+      <p class="domain-inspector__eyebrow">Propagation watch</p>
+      <h2 id="domain-watch-title">Follow one record for 24 hours</h2>
+      <p>Capture a baseline now, then compare Cloudflare and Google every five minutes. The shareable timeline remains available for seven days after monitoring ends.</p>
+    </div>
+    <span class="domain-watch__cadence">05 MIN / 24 HR</span>
+  </header>
+  <form class="domain-watch__form" data-watch-form>
+    <label for="domain-watch-record">Record to watch</label>
+    <div>
+      <select id="domain-watch-record" name="recordKey">
+        <option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option><option>NS</option>
+        <option>TXT</option><option>CAA</option><option>DS</option><option value="DMARC">DMARC</option><option value="MTA_STS">MTA-STS</option>
+      </select>
+      <button type="submit">Start 24-hour watch</button>
+    </div>
+    <p class="domain-watch__message" data-watch-message role="status"></p>
+  </form>
+  <div class="domain-watch__report" data-watch-report hidden>
+    <div class="domain-watch__report-head">
+      <div>
+        <p class="domain-inspector__eyebrow">Incident timeline</p>
+        <h3 data-watch-name></h3>
+      </div>
+      <div class="domain-watch__actions">
+        <span data-watch-status></span>
+        <button type="button" data-watch-share>Copy share link</button>
+      </div>
+    </div>
+    <dl class="domain-watch__metrics">
+      <div><dt>Samples</dt><dd data-watch-field="sampleCount">0</dd></div>
+      <div><dt>Changes</dt><dd data-watch-field="changeCount">0</dd></div>
+      <div><dt>Next sample</dt><dd data-watch-field="nextSampleAt">—</dd></div>
+      <div><dt>Monitoring ends</dt><dd data-watch-field="expiresAt">—</dd></div>
+    </dl>
+    <ol class="domain-watch__timeline" data-watch-samples tabindex="0" role="region" aria-label="DNS propagation samples"></ol>
+  </div>
+</section>
+
 <section class="domain-findings" data-domain-findings hidden aria-labelledby="domain-findings-title">
   <div class="domain-findings__heading">
     <h2 id="domain-findings-title">Control findings</h2>
@@ -108,4 +149,4 @@ searchExclude: true
   </section>
 </details>
 
-<p class="tools-note">The inspector compares Cloudflare and Google DNS-over-HTTPS answers, requests Google results without client-subnet localization, and discovers registration data through RDAP. It never connects to the inspected domain, scans ports, or stores lookup results. “Advisory” means optional hardening, not a broken configuration. Findings reference <a href="https://www.rfc-editor.org/rfc/rfc2182.html">RFC 2182</a>, <a href="https://www.rfc-editor.org/rfc/rfc4035.html">RFC 4035</a>, <a href="https://www.rfc-editor.org/rfc/rfc7208.html">RFC 7208</a>, <a href="https://www.rfc-editor.org/rfc/rfc9989.html">RFC 9989</a>, and related standards.</p>
+<p class="tools-note">The inspector compares Cloudflare and Google DNS-over-HTTPS answers, requests Google results without client-subnet localization, and discovers registration data through RDAP. It never connects to the inspected domain or scans ports. One-time inspection results are not stored; when you explicitly start a watch, its public DNS observations are retained for up to eight days and then automatically removed. “Advisory” means optional hardening, not a broken configuration. Findings reference <a href="https://www.rfc-editor.org/rfc/rfc2182.html">RFC 2182</a>, <a href="https://www.rfc-editor.org/rfc/rfc4035.html">RFC 4035</a>, <a href="https://www.rfc-editor.org/rfc/rfc7208.html">RFC 7208</a>, <a href="https://www.rfc-editor.org/rfc/rfc9989.html">RFC 9989</a>, and related standards.</p>

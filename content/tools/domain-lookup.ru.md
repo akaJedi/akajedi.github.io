@@ -66,6 +66,47 @@ searchExclude: true
   </div>
 </section>
 
+<section class="domain-watch" data-domain-watch hidden aria-labelledby="domain-watch-title">
+  <header class="domain-watch__header">
+    <div>
+      <p class="domain-inspector__eyebrow">Наблюдение за распространением</p>
+      <h2 id="domain-watch-title">Следить за одной записью 24 часа</h2>
+      <p>Сохранить исходное состояние сейчас, затем сравнивать Cloudflare и Google каждые пять минут. Общая ссылка на временную шкалу действует семь дней после завершения наблюдения.</p>
+    </div>
+    <span class="domain-watch__cadence">05 МИН / 24 Ч</span>
+  </header>
+  <form class="domain-watch__form" data-watch-form>
+    <label for="domain-watch-record">Запись для наблюдения</label>
+    <div>
+      <select id="domain-watch-record" name="recordKey">
+        <option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option><option>NS</option>
+        <option>TXT</option><option>CAA</option><option>DS</option><option value="DMARC">DMARC</option><option value="MTA_STS">MTA-STS</option>
+      </select>
+      <button type="submit">Начать наблюдение на 24 часа</button>
+    </div>
+    <p class="domain-watch__message" data-watch-message role="status"></p>
+  </form>
+  <div class="domain-watch__report" data-watch-report hidden>
+    <div class="domain-watch__report-head">
+      <div>
+        <p class="domain-inspector__eyebrow">Временная шкала инцидента</p>
+        <h3 data-watch-name></h3>
+      </div>
+      <div class="domain-watch__actions">
+        <span data-watch-status></span>
+        <button type="button" data-watch-share>Копировать ссылку</button>
+      </div>
+    </div>
+    <dl class="domain-watch__metrics">
+      <div><dt>Замеры</dt><dd data-watch-field="sampleCount">0</dd></div>
+      <div><dt>Изменения</dt><dd data-watch-field="changeCount">0</dd></div>
+      <div><dt>Следующий замер</dt><dd data-watch-field="nextSampleAt">—</dd></div>
+      <div><dt>Конец наблюдения</dt><dd data-watch-field="expiresAt">—</dd></div>
+    </dl>
+    <ol class="domain-watch__timeline" data-watch-samples tabindex="0" role="region" aria-label="Замеры распространения DNS"></ol>
+  </div>
+</section>
+
 <section class="domain-findings" data-domain-findings hidden aria-labelledby="domain-findings-title">
   <div class="domain-findings__heading">
     <h2 id="domain-findings-title">Результаты контроля</h2>
@@ -108,4 +149,4 @@ searchExclude: true
   </section>
 </details>
 
-<p class="tools-note">Инспектор сравнивает ответы Cloudflare и Google DNS-over-HTTPS, запрашивает Google без локализации по подсети клиента и получает регистрационные данные через RDAP. Он не подключается к проверяемому домену, не сканирует порты и не сохраняет результаты. Статус «Рекомендация» означает необязательное усиление защиты, а не ошибку. Проверки основаны на <a href="https://www.rfc-editor.org/rfc/rfc2182.html">RFC 2182</a>, <a href="https://www.rfc-editor.org/rfc/rfc4035.html">RFC 4035</a>, <a href="https://www.rfc-editor.org/rfc/rfc7208.html">RFC 7208</a>, <a href="https://www.rfc-editor.org/rfc/rfc9989.html">RFC 9989</a> и связанных стандартах.</p>
+<p class="tools-note">Инспектор сравнивает ответы Cloudflare и Google DNS-over-HTTPS, запрашивает Google без локализации по подсети клиента и получает регистрационные данные через RDAP. Он не подключается к проверяемому домену и не сканирует порты. Результаты разовой проверки не сохраняются; при явном запуске наблюдения открытые данные DNS хранятся до восьми дней, а затем автоматически удаляются. Статус «Рекомендация» означает необязательное усиление защиты, а не ошибку. Проверки основаны на <a href="https://www.rfc-editor.org/rfc/rfc2182.html">RFC 2182</a>, <a href="https://www.rfc-editor.org/rfc/rfc4035.html">RFC 4035</a>, <a href="https://www.rfc-editor.org/rfc/rfc7208.html">RFC 7208</a>, <a href="https://www.rfc-editor.org/rfc/rfc9989.html">RFC 9989</a> и связанных стандартах.</p>

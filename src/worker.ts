@@ -67,6 +67,7 @@ function routeName(pathname: string): string {
   if (pathname === "/api/ip") return "ip";
   if (pathname === "/api/whoami") return "whoami";
   if (pathname === "/api/domain-lookup") return "domain-lookup";
+  if (pathname === "/api/domain-watch" || pathname.startsWith("/api/domain-watch/")) return "domain-watch";
   return "unknown";
 }
 
@@ -784,29 +785,39 @@ function normalizedAnswerSet(answers: string[]): string[] {
   return Array.from(new Set(answers.map((answer) => answer.trim().toLowerCase()))).sort();
 }
 
+function compareResolverRecord(
+  query: ConsensusQuery,
+  domain: string,
+  cloudflare: DohResult,
+  google: DohResult,
+): ResolverConsensusRecord {
+  const answersMatch = JSON.stringify(normalizedAnswerSet(cloudflare.answers)) ===
+    JSON.stringify(normalizedAnswerSet(google.answers));
+  let state: ResolverConsensusRecord["state"] = "match";
+  if (cloudflare.error || google.error) state = "unavailable";
+  else if (cloudflare.status !== google.status || !answersMatch) state = "different";
+  else if (cloudflare.authenticated !== google.authenticated) state = "dnssec_disagreement";
+  return {
+    key: query.key,
+    name: query.name(domain),
+    type: query.type,
+    state,
+    cloudflare,
+    google,
+  };
+}
+
 function buildResolverConsensus(
   domain: string,
   cloudflare: Record<string, DohResult>,
   google: Record<string, DohResult>,
 ) {
-  const records: ResolverConsensusRecord[] = CONSENSUS_QUERIES.map((query) => {
-    const cloudflareResult = cloudflare[query.key];
-    const googleResult = google[query.key];
-    const answersMatch = JSON.stringify(normalizedAnswerSet(cloudflareResult.answers)) ===
-      JSON.stringify(normalizedAnswerSet(googleResult.answers));
-    let state: ResolverConsensusRecord["state"] = "match";
-    if (cloudflareResult.error || googleResult.error) state = "unavailable";
-    else if (cloudflareResult.status !== googleResult.status || !answersMatch) state = "different";
-    else if (cloudflareResult.authenticated !== googleResult.authenticated) state = "dnssec_disagreement";
-    return {
-      key: query.key,
-      name: query.name(domain),
-      type: query.type,
-      state,
-      cloudflare: cloudflareResult,
-      google: googleResult,
-    };
-  });
+  const records = CONSENSUS_QUERIES.map((query) => compareResolverRecord(
+    query,
+    domain,
+    cloudflare[query.key],
+    google[query.key],
+  ));
   const summary = { match: 0, different: 0, dnssecDisagreement: 0, unavailable: 0 };
   for (const record of records) {
     if (record.state === "dnssec_disagreement") summary.dnssecDisagreement += 1;
@@ -823,6 +834,250 @@ function buildResolverConsensus(
     summary,
     records,
   };
+}
+
+const WATCH_DURATION_MS = 24 * 60 * 60 * 1000;
+const WATCH_RETENTION_MS = 7 * 24 * 60 * 60 * 1000;
+const WATCH_SAMPLE_INTERVAL_MS = 5 * 60 * 1000;
+const WATCH_ACTIVE_LIMIT = 20;
+
+interface DomainWatchRow {
+  id: string;
+  domain: string;
+  record_key: string;
+  query_name: string;
+  query_type: string;
+  status: "active" | "completed";
+  created_at: string;
+  expires_at: string;
+  purge_at: string;
+  next_sample_at: string;
+  last_sample_at: string | null;
+  sample_count: number;
+  change_count: number;
+  current_state: ResolverConsensusRecord["state"] | null;
+  current_fingerprint: string | null;
+}
+
+interface DomainWatchSampleRow {
+  id: number;
+  sampled_at: string;
+  state: ResolverConsensusRecord["state"];
+  fingerprint: string;
+  changed: number;
+  cloudflare_json: string;
+  google_json: string;
+}
+
+function watchFingerprint(record: ResolverConsensusRecord): string {
+  const observation = (result: DohResult) => ({
+    answers: normalizedAnswerSet(result.answers),
+    status: result.status,
+    authenticated: result.authenticated,
+    error: result.error,
+  });
+  return JSON.stringify({
+    state: record.state,
+    cloudflare: observation(record.cloudflare),
+    google: observation(record.google),
+  });
+}
+
+async function sampleDomainWatch(
+  env: Env,
+  watch: DomainWatchRow,
+  sampledAt = new Date(),
+): Promise<ResolverConsensusRecord> {
+  const query = CONSENSUS_QUERIES.find((candidate) => candidate.key === watch.record_key);
+  if (!query) throw new Error("domain_watch_record_type_invalid");
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
+  try {
+    const [cloudflare, google] = await Promise.all([
+      safeDohLookup(watch.query_name, watch.query_type, controller.signal, "cloudflare"),
+      safeDohLookup(watch.query_name, watch.query_type, controller.signal, "google"),
+    ]);
+    const record = compareResolverRecord(query, watch.domain, cloudflare, google);
+    const fingerprint = watchFingerprint(record);
+    const changed = watch.current_fingerprint !== null && watch.current_fingerprint !== fingerprint ? 1 : 0;
+    const sampledIso = sampledAt.toISOString();
+    const expiresAt = Date.parse(watch.expires_at);
+    const completed = Number.isFinite(expiresAt) && sampledAt.getTime() >= expiresAt;
+    const nextSampleAt = new Date(Math.min(
+      sampledAt.getTime() + WATCH_SAMPLE_INTERVAL_MS,
+      Number.isFinite(expiresAt) ? expiresAt : sampledAt.getTime() + WATCH_SAMPLE_INTERVAL_MS,
+    )).toISOString();
+    await env.DB.batch([
+      env.DB.prepare(
+        `INSERT INTO domain_watch_samples
+           (watch_id, sampled_at, state, fingerprint, changed, cloudflare_json, google_json)
+         VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      ).bind(
+        watch.id,
+        sampledIso,
+        record.state,
+        fingerprint,
+        changed,
+        JSON.stringify(record.cloudflare),
+        JSON.stringify(record.google),
+      ),
+      env.DB.prepare(
+        `UPDATE domain_watches
+         SET status = ?, next_sample_at = ?, last_sample_at = ?, sample_count = sample_count + 1,
+             change_count = change_count + ?, current_state = ?, current_fingerprint = ?
+         WHERE id = ?`,
+      ).bind(
+        completed ? "completed" : "active",
+        nextSampleAt,
+        sampledIso,
+        changed,
+        record.state,
+        fingerprint,
+        watch.id,
+      ),
+    ]);
+    return record;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function serializeWatch(watch: DomainWatchRow, samples: DomainWatchSampleRow[]) {
+  return {
+    id: watch.id,
+    domain: watch.domain,
+    recordKey: watch.record_key,
+    queryName: watch.query_name,
+    queryType: watch.query_type,
+    status: watch.status,
+    createdAt: watch.created_at,
+    expiresAt: watch.expires_at,
+    nextSampleAt: watch.next_sample_at,
+    lastSampleAt: watch.last_sample_at,
+    sampleCount: watch.sample_count,
+    changeCount: watch.change_count,
+    currentState: watch.current_state,
+    samples: samples.map((sample) => ({
+      id: sample.id,
+      sampledAt: sample.sampled_at,
+      state: sample.state,
+      changed: sample.changed === 1,
+      cloudflare: JSON.parse(sample.cloudflare_json),
+      google: JSON.parse(sample.google_json),
+    })),
+  };
+}
+
+async function getDomainWatch(env: Env, id: string) {
+  const now = new Date().toISOString();
+  await env.DB.prepare(
+    "UPDATE domain_watches SET status = 'completed' WHERE id = ? AND status = 'active' AND expires_at <= ?",
+  ).bind(id, now).run();
+  const watch = await env.DB.prepare("SELECT * FROM domain_watches WHERE id = ?")
+    .bind(id).first<DomainWatchRow>();
+  if (!watch) return null;
+  const { results } = await env.DB.prepare(
+    `SELECT id, sampled_at, state, fingerprint, changed, cloudflare_json, google_json
+     FROM domain_watch_samples WHERE watch_id = ? ORDER BY id ASC LIMIT 300`,
+  ).bind(id).all<DomainWatchSampleRow>();
+  return serializeWatch(watch, results || []);
+}
+
+async function handleCreateDomainWatch(request: Request, env: Env): Promise<Response> {
+  await rateLimitIp(request, env, "domain-watch-create", 3, 60 * 60);
+  const payload = await readJson(request);
+  const domain = normalizeDomainInput(typeof payload.domain === "string" ? payload.domain : "");
+  const recordKey = typeof payload.recordKey === "string" ? payload.recordKey.toUpperCase() : "A";
+  const query = CONSENSUS_QUERIES.find((candidate) => candidate.key === recordKey);
+  if (!domain) throw new PublicError(400, "Provide a valid domain name, e.g. example.com.", "domain_watch_domain");
+  if (!query) throw new PublicError(400, "Choose a supported DNS record type.", "domain_watch_record");
+
+  const now = new Date();
+  const nowIso = now.toISOString();
+  const existing = await env.DB.prepare(
+    `SELECT * FROM domain_watches
+     WHERE domain = ? AND record_key = ? AND status = 'active' AND expires_at > ?
+     ORDER BY created_at DESC LIMIT 1`,
+  ).bind(domain, recordKey, nowIso).first<DomainWatchRow>();
+  if (existing) {
+    return json({ watch: await getDomainWatch(env, existing.id), reused: true });
+  }
+
+  const active = await env.DB.prepare(
+    "SELECT COUNT(*) AS count FROM domain_watches WHERE status = 'active' AND expires_at > ?",
+  ).bind(nowIso).first<{ count: number }>();
+  if ((active?.count || 0) >= WATCH_ACTIVE_LIMIT) {
+    throw new PublicError(503, "All watch slots are currently in use. Please try again later.", "domain_watch_capacity");
+  }
+
+  const id = crypto.randomUUID();
+  const expiresAt = new Date(now.getTime() + WATCH_DURATION_MS).toISOString();
+  const purgeAt = new Date(now.getTime() + WATCH_DURATION_MS + WATCH_RETENTION_MS).toISOString();
+  const watch: DomainWatchRow = {
+    id,
+    domain,
+    record_key: recordKey,
+    query_name: query.name(domain),
+    query_type: query.type,
+    status: "active",
+    created_at: nowIso,
+    expires_at: expiresAt,
+    purge_at: purgeAt,
+    next_sample_at: nowIso,
+    last_sample_at: null,
+    sample_count: 0,
+    change_count: 0,
+    current_state: null,
+    current_fingerprint: null,
+  };
+  await env.DB.prepare(
+    `INSERT INTO domain_watches
+       (id, domain, record_key, query_name, query_type, status, created_at, expires_at, purge_at,
+        next_sample_at, sample_count, change_count)
+     VALUES (?, ?, ?, ?, ?, 'active', ?, ?, ?, ?, 0, 0)`,
+  ).bind(
+    id,
+    domain,
+    recordKey,
+    watch.query_name,
+    watch.query_type,
+    nowIso,
+    expiresAt,
+    purgeAt,
+    nowIso,
+  ).run();
+  await sampleDomainWatch(env, watch, now);
+  return json({ watch: await getDomainWatch(env, id), reused: false }, 201);
+}
+
+async function handleGetDomainWatch(request: Request, env: Env, id: string): Promise<Response> {
+  await rateLimitIp(request, env, "domain-watch-read", 120, 5 * 60);
+  const watch = await getDomainWatch(env, id);
+  return watch ? json({ watch }) : json({ error: "Watch not found or no longer retained." }, 404);
+}
+
+async function processDueDomainWatches(env: Env, now = new Date()): Promise<{ sampled: number; failed: number }> {
+  const nowIso = now.toISOString();
+  await env.DB.batch([
+    env.DB.prepare("UPDATE domain_watches SET status = 'completed' WHERE status = 'active' AND expires_at <= ?").bind(nowIso),
+    env.DB.prepare("DELETE FROM domain_watch_samples WHERE watch_id IN (SELECT id FROM domain_watches WHERE purge_at <= ?)").bind(nowIso),
+    env.DB.prepare("DELETE FROM domain_watches WHERE purge_at <= ?").bind(nowIso),
+  ]);
+  const { results } = await env.DB.prepare(
+    `SELECT * FROM domain_watches
+     WHERE status = 'active' AND next_sample_at <= ? AND expires_at > ?
+     ORDER BY next_sample_at ASC LIMIT ?`,
+  ).bind(nowIso, nowIso, WATCH_ACTIVE_LIMIT).all<DomainWatchRow>();
+  let sampled = 0;
+  let failed = 0;
+  const due = results || [];
+  for (let offset = 0; offset < due.length; offset += 3) {
+    const chunk = due.slice(offset, offset + 3);
+    const settled = await Promise.allSettled(chunk.map((watch) => sampleDomainWatch(env, watch, now)));
+    sampled += settled.filter((result) => result.status === "fulfilled").length;
+    failed += settled.filter((result) => result.status === "rejected").length;
+  }
+  return { sampled, failed };
 }
 
 type DomainCheckStatus = "pass" | "warning" | "critical" | "info";
@@ -1189,8 +1444,8 @@ async function rdapLookup(domain: string): Promise<RdapLookupResult> {
   };
 }
 
-// No live fetch() targets the looked-up domain. DNS goes only to Cloudflare
-// DoH; RDAP service bases come from the fixed IANA bootstrap endpoint and must
+// No live fetch() targets the looked-up domain. DNS goes only to fixed
+// Cloudflare and Google DoH endpoints; RDAP service bases come from the fixed IANA bootstrap endpoint and must
 // pass strict HTTPS URL validation. The user-controlled domain is appended as
 // an encoded RDAP path segment, preserving the endpoint SSRF boundary.
 async function handleDomainLookup(request: Request, env: Env): Promise<Response> {
@@ -1444,6 +1699,15 @@ async function route(request: Request, env: Env, ctx: ExecutionContext, requestI
     const response = await handleDomainLookup(request, env);
     return withCors(response, request, env);
   }
+  if (url.pathname === "/api/domain-watch" && request.method === "POST") {
+    if (!isAllowedOrigin(request, env)) throw new PublicError(403, "Request not allowed.", "invalid-origin");
+    return withCors(await handleCreateDomainWatch(request, env), request, env);
+  }
+  const watchMatch = url.pathname.match(/^\/api\/domain-watch\/([0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})$/i);
+  if (watchMatch && request.method === "GET") {
+    if (!isAllowedOrigin(request, env)) throw new PublicError(403, "Request not allowed.", "invalid-origin");
+    return withCors(await handleGetDomainWatch(request, env, watchMatch[1]), request, env);
+  }
   if (url.pathname === "/api/telegram/webhook" && request.method === "POST") {
     return handleWebhook(request, env);
   }
@@ -1556,7 +1820,9 @@ const workerHandler = {
           publicError?.status || 500,
         );
         return finish(
-          url.pathname.startsWith("/api/chat/") || url.pathname === "/" ? withCors(response, request, env) : response,
+          url.pathname.startsWith("/api/chat/") || url.pathname.startsWith("/api/domain-") || url.pathname === "/"
+            ? withCors(response, request, env)
+            : response,
           result,
         );
       }
@@ -1573,6 +1839,16 @@ const workerHandler = {
         env.DB.prepare("DELETE FROM telegram_updates WHERE completed_at IS NOT NULL AND completed_at < ?").bind(thirtyDaysAgo),
         env.DB.prepare("DELETE FROM telegram_outbox WHERE delivered_at IS NOT NULL AND delivered_at < ?").bind(thirtyDaysAgo),
       ]);
+
+      const watchSampling = await processDueDomainWatches(env);
+      if (watchSampling.failed > 0) {
+        sentryEvent(env, "F12 DNS propagation watch sampling incomplete", "warning", {
+          operation: "domain-watch-sample",
+          result: "partial",
+          sampledCount: watchSampling.sampled,
+          failedCount: watchSampling.failed,
+        });
+      }
 
       const retention = await findAndCleanupEligibleConversations(env);
       if (retention.eligibleConversationIds.length > 0) {
