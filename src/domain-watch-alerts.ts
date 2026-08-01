@@ -128,7 +128,7 @@ async function alertText(env: Env, alert: AlertRow): Promise<string> {
     if (previous) lines.push("", ...evidenceLines("Previous", previous));
     lines.push("", ...evidenceLines("Current", alert));
   }
-  lines.push("", `<a href="${escapeTelegram(timeline)}">Open propagation timeline</a>`);
+  lines.push("", `<b>Timeline:</b> ${escapeTelegram(timeline)}`);
   return lines.join("\n");
 }
 

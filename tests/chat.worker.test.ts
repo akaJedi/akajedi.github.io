@@ -727,7 +727,7 @@ it("classifies, queues, and delivers managed-domain DNS alerts exactly once", as
   await runScheduled("2-59/5 * * * *");
   await runScheduled("2-59/5 * * * *");
   const dnsMessages = externalFetch.mock.calls.filter(([input]) =>
-    String(input).includes("api.telegram.org")
+    new URL(String(input)).hostname === "api.telegram.org"
   );
   expect(dnsMessages).toHaveLength(1);
   const telegramPayload = JSON.parse(String((dnsMessages[0][1] as RequestInit).body));
