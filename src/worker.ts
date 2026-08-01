@@ -621,7 +621,9 @@ async function handleIp(request: Request, env: Env): Promise<Response> {
 }
 
 const DOH_ENDPOINT = "https://cloudflare-dns.com/dns-query";
-const RDAP_ENDPOINT = "https://rdap.org/domain/";
+const RDAP_BOOTSTRAP_ENDPOINT = "https://data.iana.org/rdap/dns.json";
+const RDAP_FALLBACK_ENDPOINT = "https://rdap.org/";
+const RDAP_BOOTSTRAP_TTL_MS = 24 * 60 * 60 * 1000;
 // Matches a plain hostname: labels of letters/digits/hyphens, at least one
 // dot, TLD letters-only. Deliberately rejects IP literals and anything with
 // a scheme, port, path, or whitespace — the input is used only as a query
@@ -629,11 +631,17 @@ const RDAP_ENDPOINT = "https://rdap.org/domain/";
 // host itself, so there is no SSRF surface here regardless, but rejecting
 // non-hostnames early keeps the error message honest about what this
 // endpoint accepts.
-const DOMAIN_PATTERN = /^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/;
+const DOMAIN_PATTERN = /^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+(?:[a-z]{2,63}|xn--[a-z0-9](?:[a-z0-9-]{0,57}[a-z0-9])?)$/;
 
 function normalizeDomainInput(raw: string): string | null {
-  const value = raw.trim().toLowerCase().replace(/\.$/, "");
-  return DOMAIN_PATTERN.test(value) ? value : null;
+  const value = raw.trim().toLowerCase().replace(/[.\u3002\uFF0E\uFF61]$/, "");
+  if (!value || /[\s\/:?#@%\\]/.test(value)) return null;
+  try {
+    const ascii = new URL(`http://${value}`).hostname.toLowerCase().replace(/\.$/, "");
+    return DOMAIN_PATTERN.test(ascii) ? ascii : null;
+  } catch {
+    return null;
+  }
 }
 
 const DNS_TYPE_CODES: Record<string, number> = {
@@ -698,7 +706,8 @@ function findPolicy(records: string[], prefix: string): string[] {
 function buildDomainChecks(
   dns: Record<string, string[]>,
   dnsMeta: Record<string, { status: number; authenticated: boolean }>,
-  registration: Record<string, unknown> | null,
+  registration: DomainRegistration | null,
+  registrationLookup: RegistrationLookup,
 ): DomainCheck[] {
   const checks: DomainCheck[] = [];
   const uniqueNs = Array.from(new Set(dns.NS.map((record) => record.toLowerCase())));
@@ -775,7 +784,19 @@ function buildDomainChecks(
 
   const expires = typeof registration?.expires === "string" ? Date.parse(registration.expires) : NaN;
   if (!Number.isFinite(expires)) {
-    checks.push({ id: "registration-expiry-unknown", status: "info", evidence: ["RDAP did not return an expiration date"], standard: "RFC 9083" });
+    const lookupEvidence: Record<RegistrationLookupStatus, string> = {
+      ok: "RDAP response did not include an expiration date",
+      unsupported: "IANA does not publish an RDAP service for this TLD",
+      not_found: "The authoritative RDAP service did not find this domain",
+      temporary_error: "The RDAP service is temporarily unavailable",
+      invalid_response: "The RDAP service returned an unusable response",
+    };
+    checks.push({
+      id: "registration-expiry-unknown",
+      status: "info",
+      evidence: [lookupEvidence[registrationLookup.status]],
+      standard: "RFC 9083",
+    });
   } else {
     const days = Math.ceil((expires - Date.now()) / 86_400_000);
     checks.push({
@@ -802,46 +823,240 @@ interface RdapEntity {
   vcardArray?: [string, [string, unknown, string, string][]];
 }
 
-async function rdapLookup(domain: string, signal: AbortSignal): Promise<Record<string, unknown> | null> {
+interface DomainRegistration {
+  registrar: string | null;
+  registered: string | null;
+  expires: string | null;
+  lastChanged: string | null;
+  status: string[];
+  nameservers: string[];
+}
+
+type RegistrationLookupStatus =
+  | "ok"
+  | "unsupported"
+  | "not_found"
+  | "temporary_error"
+  | "invalid_response";
+
+interface RegistrationLookup {
+  status: RegistrationLookupStatus;
+  source: string | null;
+  attempts: number;
+  cached?: boolean;
+  message?: string;
+}
+
+interface RdapLookupResult {
+  registration: DomainRegistration | null;
+  lookup: RegistrationLookup;
+}
+
+interface RdapBootstrapDocument {
+  services?: [string[], string[]][];
+}
+
+interface RdapBootstrapCache {
+  expiresAt: number;
+  byTld: Map<string, string>;
+}
+
+let rdapBootstrapCache: RdapBootstrapCache | null = null;
+const rdapResultCache = new Map<string, { expiresAt: number; result: RdapLookupResult }>();
+const RDAP_RESULT_TTL_MS = 15 * 60 * 1000;
+const RDAP_RESULT_CACHE_LIMIT = 128;
+const RDAP_RETRYABLE_STATUSES = new Set([408, 425, 429, 500, 502, 503, 504]);
+
+function normalizeRdapBase(raw: string): string | null {
   try {
-    const response = await fetch(`${RDAP_ENDPOINT}${encodeURIComponent(domain)}`, {
-      signal,
-      headers: {
-        Accept: "application/rdap+json",
-        "User-Agent": "Mozilla/5.0 (compatible; f12-domain-lookup/1.0; +https://f12.biz/tools/domain-lookup/)",
-      },
-    });
-    if (!response.ok) return null;
-    const data = await response.json<{
-      events?: { eventAction: string; eventDate: string }[];
-      entities?: RdapEntity[];
-      status?: string[];
-      nameservers?: { ldhName: string }[];
-    }>();
-    const findEvent = (action: string) =>
-      data.events?.find((event) => event.eventAction === action)?.eventDate || null;
-    const registrar = data.entities
-      ?.find((entity) => entity.roles?.includes("registrar"))
-      ?.vcardArray?.[1]?.find((field) => field[0] === "fn")?.[3] || null;
-    return {
-      registrar,
-      registered: findEvent("registration"),
-      expires: findEvent("expiration"),
-      lastChanged: findEvent("last changed"),
-      status: data.status || [],
-      nameservers: (data.nameservers || []).map((entry) => entry.ldhName),
-    };
+    const url = new URL(raw);
+    const hostname = url.hostname.toLowerCase();
+    if (
+      url.protocol !== "https:" ||
+      url.username ||
+      url.password ||
+      url.search ||
+      url.hash ||
+      hostname === "localhost" ||
+      hostname.endsWith(".localhost") ||
+      !hostname.includes(".")
+    ) return null;
+    return url.href.endsWith("/") ? url.href : `${url.href}/`;
   } catch {
     return null;
   }
 }
 
-// No live fetch() to the looked-up domain itself — every outbound call here
-// targets a fixed, trusted host (Cloudflare's DNS-over-HTTPS resolver, or
-// the RDAP bootstrap redirector), with the domain passed only as a query
-// value. That keeps this endpoint's SSRF surface at zero: it can never be
-// used to make this Worker issue a request to an arbitrary attacker-chosen
-// origin, unlike a "check this site's HTTP headers" feature would.
+async function fetchWithRdapTimeout(url: string, timeoutMs = 3500): Promise<Response> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, {
+      signal: controller.signal,
+      headers: {
+        Accept: "application/rdap+json, application/json",
+        "User-Agent": "f12-domain-inspector/2.0 (+https://f12.biz/tools/domain-lookup/)",
+      },
+    });
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+async function loadRdapBootstrap(): Promise<Map<string, string> | null> {
+  if (rdapBootstrapCache && rdapBootstrapCache.expiresAt > Date.now()) {
+    return rdapBootstrapCache.byTld;
+  }
+
+  try {
+    const response = await fetchWithRdapTimeout(RDAP_BOOTSTRAP_ENDPOINT);
+    if (!response.ok) return null;
+    const document = await response.json<RdapBootstrapDocument>();
+    if (!Array.isArray(document.services)) return null;
+
+    const byTld = new Map<string, string>();
+    for (const service of document.services) {
+      if (!Array.isArray(service) || !Array.isArray(service[0]) || !Array.isArray(service[1])) continue;
+      const base = service[1]
+        .map((candidate) => normalizeRdapBase(candidate))
+        .find((candidate): candidate is string => candidate !== null);
+      if (!base) continue;
+      for (const tld of service[0]) {
+        if (typeof tld === "string") byTld.set(tld.toLowerCase(), base);
+      }
+    }
+    rdapBootstrapCache = { expiresAt: Date.now() + RDAP_BOOTSTRAP_TTL_MS, byTld };
+    return byTld;
+  } catch {
+    return null;
+  }
+}
+
+function registrationFromRdap(data: Record<string, unknown>): DomainRegistration | null {
+  const events = Array.isArray(data.events)
+    ? data.events.filter((event): event is { eventAction: string; eventDate: string } => {
+      if (!event || typeof event !== "object") return false;
+      const candidate = event as Record<string, unknown>;
+      return typeof candidate.eventAction === "string" && typeof candidate.eventDate === "string";
+    })
+    : [];
+  const findEvent = (action: string) =>
+    events.find((event) => event.eventAction.toLowerCase() === action)?.eventDate || null;
+  const entities = Array.isArray(data.entities) ? data.entities as RdapEntity[] : [];
+  const registrar = entities
+    .find((entity) => entity.roles?.some((role) => role.toLowerCase() === "registrar"))
+    ?.vcardArray?.[1]?.find((field) => field[0] === "fn")?.[3] || null;
+  const status = Array.isArray(data.status)
+    ? data.status.filter((entry): entry is string => typeof entry === "string")
+    : [];
+  const nameservers = Array.isArray(data.nameservers)
+    ? data.nameservers
+      .map((entry) => entry && typeof entry === "object" ? (entry as Record<string, unknown>).ldhName : null)
+      .filter((entry): entry is string => typeof entry === "string")
+    : [];
+
+  if (!events.length && !entities.length && !status.length && !nameservers.length) return null;
+  return {
+    registrar,
+    registered: findEvent("registration"),
+    expires: findEvent("expiration"),
+    lastChanged: findEvent("last changed"),
+    status,
+    nameservers,
+  };
+}
+
+function cacheRdapResult(domain: string, result: RdapLookupResult): void {
+  if (result.lookup.status !== "ok") return;
+  if (rdapResultCache.size >= RDAP_RESULT_CACHE_LIMIT) {
+    const oldest = rdapResultCache.keys().next().value;
+    if (oldest) rdapResultCache.delete(oldest);
+  }
+  rdapResultCache.set(domain, { expiresAt: Date.now() + RDAP_RESULT_TTL_MS, result });
+}
+
+async function rdapLookup(domain: string): Promise<RdapLookupResult> {
+  const cached = rdapResultCache.get(domain);
+  if (cached && cached.expiresAt > Date.now()) {
+    return { ...cached.result, lookup: { ...cached.result.lookup, cached: true } };
+  }
+  if (cached) rdapResultCache.delete(domain);
+
+  const tld = domain.split(".").at(-1)?.toLowerCase();
+  if (!tld) {
+    return { registration: null, lookup: { status: "unsupported", source: null, attempts: 0 } };
+  }
+
+  const bootstrap = await loadRdapBootstrap();
+  const discoveredBase = bootstrap?.get(tld) || null;
+  if (bootstrap && !discoveredBase) {
+    return {
+      registration: null,
+      lookup: { status: "unsupported", source: RDAP_BOOTSTRAP_ENDPOINT, attempts: 0 },
+    };
+  }
+
+  const base = discoveredBase || RDAP_FALLBACK_ENDPOINT;
+  const source = discoveredBase ? "iana-bootstrap" : "rdap-fallback";
+  const endpoint = new URL(`domain/${encodeURIComponent(domain)}`, base).toString();
+  let attempts = 0;
+  let lastMessage = "RDAP service did not respond.";
+
+  for (attempts = 1; attempts <= 2; attempts++) {
+    try {
+      const response = await fetchWithRdapTimeout(endpoint);
+      if (response.status === 404) {
+        return { registration: null, lookup: { status: "not_found", source, attempts } };
+      }
+      if (!response.ok) {
+        lastMessage = `RDAP service returned HTTP ${response.status}.`;
+        if (RDAP_RETRYABLE_STATUSES.has(response.status) && attempts < 2) continue;
+        return {
+          registration: null,
+          lookup: { status: "temporary_error", source, attempts, message: lastMessage },
+        };
+      }
+
+      let data: Record<string, unknown>;
+      try {
+        data = await response.json<Record<string, unknown>>();
+      } catch {
+        return {
+          registration: null,
+          lookup: { status: "invalid_response", source, attempts, message: "RDAP service returned invalid JSON." },
+        };
+      }
+      const registration = registrationFromRdap(data);
+      if (!registration) {
+        return {
+          registration: null,
+          lookup: { status: "invalid_response", source, attempts, message: "RDAP response contained no registration data." },
+        };
+      }
+      const result: RdapLookupResult = {
+        registration,
+        lookup: { status: "ok", source, attempts },
+      };
+      cacheRdapResult(domain, result);
+      return result;
+    } catch (error) {
+      lastMessage = error instanceof DOMException && error.name === "AbortError"
+        ? "RDAP service timed out."
+        : "RDAP service could not be reached.";
+      if (attempts < 2) continue;
+    }
+  }
+
+  return {
+    registration: null,
+    lookup: { status: "temporary_error", source, attempts: Math.min(attempts, 2), message: lastMessage },
+  };
+}
+
+// No live fetch() targets the looked-up domain. DNS goes only to Cloudflare
+// DoH; RDAP service bases come from the fixed IANA bootstrap endpoint and must
+// pass strict HTTPS URL validation. The user-controlled domain is appended as
+// an encoded RDAP path segment, preserving the endpoint SSRF boundary.
 async function handleDomainLookup(request: Request, env: Env): Promise<Response> {
   await rateLimitIp(request, env, "domain-lookup", 15, 300);
   const url = new URL(request.url);
@@ -851,7 +1066,7 @@ async function handleDomainLookup(request: Request, env: Env): Promise<Response>
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
   try {
-    const [a, aaaa, cname, mx, ns, txt, caa, ds, dmarc, mtaSts, registration] = await Promise.all([
+    const [a, aaaa, cname, mx, ns, txt, caa, ds, dmarc, mtaSts, registrationResult] = await Promise.all([
       dohLookup(domain, "A", controller.signal),
       dohLookup(domain, "AAAA", controller.signal),
       dohLookup(domain, "CNAME", controller.signal),
@@ -862,7 +1077,7 @@ async function handleDomainLookup(request: Request, env: Env): Promise<Response>
       dohLookup(domain, "DS", controller.signal),
       dohLookup(`_dmarc.${domain}`, "TXT", controller.signal),
       dohLookup(`_mta-sts.${domain}`, "TXT", controller.signal),
-      rdapLookup(domain, controller.signal),
+      rdapLookup(domain),
     ]);
     const dns = {
       A: a.answers,
@@ -884,8 +1099,14 @@ async function handleDomainLookup(request: Request, env: Env): Promise<Response>
     return json({
       domain,
       dns,
-      checks: buildDomainChecks(dns, dnsMeta, registration),
-      registration,
+      checks: buildDomainChecks(
+        dns,
+        dnsMeta,
+        registrationResult.registration,
+        registrationResult.lookup,
+      ),
+      registration: registrationResult.registration,
+      registrationLookup: registrationResult.lookup,
     });
   } finally {
     clearTimeout(timeout);

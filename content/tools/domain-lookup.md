@@ -56,6 +56,8 @@ searchExclude: true
   <section class="tool-card" data-domain-registration hidden aria-labelledby="tool-registration-title">
     <h2 id="tool-registration-title">Registration</h2>
     <dl class="tool-grid">
+      <div><dt>RDAP lookup</dt><dd data-field="rdapLookup"></dd></div>
+      <div><dt>Discovery path</dt><dd data-field="rdapSource"></dd></div>
       <div><dt>Registrar</dt><dd data-field="registrar"></dd></div>
       <div><dt>Registered</dt><dd data-field="registered"></dd></div>
       <div><dt>Expires</dt><dd data-field="expires"></dd></div>

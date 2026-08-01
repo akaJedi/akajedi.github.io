@@ -454,7 +454,15 @@ function mockDomainLookupApis() {
         headers: { "Content-Type": "application/dns-json" },
       });
     }
-    if (requestUrl.includes("rdap.org/domain/")) {
+    if (requestUrl === "https://data.iana.org/rdap/dns.json") {
+      return new Response(JSON.stringify({
+        services: [[
+          ["com", "net", "org", "info", "xn--p1ai"],
+          ["https://rdap.registry.test/"],
+        ]],
+      }), { status: 200, headers: { "Content-Type": "application/json" } });
+    }
+    if (requestUrl.includes("rdap.registry.test/domain/")) {
       return new Response(JSON.stringify({
         events: [
           { eventAction: "registration", eventDate: "1995-08-14T04:00:00Z" },
@@ -472,6 +480,35 @@ function mockDomainLookupApis() {
   });
 }
 
+function mockRdapScenario(
+  handler: (requestUrl: string, call: number) => Response | Promise<Response>,
+) {
+  let rdapCalls = 0;
+  const externalFetch = vi.fn(async (input: RequestInfo | URL) => {
+    const requestUrl = String(input);
+    if (requestUrl.includes("cloudflare-dns.com/dns-query")) {
+      return new Response(JSON.stringify({ Status: 0, AD: false, Answer: [] }), {
+        status: 200,
+        headers: { "Content-Type": "application/dns-json" },
+      });
+    }
+    if (requestUrl === "https://data.iana.org/rdap/dns.json") {
+      return new Response(JSON.stringify({
+        services: [[
+          ["com", "net", "org", "info", "xn--p1ai"],
+          ["https://rdap.registry.test/"],
+        ]],
+      }), { status: 200, headers: { "Content-Type": "application/json" } });
+    }
+    if (requestUrl.includes("rdap.registry.test/domain/")) {
+      rdapCalls += 1;
+      return handler(requestUrl, rdapCalls);
+    }
+    return new Response("not found", { status: 404 });
+  });
+  return { externalFetch, getRdapCalls: () => rdapCalls };
+}
+
 it("rejects an invalid domain-lookup query", async () => {
   const response = await dispatch("https://worker.test/api/domain-lookup?domain=not%20a%20domain", {
     headers: { Origin: origin, "CF-Connecting-IP": "203.0.113.10" },
@@ -487,7 +524,8 @@ it("rejects /api/domain-lookup from a disallowed origin", async () => {
 });
 
 it("returns combined DNS and registration data for a valid domain", async () => {
-  vi.stubGlobal("fetch", mockDomainLookupApis());
+  const externalFetch = mockDomainLookupApis();
+  vi.stubGlobal("fetch", externalFetch);
   const response = await dispatch("https://worker.test/api/domain-lookup?domain=EXAMPLE.com.", {
     headers: { Origin: origin, "CF-Connecting-IP": "203.0.113.11" },
   });
@@ -508,6 +546,25 @@ it("returns combined DNS and registration data for a valid domain", async () => 
   expect(body.registration.registrar).toBe("Test Registrar Inc.");
   expect(body.registration.registered).toBe("1995-08-14T04:00:00Z");
   expect(body.registration.expires).toBe("2026-08-13T04:00:00Z");
+  expect(body.registrationLookup).toMatchObject({
+    status: "ok",
+    source: "iana-bootstrap",
+    attempts: 1,
+  });
+  expect(externalFetch.mock.calls.some(([input]) =>
+    String(input) === "https://data.iana.org/rdap/dns.json"
+  )).toBe(true);
+  expect(externalFetch.mock.calls.some(([input]) =>
+    String(input).includes("rdap.registry.test/domain/example.com")
+  )).toBe(true);
+
+  const cachedResponse = await dispatch("https://worker.test/api/domain-lookup?domain=example.com", {
+    headers: { Origin: origin, "CF-Connecting-IP": "203.0.113.111" },
+  });
+  expect((await cachedResponse.json<any>()).registrationLookup.cached).toBe(true);
+  expect(externalFetch.mock.calls.filter(([input]) =>
+    String(input).includes("rdap.registry.test/domain/example.com")
+  )).toHaveLength(1);
 });
 
 it("classifies contradictory mail policy and broken DNSSEC as critical", async () => {
@@ -524,7 +581,7 @@ it("classifies contradictory mail policy and broken DNSSEC as critical", async (
         TXT: [{ type: 16, data: '"v=spf1 +all"' }, { type: 16, data: '"v=spf1 -all"' }],
         DS: [{ type: 43, data: "12345 13 2 DEADBEEF" }],
       };
-      const answer = name === "_dmarc.example.com"
+      const answer = name === "_dmarc.example.net"
         ? [{ type: 16, data: '"v=DMARC1; p=none"' }, { type: 16, data: '"v=DMARC1; p=reject"' }]
         : byType[type || ""] || [];
       return new Response(JSON.stringify({ Status: 0, AD: false, Answer: answer }), {
@@ -532,7 +589,15 @@ it("classifies contradictory mail policy and broken DNSSEC as critical", async (
         headers: { "Content-Type": "application/dns-json" },
       });
     }
-    if (requestUrl.includes("rdap.org/domain/")) {
+    if (requestUrl === "https://data.iana.org/rdap/dns.json") {
+      return new Response(JSON.stringify({
+        services: [[
+          ["com", "net", "org", "info", "xn--p1ai"],
+          ["https://rdap.registry.test/"],
+        ]],
+      }), { status: 200, headers: { "Content-Type": "application/json" } });
+    }
+    if (requestUrl.includes("rdap.registry.test/domain/")) {
       return new Response(JSON.stringify({
         events: [{ eventAction: "expiration", eventDate: "2030-01-01T00:00:00Z" }],
       }), { status: 200, headers: { "Content-Type": "application/rdap+json" } });
@@ -540,7 +605,7 @@ it("classifies contradictory mail policy and broken DNSSEC as critical", async (
     return new Response("not found", { status: 404 });
   }));
 
-  const response = await dispatch("https://worker.test/api/domain-lookup?domain=example.com", {
+  const response = await dispatch("https://worker.test/api/domain-lookup?domain=example.net", {
     headers: { Origin: origin, "CF-Connecting-IP": "203.0.113.12" },
   });
   expect(response.status).toBe(200);
@@ -555,6 +620,79 @@ it("classifies contradictory mail policy and broken DNSSEC as critical", async (
     "spf-multiple",
     "dmarc-multiple",
   ]));
+});
+
+it("retries a transient authoritative RDAP failure once", async () => {
+  const scenario = mockRdapScenario((_requestUrl, call) => {
+    if (call === 1) return new Response("busy", { status: 503 });
+    return new Response(JSON.stringify({
+      events: [{ eventAction: "expiration", eventDate: "2030-01-01T00:00:00Z" }],
+      status: ["active"],
+    }), { status: 200, headers: { "Content-Type": "application/rdap+json" } });
+  });
+  vi.stubGlobal("fetch", scenario.externalFetch);
+
+  const response = await dispatch("https://worker.test/api/domain-lookup?domain=example.org", {
+    headers: { Origin: origin, "CF-Connecting-IP": "203.0.113.13" },
+  });
+  const body = await response.json<any>();
+  expect(response.status).toBe(200);
+  expect(body.registration.expires).toBe("2030-01-01T00:00:00Z");
+  expect(body.registrationLookup).toMatchObject({ status: "ok", attempts: 2 });
+  expect(scenario.getRdapCalls()).toBe(2);
+});
+
+it("reports authoritative RDAP not-found separately from an outage", async () => {
+  const scenario = mockRdapScenario(() => new Response("missing", { status: 404 }));
+  vi.stubGlobal("fetch", scenario.externalFetch);
+
+  const response = await dispatch("https://worker.test/api/domain-lookup?domain=example.info", {
+    headers: { Origin: origin, "CF-Connecting-IP": "203.0.113.14" },
+  });
+  const body = await response.json<any>();
+  expect(body.registration).toBeNull();
+  expect(body.registrationLookup).toMatchObject({ status: "not_found", attempts: 1 });
+  expect(body.checks).toEqual(expect.arrayContaining([
+    expect.objectContaining({
+      id: "registration-expiry-unknown",
+      evidence: ["The authoritative RDAP service did not find this domain"],
+    }),
+  ]));
+});
+
+it("accepts an IDN TLD and exposes malformed RDAP responses", async () => {
+  const scenario = mockRdapScenario(() => new Response("not-json", {
+    status: 200,
+    headers: { "Content-Type": "application/rdap+json" },
+  }));
+  vi.stubGlobal("fetch", scenario.externalFetch);
+
+  const response = await dispatch("https://worker.test/api/domain-lookup?domain=%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80.%D1%80%D1%84", {
+    headers: { Origin: origin, "CF-Connecting-IP": "203.0.113.15" },
+  });
+  const body = await response.json<any>();
+  expect(response.status).toBe(200);
+  expect(body.domain).toBe("xn--e1afmkfd.xn--p1ai");
+  expect(body.registrationLookup).toMatchObject({
+    status: "invalid_response",
+    attempts: 1,
+  });
+});
+
+it("reports TLDs absent from the IANA bootstrap as unsupported", async () => {
+  const scenario = mockRdapScenario(() => new Response("unexpected", { status: 500 }));
+  vi.stubGlobal("fetch", scenario.externalFetch);
+
+  const response = await dispatch("https://worker.test/api/domain-lookup?domain=example.unsupported", {
+    headers: { Origin: origin, "CF-Connecting-IP": "203.0.113.16" },
+  });
+  const body = await response.json<any>();
+  expect(response.status).toBe(200);
+  expect(body.registrationLookup).toMatchObject({
+    status: "unsupported",
+    attempts: 0,
+  });
+  expect(scenario.getRdapCalls()).toBe(0);
 });
 
 it("returns a safe failure when D1 is unavailable", async () => {
