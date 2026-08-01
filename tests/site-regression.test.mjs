@@ -432,10 +432,13 @@ test("domain inspector exposes an accessible resolver consensus matrix in both l
 
 
 test("domain inspector exposes a durable, accessible propagation-watch timeline", async () => {
-  const [client, css, migration, english, russian] = await Promise.all([
+  const [client, css, migration, alertMigration, worker, wrangler, english, russian] = await Promise.all([
     readSource("static/js/tools/domain-lookup.js"),
     readSource("assets/css/custom.css"),
     readSource("migrations/0005_domain_watches.sql"),
+    readSource("migrations/0006_domain_watch_alerts.sql"),
+    readSource("src/worker.ts"),
+    readSource("wrangler.toml"),
     readSource("content/tools/domain-lookup.md"),
     readSource("content/tools/domain-lookup.ru.md"),
   ]);
@@ -459,4 +462,11 @@ test("domain inspector exposes a durable, accessible propagation-watch timeline"
   assert.match(migration, /CREATE TABLE domain_watch_samples/);
   assert.match(migration, /CHECK \(status IN \('active', 'completed'\)\)/);
   assert.match(migration, /FOREIGN KEY \(watch_id\) REFERENCES domain_watches/);
+  assert.match(alertMigration, /CREATE TABLE domain_watch_alerts/);
+  assert.match(alertMigration, /'changed', 'diverged', 'converged', 'completed'/);
+  assert.match(alertMigration, /event_key TEXT NOT NULL UNIQUE/);
+  assert.match(worker, /flushDomainWatchAlerts/);
+  assert.match(worker, /classifyDomainWatchAlert/);
+  assert.match(wrangler, /DNS_WATCH_TELEGRAM_DOMAINS = "f12[.]biz,zolotoy-telenok42[.]ru"/);
+  assert.match(wrangler, /"2-59\/5 [*] [*] [*] [*]"/);
 });

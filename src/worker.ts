@@ -24,6 +24,12 @@ import {
 } from "./lib";
 import { findAndCleanupEligibleConversations } from "./retention";
 import { flushOutbox, processTelegramUpdate, queueNotification } from "./telegram";
+import {
+  classifyDomainWatchAlert,
+  domainWatchAlertsEnabled,
+  flushDomainWatchAlerts,
+  type DomainWatchAlertEvent,
+} from "./domain-watch-alerts";
 import type { ConversationRow, Env, MessageRow } from "./types";
 
 const OPEN_STATUSES = new Set(["pending", "active", "callback_pending", "contacted"]);
@@ -869,6 +875,43 @@ interface DomainWatchSampleRow {
   google_json: string;
 }
 
+function domainWatchAlertStatement(
+  env: Env,
+  watch: DomainWatchRow,
+  eventType: DomainWatchAlertEvent,
+  createdAt: string,
+): D1PreparedStatement {
+  return env.DB.prepare(
+    `INSERT OR IGNORE INTO domain_watch_alerts
+       (event_key, watch_id, sample_id, event_type, next_attempt_at, created_at)
+     SELECT ?, ?, id, ?, ?, ?
+       FROM domain_watch_samples
+      WHERE watch_id = ?
+      ORDER BY id DESC LIMIT 1`,
+  ).bind(
+    `${watch.id}:${eventType}:${createdAt}`,
+    watch.id,
+    eventType,
+    createdAt,
+    createdAt,
+    watch.id,
+  );
+}
+
+function domainWatchCompletionAlertStatement(
+  env: Env,
+  watch: DomainWatchRow,
+  createdAt: string,
+): D1PreparedStatement {
+  return env.DB.prepare(
+    `INSERT OR IGNORE INTO domain_watch_alerts
+       (event_key, watch_id, sample_id, event_type, next_attempt_at, created_at)
+     SELECT ?, ?, MAX(id), 'completed', ?, ?
+       FROM domain_watch_samples
+      WHERE watch_id = ?`,
+  ).bind(`${watch.id}:completed`, watch.id, createdAt, createdAt, watch.id);
+}
+
 function watchFingerprint(record: ResolverConsensusRecord): string {
   const observation = (result: DohResult) => ({
     answers: normalizedAnswerSet(result.answers),
@@ -900,6 +943,7 @@ async function sampleDomainWatch(
     const record = compareResolverRecord(query, watch.domain, cloudflare, google);
     const fingerprint = watchFingerprint(record);
     const changed = watch.current_fingerprint !== null && watch.current_fingerprint !== fingerprint ? 1 : 0;
+    const alertEvent = classifyDomainWatchAlert(watch.current_state, record.state, changed === 1);
     const sampledIso = sampledAt.toISOString();
     const expiresAt = Date.parse(watch.expires_at);
     const completed = Number.isFinite(expiresAt) && sampledAt.getTime() >= expiresAt;
@@ -907,7 +951,7 @@ async function sampleDomainWatch(
       sampledAt.getTime() + WATCH_SAMPLE_INTERVAL_MS,
       Number.isFinite(expiresAt) ? expiresAt : sampledAt.getTime() + WATCH_SAMPLE_INTERVAL_MS,
     )).toISOString();
-    await env.DB.batch([
+    const statements = [
       env.DB.prepare(
         `INSERT INTO domain_watch_samples
            (watch_id, sampled_at, state, fingerprint, changed, cloudflare_json, google_json)
@@ -935,7 +979,11 @@ async function sampleDomainWatch(
         fingerprint,
         watch.id,
       ),
-    ]);
+    ];
+    if (alertEvent && domainWatchAlertsEnabled(env, watch.domain)) {
+      statements.push(domainWatchAlertStatement(env, watch, alertEvent, sampledIso));
+    }
+    await env.DB.batch(statements);
     return record;
   } finally {
     clearTimeout(timeout);
@@ -970,12 +1018,21 @@ function serializeWatch(watch: DomainWatchRow, samples: DomainWatchSampleRow[]) 
 
 async function getDomainWatch(env: Env, id: string) {
   const now = new Date().toISOString();
-  await env.DB.prepare(
-    "UPDATE domain_watches SET status = 'completed' WHERE id = ? AND status = 'active' AND expires_at <= ?",
-  ).bind(id, now).run();
-  const watch = await env.DB.prepare("SELECT * FROM domain_watches WHERE id = ?")
+  let watch = await env.DB.prepare("SELECT * FROM domain_watches WHERE id = ?")
     .bind(id).first<DomainWatchRow>();
   if (!watch) return null;
+  if (watch.status === "active" && watch.expires_at <= now) {
+    const statements = [
+      env.DB.prepare(
+        "UPDATE domain_watches SET status = 'completed' WHERE id = ? AND status = 'active'",
+      ).bind(id),
+    ];
+    if (domainWatchAlertsEnabled(env, watch.domain)) {
+      statements.unshift(domainWatchCompletionAlertStatement(env, watch, now));
+    }
+    await env.DB.batch(statements);
+    watch = { ...watch, status: "completed" };
+  }
   const { results } = await env.DB.prepare(
     `SELECT id, sampled_at, state, fingerprint, changed, cloudflare_json, google_json
      FROM domain_watch_samples WHERE watch_id = ? ORDER BY id ASC LIMIT 300`,
@@ -1058,11 +1115,20 @@ async function handleGetDomainWatch(request: Request, env: Env, id: string): Pro
 
 async function processDueDomainWatches(env: Env, now = new Date()): Promise<{ sampled: number; failed: number }> {
   const nowIso = now.toISOString();
-  await env.DB.batch([
+  const expired = await env.DB.prepare(
+    "SELECT * FROM domain_watches WHERE status = 'active' AND expires_at <= ?",
+  ).bind(nowIso).all<DomainWatchRow>();
+  const maintenanceStatements = [
     env.DB.prepare("UPDATE domain_watches SET status = 'completed' WHERE status = 'active' AND expires_at <= ?").bind(nowIso),
     env.DB.prepare("DELETE FROM domain_watch_samples WHERE watch_id IN (SELECT id FROM domain_watches WHERE purge_at <= ?)").bind(nowIso),
     env.DB.prepare("DELETE FROM domain_watches WHERE purge_at <= ?").bind(nowIso),
-  ]);
+  ];
+  for (const watch of expired.results) {
+    if (domainWatchAlertsEnabled(env, watch.domain)) {
+      maintenanceStatements.unshift(domainWatchCompletionAlertStatement(env, watch, nowIso));
+    }
+  }
+  await env.DB.batch(maintenanceStatements);
   const { results } = await env.DB.prepare(
     `SELECT * FROM domain_watches
      WHERE status = 'active' AND next_sample_at <= ? AND expires_at > ?
@@ -1829,15 +1895,21 @@ const workerHandler = {
     });
   },
 
-  async scheduled(_controller: ScheduledController, env: Env, ctx: ExecutionContext): Promise<void> {
+  async scheduled(controller: ScheduledController, env: Env, ctx: ExecutionContext): Promise<void> {
     ctx.waitUntil((async () => {
-      await flushOutbox(env, 25);
       const nowSeconds = Math.floor(Date.now() / 1000);
       const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+      if (controller.cron === "2-59/5 * * * *") {
+        await flushOutbox(env, 25);
+        await flushDomainWatchAlerts(env, 20);
+        await env.DB.batch([
+          env.DB.prepare("DELETE FROM telegram_updates WHERE completed_at IS NOT NULL AND completed_at < ?").bind(thirtyDaysAgo),
+          env.DB.prepare("DELETE FROM telegram_outbox WHERE delivered_at IS NOT NULL AND delivered_at < ?").bind(thirtyDaysAgo),
+        ]);
+        return;
+      }
       await env.DB.batch([
         env.DB.prepare("DELETE FROM rate_limit_windows WHERE expires_at < ?").bind(nowSeconds),
-        env.DB.prepare("DELETE FROM telegram_updates WHERE completed_at IS NOT NULL AND completed_at < ?").bind(thirtyDaysAgo),
-        env.DB.prepare("DELETE FROM telegram_outbox WHERE delivered_at IS NOT NULL AND delivered_at < ?").bind(thirtyDaysAgo),
       ]);
 
       const watchSampling = await processDueDomainWatches(env);

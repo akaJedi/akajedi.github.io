@@ -26,6 +26,7 @@ SENTRY_SLOW_REQUEST_MS = "3000"
 SENTRY_TEST_ENABLED = "false"
 TURNSTILE_REQUIRED = "true"
 TURNSTILE_EXPECTED_HOSTNAMES = "www.f12.biz,f12.biz,cloudflare.f12.biz,f12-biz.pages.dev,netlify.f12.biz,f12-biz.netlify.app,github.f12.biz"
+DNS_WATCH_TELEGRAM_DOMAINS = "f12.biz,zolotoy-telenok42.ru"
 
 [[d1_databases]]
 binding = "DB"
@@ -34,4 +35,4 @@ database_id = "e3c18977-ec3f-42a9-8f36-7e6fa63fbf46"
 migrations_dir = "migrations"
 
 [triggers]
-crons = ["*/5 * * * *"]
+crons = ["*/5 * * * *", "2-59/5 * * * *"]

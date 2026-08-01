@@ -24,6 +24,7 @@ export default defineConfig({
           TURNSTILE_REQUIRED: "true",
           TURNSTILE_EXPECTED_HOSTNAMES: "www.f12.biz",
           TURNSTILE_TEST_MODE: "true",
+          DNS_WATCH_TELEGRAM_DOMAINS: "f12.biz,zolotoy-telenok42.ru",
         },
       },
     }),

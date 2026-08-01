@@ -18,6 +18,7 @@ export interface Env {
   TURNSTILE_REQUIRED?: string;
   TURNSTILE_EXPECTED_HOSTNAMES?: string;
   TURNSTILE_TEST_MODE?: string;
+  DNS_WATCH_TELEGRAM_DOMAINS?: string;
   SENTRY_DSN?: string;
   SENTRY_TEST_KEY?: string;
   SENTRY_TEST_ENABLED?: string;

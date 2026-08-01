@@ -8,7 +8,9 @@ import draftMigrationSql from "../migrations/0002_conversation_drafts.sql?raw";
 import sourceMigrationSql from "../migrations/0003_conversation_sources.sql?raw";
 import routeCountsMigrationSql from "../migrations/0004_route_daily_counts.sql?raw";
 import domainWatchesMigrationSql from "../migrations/0005_domain_watches.sql?raw";
+import domainWatchAlertsMigrationSql from "../migrations/0006_domain_watch_alerts.sql?raw";
 import { availability, createChallenge, escapeTelegram } from "../src/lib";
+import { classifyDomainWatchAlert, domainWatchAlertsEnabled } from "../src/domain-watch-alerts";
 
 const origin = "https://www.f12.biz";
 const jsonHeaders = { Origin: origin, "Content-Type": "application/json" };
@@ -64,6 +66,7 @@ beforeAll(async () => {
     ...migrationQueries(sourceMigrationSql),
     ...migrationQueries(routeCountsMigrationSql),
     ...migrationQueries(domainWatchesMigrationSql),
+    ...migrationQueries(domainWatchAlertsMigrationSql),
   ];
   await testEnv.DB.batch(migrations.map((query) => testEnv.DB.prepare(query)));
 });
@@ -659,6 +662,90 @@ it("creates, reuses, and samples a 24-hour DNS propagation watch", async () => {
     cloudflare: { answers: ["192.0.2.10"] },
     google: { answers: ["198.51.100.20"] },
   });
+});
+
+it("classifies, queues, and delivers managed-domain DNS alerts exactly once", async () => {
+  expect(classifyDomainWatchAlert("match", "different", true)).toBe("diverged");
+  expect(classifyDomainWatchAlert("different", "match", true)).toBe("converged");
+  expect(classifyDomainWatchAlert("match", "match", true)).toBe("changed");
+  expect(classifyDomainWatchAlert("match", "match", false)).toBeNull();
+  expect(domainWatchAlertsEnabled(testEnv, "edge.f12.biz")).toBe(true);
+  expect(domainWatchAlertsEnabled(testEnv, "example.com")).toBe(false);
+
+  let changed = false;
+  const externalFetch = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+    const requestUrl = new URL(String(input));
+    if (requestUrl.hostname === "api.telegram.org") {
+      return new Response(JSON.stringify({ ok: true, result: { message_id: 8123 } }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+    if (requestUrl.hostname !== "cloudflare-dns.com" && requestUrl.hostname !== "dns.google") {
+      return new Response("not found", { status: 404 });
+    }
+    const isGoogle = requestUrl.hostname === "dns.google";
+    const data = changed && isGoogle ? "198.51.100.20" : "192.0.2.10";
+    return new Response(JSON.stringify({
+      Status: 0,
+      AD: false,
+      Answer: [{ type: 1, TTL: 300, data }],
+    }), { status: 200, headers: { "Content-Type": "application/dns-json" } });
+  });
+  vi.stubGlobal("fetch", externalFetch);
+
+  const create = await dispatch("https://worker.test/api/domain-watch", {
+    method: "POST",
+    headers: { ...jsonHeaders, "CF-Connecting-IP": "203.0.113.41" },
+    body: JSON.stringify({ domain: "alerts.f12.biz", recordKey: "A" }),
+  });
+  const created = await create.json<any>();
+  changed = true;
+  await testEnv.DB.prepare("UPDATE domain_watches SET next_sample_at = ? WHERE id = ?")
+    .bind("2020-01-01T00:00:00Z", created.watch.id).run();
+
+  const runScheduled = async (cron: string) => {
+    const promises: Promise<unknown>[] = [];
+    await (worker as any).scheduled(
+      { cron, scheduledTime: Date.now(), noRetry() {} },
+      testEnv,
+      {
+        waitUntil(promise: Promise<unknown>) { promises.push(promise); },
+        passThroughOnException() {},
+        props: {},
+      },
+    );
+    await Promise.all(promises);
+  };
+
+  await runScheduled("*/5 * * * *");
+  const queued = await testEnv.DB.prepare(
+    "SELECT event_type, delivered_at FROM domain_watch_alerts WHERE watch_id = ?",
+  ).bind(created.watch.id).all<{ event_type: string; delivered_at: string | null }>();
+  expect(queued.results).toEqual([{ event_type: "diverged", delivered_at: null }]);
+
+  await runScheduled("2-59/5 * * * *");
+  await runScheduled("2-59/5 * * * *");
+  const dnsMessages = externalFetch.mock.calls.filter(([input]) =>
+    String(input).includes("api.telegram.org")
+  );
+  expect(dnsMessages).toHaveLength(1);
+  const telegramPayload = JSON.parse(String((dnsMessages[0][1] as RequestInit).body));
+  expect(telegramPayload.text).toContain("DNS resolvers diverged");
+  expect(telegramPayload.text).toContain("Previous");
+  expect(telegramPayload.text).toContain("192.0.2.10");
+  expect(telegramPayload.text).toContain("Current");
+  expect(telegramPayload.text).toContain("198.51.100.20");
+  expect(telegramPayload.text).toContain(created.watch.id);
+
+  await testEnv.DB.prepare("UPDATE domain_watches SET status = 'active', expires_at = ? WHERE id = ?")
+    .bind("2020-01-01T00:00:00Z", created.watch.id).run();
+  await runScheduled("*/5 * * * *");
+  await runScheduled("*/5 * * * *");
+  const completion = await testEnv.DB.prepare(
+    "SELECT COUNT(*) AS count FROM domain_watch_alerts WHERE watch_id = ? AND event_type = 'completed'",
+  ).bind(created.watch.id).first<{ count: number }>();
+  expect(completion?.count).toBe(1);
 });
 
 it("rejects unsupported propagation-watch record types with browser-safe CORS", async () => {
