@@ -387,3 +387,21 @@ test("breadcrumb bar and content sections don't fight over horizontal sizing", a
     /main:not\(\.home-container\) > section,[\s\S]*?\.tools-hub\s*\{[^}]*max-width/,
   );
 });
+
+
+test("domain inspector exposes explicit RDAP reliability states in both languages", async () => {
+  const [client, english, russian] = await Promise.all([
+    readSource("static/js/tools/domain-lookup.js"),
+    readSource("content/tools/domain-lookup.md"),
+    readSource("content/tools/domain-lookup.ru.md"),
+  ]);
+
+  for (const state of ["ok", "unsupported", "not_found", "temporary_error", "invalid_response"]) {
+    assert.match(client, new RegExp(`${state}:`));
+  }
+  assert.match(client, /data[.]registrationLookup/);
+  assert.match(english, /data-field="rdapLookup"/);
+  assert.match(english, /data-field="rdapSource"/);
+  assert.match(russian, /data-field="rdapLookup"/);
+  assert.match(russian, /data-field="rdapSource"/);
+});

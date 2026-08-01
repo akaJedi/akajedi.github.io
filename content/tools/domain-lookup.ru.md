@@ -56,6 +56,8 @@ searchExclude: true
   <section class="tool-card" data-domain-registration hidden aria-labelledby="tool-registration-title">
     <h2 id="tool-registration-title">Регистрация</h2>
     <dl class="tool-grid">
+      <div><dt>Проверка RDAP</dt><dd data-field="rdapLookup"></dd></div>
+      <div><dt>Способ обнаружения</dt><dd data-field="rdapSource"></dd></div>
       <div><dt>Регистратор</dt><dd data-field="registrar"></dd></div>
       <div><dt>Зарегистрирован</dt><dd data-field="registered"></dd></div>
       <div><dt>Истекает</dt><dd data-field="expires"></dd></div>
