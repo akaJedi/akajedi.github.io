@@ -26,3 +26,17 @@ hugo.linux
 .dev.vars*
 /.wrangler/
 /ots-worker/.wrangler/
+
+# Private local configuration, credentials, and operational exports
+.env*
+!.env.example
+/.npmrc
+/Cloudflare_*.csv
+*.har
+*.pcap
+*.pcapng
+*.pem
+*.key
+*.p12
+*.pfx
+*.tfstate*
