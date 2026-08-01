@@ -10,10 +10,11 @@
     "generate:chill-set": "node scripts/generate-chill-set.mjs",
     "generate:dj-kit": "node scripts/generate-dj-kit.mjs",
     "generate:loop-manifest": "node scripts/generate-loop-manifest.mjs",
-    "test": "npm run test:site && npm run test:worker",
+    "test": "npm run test:site && npm run test:worker && npm run test:ots",
     "test:site": "node --test tests/*.test.mjs",
     "test:worker": "vitest run",
-    "typecheck": "tsc --noEmit",
+    "test:ots": "vitest run --config ots-worker/vitest.config.mts",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p ots-worker/tsconfig.json",
     "dev:chat": "bash scripts/dev-chat.sh",
     "register:webhook": "bash scripts/register-webhook.sh"
   },
