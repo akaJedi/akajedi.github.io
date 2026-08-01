@@ -1,5 +1,5 @@
 name = "f12-ots"
-main = "src/index.ts"
+main = "src/app.ts"
 compatibility_date = "2026-06-01"
 workers_dev = false
 preview_urls = false
@@ -9,7 +9,7 @@ enabled = true
 
 [vars]
 ENVIRONMENT = "production"
-OWNER_CREATION_ENABLED = "false"
+OWNER_CREATION_ENABLED = "true"
 PUBLIC_TRIAL_ENABLED = "false"
 
 [[d1_databases]]
